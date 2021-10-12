@@ -1,0 +1,166 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Form Elements {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<!-- [ Main Content ] start -->
+<section class="pcoded-main-container">
+    <div class="pcoded-content">
+        <!-- [ breadcrumb ] start -->
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">Bonus Faccata</h5>
+                        </div>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="bonus_faccata.html">DATA OF THE CONDOMINIUM</a></li>
+                            <li class="breadcrumb-item"><a href="bonus_faccata_legal.html#">DATA ADMINISTRATOR LEGAL </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- [ breadcrumb ] end -->
+        <!-- [ Main Content ] start -->
+        <div class="row">
+            <!-- [ form-element ] start -->
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Basic Component</h5>
+                    </div>
+                    <div class="card-body">
+                        <h5>Form controls</h5>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form action="/bonus_faccata_legal.html" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="company_name">Company Name</label>
+                                        {{forms.company_name}}
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label for="province">Company Name</label>
+                                        {{forms.province}}
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label for="company_reg_num">Company Name</label>
+                                        {{forms.company_reg_num}}
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label for="vat_number">Company Name</label>
+                                        {{forms.vat_number}}
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label for="street">Company Name</label>
+                                        {{forms.street}}
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label for="street_number">Company Name</label>
+                                        {{forms.street_number}}
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label for="cap">Company Name</label>
+                                        {{forms.cap}}
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label for="municipal_reg_office">Company Name</label>
+                                        {{forms.municipal_reg_office}}
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label for="province_reg_office">Company Name</label>
+                                        {{forms.province_reg_office}}
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label for="legal_title_rep">Company Name</label>
+                                        {{forms.legal_title_rep}}
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label for="leg_rep_name">Company Name</label>
+                                        {{forms.leg_rep_name}}
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label for="leg_rep_surname">Company Name</label>
+                                        {{forms.leg_rep_surname}}
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label for="leg_rep_tax_code">Company Name</label>
+                                        {{forms.leg_rep_tax_code}}
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label for="leg_rep_dob">Company Name</label>
+                                        {{forms.leg_rep_dob}}
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label for="municipal_of_birth_of_leg">Company Name</label>
+                                        {{forms.municipal_of_birth_of_leg}}
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label for="province_of_birth_of_leg">Company Name</label>
+                                        {{forms.province_of_birth_of_leg}}
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label for="legal_street">Company Name</label>
+                                        {{forms.legal_street}}
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label for="legal_street_number">Company Name</label>
+                                        {{forms.legal_street_number}}
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label for="cap_legal">Company Name</label>
+                                        {{forms.cap_legal}}
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label for="municipal_of_leg_residence">Company Name</label>
+                                        {{forms.municipal_of_leg_residence}}
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label for="province_of_leg_residence">Company Name</label>
+                                        {{forms.province_of_leg_residence}}
+                                    </div>
+
+
+
+                                    <button type="submit" class="btn  btn-primary">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+ {% endblock content %}
+
+                            <!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+{% endblock javascripts %}

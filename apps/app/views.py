@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
-from apps.app.models import FormForFormOne
+from apps.app.models import CondominiumForm, AdministrationIndividualForm, AdministrationLegalForm
 
 
 @login_required(login_url="/login/")
@@ -31,25 +31,39 @@ def pages(request):
             return HttpResponseRedirect(reverse('admin:index'))
         context['segment'] = load_template
 
-        if load_template == 'map-google.html':
-            html_template = loader.get_template('map-google.html')
-            return HttpResponse(html_template.render(context, request))
-
-        if load_template == 'form_elements.html':
-
-            html_template = loader.get_template('form_elements.html')
-            forms = FormForFormOne(request.GET)
-            context['forms'] = forms
+        if load_template == 'bonus_faccata.html':
+            html_template = loader.get_template('bonus_faccata.html')
+            context['forms'] = CondominiumForm()
             if request.POST:
-                form = FormForFormOne(request.POST)
+                form = CondominiumForm(request.POST)
                 if form.is_valid():
-                    form.save()
+                    f = form.save()
+                    print(f.id, f.select_administrator)
+                    if f.select_administrator == 'Legal':
+                        context['form_id'] = f.id
+                        context['forms'] = AdministrationLegalForm()
+                        html_template = loader.get_template('bonus_faccata_legal.html')
+                        return HttpResponse(html_template.render(context, request))
+
+                    elif f.select_administrator == 'Individual':
+                        context['form_id'] = f.id
+                        context['forms'] = AdministrationIndividualForm()
+                        html_template = loader.get_template('bonus_faccata_individual.html')
+                        return HttpResponse(html_template.render(context, request))
+
                 else:
                     print(form.errors)
                     context['errors'] = form.errors
                     return HttpResponse(html_template.render(context, request))
 
             return HttpResponse(html_template.render(context, request))
+
+        if load_template == 'bonus_faccata_legal.html':
+            html_template = loader.get_template('bonus_faccata_legal.html')
+            if request.POST:
+                form = AdministrationLegalForm(request.POST)
+                if form.is_valid():
+                    pass
 
         html_template = loader.get_template(load_template)
         return HttpResponse(html_template.render(context, request))
