@@ -5,6 +5,7 @@ Copyright (c) 2019 - present AppSeed.us
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.forms import widgets
 
 # Create your models here.
 from internationalflavor.vat_number import VATNumberField
@@ -56,6 +57,24 @@ class AdministrationLegal(models.Model):
 class AdministrationIndividual(models.Model):
     id = models.AutoField(primary_key=True)
     title_of_admin = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=20)
+    fiscal_code = models.CharField(max_length=16)
+    vat_number = VATNumberField(countries=['IT'])
+    dob = models.DateField(auto_now=False, auto_now_add=False)
+    birthplace = models.CharField(max_length=30)
+    birthplace_county = models.CharField(max_length=30)
+    activity_street_number = models.CharField(max_length=5)
+    activity_street = models.CharField(max_length=50)
+    activity_location_cap = models.IntegerField()
+    activity_municipality = models.CharField(max_length=50)
+    activity_province = models.CharField(max_length=50)
+    residence_street_number = models.CharField(max_length=5)
+    residence_street = models.CharField(max_length=50)
+    residence_cap = models.IntegerField(),
+    residence_city = models.CharField(max_length=50)
+    residence_province = models.CharField(max_length=50)
+    
 
 
 class CondominiumData(models.Model):
@@ -217,3 +236,73 @@ class AdministrationIndividualForm(ModelForm):
     class Meta:
         model = AdministrationIndividual
         exclude = ['id']
+        widgets = {
+            'first_name': TextInput(attrs={
+                'class': 'form-control',
+                'id': 'first_name'
+            }),
+            'last_name': TextInput(attrs={
+                'class': 'form-control',
+                'id': 'last_name'
+            }),
+            'fiscal_code': TextInput(attrs={
+                'class': 'form-control',
+                'id': 'fiscal_code'
+            }),
+            'vat_number': TextInput(attrs={
+                'class': 'form-control',
+                'id': 'vat_number'
+            }),
+            'dob': DateInput(attrs={
+                'class': 'form-control',
+                'id': 'dob'
+            }),
+            'birthplace': TextInput(attrs={
+                'class': 'form-control',
+                'id': 'birthplace'
+            }),
+            'birthplace_county': TextInput(attrs={
+                'class': 'form-control',
+                'id': 'birthplace_county'
+            }),
+            'activity_street_number': TextInput(attrs={
+                'class': 'form-control',
+                'id': 'activity_street_number'
+            }),
+            'activity_street': TextInput(attrs={
+                'class': 'form-control',
+                'id': 'activity_street'
+            }),
+            'activity_location_cap': NumberInput(attrs={
+                'class': 'form-control',
+                'id': 'birthplace_county'
+            }),
+            'activity_municipality': TextInput(attrs={
+                'class': 'form-control',
+                'id': 'activity_municipality'
+            }),
+            'activity_province': TextInput(attrs={
+                'class': 'form-control',
+                'id': 'activity_province'
+            }),
+            'residence_street_number': TextInput(attrs={
+                'class': 'form-control',
+                'id': 'residence_street_number'
+            }),
+            'residence_street': TextInput(attrs={
+                'class': 'form-control',
+                'id': 'residence_street'
+            }),
+            'residence_cap': NumberInput(attrs={
+                'class': 'form-control',
+                'id': 'residence_cap'
+            }),
+            'residence_city': TextInput(attrs={
+                'class': 'form-control',
+                'id': 'residence_city'
+            }),
+            'residence_province': TextInput(attrs={
+                'class': 'form-control',
+                'id': 'residence_province'
+            }),
+        }
