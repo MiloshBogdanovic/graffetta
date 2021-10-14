@@ -31,3 +31,4 @@ core/static/assets/.temp
 
 
 db.sqlite3
+apps/app/migrations/
