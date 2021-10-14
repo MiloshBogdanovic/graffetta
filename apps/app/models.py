@@ -15,8 +15,8 @@ from django.forms import ModelForm
 from django.forms.widgets import EmailInput, TextInput, Select,  NumberInput, DateInput
 
 ADMIN_CHOICE = [
-    ('Legal', 'Legal'),
-    ('Individual', 'Individual')
+    ('Legal', 'Legale'),
+    ('Individual', 'Individuale')
 ]
 
 TITLE = [
@@ -56,7 +56,7 @@ class AdministrationLegal(models.Model):
 
 class AdministrationIndividual(models.Model):
     id = models.AutoField(primary_key=True)
-    title_of_admin = models.CharField(max_length=50)
+    title = models.CharField(max_length=50)
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     fiscal_code = models.CharField(max_length=16)
@@ -71,7 +71,7 @@ class AdministrationIndividual(models.Model):
     activity_province = models.CharField(max_length=50)
     residence_street_number = models.CharField(max_length=5)
     residence_street = models.CharField(max_length=50)
-    residence_cap = models.IntegerField(),
+    residence_cap = models.IntegerField(blank=False)
     residence_city = models.CharField(max_length=50)
     residence_province = models.CharField(max_length=50)
     
@@ -83,6 +83,7 @@ class CondominiumData(models.Model):
     fiscal_code = models.IntegerField(blank=False)
     street = models.CharField(max_length=50, blank=False)
     street_number = models.CharField(max_length=5)
+    cap = models.IntegerField(blank=False)
     municipality = models.CharField(max_length=50, blank=False)
     province = models.CharField(max_length=10, blank=False)
     email = models.EmailField(max_length=254, blank=False)
@@ -96,7 +97,7 @@ class CondominiumForm(ModelForm):
     class Meta:
         model = CondominiumData
         fields = ('name', 'fiscal_code', 'street', 'street_number', 'municipality', 'province', 'email',
-                  'pec_mail', 'select_administrator')
+                  'pec_mail', 'select_administrator','cap')
         widgets = {
             'name': TextInput(attrs={
                 'class': 'form-control',
@@ -113,6 +114,10 @@ class CondominiumForm(ModelForm):
             'street_number': NumberInput(attrs={
                 'class': 'form-control',
                 'id': 'street_number'
+            }),
+            'cap':NumberInput(attrs={
+                'class':'form-control',
+                'id':'cap'
             }),
             'municipality': TextInput(attrs={
                 'class': 'form-control',
@@ -168,7 +173,7 @@ class AdministrationLegalForm(ModelForm):
                 'class': 'form-control',
                 'id': 'street_number '
             }),
-            'cap': TextInput(attrs={
+            'cap': NumberInput(attrs={
                 'class': 'form-control',
                 'id': 'cap '
             }),
@@ -237,6 +242,10 @@ class AdministrationIndividualForm(ModelForm):
         model = AdministrationIndividual
         exclude = ['id']
         widgets = {
+            'title':TextInput(attrs={
+                'class':'form-control',
+                'id':'title'
+            }),
             'first_name': TextInput(attrs={
                 'class': 'form-control',
                 'id': 'first_name'
