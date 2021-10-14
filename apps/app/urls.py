@@ -10,8 +10,14 @@ urlpatterns = [
 
     # The home page
     path('', views.index, name='home'),
-
     # Matches any html file
+    path('bonus-faccata/', views.bonus, name='bonus'),
+    path('bonus-faccata/legal<int:form>', views.legal, name='legal'),
+    path('bonus-faccata/individual<int:form>', views.legal, name='individual'),
+    path('bonus-faccata/legal/catastal<int:form>', views.catastal, name='catastal'),
     re_path(r'^.*\.*', views.pages, name='pages'),
 
+
 ]
+
+
