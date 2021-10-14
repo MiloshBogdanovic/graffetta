@@ -3,16 +3,13 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
-from django.db import models
-from django.contrib.auth.models import User
-from django.forms import widgets
 
 # Create your models here.
 from internationalflavor.vat_number import VATNumberField
 from django.db import models
-from django.db.models import ForeignKey
+from django.contrib.auth.models import User
 from django.forms import ModelForm
-from django.forms.widgets import EmailInput, TextInput, Select,  NumberInput, DateInput
+from django.forms.widgets import EmailInput, TextInput, Select, NumberInput, DateInput, Textarea
 
 ADMIN_CHOICE = [
     ('Legal', 'Legale'),
@@ -26,7 +23,7 @@ TITLE = [
     ('ING.', 'ING.'),
     ('ARCH', 'ARCH'),
     ('ALTRO', 'ALTRO')
-         ]
+]
 
 
 class AdministrationLegal(models.Model):
@@ -74,7 +71,6 @@ class AdministrationIndividual(models.Model):
     residence_cap = models.IntegerField(blank=False)
     residence_city = models.CharField(max_length=50)
     residence_province = models.CharField(max_length=50)
-    
 
 
 class CondominiumData(models.Model):
@@ -89,8 +85,30 @@ class CondominiumData(models.Model):
     email = models.EmailField(max_length=254, blank=False)
     pec_mail = models.EmailField(max_length=254, blank=False)
     select_administrator = models.CharField(null=True, max_length=10, choices=ADMIN_CHOICE)
-    admn_legal_id = models.ForeignKey(AdministrationLegal, on_delete=models.CASCADE, null=True)
-    admn_individual_id = models.ForeignKey(AdministrationIndividual, on_delete=models.CASCADE, null=True)
+
+
+class CatastalData(models.Model):
+    id = models.AutoField(primary_key=True)
+    n_catastal_cheet = models.IntegerField(blank=False)
+    n_first_particle = models.IntegerField(blank=False)
+    n_subscribers_to_first_belonging = models.CharField(max_length=20, blank=False)
+    n_second_particle = models.IntegerField(blank=False),
+    n_subscribers_to_second_belonging = models.CharField(max_length=20, blank=True)
+    n_third_particle = models.IntegerField(blank=True)
+    n_subscribers_to_third_belonging = models.CharField(max_length=20, blank=True)
+    n_fourth_particle = models.IntegerField(blank=True)
+    n_subscribers_to_fourth_belonging = models.CharField(max_length=20, blank=True)
+    description_of_intervention = models.CharField(max_length=500)
+    data_of_condominium_assembly = models.DateField(auto_now=False, auto_now_add=False)
+
+
+class FormFaccata(models.Model):
+    id = models.AutoField(primary_key=True)
+    condominium = models.ForeignKey(CondominiumData, models.SET_NULL, blank=True, null=True)
+    admin_legal = models.ForeignKey(AdministrationLegal, models.SET_NULL, blank=True, null=True)
+    admin_individual = models.ForeignKey(AdministrationIndividual, models.SET_NULL, blank=True, null=True)
+    catastal = models.ForeignKey(CatastalData, models.SET_NULL, blank=True, null=True)
+    user = models.ForeignKey(User, models.SET_NULL, blank=True, null=True)
 
 
 class CondominiumForm(ModelForm):
@@ -313,5 +331,57 @@ class AdministrationIndividualForm(ModelForm):
             'residence_province': TextInput(attrs={
                 'class': 'form-control',
                 'id': 'residence_province'
+            }),
+        }
+
+
+class CatastalDataForm(ModelForm):
+    class Meta:
+        model = CatastalData
+        exclude = ['id']
+        widgets = {
+            'n_catastal_cheet': NumberInput(attrs={
+                'class': 'form-control',
+                'id': 'n_catastal_cheet'
+            }),
+            'n_first_particle': TextInput(attrs={
+                'class': 'form-control',
+                'id': 'n_first_particle'
+            }),
+            'n_subscribers_to_first_belonging': NumberInput(attrs={
+                'class': 'form-control',
+                'id': 'n_subscribers_to_first_belonging'
+            }),
+            'n_second_particle': NumberInput(attrs={
+                'class': 'form-control',
+                'id': 'n_second_particle'
+            }),
+            'n_subscribers_to_second_belonging': TextInput(attrs={
+                'class': 'form-control',
+                'id': 'n_subscribers_to_second_belonging'
+            }),
+            'n_third_particle': NumberInput(attrs={
+                'class': 'form-control',
+                'id': 'n_third_particle'
+            }),
+            'n_subscribers_to_third_belonging': TextInput(attrs={
+                'class': 'form-control',
+                'id': 'n_subscribers_to_third_belonging'
+            }),
+            'n_fourth_particle': NumberInput(attrs={
+                'class': 'form-control',
+                'id': 'n_fourth_particle'
+            }),
+            'n_subscribers_to_fourth_belonging': TextInput(attrs={
+                'class': 'form-control',
+                'id': 'n_subscribers_to_fourth_belonging'
+            }),
+            'description_of_intervention': Textarea(attrs={
+                'class': 'form-control',
+                'id': 'description_of_intervention'
+            }),
+            'data_of_condominium_assembly': DateInput(attrs={
+                'class': 'form-control',
+                'id': 'data_of_condominium_assembly'
             }),
         }
