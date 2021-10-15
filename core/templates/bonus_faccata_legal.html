@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Form Elements {% endblock %}
+{% block title %} Bonus Faccata  {% endblock %}
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -20,8 +20,8 @@
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="bonus-faccata">DATA OF THE CONDOMINIUM</a></li>
-                            <li class="breadcrumb-item"><a href="#">DATA ADMINISTRATOR LEGAL </a></li>
+                            <li class="breadcrumb-item"><a href="bonus-faccata">DATI DEL CONDOMINIO</a></li>
+                            <li class="breadcrumb-item"><a href="#">DATI AMMINISTRATORE PERSONA GIURIDICA</a></li>
                         </ul>
                     </div>
                 </div>
@@ -34,15 +34,15 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Basic Component</h5>
+                        <h4>DATI AMMINISTRATORE PERSONA GIURIDICA SE NOMINATO</h4>
                     </div>
                     <div class="card-body">
-                        <h5>Form controls</h5>
+                        <br>
                         <hr>
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form action="/bonus_faccata_legal.html" method="post">
+                                <form action="" method="post">
                                     {% csrf_token %}
                                     <div class="form-group">
                                         <label for="company_name">DENOMINAZIONE SOCIETA'</label>
