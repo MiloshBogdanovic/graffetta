@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Form Elements {% endblock %}
+{% block title %} Bonus Faccata {% endblock %}
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -20,8 +20,8 @@
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="bonus-faccata.html">DATA OF THE CONDOMINIUM</a></li>
-                            <li class="breadcrumb-item"><a href="#">DATA CATASTAL </a></li>
+                            <li class="breadcrumb-item"><a href="bonus-faccata/">DATI DEL CONDOMINIO</a></li>
+                            <li class="breadcrumb-item"><a href="#">DATI CATASTALI DEL CONDOMINIO </a></li>
                         </ul>
                     </div>
                 </div>
@@ -34,25 +34,91 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Basic Component</h5>
+                        <h4>DATI CATASTALI DEL CONDOMINIO</h4>
                     </div>
                     <div class="card-body">
-                        <h5>Form controls</h5>
+
                         <hr>
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form action="/bonus_faccata_legal.html" method="post">
+                                <form action="" method="post">
                                     {% csrf_token %}
-                                    <div class="form-group">
-                                        <label for="company_name">Company Name</label>
-                                        {{forms}}
-
+                                    <div class="row">
+                                        <div class="form-group col-sm-3 col-md-3 col-lg-3">
+                                            <label for="n_catastal_cheet">N° FOGLIO CATASTALE DI APPARTENENZA</label>
+                                            {{forms.n_catastal_cheet}}
+                                            <small id="n_catastal_cheet" class="form-text text-muted">inserire il numero del foglio di appartenenza ad esempio 68</small>
+                                        </div>
                                     </div>
 
-                                        <div class="form-group">
-                                            {{form_id}}
+                                    <div class="row">
+                                        <div class="form-group col-md-6 col-lg-6">
+                                            <div class=" form-group ">
+                                                <label for="n_first_particle">N° PRIMA PARTICELLA COSTITUENTE IL CONDOMINIO</label>
+                                                {{forms.n_first_particle}}
+                                                <small id="n_first_particle" class="form-text text-muted">inserire la prima particella costituente il condominio ad esempio 12</small>
+                                            </div>
+                                             <div class="form-group ">
+                                                <label for="n_subscribers_to_first_belonging">N° SUBALTERNI APPARTENTI ALLA PRIMA PARTICELLA</label>
+                                                {{forms.n_subscribers_to_first_belonging}}
+                                                <small id="n_subscribers_to_first_belonging" class="form-text text-muted">inserire i subalterni appartenenti alla prima particella ad esempio 1-2-3-4-5</small>
+                                            </div>
                                         </div>
+                                        <div class="form-group col-md-6 col-lg-6">
+                                            <div class="form-group">
+                                                <label for="n_second_particle">SECONDA PARTICELLA COSTITUENTE IL CONDOMINIO</label>
+                                                {{forms.n_second_particle}}
+                                                <small id="n_second_particle" class="form-text text-muted">inserire la seconda particella costituente il condominio ad esempio 32</small>
+                                            </div>
+                                             <div class="form-group ">
+                                            <label for="n_subscribers_to_second_belonging">N° SUBALTERNI APPARTENTI ALLA SECONDA PARTICELLA</label>
+                                            {{forms.n_subscribers_to_second_belonging}}
+                                            <small id="n_subscribers_to_second_belonging" class="form-text text-muted">inserire i subalterni appartenenti alla seconda particella ad esempio 81-82-83-84-85</small>
+                                        </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="form-group col-md-6 col-lg-6">
+                                            <div class=" form-group ">
+                                                <label for="n_third_particle">N° TERZA PARTICELLA COSTITUENTE IL CONDOMINIO</label>
+                                                {{forms.n_third_particle}}
+                                                <small id="n_third_particle" class="form-text text-muted">inserire la terza particella costituente il condominio ad esempio 41</small>
+                                            </div>
+                                             <div class="form-group ">
+                                                <label for="n_subscribers_to_third_belonging">N° SUBALTERNI APPARTENTI ALLA TERZA PARTICELLA</label>
+                                                {{forms.n_subscribers_to_third_belonging}}
+                                                <small id="n_subscribers_to_third_belonging" class="form-text text-muted">inserire i subalterni appartenenti alla terza particella ad esempio 101-102-103-104-105</small>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-6 col-lg-6">
+                                            <div class="form-group">
+                                                <label for="n_fourth_particle">N° QUARTA PARTICELLA COSTITUENTE IL CONDOMINIO</label>
+                                                {{forms.n_fourth_particle}}
+                                                <small id="n_fourth_particle" class="form-text text-muted">inserire la quarta particella costituente il condominio ad esempio 67</small>
+                                            </div>
+                                             <div class="form-group ">
+                                                <label for="n_subscribers_to_fourth_belonging">N° SUBALTERNI APPARTENTI ALLA QUARTA PARTICELLA</label>
+                                                {{forms.n_subscribers_to_fourth_belonging}}
+                                                <small id="n_subscribers_to_fourth_belonging" class="form-text text-muted">inserire i subalterni appartenenti alla quarta particella ad esempio 131-132-133-134-135</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-md-8 col-lg-8">
+                                            <label for="description_of_intervention">DESCRIZIONE SINTETICA DELL'INTERVENTO</label>
+                                                    {{forms.description_of_intervention}}
+                                        </div>
+                                        <div class="form-group col-md-4 col-lg-4">
+                                            <label for="data_of_condominium_assembly">DATA ASSEMBLEA CONDOMINIALE IN CUI I CONDOMINI HANNO IRREVOCABILMENTE OPTATO PER LO SCONTO IN FATTURA</label>
+                                                    {{forms.data_of_condominium_assembly}}
+                                              <small id="data_of_condominium_assembly" class="form-text text-muted">Inserire la data dell'assemblea condominiale in cui i condomini tutti i Condòmini hanno esplicitamente e irrevocabilmente optato, in luogo dell’utilizzo diretto della detrazione fiscale di cui all’art. 1, commi 219 e 220, della L. 160/2019, per un  contributo  di pari ammontare, sotto forma di sconto sul corrispettivo dovuto</small>
+                                        </div>
+                                     </div>
+
 
                                     <button type="submit" class="btn  btn-primary">Submit</button>
                                 </form>

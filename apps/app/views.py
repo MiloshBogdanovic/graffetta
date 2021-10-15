@@ -58,7 +58,6 @@ def legal(request, form):
         if form.is_valid():
             f = form.save()
             fform.admin_legal_id = f.id
-            fform.admin_individual_id = 0
             fform.save()
             return redirect('catastal', form=fform.id)
 
@@ -79,7 +78,6 @@ def individual(request, form):
         form = AdministrationIndividualForm(request.POST)
         if form.is_valid():
             f = form.save()
-            fform.admin_legal_id = 0
             fform.admin_individual_id = f.id
             fform.save()
             return redirect('catastal', form=fform.id)
@@ -89,6 +87,7 @@ def individual(request, form):
             return render(request, 'bonus_faccata_individual.html', context)
 
     return render(request, 'bonus_faccata_individual.html', context)
+
 
 @login_required(login_url="/login/")
 def catastal(request, form):
