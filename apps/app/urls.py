@@ -15,6 +15,7 @@ urlpatterns = [
     path('bonus-faccata/legal<int:form>', views.legal, name='legal'),
     path('bonus-faccata/individual<int:form>', views.individual, name='individual'),
     path('bonus-faccata/legal/catastal<int:form>', views.catastal, name='catastal'),
+    path('search', views.search, name='search_results'),
     re_path(r'^.*\.*', views.pages, name='pages'),
 
 
