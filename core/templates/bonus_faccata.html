@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Form Elements {% endblock %}
+{% block title %} Bonus Faccata {% endblock %}
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -20,7 +20,7 @@
                             </div>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                                <li class="breadcrumb-item"><a href="#">DATA OF THE CONDOMINIUM</a></li>
+                                <li class="breadcrumb-item"><a href="#">DATI DEL CONDOMINIO</a></li>
 
                             </ul>
                         </div>
@@ -34,11 +34,12 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>DATA OF THE CONDOMINIUM</h5>
+                            <h4>DATI DEL CONDOMINIO SE COSTITUITO O DELL'IMMOBILE CONSIDERATO</h4>
                         </div>
                         <div class="card-body">
 
-                            
+                            <br>
+                            <hr>
 
                             <div class="row">
                                 <div class="col-md-12">
@@ -81,12 +82,18 @@
                                         </div>
                                         <div class="row">
 
-                                         
-                                        <div class="form-group col-md-5 col-lg-4">
-                                            <label for="cap">CAP UBICAZIONE CONDOMINIO - IMMOBILE</label>
+
+                                         <div class="form-group col-md-2 col-lg-3">
+                                            <label for="street_number">VIA/I UBICAZIONE CONDOMINIO - IMMOBILE</label>
+
+                                            {{forms.street_number}}
+                                        </div>
+                                        <div class="form-group col-md-5 col-lg-3">
+                                            <label for="cap">COMUNE UBICAZIONE CONDOMINIO - IMMOBILE</label>
+
                                             {{forms.cap}}
                                         </div>
-                                        <div class="form-group col-md-5 col-lg-4">
+                                        <div class="form-group col-md-5 col-lg-3">
                                             <label for="municipality">COMUNE UBICAZIONE CONDOMINIO - IMMOBILE</label>
                                             {{forms.municipality}}
                                         </div>

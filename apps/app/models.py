@@ -57,7 +57,7 @@ class AdministrationIndividual(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     fiscal_code = models.CharField(max_length=16)
-    vat_number = VATNumberField(countries=['IT'])
+    vat_number = VATNumberField(countries=['IT', 'NL'])
     dob = models.DateField(auto_now=False, auto_now_add=False)
     birthplace = models.CharField(max_length=30)
     birthplace_county = models.CharField(max_length=30)
@@ -92,12 +92,12 @@ class CatastalData(models.Model):
     n_catastal_cheet = models.IntegerField(blank=False)
     n_first_particle = models.IntegerField(blank=False)
     n_subscribers_to_first_belonging = models.CharField(max_length=20, blank=False)
-    n_second_particle = models.IntegerField(blank=False),
-    n_subscribers_to_second_belonging = models.CharField(max_length=20, blank=True)
-    n_third_particle = models.IntegerField(blank=True)
-    n_subscribers_to_third_belonging = models.CharField(max_length=20, blank=True)
-    n_fourth_particle = models.IntegerField(blank=True)
-    n_subscribers_to_fourth_belonging = models.CharField(max_length=20, blank=True)
+    n_second_particle = models.IntegerField(blank=False, null=True)
+    n_subscribers_to_second_belonging = models.CharField(max_length=20, blank=True, null=True)
+    n_third_particle = models.IntegerField(blank=True, null=True)
+    n_subscribers_to_third_belonging = models.CharField(max_length=20, blank=True, null=True)
+    n_fourth_particle = models.IntegerField(blank=True, null=True)
+    n_subscribers_to_fourth_belonging = models.CharField(max_length=20, blank=True, null=True)
     description_of_intervention = models.CharField(max_length=500)
     data_of_condominium_assembly = models.DateField(auto_now=False, auto_now_add=False)
 
@@ -203,7 +203,7 @@ class AdministrationLegalForm(ModelForm):
                 'class': 'form-control',
                 'id': 'province_reg_office'
             }),
-            'legal_title_rep': TextInput(attrs={
+            'legal_title_rep': Select(attrs={
                 'class': 'form-control',
                 'id': 'legal_title_rep'
             }),
@@ -344,11 +344,11 @@ class CatastalDataForm(ModelForm):
                 'class': 'form-control',
                 'id': 'n_catastal_cheet'
             }),
-            'n_first_particle': TextInput(attrs={
+            'n_first_particle': NumberInput(attrs={
                 'class': 'form-control',
                 'id': 'n_first_particle'
             }),
-            'n_subscribers_to_first_belonging': NumberInput(attrs={
+            'n_subscribers_to_first_belonging': TextInput(attrs={
                 'class': 'form-control',
                 'id': 'n_subscribers_to_first_belonging'
             }),
