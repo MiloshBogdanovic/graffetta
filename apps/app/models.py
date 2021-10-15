@@ -32,14 +32,12 @@ class AdministrationLegal(models.Model):
     province = models.CharField(max_length=20)
     company_reg_num = models.IntegerField(unique=True)
     vat_number = VATNumberField(countries=['IT'])
-    street = models.CharField(max_length=50)
-    street_number = models.CharField(max_length=5)
+    street = models.CharField(max_length=100)
     cap = models.CharField(max_length=20)
     municipal_reg_office = models.CharField(max_length=20)
     province_reg_office = models.CharField(max_length=20)
     legal_title_rep = models.CharField(null=True, max_length=10, choices=TITLE)
-    leg_rep_name = models.CharField(max_length=50)
-    leg_rep_surname = models.CharField(max_length=50)
+    leg_rep_name = models.CharField(max_length=100)
     leg_rep_tax_code = models.CharField(max_length=20)
     leg_rep_dob = models.DateField(auto_now=False, auto_now_add=False)
     municipal_of_birth_of_leg = models.CharField(max_length=30)
@@ -53,20 +51,17 @@ class AdministrationLegal(models.Model):
 
 class AdministrationIndividual(models.Model):
     id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=50)
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=20)
+    title = models.CharField(max_length=50, choices=TITLE)
+    first_name = models.CharField(max_length=120)
     fiscal_code = models.CharField(max_length=16)
     vat_number = VATNumberField(countries=['IT', 'NL'])
     dob = models.DateField(auto_now=False, auto_now_add=False)
     birthplace = models.CharField(max_length=30)
     birthplace_county = models.CharField(max_length=30)
-    activity_street_number = models.CharField(max_length=5)
     activity_street = models.CharField(max_length=50)
     activity_location_cap = models.IntegerField()
     activity_municipality = models.CharField(max_length=50)
     activity_province = models.CharField(max_length=50)
-    residence_street_number = models.CharField(max_length=5)
     residence_street = models.CharField(max_length=50)
     residence_cap = models.IntegerField(blank=False)
     residence_city = models.CharField(max_length=50)
@@ -78,7 +73,6 @@ class CondominiumData(models.Model):
     name = models.CharField(max_length=50, blank=False)
     fiscal_code = models.IntegerField(blank=False)
     street = models.CharField(max_length=50, blank=False)
-    street_number = models.CharField(max_length=5)
     cap = models.IntegerField(blank=False)
     municipality = models.CharField(max_length=50, blank=False)
     province = models.CharField(max_length=10, blank=False)
@@ -114,8 +108,7 @@ class FormFaccata(models.Model):
 class CondominiumForm(ModelForm):
     class Meta:
         model = CondominiumData
-        fields = ('name', 'fiscal_code', 'street', 'street_number', 'municipality', 'province', 'email',
-                  'pec_mail', 'select_administrator','cap')
+        exclude = ['id']
         widgets = {
             'name': TextInput(attrs={
                 'class': 'form-control',
@@ -128,10 +121,6 @@ class CondominiumForm(ModelForm):
             'street': TextInput(attrs={
                 'class': 'form-control',
                 'id': 'street'
-            }),
-            'street_number': NumberInput(attrs={
-                'class': 'form-control',
-                'id': 'street_number'
             }),
             'cap':NumberInput(attrs={
                 'class':'form-control',
@@ -187,10 +176,6 @@ class AdministrationLegalForm(ModelForm):
                 'class': 'form-control',
                 'id': 'street'
             }),
-            'street_number': NumberInput(attrs={
-                'class': 'form-control',
-                'id': 'street_number '
-            }),
             'cap': NumberInput(attrs={
                 'class': 'form-control',
                 'id': 'cap '
@@ -210,10 +195,6 @@ class AdministrationLegalForm(ModelForm):
             'leg_rep_name': TextInput(attrs={
                 'class': 'form-control',
                 'id': 'leg_rep_name'
-            }),
-            'leg_rep_surname': TextInput(attrs={
-                'class': 'form-control',
-                'id': 'leg_rep_surname'
             }),
             'leg_rep_tax_code': TextInput(attrs={
                 'class': 'form-control',
@@ -260,17 +241,13 @@ class AdministrationIndividualForm(ModelForm):
         model = AdministrationIndividual
         exclude = ['id']
         widgets = {
-            'title':TextInput(attrs={
-                'class':'form-control',
-                'id':'title'
+            'title': Select(attrs={
+                'class': 'form-control',
+                'id': 'title'
             }),
             'first_name': TextInput(attrs={
                 'class': 'form-control',
                 'id': 'first_name'
-            }),
-            'last_name': TextInput(attrs={
-                'class': 'form-control',
-                'id': 'last_name'
             }),
             'fiscal_code': TextInput(attrs={
                 'class': 'form-control',
@@ -292,10 +269,6 @@ class AdministrationIndividualForm(ModelForm):
                 'class': 'form-control',
                 'id': 'birthplace_county'
             }),
-            'activity_street_number': TextInput(attrs={
-                'class': 'form-control',
-                'id': 'activity_street_number'
-            }),
             'activity_street': TextInput(attrs={
                 'class': 'form-control',
                 'id': 'activity_street'
@@ -311,10 +284,6 @@ class AdministrationIndividualForm(ModelForm):
             'activity_province': TextInput(attrs={
                 'class': 'form-control',
                 'id': 'activity_province'
-            }),
-            'residence_street_number': TextInput(attrs={
-                'class': 'form-control',
-                'id': 'residence_street_number'
             }),
             'residence_street': TextInput(attrs={
                 'class': 'form-control',

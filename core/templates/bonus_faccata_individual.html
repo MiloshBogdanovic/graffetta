@@ -49,44 +49,41 @@
                                                 {{errors}}
                                             </div>
                                          {% endif %}
-                                        <h5 class="mt-5">Individual Details</h5>
+
                                         <hr>
                                         <div class="row">
-                                            <div class="form-group col-md-10 col-lg-2">
+                                            <div class="form-group col-md-2 col-lg-2">
                                                 <label for="title">TITOLO AMMINISTRATORE</label>
                                                 {{forms.title}}
                                                 <small>SIG./SIG.RA/GEOM./RAG./ING./ARCH/ALTRO</small>
                                             </div>
-                                            <div class="form-group col-md-4 col-lg-5">
-                                                <label for="fiscal_code">NOME</label>
+                                            <div class="form-group col-md-8 col-lg-8">
+                                                <label for="fiscal_code">COGNOME e NOME</label>
                                                 {{forms.first_name}}
                                             </div>
-                                            <div class="form-group col-md-10 col-lg-5">
-                                                <label for="street">COGNOME</label>
-                                                {{forms.last_name}}
-                                            </div>
+
 
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-md-10 col-lg-6">
+                                            <div class="form-group col-md-5 col-lg-5">
                                                 <label for="fiscal_code">CODICE FISCALE</label>
                                                 {{forms.fiscal_code}}
                                             </div>
-                                            <div class="form-group col-md-10 col-lg-6">
+                                            <div class="form-group col-md-5 col-lg-5">
                                                 <label for="vat_number">PARTITA IVA</label>
                                                 {{forms.vat_number}}
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-md-10 col-lg-4">
+                                            <div class="form-group col-md-3 col-lg-3">
                                                 <label for="dob">DATA DI NASCITA</label>
                                                 {{forms.dob}}
                                             </div>
-                                            <div class="form-group col-md-10 col-lg-4">
+                                            <div class="form-group col-md-4 col-lg-4">
                                                 <label for="birthplace">COMUNE DI NASCITA</label>
                                                 {{forms.birthplace}}
                                             </div>
-                                            <div class="form-group col-md-10 col-lg-4">
+                                            <div class="form-group col-md-3 col-lg-3">
                                                 <label for="birthplace_county">PROVINCIA DI NASCITA</label>
                                                 {{forms.birthplace_county}}
                                             </div>
@@ -94,25 +91,21 @@
                                         <h5 class="mt-5">ATTIVITA</h5>
                                         <hr>
                                         <div class="row">
-                                            <div class="form-group col-md-10 col-lg-2">
-                                                <label for="activity_street_number">NUMERO I SEDE ATTIVITA</label>
-                                                {{forms.activity_street_number}}
-                                            </div>
                                             <div class="form-group col-md-10 col-lg-10">
                                                 <label for="activity_street">VIA I SEDE ATTIVITA</label>
                                                 {{forms.activity_street}}
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-md-10 col-lg-4">
+                                            <div class="form-group col-md-4 col-lg-3">
                                                 <label for="activity_location_cap">CAP SEDE ATTIVITA</label>
                                                 {{forms.activity_location_cap}}
                                             </div>
-                                            <div class="form-group col-md-10 col-lg-4">
+                                            <div class="form-group col-md-4 col-lg-3">
                                                 <label for="activity_municipality">COMUNE SEDE ATTIVITA</label>
                                                 {{forms.activity_municipality}}
                                             </div>
-                                            <div class="form-group col-md-10 col-lg-4">
+                                            <div class="form-group col-md-4 col-lg-3">
                                                 <label for="activity_province">PROVINCIA SEDE ATTIVITA</label>
                                                 {{forms.activity_province}}
                                             </div>
@@ -120,25 +113,22 @@
                                         <h5 class="mt-5">RESIDENZA</h5>
                                         <hr>
                                         <div class="row">
-                                            <div class="form-group col-md-10 col-lg-2">
-                                                <label for="residence_street_number">NUMERO RESIDENZA</label>
-                                                {{forms.residence_street_number}}
-                                            </div>
+
                                             <div class="form-group col-md-10 col-lg-10">
-                                                <label for="residence_street">VIA RESIDENZA</label>
+                                                <label for="residence_street">VIA E NUMERO RESIDENZA</label>
                                                 {{forms.residence_street}}
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-md-10 col-lg-4">
+                                            <div class="form-group col-md-4 col-lg-3">
                                                 <label for="residence_cap">CAP RESIDENZA</label>
                                                 {{forms.residence_cap}}
                                             </div>
-                                            <div class="form-group col-md-10 col-lg-4">
+                                            <div class="form-group col-md-4 col-lg-3">
                                                 <label for="residence_city">COMUNE DI RESIDENZA</label>
                                                 {{forms.residence_city}}
                                             </div>
-                                            <div class="form-group col-md-10 col-lg-4">
+                                            <div class="form-group col-md-4col-lg-3">
                                                 <label for="residence_province">PROVINCIA DI RESIDENZA</label>
                                                 {{forms.residence_province}}
                                             </div>
