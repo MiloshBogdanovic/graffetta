@@ -34,6 +34,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
+
                         <h4>DATI AMMINISTRATORE PERSONA GIURIDICA SE NOMINATO</h4>
                     </div>
                     <div class="card-body">
@@ -44,115 +45,129 @@
                             <div class="col-md-12">
                                 <form action="" method="post">
                                     {% csrf_token %}
-                                    <div class="form-group">
-                                        <label for="company_name">DENOMINAZIONE SOCIETA'</label>
-                                        {{forms.company_name}}
-                                        <small>indicazione riportata enlla visura camerale</small>
+                                    <h5 class="mt-5">Company Details</h5>
+                                    <hr>
+                                    <div class="row">
+                                      <div class="form-group col-md-4 col-lg-12">
+                                            <label for="company_name">DENOMINAZIONE SOCIETA'</label>
+                                            {{forms.company_name}}
+                                            <small>indicazione riportata enlla visura camerale</small>
+                                        </div>  
                                     </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-4 col-lg-4">
+                                            <label for="province">PROVINCIA/E ISCRIZIONE REGISTRO IMPRESE</label>
+                                            {{forms.province}}
+                                            <small>riportare la provincia o le provincie nel caso in cui il Registro Imprese comprenda più province</small>
+                                        </div>
+                                        <div class="form-group col-md-4 col-lg-4">
+                                            <label for="company_reg_num">ISCRIZIONE REGISTRO IMPRESE</label>
+                                            {{forms.company_reg_num}}
+                                        </div>
 
-                                     <div class="form-group">
-                                        <label for="province">PROVINCIA/E ISCRIZIONE REGISTRO IMPRESE</label>
-                                        {{forms.province}}
-                                        <small>riportare la provincia o le provincie nel caso in cui il Registro Imprese comprenda più province</small>
+                                        <div class="form-group col-md-4 col-lg-4">
+                                            <label for="vat_number">N° ISCRIZIONE REGISTRO IMPRESE - PARTITA IVA - C.F.</label>
+                                            {{forms.vat_number}}
+                                        </div>
                                     </div>
+                        
+                                    <div class="row">
+                                        <div class="form-group col-md-4 col-lg-3">
+                                            <label for="street_number">NUMERO SEDE LEGALE</label>
+                                            {{forms.street_number}}
+                                        </div>
 
-                                     <div class="form-group">
-                                        <label for="company_reg_num">ISCRIZIONE REGISTRO IMPRESE</label>
-                                        {{forms.company_reg_num}}
+                                        <div class="form-group col-md-4 col-lg-9">
+                                            <label for="street">VIA SEDE LEGALEE</label>
+                                            {{forms.street}}
+                                        </div>
                                     </div>
+                                    
+                                    <div class="row">
+                                        <div class="form-group col-md-4 col-lg-4">
+                                            <label for="cap">CAP SEDE LEGALE</label>
+                                            {{forms.cap}}
+                                        </div>
+                                        <div class="form-group col-md-4 col-lg-4">
+                                            <label for="municipal_reg_office">COMUNE SEDE LEGALE</label>
+                                            {{forms.municipal_reg_office}}
+                                        </div>
 
-                                     <div class="form-group">
-                                        <label for="vat_number">N° ISCRIZIONE REGISTRO IMPRESE - PARTITA IVA - C.F.</label>
-                                        {{forms.vat_number}}
+                                        <div class="form-group col-md-4 col-lg-4">
+                                            <label for="province_reg_office">PROVINCIA SEDE LEGALE</label>
+                                            {{forms.province_reg_office}}
+                                        </div>
                                     </div>
-                                     <div class="form-group">
-                                        <label for="street">VIA SEDE LEGALEe</label>
-                                        {{forms.street}}
+                                    <h5 class="mt-5">Legal Rep Details</h5>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="form-group col-md-4 col-lg-12">
+                                            <label for="legal_title_rep">TITOLO LEGALE RAPPRESENTATE</label>
+                                            {{forms.legal_title_rep}}
+                                            <small>SIG./SIG.RA/GEOM./RAG./ING./ARCH/ALTRO</small>
+                                        </div>
                                     </div>
+                                    
+                                    <div class="row">
+                                         <div class="form-group col-md-4 col-lg-6">
+                                            <label for="leg_rep_name">NOME LEGALE RAPPRESENTANTE</label>
+                                            {{forms.leg_rep_name}}
+                                        </div>
 
-                                     <div class="form-group">
-                                        <label for="street_number">NUMERO SEDE LEGALE</label>
-                                        {{forms.street_number}}
+                                        <div class="form-group col-md-4 col-lg-6">
+                                            <label for="leg_rep_surname">COGNOME LEGALE RAPPRESENTANTE</label>
+                                            {{forms.leg_rep_surname}}
+                                        </div>
                                     </div>
+                                    <div class="row">
+                                    
+                                        <div class="form-group col-md-4 col-lg-4">
+                                            <label for="leg_rep_dob">DATA DI NASCITA LEGALE RAPPRESENTANTE</label>
+                                            {{forms.leg_rep_dob}}
+                                        </div>
 
-                                     <div class="form-group">
-                                        <label for="cap">CAP SEDE LEGALE</label>
-                                        {{forms.cap}}
+                                        <div class="form-group col-md-4 col-lg-4">
+                                            <label for="municipal_of_birth_of_leg">COMUNE DI NASCITA DEL LEGALE RAPPRESENTANTE</label>
+                                            {{forms.municipal_of_birth_of_leg}}
+                                        </div>
+
+                                        <div class="form-group col-md-4 col-lg-4">
+                                            <label for="province_of_birth_of_leg">PROVINCIA DI NASCITA DEL LEGALE RAPPRESENTANTE</label>
+                                            {{forms.province_of_birth_of_leg}}
+                                        </div>
                                     </div>
-
-                                     <div class="form-group">
-                                        <label for="municipal_reg_office">COMUNE SEDE LEGALE</label>
-                                        {{forms.municipal_reg_office}}
+                                     
+                                    <div class="row">
+                                        <div class="form-group col-md-4 col-lg-3">
+                                            <label for="legal_street_number">NUMERO RESIDENZA LEGALE RAPPRESENTANTE</label>
+                                            {{forms.legal_street_number}}
+                                        </div>
+                                        <div class="form-group col-md-4 col-lg-6">
+                                            <label for="legal_street">VIA RESIDENZA LEGALE RAPPRESENTANTE</label>
+                                            {{forms.legal_street}}
+                                        </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-4 col-lg-4">
+                                            <label for="cap_legal">CAP RESIDENZA LEGALE RAPPRESENTANTE</label>
+                                            {{forms.cap_legal}}
+                                        </div>
+                                        <div class="form-group form-group col-md-4 col-lg-4">
+                                            <label for="municipal_of_leg_residence">COMUNE DI RESIDENZA LEGALE RAPPRESENTANTE</label>
+                                            {{forms.municipal_of_leg_residence}}
+                                        </div>
 
-                                     <div class="form-group">
-                                        <label for="province_reg_office">PROVINCIA SEDE LEGALE</label>
-                                        {{forms.province_reg_office}}
+                                        <div class="form-group form-group col-md-4 col-lg-4">
+                                            <label for="province_of_leg_residence">PROVINCIA DI RESIDENZA LEGALE RAPPRESENTANTE</label>
+                                            {{forms.province_of_leg_residence}}
+                                        </div>
                                     </div>
-
-                                     <div class="form-group">
-                                        <label for="legal_title_rep">TITOLO LEGALE RAPPRESENTATE</label>
-                                        {{forms.legal_title_rep}}
-                                        <small>SIG./SIG.RA/GEOM./RAG./ING./ARCH/ALTRO</small>
+                                    <div class="row">
+                                        <div class="form-group col-md-4 col-lg-12">
+                                            <label for="leg_rep_tax_code">CODICE FISCALE LEGALE RAPPRESENTATE</label>
+                                            {{forms.leg_rep_tax_code}}
+                                        </div>
                                     </div>
-
-                                     <div class="form-group">
-                                        <label for="leg_rep_name">NOME LEGALE RAPPRESENTANTE</label>
-                                        {{forms.leg_rep_name}}
-                                    </div>
-
-                                     <div class="form-group">
-                                        <label for="leg_rep_surname">COGNOME LEGALE RAPPRESENTANTE</label>
-                                        {{forms.leg_rep_surname}}
-                                    </div>
-
-                                     <div class="form-group">
-                                        <label for="leg_rep_tax_code">CODICE FISCALE LEGALE RAPPRESENTATE</label>
-                                        {{forms.leg_rep_tax_code}}
-                                    </div>
-
-                                     <div class="form-group">
-                                        <label for="leg_rep_dob">DATA DI NASCITA LEGALE RAPPRESENTANTE</label>
-                                        {{forms.leg_rep_dob}}
-                                    </div>
-
-                                     <div class="form-group">
-                                        <label for="municipal_of_birth_of_leg">COMUNE DI NASCITA DEL LEGALE RAPPRESENTANTE</label>
-                                        {{forms.municipal_of_birth_of_leg}}
-                                    </div>
-
-                                     <div class="form-group">
-                                        <label for="province_of_birth_of_leg">PROVINCIA DI NASCITA DEL LEGALE RAPPRESENTANTE</label>
-                                        {{forms.province_of_birth_of_leg}}
-                                    </div>
-
-                                     <div class="form-group">
-                                        <label for="legal_street">VIA RESIDENZA LEGALE RAPPRESENTANTE</label>
-                                        {{forms.legal_street}}
-                                    </div>
-
-                                     <div class="form-group">
-                                        <label for="legal_street_number">NUMERO RESIDENZA LEGALE RAPPRESENTANTE</label>
-                                        {{forms.legal_street_number}}
-                                    </div>
-
-                                     <div class="form-group">
-                                        <label for="cap_legal">CAP RESIDENZA LEGALE RAPPRESENTANTE</label>
-                                        {{forms.cap_legal}}
-                                    </div>
-
-                                     <div class="form-group">
-                                        <label for="municipal_of_leg_residence">COMUNE DI RESIDENZA LEGALE RAPPRESENTANTE</label>
-                                        {{forms.municipal_of_leg_residence}}
-                                    </div>
-
-                                     <div class="form-group">
-                                        <label for="province_of_leg_residence">PROVINCIA DI RESIDENZA LEGALE RAPPRESENTANTE</label>
-                                        {{forms.province_of_leg_residence}}
-                                    </div>
-
-
-
                                     <button type="submit" class="btn  btn-primary">Submit</button>
                                 </form>
                             </div>
