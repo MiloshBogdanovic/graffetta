@@ -141,8 +141,12 @@ def search(request):
     html_template = loader.get_template(load_template)
     try:
         value = request.GET.get('q')
+        print(request.user.id)
         print(value)
-        context['results'] = CondominiumData.objects.filter(Q(name__icontains='{}'.format(value)))
+        user_forms = FormFaccata.objects.filter(user='{}'.format(request.user.id)).values_list('condominium_id', flat=True)
+        print(list(user_forms))
+        context['results'] = CondominiumData.objects.filter(name__icontains='{}'.format(value), pk__in=user_forms)
+        print(list(context['results']))
         return HttpResponse(html_template.render(context, request))
     except template.TemplateDoesNotExist:
         html_template = loader.get_template('page-404.html')
