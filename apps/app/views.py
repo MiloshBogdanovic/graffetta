@@ -4,11 +4,12 @@ Copyright (c) 2019 - present AppSeed.us
 """
 from django import template
 from django.contrib.auth.decorators import login_required
+from django.db.models.query_utils import Q
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.template import loader
 from django.urls import reverse
-from apps.app.models import CondominiumForm, AdministrationIndividualForm, AdministrationLegalForm,\
+from apps.app.models import CondominiumData, CondominiumForm, AdministrationIndividualForm, AdministrationLegalForm,\
     FormFaccata, CatastalDataForm
 from django.shortcuts import get_object_or_404, render
 
@@ -131,4 +132,19 @@ def pages(request):
 
     except:
         html_template = loader.get_template('page-500.html')
+        return HttpResponse(html_template.render(context, request))
+
+@login_required(login_url="/login")
+def search(request):
+    context = {}
+    load_template = 'search.html'
+    html_template = loader.get_template(load_template)
+    try:
+        value = request.GET.get('q')
+        print(value)
+        context['results'] = CondominiumData.objects.filter(Q(name__icontains='{}'.format(value)))
+        return HttpResponse(html_template.render(context, request))
+    except template.TemplateDoesNotExist:
+        html_template = loader.get_template('page-404.html')
+    except:
         return HttpResponse(html_template.render(context, request))
