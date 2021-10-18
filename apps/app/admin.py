@@ -59,38 +59,38 @@ class AdminIndividualPanel(admin.ModelAdmin):
 class AdminCondominiumPanel(admin.ModelAdmin):
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
-        form.base_fields['name'] = "DENOMINAZIONE CONDOMINIO"
-        form.base_fields['fiscal_code'] = "CODICE FISCALE CONDOMINIO"
-        form.base_fields['street'] = "VIA E NUMERO/I UBICAZIONE CONDOMINIO - IMMOBILE"
-        form.base_fields['cap'] = "CAP UBICAZIONE CONDOMINIO - IMMOBILE"
-        form.base_fields['municipality'] = "COMUNE UBICAZIONE CONDOMINIO - IMMOBILE"
-        form.base_fields['province'] = "PROVINCIA UBICAZIONE CONDOMINIO - IMMOBILE"
-        form.base_fields['email'] = "INDIRIZZO MAIL DEL CONDOMINIO"
-        form.base_fields['pec_mail'] = "INDIRIZZO PEC DEL CONDOMINIO"
-        form.base_fields['select_administrator'] = "SELEZIONA AMMINISTRATORE"
+        form.base_fields['name'].label  = "DENOMINAZIONE CONDOMINIO"
+        form.base_fields['fiscal_code'].label  = "CODICE FISCALE CONDOMINIO"
+        form.base_fields['street'].label  = "VIA E NUMERO/I UBICAZIONE CONDOMINIO - IMMOBILE"
+        form.base_fields['cap'].label  = "CAP UBICAZIONE CONDOMINIO - IMMOBILE"
+        form.base_fields['municipality'].label  = "COMUNE UBICAZIONE CONDOMINIO - IMMOBILE"
+        form.base_fields['province'].label  = "PROVINCIA UBICAZIONE CONDOMINIO - IMMOBILE"
+        form.base_fields['email'].label  = "INDIRIZZO MAIL DEL CONDOMINIO"
+        form.base_fields['pec_mail'].label  = "INDIRIZZO PEC DEL CONDOMINIO"
+        form.base_fields['select_administrator'].label  = "SELEZIONA AMMINISTRATORE"
         return form
 
 class AdminCatastalDataPanel(admin.ModelAdmin):
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
-        form.base_fields['n_catastal_cheet'] = "N° FOGLIO CATASTALE DI APPARTENENZA"
-        form.base_fields['n_first_particle'] = "N° PRIMA PARTICELLA COSTITUENTE IL CONDOMINIO"
-        form.base_fields['n_subscribers_to_first_belonging'] = "N° SUBALTERNI APPARTENTI ALLA PRIMA PARTICELLA"
-        form.base_fields['n_second_particle'] = "N° SECONDA PARTICELLA COSTITUENTE IL CONDOMINIO"
-        form.base_fields['n_subscribers_to_second_belonging'] = "N° SUBALTERNI APPARTENTI ALLA SECONDA PARTICELLA"
-        form.base_fields['n_third_particle'] = "N° TERZA PARTICELLA COSTITUENTE IL CONDOMINIO"
-        form.base_fields['n_subscribers_to_third_belonging'] = "N° SUBALTERNI APPARTENTI ALLA TERZA PARTICELLA"
-        form.base_fields['n_fourth_particle'] = "N° QUARTA PARTICELLA COSTITUENTE IL CONDOMINIO"
-        form.base_fields['n_subscribers_to_fourth_belonging'] = "N° SUBALTERNI APPARTENTI ALLA QUARTA PARTICELLA"
-        form.base_fields['description_of_intervention'] = "DESCRIZIONE SINTETICA DELL'INTERVENTO"
-        form.base_fields['data_of_condominium_assembly'] = "DATA ASSEMBLEA CONDOMINIALE IN CUI I CONDOMINI"
+        form.base_fields['n_catastal_cheet'].label  = "N° FOGLIO CATASTALE DI APPARTENENZA"
+        form.base_fields['n_first_particle'].label  = "N° PRIMA PARTICELLA COSTITUENTE IL CONDOMINIO"
+        form.base_fields['n_subscribers_to_first_belonging'].label  = "N° SUBALTERNI APPARTENTI ALLA PRIMA PARTICELLA"
+        form.base_fields['n_second_particle'].label  = "N° SECONDA PARTICELLA COSTITUENTE IL CONDOMINIO"
+        form.base_fields['n_subscribers_to_second_belonging'].label  = "N° SUBALTERNI APPARTENTI ALLA SECONDA PARTICELLA"
+        form.base_fields['n_third_particle'].label  = "N° TERZA PARTICELLA COSTITUENTE IL CONDOMINIO"
+        form.base_fields['n_subscribers_to_third_belonging'].label  = "N° SUBALTERNI APPARTENTI ALLA TERZA PARTICELLA"
+        form.base_fields['n_fourth_particle'].label  = "N° QUARTA PARTICELLA COSTITUENTE IL CONDOMINIO"
+        form.base_fields['n_subscribers_to_fourth_belonging'].label  = "N° SUBALTERNI APPARTENTI ALLA QUARTA PARTICELLA"
+        form.base_fields['description_of_intervention'].label  = "DESCRIZIONE SINTETICA DELL'INTERVENTO"
+        form.base_fields['data_of_condominium_assembly'].label  = "DATA ASSEMBLEA CONDOMINIALE IN CUI I CONDOMINI"
         return form
     
 admin_site = MyAdminSite(name='admin')
 admin_site.register(AdministrationLegal, admin_class=AdminAdministratorLegal)
 admin_site.register(AdministrationIndividual, admin_class=AdminIndividualPanel)
 admin_site.register(CondominiumData, admin_class=AdminCondominiumPanel)
-admin_site.register(CatastalData)
+admin_site.register(CatastalData, admin_class=AdminCatastalDataPanel)
 admin_site.register(FormFaccata)
 admin_site.register(User)
 admin_site.register(Group)
