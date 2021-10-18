@@ -52,7 +52,7 @@ class AdministrationLegal(models.Model):
 class AdministrationIndividual(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50, choices=TITLE)
-    first_name = models.CharField(max_length=120)
+    name = models.CharField(max_length=120)
     fiscal_code = models.CharField(max_length=16)
     vat_number = VATNumberField(countries=['IT', 'NL'])
     dob = models.DateField(auto_now=False, auto_now_add=False)
@@ -245,9 +245,9 @@ class AdministrationIndividualForm(ModelForm):
                 'class': 'form-control',
                 'id': 'title'
             }),
-            'first_name': TextInput(attrs={
+            'name': TextInput(attrs={
                 'class': 'form-control',
-                'id': 'first_name'
+                'id': 'name'
             }),
             'fiscal_code': TextInput(attrs={
                 'class': 'form-control',
