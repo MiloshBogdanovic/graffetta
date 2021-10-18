@@ -141,7 +141,8 @@ def search(request):
     html_template = loader.get_template(load_template)
     try:
         value = request.GET.get('q')
-        context['result'] = CondominiumData.objects.filter(Q(name__icontains='{}'.format(value)))
+        print(value)
+        context['results'] = CondominiumData.objects.filter(Q(name__icontains='{}'.format(value)))
         return HttpResponse(html_template.render(context, request))
     except template.TemplateDoesNotExist:
         html_template = loader.get_template('page-404.html')
