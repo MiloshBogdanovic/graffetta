@@ -10,13 +10,59 @@ from django.shortcuts import redirect
 from django.template import loader
 from django.urls import reverse
 from apps.app.models import CondominiumData, CondominiumForm, AdministrationIndividualForm, AdministrationLegalForm,\
-    FormFaccata, CatastalDataForm
+    FormFaccata, CatastalDataForm, AdministrationIndividual, AdministrationLegal, CatastalData
 from django.shortcuts import get_object_or_404, render
 
 
 @login_required(login_url="/login/")
 def index(request):
     context = {'segment': 'index'}
+    fform = FormFaccata.objects.all()
+    context['fform'] = fform
+    html_template = loader.get_template('index.html')
+    return HttpResponse(html_template.render(context, request))
+
+
+@login_required(login_url="/login/")
+def condt(request, id):
+    context = {'segment': 'index'}
+    fform = FormFaccata.objects.all()
+    context['fform'] = fform
+    cform = CondominiumData.objects.filter(id=id)
+    context['cform'] = cform
+    html_template = loader.get_template('index.html')
+    return HttpResponse(html_template.render(context, request))
+
+
+@login_required(login_url="/login/")
+def individt(request, id):
+    context = {'segment': 'index'}
+    fform = FormFaccata.objects.all()
+    context['fform'] = fform
+    iform = AdministrationIndividual.objects.filter(id=id)
+    context['iform'] = iform
+    html_template = loader.get_template('index.html')
+    return HttpResponse(html_template.render(context, request))
+
+
+@login_required(login_url="/login/")
+def flegalt(request, id):
+    context = {'segment': 'index'}
+    fform = FormFaccata.objects.all()
+    context['fform'] = fform
+    flform = AdministrationLegal.objects.filter(id=id)
+    context['flform'] = flform
+    html_template = loader.get_template('index.html')
+    return HttpResponse(html_template.render(context, request))
+
+
+@login_required(login_url="/login/")
+def catastt(request, id):
+    context = {'segment': 'index'}
+    fform = FormFaccata.objects.all()
+    context['fform'] = fform
+    ctform = CatastalData.objects.filter(id=id)
+    context['ctform'] = ctform
     html_template = loader.get_template('index.html')
     return HttpResponse(html_template.render(context, request))
 

@@ -30,7 +30,6 @@ class AdministrationLegal(models.Model):
     id = models.AutoField(primary_key=True)
     company_name = models.CharField(max_length=50)
     province = models.CharField(max_length=20)
-    company_reg_num = models.IntegerField(unique=True)
     vat_number = VATNumberField(countries=['IT'])
     street = models.CharField(max_length=100)
     cap = models.CharField(max_length=20)
@@ -43,7 +42,6 @@ class AdministrationLegal(models.Model):
     municipal_of_birth_of_leg = models.CharField(max_length=30)
     province_of_birth_of_leg = models.CharField(max_length=30)
     legal_street = models.CharField(max_length=50)
-    legal_street_number = models.CharField(max_length=5)
     cap_legal = models.CharField(max_length=30)
     municipal_of_leg_residence = models.CharField(max_length=30)
     province_of_leg_residence = models.CharField(max_length=30)
@@ -164,10 +162,6 @@ class AdministrationLegalForm(ModelForm):
                 'class': 'form-control',
                 'id': 'province'
             }),
-            'company_reg_num': NumberInput(attrs={
-                'class': 'form-control',
-                'id': 'company_reg_num'
-            }),
             'vat_number': TextInput(attrs={
                 'class': 'form-control',
                 'id': 'vat_number'
@@ -202,7 +196,8 @@ class AdministrationLegalForm(ModelForm):
             }),
             'leg_rep_dob': DateInput(attrs={
                 'class': 'form-control',
-                'id': 'leg_rep_dob'
+                'id': 'leg_rep_dob',
+                'type': 'date'
             }),
             'municipal_of_birth_of_leg': TextInput(attrs={
                 'class': 'form-control',
@@ -213,10 +208,6 @@ class AdministrationLegalForm(ModelForm):
                 'id': 'province_of_birth_of_leg'
             }),
             'legal_street': TextInput(attrs={
-                'class': 'form-control',
-                'id': 'legal_street'
-            }),
-            'legal_street_number': NumberInput(attrs={
                 'class': 'form-control',
                 'id': 'legal_street'
             }),
@@ -259,7 +250,8 @@ class AdministrationIndividualForm(ModelForm):
             }),
             'dob': DateInput(attrs={
                 'class': 'form-control',
-                'id': 'dob'
+                'id': 'dob',
+                'type': 'date'
             }),
             'birthplace': TextInput(attrs={
                 'class': 'form-control',
@@ -351,6 +343,7 @@ class CatastalDataForm(ModelForm):
             }),
             'data_of_condominium_assembly': DateInput(attrs={
                 'class': 'form-control',
-                'id': 'data_of_condominium_assembly'
+                'id': 'data_of_condominium_assembly',
+                'type': 'date'
             }),
         }
