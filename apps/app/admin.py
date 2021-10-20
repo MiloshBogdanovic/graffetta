@@ -4,12 +4,13 @@ Copyright (c) 2019 - present AppSeed.us
 """
 from django.contrib.auth.models import User, Group
 from django.contrib.admin import AdminSite
-from .models import AdministrationLegal,AdministrationIndividual, CondominiumData, CatastalData, FormFaccata
+from .models import AdministrationLegal, AdministrationIndividual, CondominiumData, CatastalData, FormFaccata
 from django.contrib import admin
+
 
 # Register your models here.
 class MyAdminSite(AdminSite):
-    site_header = 'Monty Python administration'
+    site_header = 'Graffetta Admin Page'
 
 
 class AdminAdministratorLegal(admin.ModelAdmin):
@@ -17,8 +18,7 @@ class AdminAdministratorLegal(admin.ModelAdmin):
         form = super().get_form(request, obj, **kwargs)
         form.base_fields["company_name"].label = "DENOMINAZIONE SOCIETA"
         form.base_fields["province"].label = 'PROVINCIA/E ISCRIZIONE REGISTRO IMPRESE'
-        form.base_fields["company_reg_num"].label = 'N° ISCRIZIONE REGISTRO IMPRESE - PARTITA IVA - C.F.'
-        form.base_fields["vat_number"].label = ''
+        form.base_fields["vat_number"].label = 'N° ISCRIZIONE REGISTRO IMPRESE - PARTITA IVA - C.F.'
         form.base_fields["street"].label = 'VIA E NUMERO SEDE LEGALE'
         form.base_fields["cap"].label = 'CAP SEDE LEGALE'
         form.base_fields["municipal_reg_office"].label = 'COMUNE SEDE LEGALE'
@@ -30,11 +30,11 @@ class AdminAdministratorLegal(admin.ModelAdmin):
         form.base_fields["municipal_of_birth_of_leg"].label = 'COMUNE DI NASCITA DEL LEGALE RAPPRESENTANTE'
         form.base_fields["province_of_birth_of_leg"].label = 'PROVINCIA DI NASCITA DEL LEGALE RAPPRESENTANTE'
         form.base_fields["legal_street"].label = 'VIA E NUMERO RESIDENZA LEGALE RAPPRESENTANTE'
-        form.base_fields["legal_street_number"].label = 'NUMERO RESIDENZA LEGALE RAPPRESENTANTE'
         form.base_fields["cap_legal"].label = 'CAP RESIDENZA LEGALE RAPPRESENTANTE'
         form.base_fields["municipal_of_leg_residence"].label = 'COMUNE DI RESIDENZA LEGALE RAPPRESENTANTE'
         form.base_fields["province_of_leg_residence"].label = 'PROVINCIA DI RESIDENZA LEGALE RAPPRESENTANTE'
         return form
+
 
 class AdminIndividualPanel(admin.ModelAdmin):
     def get_form(self, request, obj=None, **kwargs):
@@ -70,6 +70,7 @@ class AdminCondominiumPanel(admin.ModelAdmin):
         form.base_fields['select_administrator'].label  = "SELEZIONA AMMINISTRATORE"
         return form
 
+
 class AdminCatastalDataPanel(admin.ModelAdmin):
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
@@ -85,7 +86,8 @@ class AdminCatastalDataPanel(admin.ModelAdmin):
         form.base_fields['description_of_intervention'].label  = "DESCRIZIONE SINTETICA DELL'INTERVENTO"
         form.base_fields['data_of_condominium_assembly'].label  = "DATA ASSEMBLEA CONDOMINIALE IN CUI I CONDOMINI"
         return form
-    
+
+
 admin_site = MyAdminSite(name='admin')
 admin_site.register(AdministrationLegal, admin_class=AdminAdministratorLegal)
 admin_site.register(AdministrationIndividual, admin_class=AdminIndividualPanel)
