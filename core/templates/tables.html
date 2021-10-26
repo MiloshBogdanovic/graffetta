@@ -1,0 +1,304 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Form Elements {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}	
+
+    <!-- [ Main Content ] start -->
+    <section class="pcoded-main-container">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">SITUAZIONE COMPLESSIVA DELL'INTERVENTO</h5>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="#">SITUAZIONE COMPLESSIVA DELL'INTERVENTO</a></li>
+                                <li class="breadcrumb-item"><a href="#">DETTAGLIO INTERVENTO LAVORI COMUNI</a></li>
+                                <li class="breadcrumb-item"><a href="#">DETTAGLIO INTERVENTO LAVORI SOGGETTIVI</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <!-- [ Main Content ] start -->
+
+                <!-- [ form-element ] start -->
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="card table-card">
+                        <div class="card-header">
+                            {% if error %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{error}}
+                                </div>
+                            {% endif %}
+                            <h5>COMPLESSIVA DELL'INTERVENTO TAVOLO</h5>
+                            <div class="card-header-right">
+                                <div class="btn-group card-option">
+                                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="feather icon-more-horizontal"></i>
+                                    </button>
+                                    <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                        <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                                        <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                                        <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                                        <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form action="" method="post">
+                                     {% csrf_token %}
+                                        <div class="table-responsive">
+                                        <div class="customer-scroll " style="height:100%;position:relative;">
+                                        <table class="table table-hover m-b-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        <span>Descrizione <a class="help" data-toggle="popover" title="ID" data-content="Identificativo modulo condominiale"><i class="feather icon-help-circle f-16"></i></a></span>
+                                                    </th>
+                                                    <th>
+                                                        <span>IMPORTO IVA ESCLUSA € </span>
+                                                    </th>
+                                                    <th>
+                                                        <span>% CASSA PREVIDENZA </span>
+                                                    </th>
+
+                                                    <th>
+                                                        <span>% IVA DA APPLICARE (10% o 22%) </span>
+                                                    </th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <span class="text-muted mb-30">
+                                                             IMPORTO COMPLESSIVO DEI LAVORI DA ESEGUIRE
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        {{form_ex_vat.total_amt_of_work}}
+                                                    </td>
+                                                    <td>
+                                                        <span class="input-group-text" >0%</span>
+                                                    </td>
+
+                                                    <td>
+                                                       {{form_ex_vat.vat_for_total_work}}
+                                                    </td>
+
+                                                </tr>
+
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <span class="text-muted mb-30">
+                                                             IMPORTO COMPLESSIVO ONERI SICUREZZA
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        {{form_ex_vat.total_amt_safety_charges}}
+                                                    </td>
+                                                    <td>
+                                                        <span class="input-group-text" >0%</span>
+                                                    </td>
+
+                                                    <td>
+                                                        <span class="input-group-text" >22%</span>
+                                                    </td>
+
+                                                </tr>
+                                                 <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span class="text-muted mb-30">
+                                                             SPESE TECNICHE PROGETTISTA
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        {{form_ex_vat.tech_exp_designer}}
+                                                    </td>
+                                                    <td>
+                                                        {{form_ex_vat.ss_cash_for_designer}}
+                                                    </td>
+
+                                                    <td>
+                                                       {{form_ex_vat.vat_for_designer}}
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span class="text-muted mb-30">
+                                                             SPESE TECNICHE COORDINATORE SICUREZZA PROGETTAZIONE
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        {{form_ex_vat.tech_exp_coordinator_safety_des}}
+                                                    </td>
+                                                    <td>
+                                                        {{form_ex_vat.ss_cash_for_coordinator_safety_des}}
+                                                    </td>
+
+                                                    <td>
+                                                       {{form_ex_vat.vat_for_coordinator_safety_des}}
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                        <td>
+                                                            <span class="text-muted mb-30">
+                                                                 SPESE TECNICHE COORDINATORE SICUREZZA ESECUZIONE
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            {{form_ex_vat.tech_exp_coordinator_safety_exe}}
+                                                        </td>
+                                                        <td>
+                                                            {{form_ex_vat.ss_cash_for_coordinator_safety_exe}}
+                                                        </td>
+
+                                                        <td>
+                                                           {{form_ex_vat.vat_for_coordinator_safety_exe}}
+                                                        </td>
+
+                                                </tr>
+                                                <tr>
+                                                        <td>
+                                                            <span class="text-muted mb-30">
+                                                                 SPESE TECNICHE DIRETTORE LAVORI
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            {{form_ex_vat.tech_exp_director_of_work}}
+                                                        </td>
+                                                        <td>
+                                                            {{form_ex_vat.ss_cash_for_director_of_work}}
+                                                        </td>
+
+                                                        <td>
+                                                           {{form_ex_vat.vat_for_director_of_work}}
+                                                        </td>
+
+                                                </tr>
+                                                <tr>
+                                                        <td>
+                                                            <span class="text-muted mb-30">
+                                                                 SPESE TECNICHE TERMOTECNICO
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            {{form_ex_vat.tech_exp_thermotechnical}}
+                                                        </td>
+                                                        <td>
+                                                            {{form_ex_vat.ss_cash_for_thermotechnical}}
+                                                        </td>
+
+                                                        <td>
+                                                           {{form_ex_vat.vat_for_thermotechnical}}
+                                                        </td>
+
+                                                </tr>
+                                                <tr>
+                                                        <td>
+                                                            <span class="text-muted mb-30">
+                                                                 SPESE TECNICHE ESPERTO ENERGETICO
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            {{form_ex_vat.tech_exp_energy_expert}}
+                                                        </td>
+                                                        <td>
+                                                            {{form_ex_vat.ss_cash_for_energy_expert}}
+                                                        </td>
+
+                                                        <td>
+                                                           {{form_ex_vat.vat_for_energy_expert}}
+                                                        </td>
+
+                                                </tr>
+                                                <tr>
+                                                        <td>
+                                                            <span class="text-muted mb-30">
+                                                                 EVENTUALE RESPONSABILE DEI LAVORI
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            {{form_ex_vat.poss_respo_work}}
+                                                        </td>
+                                                        <td>
+                                                            {{form_ex_vat.ss_cash_for_respo_work}}
+                                                        </td>
+
+                                                        <td>
+                                                           {{form_ex_vat.vat_for_respo_work}}
+                                                        </td>
+                                                        <td>
+
+                                                        </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                        </div>
+                                        </div>
+                                        <div class="ml-3  mt-3">
+                                            <button type="submit" class="btn  btn-primary">Submit</button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Input group -->
+
+                </div>
+                <!-- [ form-element ] end -->
+
+            <!-- [ Main Content ] end -->
+
+        </div>
+    </section>
+    <!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script src="/static/assets/js/pages/tables.js"></script>
+{% endblock javascripts %}

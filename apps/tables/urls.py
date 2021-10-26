@@ -1,8 +1,8 @@
 from django.urls import path
-
-
-from .views import TableListView
+from apps.tables import views
 
 urlpatterns = [
-    path("", TableListView.as_view()),
+
+    path('', views.tables, name='tables'),
+
 ]

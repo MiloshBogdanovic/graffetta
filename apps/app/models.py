@@ -3,7 +3,7 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
-
+#list_display = [field.name for field in OverallReport._meta.get_fields()]
 # Create your models here.
 from internationalflavor.vat_number import VATNumberField
 from django.db import models
@@ -46,6 +46,9 @@ class AdministrationLegal(models.Model):
     municipal_of_leg_residence = models.CharField(max_length=30)
     province_of_leg_residence = models.CharField(max_length=30)
 
+    def __str__(self):
+        return self.company_name
+
 
 class AdministrationIndividual(models.Model):
     id = models.AutoField(primary_key=True)
@@ -65,6 +68,9 @@ class AdministrationIndividual(models.Model):
     residence_city = models.CharField(max_length=50)
     residence_province = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
 
 class CondominiumData(models.Model):
     id = models.AutoField(primary_key=True)
@@ -77,6 +83,9 @@ class CondominiumData(models.Model):
     email = models.EmailField(max_length=254, blank=False)
     pec_mail = models.EmailField(max_length=254, blank=False)
     select_administrator = models.CharField(null=True, max_length=10, choices=ADMIN_CHOICE)
+
+    def __str__(self):
+        return self.name
 
 
 class CatastalData(models.Model):
