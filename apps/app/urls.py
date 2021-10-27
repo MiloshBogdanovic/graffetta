@@ -5,6 +5,7 @@ Copyright (c) 2019 - present AppSeed.us
 
 from django.urls import path, re_path
 from apps.app import views
+from apps.app import apiViews;
 
 urlpatterns = [
 
@@ -20,6 +21,11 @@ urlpatterns = [
     path('bonus-faccata/individual<int:form>', views.individual, name='individual'),
     path('bonus-faccata/catastal<int:form>', views.catastal, name='catastal'),
     path('search', views.search, name='search_results'),
+    # Api views for editing tables
+    path('edit-invidual-admin', apiViews.save_admin_individual, name='edit-invidual-admin'),
+    path('edit-legal-admin', apiViews.save_admin_legal, name='edit-legal-admin'),
+    path('edit-catastal', apiViews.save_catastal, name='edit-catastal'),
+    path('edit-cond', apiViews.save_condominium, name='edit-cond'),
     re_path(r'^.*\.*', views.pages, name='pages'),
 
 
