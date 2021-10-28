@@ -56,6 +56,17 @@
                                 </div>
                             </div>
                         </div>
+                        {% if request.method == "POST" %}
+
+                        {{form_ex_vat}}
+                        {{form_taxable}}
+                        {{form_report}}
+                        {{table_cont}}
+                        {{form_inc_vat}}
+
+                        {% else %}
+
+
                         <div class="card-body">
 
 
@@ -283,6 +294,7 @@
                             </div>
 
                         </div>
+                        {% endif %}
                     </div>
                     <!-- Input group -->
 

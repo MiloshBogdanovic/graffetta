@@ -9,6 +9,7 @@ from internationalflavor.vat_number import VATNumberField
 from django.db import models
 from django.contrib.auth.models import User
 from django.forms import ModelForm
+from apps.tables.models import TableContract
 from django.forms.widgets import EmailInput, TextInput, Select, NumberInput, DateInput, Textarea
 
 ADMIN_CHOICE = [
@@ -103,12 +104,19 @@ class CatastalData(models.Model):
     data_of_condominium_assembly = models.DateField(auto_now=False, auto_now_add=False)
 
 
-class FormFaccata(models.Model):
+class DataInitial(models.Model):
     id = models.AutoField(primary_key=True)
     condominium = models.ForeignKey(CondominiumData, models.SET_NULL, blank=True, null=True)
     admin_legal = models.ForeignKey(AdministrationLegal, models.SET_NULL, blank=True, null=True)
     admin_individual = models.ForeignKey(AdministrationIndividual, models.SET_NULL, blank=True, null=True)
     catastal = models.ForeignKey(CatastalData, models.SET_NULL, blank=True, null=True)
+
+
+
+class FormFaccata(models.Model):
+    id = models.AutoField(primary_key=True)
+    datainit = models.ForeignKey(DataInitial, models.SET_NULL, blank=True, null=True)
+    tables = models.ForeignKey(TableContract, models.SET_NULL, blank=True, null=True)
     user = models.ForeignKey(User, models.SET_NULL, blank=True, null=True)
 
 

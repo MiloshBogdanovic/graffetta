@@ -27,7 +27,7 @@ DISS_CHOICE = [
 
 class Report(models.Model):
     id = models.AutoField(primary_key=True)
-    total_amount_includin_vat = models.DecimalField(decimal_places=2, max_digits=12, null=True)
+    total_amount_includin_vat = models.DecimalField(decimal_places=2, max_digits=12, null=True, blank=True)
     amount_of_discount_in_invoice = models.DecimalField(decimal_places=2, max_digits=12, null=True)
     amount_advance_deposit_by_customer = models.DecimalField(decimal_places=2, max_digits=12, null=True)
     total_taxable_amount = models.DecimalField(decimal_places=2, max_digits=12, null=True)
@@ -38,12 +38,12 @@ class Report(models.Model):
     amount_advance_deposit_by_customer_vat = models.DecimalField(decimal_places=2, max_digits=12, null=True)
 
     def save(self, *args, **kwargs):
-        self.amount_of_discount_in_invoice = self.total_amount_includin_vat * 0.9
-        self.amount_advance_deposit_by_customer = self.total_amount_includin_vat * 0.1
-        self.amount_of_discount_in_invoice_taxable = self.total_taxable_amount * 0.9
-        self.amount_advance_deposit_by_customer_taxable = self.total_taxable_amount * 0.1
-        self.amount_of_discount_in_invoice_vat = self.total_amount_of_vat * 0.9
-        self.amount_advance_deposit_by_customer_vat = self.total_amount_of_vat * 0.1
+        self.amount_of_discount_in_invoice = self.total_amount_includin_vat * Decimal('0.9')
+        self.amount_advance_deposit_by_customer = self.total_amount_includin_vat * Decimal('0.1')
+        self.amount_of_discount_in_invoice_taxable = self.total_taxable_amount * Decimal('0.9')
+        self.amount_advance_deposit_by_customer_taxable = self.total_taxable_amount * Decimal('0.1')
+        self.amount_of_discount_in_invoice_vat = self.total_amount_of_vat * Decimal('0.9')
+        self.amount_advance_deposit_by_customer_vat = self.total_amount_of_vat * Decimal('0.1')
         super().save(*args, **kwargs)
 
     class Meta:
@@ -78,12 +78,12 @@ class ExVat(models.Model):
     vat_for_thermotechnical = models.DecimalField(decimal_places=2, max_digits=10, default=Decimal('0.22'),
                                                   blank=False, choices=VTA_TECH_CHOICE)
     ss_cash_for_thermotechnical = models.DecimalField(decimal_places=2, max_digits=10, default=Decimal('0.04'),
-                                                               blank=False, choices=CASSA_CHOICE)
+                                                      blank=False, choices=CASSA_CHOICE)
     tech_exp_energy_expert = models.DecimalField(decimal_places=2, max_digits=12, default=0, null=True)
     vat_for_energy_expert = models.DecimalField(decimal_places=2, max_digits=10, default=Decimal('0.22'),
                                                 blank=False, choices=VTA_TECH_CHOICE)
     ss_cash_for_energy_expert = models.DecimalField(decimal_places=2, max_digits=10, default=Decimal('0.04'),
-                                                             blank=False, choices=CASSA_CHOICE)
+                                                    blank=False, choices=CASSA_CHOICE)
     poss_respo_work = models.DecimalField(decimal_places=2, max_digits=12, default=Decimal('0'), null=True)
     vat_for_respo_work = models.DecimalField(decimal_places=2, max_digits=10, default=Decimal('0.22'),
                                              blank=False, choices=VTA_TECH_CHOICE)
@@ -93,7 +93,7 @@ class ExVat(models.Model):
     total_of_the_order = models.DecimalField(decimal_places=2, max_digits=12, default=Decimal('0'), blank=True)
     vat_for_total_work = models.DecimalField(decimal_places=2, max_digits=10, default=Decimal('0.1'), blank=False,
                                              choices=VTA_CHOICE)
-    discount_in_invoice = models.DecimalField(decimal_places=2, max_digits=10, default=Decimal('0.9'), blank=False,
+    discount_in_invoice = models.DecimalField(decimal_places=2, max_digits=10, default=Decimal('0.9'), blank=True,
                                               choices=DISS_CHOICE)
 
     def save(self, *args, **kwargs):
@@ -134,32 +134,64 @@ class Taxable(models.Model):
 
 class IncVat(models.Model):
     id = models.AutoField(primary_key=True)
-    vat_for_total_work = models.DecimalField(decimal_places=2, max_digits=4, null=True)
-    total_amt_of_work = models.DecimalField(decimal_places=2, max_digits=12, null=True)
-    total_amt_of_work_amount_vat = models.DecimalField(decimal_places=2, max_digits=12, null=True)
-    total_amt_safety_charges = models.DecimalField(decimal_places=2, max_digits=12, null=True)
-    total_amt_safety_charges_amount_vat = models.DecimalField(decimal_places=2, max_digits=12, null=True)
-    tech_exp_designer = models.DecimalField(decimal_places=2, max_digits=12, default=0, null=True)
-    tech_exp_coordinator_safety_des = models.DecimalField(decimal_places=2, max_digits=12, default=0, null=True)
-    tech_exp_coordinator_safety_exe = models.DecimalField(decimal_places=2, max_digits=12, default=0, null=True)
-    tech_exp_director_of_work = models.DecimalField(decimal_places=2, max_digits=12, default=0, null=True)
-    tech_exp_thermotechnical = models.DecimalField(decimal_places=2, max_digits=12, default=0, null=True)
-    tech_exp_energy_expert = models.DecimalField(decimal_places=2, max_digits=12, default=0, null=True)
-    poss_respo_work = models.DecimalField(decimal_places=2, max_digits=12, default=0, null=True)
-    total_tech_exp = models.DecimalField(decimal_places=2, max_digits=12, default=0, null=True)
-    total_tech_exp_amount_vat = models.DecimalField(decimal_places=2, max_digits=12, null=True)
-    total_of_the_order = models.DecimalField(decimal_places=2, max_digits=12, default=0, null=True)
-    total_of_the_order_amount_vat = models.DecimalField(decimal_places=2, max_digits=12, default=0, null=True)
+    vat_for_total_work = models.DecimalField(decimal_places=2, max_digits=12, null=True, blank=True)
+    total_amt_of_work = models.DecimalField(decimal_places=2, max_digits=12, null=True, blank=True)
+    total_amt_of_work_amount_vat = models.DecimalField(decimal_places=2, max_digits=12, null=True, blank=True)
+    total_amt_safety_charges = models.DecimalField(decimal_places=2, max_digits=12, null=True, blank=True)
+    total_amt_safety_charges_amount_vat = models.DecimalField(decimal_places=2, max_digits=12, null=True, blank=True)
+    tech_exp_designer = models.DecimalField(decimal_places=2, max_digits=12, default=Decimal('0'),
+                                            null=True, blank=True)
+    tech_exp_designer_amount_vat = models.DecimalField(decimal_places=2, max_digits=12, default=Decimal('0'),
+                                                       null=True, blank=True)
+    tech_exp_coordinator_safety_des = models.DecimalField(decimal_places=2, max_digits=12, default=Decimal('0'),
+                                                          null=True, blank=True)
+    tech_exp_coordinator_safety_des_amount_vat = models.DecimalField(decimal_places=2, max_digits=12,
+                                                                     default=Decimal('0'), null=True, blank=True)
+    tech_exp_coordinator_safety_exe = models.DecimalField(decimal_places=2, max_digits=12, default=Decimal('0'),
+                                                          null=True, blank=True)
+    tech_exp_coordinator_safety_exe_amount_vat = models.DecimalField(decimal_places=2, max_digits=12,
+                                                                     default=Decimal('0'), null=True, blank=True)
+    tech_exp_director_of_work = models.DecimalField(decimal_places=2, max_digits=12, default=Decimal('0'),
+                                                    null=True, blank=True)
+    tech_exp_director_of_work_amount_vat = models.DecimalField(decimal_places=2, max_digits=12, default=Decimal('0'),
+                                                               null=True, blank=True)
+    tech_exp_thermotechnical = models.DecimalField(decimal_places=2, max_digits=12, default=Decimal('0'),
+                                                   null=True, blank=True)
+    tech_exp_thermotechnical_amount_vat = models.DecimalField(decimal_places=2, max_digits=12, default=Decimal('0'),
+                                                              null=True, blank=True)
+    tech_exp_energy_expert = models.DecimalField(decimal_places=2, max_digits=12, default=Decimal('0'),
+                                                 null=True, blank=True)
+    tech_exp_energy_expert_amount_vat = models.DecimalField(decimal_places=2, max_digits=12, default=Decimal('0'),
+                                                            null=True, blank=True)
+    poss_respo_work = models.DecimalField(decimal_places=2, max_digits=12, default=Decimal('0'), null=True,
+                                          blank=True)
+    poss_respo_work_amount_vat = models.DecimalField(decimal_places=2, max_digits=12, default=Decimal('0'),
+                                                     null=True, blank=True)
+    total_tech_exp = models.DecimalField(decimal_places=2, max_digits=12, default=Decimal('0'), null=True,
+                                         blank=True)
+    total_tech_exp_amount_vat = models.DecimalField(decimal_places=2, max_digits=12, default=Decimal('0'),
+                                                    null=True, blank=True)
+    total_of_the_order = models.DecimalField(decimal_places=2, max_digits=12, default=Decimal('0'),
+                                             null=True, blank=True)
+    total_of_the_order_amount_vat = models.DecimalField(decimal_places=2, max_digits=12, default=Decimal('0'),
+                                                        null=True, blank=True)
 
     def save(self, *args, **kwargs):
         self.total_tech_exp = self.tech_exp_designer + self.tech_exp_coordinator_safety_des + \
                               self.tech_exp_coordinator_safety_exe + self.tech_exp_director_of_work + \
                               self.tech_exp_thermotechnical + self.tech_exp_energy_expert + self.poss_respo_work
         self.total_of_the_order = self.total_amt_of_work + self.total_amt_safety_charges + self.total_tech_exp
-        self.total_amt_of_work_amount_vat = fractions.Fraction(self.total_amt_of_work, (1 + self.vat_for_total_work))
-        self.total_amt_safety_charges_amount_vat = fractions.Fraction(self.total_amt_safety_charges, 1.22)
-        self.total_tech_exp_amount_vat = fractions.Fraction(self.total_tech_exp, 1.22)
-        self.total_of_the_order_amount_vat = fractions.Fraction(self.total_of_the_order, 1.22)
+        self.total_amt_of_work_amount_vat = self.total_amt_of_work - (
+                self.total_amt_of_work / (1 + self.vat_for_total_work))
+        self.total_amt_safety_charges_amount_vat = self.total_amt_safety_charges - (
+                self.total_amt_safety_charges / Decimal('1.22'))
+        self.total_tech_exp_amount_vat = self.tech_exp_designer_amount_vat + \
+                                         self.tech_exp_coordinator_safety_des_amount_vat + self.tech_exp_coordinator_safety_exe_amount_vat + \
+                                         self.tech_exp_director_of_work_amount_vat + self.tech_exp_thermotechnical_amount_vat + \
+                                         self.tech_exp_energy_expert_amount_vat + self.poss_respo_work_amount_vat
+
+        self.total_of_the_order_amount_vat = self.total_amt_of_work_amount_vat + self.total_amt_safety_charges_amount_vat \
+                                             + self.total_tech_exp_amount_vat
         super().save(*args, **kwargs)
 
     class Meta:
@@ -321,3 +353,27 @@ class ExVatForm(ModelForm):
 
 class OverallExVatForm(ExVatForm):
     pass
+
+
+class CommonExVatForm(ExVatForm):
+    pass
+
+
+class SubjectiveExVatForm(ExVatForm):
+    pass
+
+
+class TableContract(models.Model):
+    id = models.AutoField(primary_key=True)
+    overall_rep = models.ForeignKey(OverallReport, models.SET_NULL, blank=True, null=True)
+    overall_ex_vat = models.ForeignKey(OverallExVat, models.SET_NULL, blank=True, null=True)
+    overall_in_vat = models.ForeignKey(OverallIncVat, models.SET_NULL, blank=True, null=True)
+    overall_taxable = models.ForeignKey(OverallTaxable, models.SET_NULL, blank=True, null=True)
+    common_rep = models.ForeignKey(CommonWorkReport, models.SET_NULL, blank=True, null=True)
+    common_ex_vat = models.ForeignKey(CommonWorkExVat, models.SET_NULL, blank=True, null=True)
+    common_in_vat = models.ForeignKey(CommonWorkIncVat, models.SET_NULL, blank=True, null=True)
+    common_taxable = models.ForeignKey(CommonWorkTaxable, models.SET_NULL, blank=True, null=True)
+    subjective_rep = models.ForeignKey(SubjectiveWorkReport, models.SET_NULL, blank=True, null=True)
+    subjective_ex_vat = models.ForeignKey(SubjectiveWorkExVat, models.SET_NULL, blank=True, null=True)
+    subjective_in_vat = models.ForeignKey(SubjectiveWorkIncVat, models.SET_NULL, blank=True, null=True)
+    subjective_taxable = models.ForeignKey(SubjectiveWorkTaxable, models.SET_NULL, blank=True, null=True)
