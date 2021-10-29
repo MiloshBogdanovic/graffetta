@@ -45,25 +45,13 @@ $(document).ready(function(){
         console.log(value);
         console.log(type);
         console.log.log(table)
-        let url;
-        switch(table){
-            case 'condo':
-                url = 'edit-cond'
-                break;
-            case 'cat':
-                url = 'edit-catastal'
-                break;
-            case 'legal':
-                url = 'edit-legal-admin'
-                break;
-            case 'individual':
-                url = 'edit-individual-admin'
-        }
+        let url = 'edit-table-data';
+        
 
         $.ajax({
             url:`http://localhost:8000/${url}`,
             type:"POST",
-            data:{id:id,type:type,value:value},
+            data:{id:id,type:type,value:value, table: table},
         })
         .done(function(response){
             console.log(response);
