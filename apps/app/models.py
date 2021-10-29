@@ -10,6 +10,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from apps.tables.models import TableContract
+# from apps.tables.models import OverallReport, OverallExVat, OverallIncVat, OverallTaxable, CommonWorkReport, CommonWorkExVat, CommonWorkIncVat, CommonWorkTaxable, SubjectiveWorkReport, SubjectiveWorkExVat
+
+
 from django.forms.widgets import EmailInput, TextInput, Select, NumberInput, DateInput, Textarea
 
 ADMIN_CHOICE = [
@@ -50,6 +53,10 @@ class AdministrationLegal(models.Model):
     def __str__(self):
         return self.company_name
 
+    class Meta:
+        managed = True
+
+
 
 class AdministrationIndividual(models.Model):
     id = models.AutoField(primary_key=True)
@@ -72,6 +79,9 @@ class AdministrationIndividual(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        managed = True
+
 
 class CondominiumData(models.Model):
     id = models.AutoField(primary_key=True)
@@ -88,6 +98,9 @@ class CondominiumData(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        managed = True
+
 
 class CatastalData(models.Model):
     id = models.AutoField(primary_key=True)
@@ -103,6 +116,8 @@ class CatastalData(models.Model):
     description_of_intervention = models.CharField(max_length=500)
     data_of_condominium_assembly = models.DateField(auto_now=False, auto_now_add=False)
 
+    class Meta:
+        managed = True
 
 class DataInitial(models.Model):
     id = models.AutoField(primary_key=True)
@@ -111,6 +126,8 @@ class DataInitial(models.Model):
     admin_individual = models.ForeignKey(AdministrationIndividual, models.SET_NULL, blank=True, null=True)
     catastal = models.ForeignKey(CatastalData, models.SET_NULL, blank=True, null=True)
 
+    class Meta:
+        managed = True
 
 
 class FormFaccata(models.Model):
@@ -118,6 +135,9 @@ class FormFaccata(models.Model):
     datainit = models.ForeignKey(DataInitial, models.SET_NULL, blank=True, null=True)
     tables = models.ForeignKey(TableContract, models.SET_NULL, blank=True, null=True)
     user = models.ForeignKey(User, models.SET_NULL, blank=True, null=True)
+
+    class Meta:
+        managed = True
 
 
 class CondominiumForm(ModelForm):

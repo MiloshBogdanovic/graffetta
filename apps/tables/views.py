@@ -12,7 +12,6 @@ from django.contrib.auth.decorators import login_required
 def tables(request):
     context = {'segment': 'table'}
     form_ex_vat = OverallExVatForm()
-    form_taxable = OverallTaxable()
     context['form_ex_vat'] = form_ex_vat
     if request.method == 'POST':
         form_ex_vat = OverallExVatForm(request.POST)

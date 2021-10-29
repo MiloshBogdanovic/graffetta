@@ -199,52 +199,63 @@ class IncVat(models.Model):
 
 
 class OverallReport(Report):
-    pass
+    class Meta:
+        managed = True
 
 
 class OverallExVat(ExVat):
-    pass
+    class Meta:
+        managed = True
 
 
 class OverallIncVat(IncVat):
-    pass
+    class Meta:
+        managed = True
 
 
 class OverallTaxable(Taxable):
-    pass
+    class Meta:
+        managed = True
 
 
 class CommonWorkReport(Report):
-    pass
+    class Meta:
+        managed = True
 
 
 class CommonWorkExVat(ExVat):
-    pass
+    class Meta:
+        managed = True
 
 
 class CommonWorkIncVat(IncVat):
-    pass
+    class Meta:
+        managed = True
 
 
 class CommonWorkTaxable(Taxable):
-    pass
+    class Meta:
+        managed = True
 
 
 class SubjectiveWorkReport(Report):
-    pass
+    class Meta:
+        managed = True
 
 
 class SubjectiveWorkExVat(ExVat):
-    pass
+    class Meta:
+        managed = True
 
 
 class SubjectiveWorkIncVat(IncVat):
-    pass
+    class Meta:
+        managed = True
 
 
 class SubjectiveWorkTaxable(Taxable):
-    pass
-
+    class Meta:
+        managed = True
 
 class ExVatForm(ModelForm):
     class Meta:
@@ -352,15 +363,18 @@ class ExVatForm(ModelForm):
 
 
 class OverallExVatForm(ExVatForm):
-    pass
+    class Meta:
+        managed = True
 
 
 class CommonExVatForm(ExVatForm):
-    pass
+    class Meta:
+        managed = True
 
 
 class SubjectiveExVatForm(ExVatForm):
-    pass
+    class Meta:
+        managed = True
 
 
 class TableContract(models.Model):
@@ -377,3 +391,6 @@ class TableContract(models.Model):
     subjective_ex_vat = models.ForeignKey(SubjectiveWorkExVat, models.SET_NULL, blank=True, null=True)
     subjective_in_vat = models.ForeignKey(SubjectiveWorkIncVat, models.SET_NULL, blank=True, null=True)
     subjective_taxable = models.ForeignKey(SubjectiveWorkTaxable, models.SET_NULL, blank=True, null=True)
+
+    class Meta:
+        managed = True
