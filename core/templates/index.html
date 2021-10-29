@@ -33,26 +33,26 @@
 
                                 <ul class="nav nav-pills nav-fill mt-3 border-bottom pb-3" id="pills-tab" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="pills-form-tab" data-toggle="pill" href="#pills-form" role="tab" aria-controls="pills-form" aria-selected="true"><i class="feather icon-file-text m-r-5"></i>Forme popolate</a>
+                                        <a class="nav-link active" id="pills-form-tab" data-toggle="pill" href="#pills-form" role="tab" aria-controls="pills-form" aria-selected="true"><i class="feather icon-file-text m-r-5"></i>Forme Popolate</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="pills-cond-tab" data-toggle="pill" href="#pills-cond" role="tab" aria-controls="pills-cond-tab" aria-selected="false"><i class="feather icon-file-text m-r-5"></i>Condominio</a>
+                                        <a class="nav-link" id="pills-data-tab" data-toggle="pill" href="#pills-data" role="tab" aria-controls="pills-data-tab" aria-selected="false"><i class="feather icon-file-text m-r-5"></i>Dati Iniziali</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="pills-individ-tab" data-toggle="pill" href="#pills-individ" role="tab" aria-controls="pills-individ" aria-selected="false"><i class="feather icon-file-text m-r-5"></i>Fisca </a>
+                                        <a class="nav-link" id="pills-table-tab" data-toggle="pill" href="#pills-table" role="tab" aria-controls="pills-table" aria-selected="false"><i class="feather icon-file-text m-r-5"></i>Sintesi Contratto Cliente</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="pills-flegal-tab" data-toggle="pill" href="#pills-flegal" role="tab" aria-controls="pills-flegal" aria-selected="false"><i class="feather icon-file-text m-r-5"></i>Giuridica</a>
+                                        <a class="nav-link" id="pills-beneficiary-tab" data-toggle="pill" href="#pills-beneficiary" role="tab" aria-controls="pills-beneficiary" aria-selected="false"><i class="feather icon-file-text m-r-5"></i>Dettaglio Dei Beneficiari</a>
                                     </li>
                                      <li class="nav-item">
-                                        <a class="nav-link" id="pills-catast-tab" data-toggle="pill" href="#pills-catast" role="tab" aria-controls="pills-catast" aria-selected="false"><i class="feather icon-file-text m-r-5"></i>Catastali</a>
+                                        <a class="nav-link" id="pills-professional-tab" data-toggle="pill" href="#pills-professional" role="tab" aria-controls="pills-professional" aria-selected="false"><i class="feather icon-file-text m-r-5"></i>Incarichi Professionali</a>
                                     </li>
                                 </ul>
 
                         </div>
                         <div class="card-body p-0">
                             <div class="tab-content" id="pills-tabContent">
-                                <div class="tab-pane fade show active" id="pills-form" role="tabpanel" aria-labelledby="pills-form-tab">
+                                <div class="tab-pane fade show active" id="pills-data" role="tabpanel" aria-labelledby="pills-data-tab">
                                     <div class="table-responsive">
                                         <div class="customer-scroll" style="height:420px;position:relative;">
                                             <table class="table table-hover m-b-0">
@@ -66,7 +66,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                 {%for form in fform%}
+                                                 {%for form in dform%}
                                                     <tr>
                                                             {%if form.id%}
                                                             <td>{{form.id}}</td>
@@ -102,38 +102,84 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="pills-cond" role="tabpanel" aria-labelledby="pills-cond-tab">
+                                <div class="tab-pane fade" id="pills-form" role="tabpanel" aria-labelledby="pills-form-tab">
                                     <div class="table-responsive">
                                         <div class="customer-scroll1" style="height:420px;position:relative;">
                                             <table class="table table-hover m-b-0">
                                                 <thead>
                                                     <tr>
-                                                        <th><span>CONDOMINIO ID</span></th>
-                                                        <th><span>DENOMINAZIONE<a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>VIA/I UBICAZIONE<a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>CODICE FISCALE<a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>CAP<a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>COMUNE UBICAZIONE<a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>PROVINCIA<a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>MAIL <a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>PEC <a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>TIPO <a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>DATI ID</span></th>
+                                                        <th><span>Condominio <a class="help" data-toggle="popover" title="ID" data-content="Identificativo modulo condominiale"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>Amm. Fisica<a class="help" data-toggle="popover" title="ID" data-content="AMMINISTRATORE PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>Amm. Giuridica<a class="help" data-toggle="popover" title="ID" data-content="AMMINISTRATORE PERSONA GIURIDICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>CATASTALI<a class="help" data-toggle="popover" title="ID" data-content="AMMINISTRATORE PERSONA GIURIDICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>Sit. Comp. Int.<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>Det. Int. Comuni<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>Det. Int. Soggettivi<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>Beneficiari<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>Progettista<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>Coor. Sicurezza Prog.<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>Coor. Sicurezza Esec.<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>Dir. Lavori<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>Termotecnico<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>Energ. Esp.<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>Resp. Lavori<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                 {%for form in cform%}
+
+                                                {% for f in fff %}
                                                     <tr>
-                                                        <td>{{form.id}}</td>
-                                                        <td class="editable" data-id="{{form.id}}" data-type="name" data-table="condo">{{form.name}}</td>
-                                                        <td class="editable" data-id="{{form.fiscal_code}}" data-type="fiscal_code" data-table="condo">{{form.fiscal_code}}</td>
-                                                        <td class="editable" data-id="{{form.street}}" data-type="street" data-table="condo">{{form.street}}</td>
-                                                        <td class="editable" data-id="{{form.cap}}" data-type="cap" data-table="condo">{{form.cap}}</td>
-                                                        <td class="editable" data-id="{{form.municipality}}" data-type="municipality" data-table="condo">{{form.municipality}}</td>
-                                                        <td class="editable" data-id="{{form.province}}" data-type="province" data-table="condo">{{form.province}}</td>
-                                                        <td class="editable" data-id="{{form.email}}" data-type="email" data-table="condo">{{form.email}}</td>
-                                                        <td class="editable" data-id="{{form.pec_mail}}" data-type="pec_mail" data-table="condo">{{form.pec_mail}}</td>
-                                                        <td> {{form.select_administrator}}</td>
-                                                        <td><a class="success" href="/update_fac/{{form.id}}">Update</a></td>
+                                                        {%if f.id%}
+                                                            <td>{{f.id}}</td>
+                                                        {%else%}
+                                                            <td> - </td>
+                                                        {%endif%}
+
+                                                        {%if f.datainit_id.condominium_id%}
+                                                            <td>{{f.datainit_id.condominium_id}}</td>
+                                                        {%else%}
+                                                            <td> - </td>
+                                                        {%endif%}
+
+                                                        {%if f.datainit_id.admin_individual_id%}
+                                                            <td>{{f.datainit_id.admin_individual_id}}</td>
+                                                        {%else%}
+                                                            <td> - </td>
+                                                        {%endif%}
+
+                                                        {%if f.datainit_id.admin_legal_id%}
+                                                            <td>{{f.datainit_id.admin_legal_id}}</td>
+                                                        {%else%}
+                                                            <td> - </td>
+                                                        {%endif%}
+
+                                                        {%if f.datainit_id.catastal_id%}
+                                                            <td>{{f.datainit_id.catastal_id}}</td>
+                                                        {%else%}
+                                                            <td> - </td>
+                                                        {%endif%}
+
+                                                        {%if f.tables_id.overall_rep_id%}
+                                                            <td>{{f.tables_id.overall_rep_id}}</td>
+                                                        {%else%}
+                                                            <td> - </td>
+                                                        {%endif%}
+
+                                                        {%if f.tables_id.common_rep_id%}
+                                                            <td>{{f.tables_id.common_rep_id}}</td>
+                                                        {%else%}
+                                                            <td> - </td>
+                                                        {%endif%}
+
+                                                        {%if f.subjective_rep_id%}
+                                                            <td>{{f.subjective_rep_id}}</td>
+                                                        {%else%}
+                                                            <td> - </td>
+                                                        {%endif%}
+
+                                                        <td>-</td>
                                                     </tr>
                                                  {% endfor %}
                                                 </tbody>
@@ -141,49 +187,109 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="pills-individ" role="tabpanel" aria-labelledby="pills-individ-tab">
+                                <div class="tab-pane fade" id="pills-table" role="tabpanel" aria-labelledby="pills-table-tab">
                                     <div class="table-responsive">
                                         <div class="customer-scroll2" style="height:420px;position:relative;">
                                             <table class="table table-hover m-b-0">
                                                 <thead>
                                                     <tr>
-                                                        <th><span>ID</span></th>
-                                                        <th><span>TITOLO<a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>COGNOME e NOME <a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>CODICE FISCALE <a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>PARTITA IVA <a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>DATA DI NASCITA <a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>COMUNE DI NASCITA <a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>PROVINCIA DI NASCITA <a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>VIA I SEDE ATTIVITA<a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>CAP SEDE ATTIVITA<a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>COMUNE SEDE ATTIVITA<a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>PROVINCIA SEDE ATTIVITA<a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>VIA E NUMERO RESIDENZA<a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>CAP RESIDENZA<a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>COMUNE DI RESIDENZA<a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>PROVINCIA DI RESIDENZA<a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>ID CONTRATTO </span></th>
+                                                        <th><span>SIT. COMP. IVA ESC.<a class="help" data-toggle="popover" title="Popover title" data-content="SITUAZIONE COMPLESSIVA IVA ESCLUSA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>SIT. COMP. IMPONIBILE IVA<a class="help" data-toggle="popover" title="Popover title" data-content="SITUAZIONE COMPLESSIVA IMPONIBILE IVA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>SIT. COMP. IMPORTO IVA INC.<a class="help" data-toggle="popover" title="Popover title" data-content="SITUAZIONE COMPLESSIVA IMPORTO IVA INCLUSA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>GLOBALE DELL'INTERVENTO<a class="help" data-toggle="popover" title="Popover title" data-content="RAPPORTO GLOBALE DELL'INTERVENTO"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>INT. LAV. COM. IVA ESC.<a class="help" data-toggle="popover" title="Popover title" data-content="INTERVENTO LAVORI COMUNI IVA ESCLUSA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>INT. LAV. COM. IMPONIBILE IVA<a class="help" data-toggle="popover" title="Popover title" data-content="INTERVENTO LAVORI COMUNI IMPONIBILE IVA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>INT. LAV. COM. IMPORTO IVA INC.<a class="help" data-toggle="popover" title="Popover title" data-content="INTERVENTO LAVORI COMUNI IMPORTO IVA INCLUSA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>LAVORI COMUNI<a class="help" data-toggle="popover" title="Popover title" data-content="RAPPORTO LAVORI COMUNI"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>INT. LAV. SOGG. IVA ESC.<a class="help" data-toggle="popover" title="Popover title" data-content="INTERVENTO LAVORI SOGGETTIVI IVA ESCLUSA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>INT. LAV. SOGG. IMPONIBILE IVA<a class="help" data-toggle="popover" title="Popover title" data-content="INTERVENTO LAVORI SOGGETTIVI IMPONIBILE IVA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>INT. LAV. SOGG. IMPORTO IVA INC.<a class="help" data-toggle="popover" title="Popover title" data-content="INTERVENTO LAVORI SOGGETTIVI IMPORTO IVA INCLUSA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>LAVORI SOGGETTIVI <a class="help" data-toggle="popover" title="Popover title" data-content="RAPPORTO LAVORI SOGGETTIVI"><i class="feather icon-help-circle f-16"></i></a></span></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                {%for form in iform%}
+                                                {%for f in tform%}
                                                     <tr>
-                                                        <td>{{form.id}}</td>
-                                                        <td class="editable" data-id="{{form.title}}" data-type="title" data-table="individual">{{form.title}}</td>
-                                                        <td class="editable" data-id="{{form.first_name}}" data-type="first_name" data-table="individual">{{form.first_name}}</td>
-                                                        <td class="editable" data-id="{{form.fiscal_code}}" data-type="fiscal_code" data-table="individual">{{form.fiscal_code}}</td>
-                                                        <td class="editable" data-id="{{form.vat_number}}" data-type="vat_number" data-table="individual">{{form.vat_number}}</td>
-                                                        <td class="editable" data-id="{{form.dob}}" data-type="dob" data-table="individual">{{form.dob}}</td>
-                                                        <td class="editable" data-id="{{form.birthplace}}" data-type="birthplace" data-table="individual">{{form.birthplace}}</td>
-                                                        <td class="editable" data-id="{{form.birthplace_county}}" data-type="birthplace_county" data-table="individual">{{form.birthplace_county}}</td>
-                                                        <td class="editable" data-id="{{form.activity_street}}" data-type="activity_street" data-table="individual">{{form.activity_street}}</td>
-                                                        <td class="editable" data-id="{{form.activity_location_cap}}" data-type="activity_location_cap" data-table="individual">{{form.activity_location_cap}}</td>
-                                                        <td class="editable" data-id="{{form.activity_municipality}}" data-type="activity_municipality" data-table="individual">{{form.activity_municipality}}</td>
-                                                        <td class="editable" data-id="{{form.activity_province}}" data-type="activity_province" data-table="individual">{{form.activity_province}}</td>
-                                                        <td class="editable" data-id="{{form.residence_street}}" data-type="residence_street" data-table="individual">{{form.residence_street}}</td>
-                                                        <td class="editable" data-id="{{form.residence_cap}}" data-type="residence_cap" data-table="individual">{{form.residence_cap}}</td>
-                                                        <td class="editable" data-id="{{form.residence_city}}" data-type="residence_city" data-table="individual">{{form.residence_city}}</td>
-                                                        <td class="editable" data-id="{{form.residence_province}}" data-type="residence_province" data-table="individual">{{form.residence_province}}</td>
+                                                        {%if f.id%}
+                                                            <td>{{f.id}}</td>
+                                                        {%else%}
+                                                            <td> - </td>
+                                                        {%endif%}
+
+                                                        {%if f.overall_ex_vat%}
+                                                            <td>{{f.overall_ex_vat_id}}</td>
+                                                        {%else%}
+                                                            <td> - </td>
+                                                        {%endif%}
+
+                                                        {%if f.overall_taxable%}
+                                                            <td>{{f.overall_taxable_id}}</td>
+                                                        {%else%}
+                                                            <td> - </td>
+                                                        {%endif%}
+
+                                                        {%if f.overall_in_vat%}
+                                                            <td>{{f.overall_in_vat_id}}</td>
+                                                        {%else%}
+                                                            <td> - </td>
+                                                        {%endif%}
+
+                                                        {%if f.overall_rep%}
+                                                            <td>{{f.overall_rep_id}}</td>
+                                                        {%else%}
+                                                            <td> - </td>
+                                                        {%endif%}
+
+                                                        {%if f.common_ex_vat%}
+                                                            <td>{{f.common_ex_vat_id}}</td>
+                                                        {%else%}
+                                                            <td> - </td>
+                                                        {%endif%}
+
+                                                        {%if f.common_taxable%}
+                                                            <td>{{f.common_taxable_id}}</td>
+                                                        {%else%}
+                                                            <td> - </td>
+                                                        {%endif%}
+
+                                                        {%if f.common%}
+                                                            <td>{{f.common_in_vat_id}}</td>
+                                                        {%else%}
+                                                            <td> - </td>
+                                                        {%endif%}
+
+                                                        {%if f.common_rep%}
+                                                            <td>{{f.common_rep_id}}</td>
+                                                        {%else%}
+                                                            <td> - </td>
+                                                        {%endif%}
+
+                                                        {%if f.subjective_ex_vat%}
+                                                            <td>{{f.subjective_ex_vat_id}}</td>
+                                                        {%else%}
+                                                            <td> - </td>
+                                                        {%endif%}
+
+                                                        {%if f.subjective_taxable%}
+                                                            <td>{{f.subjective_taxable_id}}</td>
+                                                        {%else%}
+                                                            <td> - </td>
+                                                        {%endif%}
+
+                                                        {%if f.subjective_in_vat%}
+                                                            <td>{{f.subjective_in_vat_id}}</td>
+                                                        {%else%}
+                                                            <td> - </td>
+                                                        {%endif%}
+
+                                                        {%if f.subjective_rep%}
+                                                            <td>{{f.subjective_rep_id}}</td>
+                                                        {%else%}
+                                                            <td> - </td>
+                                                        {%endif%}
+
+
                                                     </tr>
                                                  {% endfor %}
                                                 </tbody>
@@ -191,7 +297,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="pills-flegal" role="tabpanel" aria-labelledby="pills-flegal-tab">
+                                <div class="tab-pane fade" id="pills-beneficiary" role="tabpanel" aria-labelledby="pills-beneficiary-tab">
                                     <div class="table-responsive">
                                         <div class="customer-scroll3" style="height:420px;position:relative;">
                                             <table class="table table-hover m-b-0">
@@ -248,7 +354,7 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-pane fade" id="pills-catast" role="tabpanel" aria-labelledby="pills-catast-tab">
+                                <div class="tab-pane fade" id="pills-professional" role="tabpanel" aria-labelledby="pills-professional-tab">
                                     <div class="table-responsive">
                                         <div class="customer-scroll3" style="height:420px;position:relative;">
                                             <table class="table table-hover m-b-0">

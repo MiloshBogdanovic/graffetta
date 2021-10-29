@@ -8,16 +8,19 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.template import loader
 from django.urls import reverse
+from apps.tables.models import TableContract
 from apps.app.models import CondominiumData, CondominiumForm, AdministrationIndividualForm, AdministrationLegalForm,\
-    FormFaccata, CatastalDataForm, AdministrationIndividual, AdministrationLegal, CatastalData
+    FormFaccata, CatastalDataForm, AdministrationIndividual, AdministrationLegal, CatastalData, DataInitial
 from django.shortcuts import get_object_or_404, render
+from itertools import chain
 
 
 @login_required(login_url="/login/")
 def index(request):
     context = {'segment': 'index'}
-    fform = FormFaccata.objects.all()
-    context['fform'] = fform
+    context['fff'] = FormFaccata.objects.all()
+    context['dform'] = DataInitial.objects.all()
+    context['tform'] = TableContract.objects.all()
     html_template = loader.get_template('index.html')
     return HttpResponse(html_template.render(context, request))
 
@@ -73,16 +76,19 @@ def bonus(request):
     context['forms'] = forms
     if request.method == 'POST':
         form = CondominiumForm(request.POST)
-        fform = FormFaccata()
+        dform = DataInitial()
+        fff = FormFaccata()
         if form.is_valid():
             f = form.save()
-            fform.condominium_id = f.id
-            fform.user_id = request.user.id
-            fform.save()
+            dform.condominium_id = f.id
+            dform.save()
+            fff.datainit_id = dform.id
+            fff.user_id = request.user.id
+            fff.save()
             if f.select_administrator == 'Legal':
-                return redirect('legal', form=fform.id)
+                return redirect('legal', form=dform.id)
             elif f.select_administrator == 'Individual':
-                return redirect('individual', form=fform.id)
+                return redirect('individual', form=dform.id)
 
         else:
             context['errors'] = form.errors
@@ -95,16 +101,16 @@ def bonus(request):
 @login_required(login_url="/login/")
 def legal(request, form):
     context = {'segment': 'legal'}
-    fform = get_object_or_404(FormFaccata, pk=form)
+    dform = get_object_or_404(DataInitial, pk=form)
     forms = AdministrationLegalForm()
     context['forms'] = forms
     if request.method == 'POST':
         form = AdministrationLegalForm(request.POST)
         if form.is_valid():
             f = form.save()
-            fform.admin_legal_id = f.id
-            fform.save()
-            return redirect('catastal', form=fform.id)
+            dform.admin_legal_id = f.id
+            dform.save()
+            return redirect('catastal', form=dform.id)
 
         else:
             context['errors'] = form.errors
@@ -116,16 +122,16 @@ def legal(request, form):
 @login_required(login_url="/login/")
 def individual(request, form):
     context = {'segment': 'individual'}
-    fform = get_object_or_404(FormFaccata, pk=form)
+    dform = get_object_or_404(DataInitial, pk=form)
     forms = AdministrationIndividualForm()
     context['forms'] = forms
     if request.method == 'POST':
         form = AdministrationIndividualForm(request.POST)
         if form.is_valid():
             f = form.save()
-            fform.admin_individual_id = f.id
-            fform.save()
-            return redirect('catastal', form=fform.id)
+            dform.admin_individual_id = f.id
+            dform.save()
+            return redirect('catastal', form=dform.id)
 
         else:
             context['errors'] = form.errors
@@ -137,15 +143,15 @@ def individual(request, form):
 @login_required(login_url="/login/")
 def catastal(request, form):
     context = {'segment': 'catastal'}
-    fform = get_object_or_404(FormFaccata, pk=form)
+    dform = get_object_or_404(DataInitial, pk=form)
     forms = CatastalDataForm()
     context['forms'] = forms
     if request.method == 'POST':
         form = CatastalDataForm(request.POST)
         if form.is_valid():
             f = form.save()
-            fform.catastal_id = f.id
-            fform.save()
+            dform.catastal_id = f.id
+            dform.save()
             return redirect(reverse('home'))
 
         else:
