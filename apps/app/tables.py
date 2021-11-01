@@ -10,7 +10,7 @@ class CondominiumTable(tables.Table):
                 'data-id': lambda record: record.name,
                 'data-type':'name'
         }
-    })
+    }, verbose_name='nome')
 
     fiscal_code = tables.Column(attrs={
         'td': {
@@ -18,7 +18,7 @@ class CondominiumTable(tables.Table):
                 'data-id': lambda record: record.fiscal_code,
                 'data-type':'fiscal_code'
         }
-    })
+    }, verbose_name='codice fiscale')
 
     street = tables.Column(attrs={
         'td': {
@@ -26,7 +26,7 @@ class CondominiumTable(tables.Table):
                 'data-id': lambda record: record.street,
                 'data-type':'street'
         }
-    })
+    }, verbose_name='Via')
 
     cap = tables.Column(attrs={
         'td': {
@@ -42,7 +42,7 @@ class CondominiumTable(tables.Table):
                 'data-id': lambda record: record.municipality,
                 'data-type':'municipality'
         }
-    })
+    }, verbose_name='comune')
 
     province = tables.Column(attrs={
         'td': {
@@ -50,7 +50,7 @@ class CondominiumTable(tables.Table):
                 'data-id': lambda record: record.province,
                 'data-type':'province'
         }
-    })
+    }, verbose_name='provincia')
 
     email = tables.Column(attrs={
         'td': {
@@ -58,7 +58,7 @@ class CondominiumTable(tables.Table):
                 'data-id': lambda record: record.email,
                 'data-type':'email'
         }
-    })
+    }, verbose_name='e-mail')
 
     pec_mail = tables.Column(attrs={
         'td': {
@@ -66,7 +66,7 @@ class CondominiumTable(tables.Table):
                 'data-id': lambda record: record.pec_mail,
                 'data-type':'pec_mail'
         }
-    })
+    }, verbose_name='pec e-mail')
     
     class Meta:
         model = CondominiumData
