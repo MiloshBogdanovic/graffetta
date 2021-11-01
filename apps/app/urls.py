@@ -24,6 +24,9 @@ urlpatterns = [
     # Api views for editing tables
     path('edit-table-data', views.save_table_data, name='edit-table-data'),
     path('condominium', views.condo_list, name="condominium"),
+    path('catastal', views.catastal_list, name="catastal"),
+    path('admin-legal', views.admin_legal_list, name="admin-legal"),
+    path('admin-individual', views.admin_individual_list, name="admin-individual"),
     re_path(r'^.*\.*', views.pages, name='pages')
 ]
 

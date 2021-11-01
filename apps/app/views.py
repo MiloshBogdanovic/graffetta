@@ -11,7 +11,7 @@ from django.http.response import JsonResponse
 from django.shortcuts import redirect
 from django.template import loader
 from django.urls import reverse
-from apps.app.tables import CondominiumTable
+from apps.app.tables import AdministrationIndividualTable, AdministrationLegalTable, CatastalTable, CondominiumTable
 from apps.tables.models import TableContract
 from apps.app.models import CondominiumData, CondominiumForm, AdministrationIndividualForm, AdministrationLegalForm,\
     FormFaccata, CatastalDataForm, AdministrationIndividual, AdministrationLegal, CatastalData, DataInitial
@@ -212,8 +212,33 @@ def search(request):
 def condo_list(request):
     table = CondominiumTable(CondominiumData.objects.all())
     print(table)
-    return render(request, 'condominium.html', {
-        'table':table
+    return render(request, 'editable-tables.html', {
+        'title': 'Condominiums',
+        'table': table
+    })
+
+@login_required(login_url="/login")
+def catastal_list(request):
+    table = CatastalTable(CatastalData.objects.all())
+    return render(request, 'editable-tables.html', {
+        'title': 'Catastals',
+        'table': table
+    })
+
+@login_required(login_url="/login")
+def admin_legal_list(request):
+    table = AdministrationLegalTable(AdministrationLegal.objects.all())
+    return render(request, 'editable-tables.html', {
+        'title': 'Administrators Legal',
+        'table': table
+    })
+
+@login_required(login_url="/login")
+def admin_individual_list(request):
+    table = AdministrationIndividualTable(AdministrationLegal.objects.all())
+    return render(request, 'editable-tables.html', {
+        'title': 'Individual Administrators',
+        'table': table
     })
 
 @csrf_exempt
