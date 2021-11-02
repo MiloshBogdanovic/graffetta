@@ -257,6 +257,7 @@ class SubjectiveWorkTaxable(Taxable):
     class Meta:
         managed = True
 
+
 class ExVatForm(ModelForm):
     class Meta:
         model = OverallExVat
@@ -362,19 +363,18 @@ class ExVatForm(ModelForm):
         }
 
 
-class OverallExVatForm(ExVatForm):
-    class Meta:
-        managed = True
-
-
 class CommonExVatForm(ExVatForm):
-    class Meta:
-        managed = True
+    class Meta(ExVatForm.Meta):
+        model = CommonWorkExVat
+
+
+class OverallExVatForm(ExVatForm):
+    pass
 
 
 class SubjectiveExVatForm(ExVatForm):
-    class Meta:
-        managed = True
+    class Meta(ExVatForm.Meta):
+        model = SubjectiveWorkExVat
 
 
 class TableContract(models.Model):

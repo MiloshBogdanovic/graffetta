@@ -16,21 +16,21 @@
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">SITUAZIONE COMPLESSIVA DELL'INTERVENTO</h5>
+                                <h5 class="m-b-10">DETTAGLIO INTERVENTO LAVORI COMUNI</h5>
                             </div>
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                                    <li class="breadcrumb-item "><a href="{% url 'bonus' %}">DATI INIZIALI</a></li>
+                                    <li class="breadcrumb-item "><a href="{% url 'bonus'%}">DATI INIZIALI</a></li>
                                     <li class="breadcrumb-item active"><a class="breadcrumb-item active" href="#">SINTESI CONTRATTO CLIENTE</a></li>
-                                    <li class="breadcrumb-item "><a href="#">DETTAGLIO DEI BENEFICIARI</a></li>
+                                    <li class="breadcrumb-item "><a href="">DETTAGLIO DEI BENEFICIARI</a></li>
                                 </ul>
                             </nav>
                              <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{% url 'common' tc_id=table_cont %}">DETTAGLIO INTERVENTO LAVORI COMUNI</a></li>
+                                    <li class="breadcrumb-item active"><a class="breadcrumb-item active" href="#">DETTAGLIO INTERVENTO LAVORI COMUNI</a></li>
                                     <li class="breadcrumb-item"><a href="{% url 'subjective' tc_id=table_cont %}">DETTAGLIO INTERVENTO LAVORI SOGGETTIVI</a></li>
-                                    <li class="breadcrumb-item active"><a class="breadcrumb-item active" href="#">SITUAZIONE COMPLESSIVA DELL'INTERVENTO</a></li>
+                                    <li class="breadcrumb-item "><a  href="{% url 'tables' fff=fff %}">SITUAZIONE COMPLESSIVA DELL'INTERVENTO</a></li>
                                 </ul>
                              </nav>
                         </div>
@@ -66,14 +66,11 @@
                             </div>
                         </div>
                         {% if request.method == "POST" %}
-
                         <table>
-                            {{form_ex_vat}}
+                          {{form_ex_vat}}
                         </table>
 
-
-
-                        {% elif report%}
+                          {% elif report%}
 
                          <div class="table-responsive">
                                         <div class="customer-scroll " style="height:100%;position:relative;">
@@ -172,7 +169,7 @@
 
 
 
-                        {%else%}
+                        {% else %}
 
 
                         <div class="card-body">

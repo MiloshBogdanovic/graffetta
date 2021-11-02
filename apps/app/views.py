@@ -71,13 +71,12 @@ def catastt(request, id):
 
 @login_required(login_url="/login/")
 def bonus(request):
-    context = {'segment': 'bonus'}
+    fff = FormFaccata()
     forms = CondominiumForm()
-    context['forms'] = forms
+    context = {'segment': 'bonus', 'forms': forms}
     if request.method == 'POST':
         form = CondominiumForm(request.POST)
         dform = DataInitial()
-        fff = FormFaccata()
         if form.is_valid():
             f = form.save()
             dform.condominium_id = f.id
@@ -85,6 +84,7 @@ def bonus(request):
             fff.datainit_id = dform.id
             fff.user_id = request.user.id
             fff.save()
+            context['fff']= fff.id
             if f.select_administrator == 'Legal':
                 return redirect('legal', form=dform.id)
             elif f.select_administrator == 'Individual':
@@ -102,6 +102,7 @@ def bonus(request):
 def legal(request, form):
     context = {'segment': 'legal'}
     dform = get_object_or_404(DataInitial, pk=form)
+    fff = get_object_or_404(FormFaccata, datainit=form)
     forms = AdministrationLegalForm()
     context['forms'] = forms
     if request.method == 'POST':
@@ -110,6 +111,8 @@ def legal(request, form):
             f = form.save()
             dform.admin_legal_id = f.id
             dform.save()
+            fff.save()
+            context['fff'] = fff.id
             return redirect('catastal', form=dform.id)
 
         else:
@@ -123,6 +126,7 @@ def legal(request, form):
 def individual(request, form):
     context = {'segment': 'individual'}
     dform = get_object_or_404(DataInitial, pk=form)
+    fff = get_object_or_404(FormFaccata, datainit=form)
     forms = AdministrationIndividualForm()
     context['forms'] = forms
     if request.method == 'POST':
@@ -131,6 +135,8 @@ def individual(request, form):
             f = form.save()
             dform.admin_individual_id = f.id
             dform.save()
+            fff.save()
+            context['fff'] = fff.id
             return redirect('catastal', form=dform.id)
 
         else:
@@ -145,14 +151,18 @@ def catastal(request, form):
     context = {'segment': 'catastal'}
     dform = get_object_or_404(DataInitial, pk=form)
     forms = CatastalDataForm()
+    fff = get_object_or_404(FormFaccata, datainit=form)
     context['forms'] = forms
+    context['form'] = form
     if request.method == 'POST':
         form = CatastalDataForm(request.POST)
         if form.is_valid():
             f = form.save()
             dform.catastal_id = f.id
             dform.save()
-            return redirect(reverse('home'))
+            fff.save()
+            context['fff'] = fff.id
+            return redirect(reverse('tables', args=(fff.id,)))
 
         else:
             context['errors'] = form.errors

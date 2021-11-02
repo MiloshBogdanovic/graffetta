@@ -3,8 +3,8 @@ from apps.tables import views
 
 urlpatterns = [
 
-    path('', views.tables, name='tables'),
-    path('common-works', views.tables, name='common'),
-    path('subjective-works', views.tables, name='subjective'),
+    path('<int:fff>', views.tables, name='tables'),
+    path('common/<int:tc_id>', views.common, name='common'),
+    path('subjective/<int:tc_id>', views.subjective, name='subjective'),
 
 ]
