@@ -67,6 +67,8 @@ class CondominiumTable(tables.Table):
                 'data-type':'pec_mail'
         }
     }, verbose_name='pec e-mail')
+
+    select_administrator = tables.Column(verbose_name='tipo di amministratore')
     
     class Meta:
         model = CondominiumData

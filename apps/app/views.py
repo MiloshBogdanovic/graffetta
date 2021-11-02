@@ -241,6 +241,18 @@ def admin_individual_list(request):
         'table': table
     })
 
+@login_required(login_url="/login")
+def edit_condo_form(request, id):
+    print('ID ', id)
+    context = {'segment': 'index'}
+    condo = CondominiumData.objects.filter(pk=id).first()
+    edit_form = CondominiumForm(instance=condo)
+    context['condo_form'] = edit_form
+    context['title'] = 'Edit a condominium'
+    html_template = loader.get_template('edit-form.html')
+    return HttpResponse(html_template.render(context, request))
+    
+
 @csrf_exempt
 def save_table_data(request):
     if(request.method =='POST'):
