@@ -74,7 +74,7 @@
                                                             <td> - </td>
                                                             {%endif%}
                                                             {%if form.condominium_id%}
-                                                            <td><a href="{% url 'condtable' id=form.condominium_id %}" > {{form.condominium_id}}</a></td>
+                                                            <td><a href="{% url 'edit-condo' id=form.condominium_id %}" > {{form.condominium_id}}</a></td>
                                                             {%else%}
                                                             <td> - </td>
                                                             {%endif%}
@@ -327,25 +327,25 @@
                                                 {%for form in flform%}
                                                     <tr>
                                                         <td>{{form.id}}</td>
-                                                        <td>{{form.company_name}}</td>
-                                                        <td>{{form.province}}</td>
-                                                        <td>{{form.company_reg_num}}</td>
-                                                        <td>{{form.vat_number}}</td>
-                                                        <td>{{form.street}}</td>
-                                                        <td>{{form.cap}}</td>
-                                                        <td>{{form.municipal_reg_office}}</td>
-                                                        <td>{{form.province_reg_office}}</td>
-                                                        <td>{{form.legal_title_rep}}</td>
-                                                        <td>{{form.leg_rep_name}}</td>
-                                                        <td>{{form.leg_rep_tax_code}}</td>
-                                                        <td>{{form.leg_rep_dob}}</td>
-                                                        <td>{{form.municipal_of_birth_of_leg}}</td>
-                                                        <td>{{form.province_of_birth_of_leg}}</td>
-                                                        <td>{{form.legal_street}}</td>
-                                                        <td>{{form.legal_street_number}}</td>
-                                                        <td>{{form.cap_legal}}</td>
-                                                        <td>{{form.municipal_of_leg_residence}}</td>
-                                                        <td>{{form.province_of_leg_residence}}</td>
+                                                        <td class="editable" data-id="{{form.company_name}}" data-type="company_name" data-table="legal">{{form.company_name}}</td>
+                                                        <td class="editable" data-id="{{form.province}}" data-type="province" data-table="legal">{{form.province}}</td>
+                                                        <td class="editable" data-id="{{form.company_reg_num}}" data-type="company_reg_num" data-table="legal">{{form.company_reg_num}}</td>
+                                                        <td class="editable" data-id="{{form.vat_number}}" data-type="vat_number" data-table="legal">{{form.vat_number}}</td>
+                                                        <td class="editable" data-id="{{form.street}}" data-type="street" data-table="legal">{{form.street}}</td>
+                                                        <td class="editable" data-id="{{form.cap}}" data-type="cap" data-table="legal">{{form.cap}}</td>
+                                                        <td class="editable" data-id="{{form.municipal_reg_office}}" data-type="municipal_reg_office" data-table="legal">{{form.municipal_reg_office}}</td>
+                                                        <td class="editable" data-id="{{form.province_reg_office}}" data-type="province_reg_office" data-table="legal">{{form.province_reg_office}}</td>
+                                                        <td class="editable" data-id="{{form.legal_title_rep}}" data-type="legal_title_rep" data-table="legal">{{form.legal_title_rep}}</td>
+                                                        <td class="editable" data-id="{{form.leg_rep_name}}" data-type="leg_rep_name" data-table="legal">{{form.leg_rep_name}}</td>
+                                                        <td class="editable" data-id="{{form.leg_rep_tax_code}}" data-type="leg_rep_tax_code" data-table="legal">{{form.leg_rep_tax_code}}</td>
+                                                        <td class="editable" data-id="{{form.leg_rep_dob}}" data-type="leg_rep_dob" data-table="legal">{{form.leg_rep_dob}}</td>
+                                                        <td class="editable" data-id="{{form.municipal_of_birth_of_leg}}" data-type="municipal_of_birth_of_leg" data-table="legal">{{form.municipal_of_birth_of_leg}}</td>
+                                                        <td class="editable" data-id="{{form.province_of_birth_of_leg}}" data-type="province_of_birth_of_leg" data-table="legal">{{form.province_of_birth_of_leg}}</td>
+                                                        <td class="editable" data-id="{{form.legal_street}}" data-type="legal_street" data-table="legal">{{form.legal_street}}</td>
+                                                        <td class="editable" data-id="{{form.legal_street_number}}" data-type="legal_street_number" data-table="legal">{{form.legal_street_number}}</td>
+                                                        <td class="editable" data-id="{{form.cap_legal}}" data-type="cap_legal" data-table="legal">{{form.cap_legal}}</td>
+                                                        <td class="editable" data-id="{{form.municipal_of_leg_residence}}" data-type="municipal_of_leg_residence" data-table="legal">{{form.municipal_of_leg_residence}}</td>
+                                                        <td class="editable" data-id="{{form.province_of_leg_residence}}" data-type="province_of_leg_residence" data-table="legal">{{form.province_of_leg_residence}}</td>
                                                     </tr>
                                                  {% endfor %}
                                                 </tbody>
@@ -378,17 +378,17 @@
                                                 {%for form in ctform%}
                                                     <tr>
                                                         <td>{{form.id}}</td>
-                                                        <td>{{form.n_catastal_cheet}}</td>
-                                                        <td>{{form.n_first_particle}}</td>
-                                                        <td>{{form.n_subscribers_to_first_belonging}}</td>
-                                                        <td>{{form.n_second_particle}}</td>
-                                                        <td>{{form.n_subscribers_to_second_belonging}}</td>
-                                                        <td>{{form.n_third_particle}}</td>
-                                                        <td>{{form.n_subscribers_to_third_belonging}}</td>
-                                                        <td>{{form.n_fourth_particle}}</td>
-                                                        <td>{{form.n_subscribers_to_fourth_belonging}}</td>
-                                                        <td>{{form.description_of_intervention}}</td>
-                                                        <td>{{form.data_of_condominium_assembly}}</td>
+                                                        <td class="editable" data-id="{{form.n_catastal_cheet}}" data-type="n_catastal_cheet" data-table="cat">{{form.n_catastal_cheet}}</td>
+                                                        <td class="editable" data-id="{{form.n_first_particle}}" data-type="n_first_particle" data-table="cat">{{form.n_first_particle}}</td>
+                                                        <td class="editable" data-id="{{form.n_subscribers_to_first_belonging}}" data-type="cap" data-table="cat">{{form.n_subscribers_to_first_belonging}}</td>
+                                                        <td class="editable" data-id="{{form.n_second_particle}}" data-type="n_subscribers_to_first_belonging" data-table="cat">{{form.n_second_particle}}</td>
+                                                        <td class="editable" data-id="{{form.n_subscribers_to_second_belonging}}" data-type="n_subscribers_to_second_belonging" data-table="cat">{{form.n_subscribers_to_second_belonging}}</td>
+                                                        <td class="editable" data-id="{{form.n_third_particle}}" data-type="n_third_particle" data-table="cat">{{form.n_third_particle}}</td>
+                                                        <td class="editable" data-id="{{form.n_subscribers_to_third_belonging}}" data-type="n_subscribers_to_third_belonging" data-table="cat">{{form.n_subscribers_to_third_belonging}}</td>
+                                                        <td class="editable" data-id="{{form.n_fourth_particle}}}" data-type="n_fourth_particle}" data-table="cat">{{form.n_fourth_particle}}</td>
+                                                        <td class="editable" data-id="{{form.n_subscribers_to_fourth_belonging}}" data-type="n_subscribers_to_fourth_belonging" data-table="cat">{{form.n_subscribers_to_fourth_belonging}}</td>
+                                                        <td class="editable" data-id="{{form.description_of_intervention}}" data-type="description_of_intervention" data-table="cat">{{form.description_of_intervention}}</td>
+                                                        <td class="editable" data-id="{{form.data_of_condominium_assembly}}" data-type="data_of_condominium_assembly" data-table="cat">{{form.data_of_condominium_assembly}}</td>
 
                                                     </tr>
                                                  {% endfor %}

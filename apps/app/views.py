@@ -4,10 +4,14 @@ Copyright (c) 2019 - present AppSeed.us
 """
 from django import template
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseRedirect
+from django.views.generic import ListView
+from django.http.response import JsonResponse
 from django.shortcuts import redirect
 from django.template import loader
 from django.urls import reverse
+from apps.app.tables import AdministrationIndividualTable, AdministrationLegalTable, CatastalTable, CondominiumTable
 from apps.tables.models import TableContract
 from apps.app.models import CondominiumData, CondominiumForm, AdministrationIndividualForm, AdministrationLegalForm,\
     FormFaccata, CatastalDataForm, AdministrationIndividual, AdministrationLegal, CatastalData, DataInitial
@@ -213,3 +217,78 @@ def search(request):
         html_template = loader.get_template('page-404.html')
     except:
         return HttpResponse(html_template.render(context, request))
+
+@login_required(login_url="/login")
+def condo_list(request):
+    table = CondominiumTable(CondominiumData.objects.all())
+    print(table)
+    return render(request, 'editable-tables.html', {
+        'title': 'Condominiums',
+        'table': table
+    })
+
+@login_required(login_url="/login")
+def catastal_list(request):
+    table = CatastalTable(CatastalData.objects.all())
+    return render(request, 'editable-tables.html', {
+        'title': 'Catastals',
+        'table': table
+    })
+
+@login_required(login_url="/login")
+def admin_legal_list(request):
+    table = AdministrationLegalTable(AdministrationLegal.objects.all())
+    return render(request, 'editable-tables.html', {
+        'title': 'Administrators Legal',
+        'table': table
+    })
+
+@login_required(login_url="/login")
+def admin_individual_list(request):
+    table = AdministrationIndividualTable(AdministrationLegal.objects.all())
+    return render(request, 'editable-tables.html', {
+        'title': 'Individual Administrators',
+        'table': table
+    })
+
+@login_required(login_url="/login")
+def edit_condo_form(request, id):
+    print('ID ', id)
+    context = {'segment': 'index'}
+    condo = CondominiumData.objects.filter(pk=id).first()
+    edit_form = CondominiumForm(instance=condo)
+    context['condo_form'] = edit_form
+    context['title'] = 'Edit a condominium'
+    html_template = loader.get_template('edit-form.html')
+    return HttpResponse(html_template.render(context, request))
+    
+
+@csrf_exempt
+def save_table_data(request):
+    if(request.method =='POST'):
+        try:
+            id=request.POST.get('id','')
+            type=request.POST.get('type', '')
+            value=request.POST.get('value', '')
+            table=request.POST.get('table', '') 
+            write_to = None
+            
+            if(table == 'condo'):
+                write_to = CondominiumData.objects.get(pk=id)
+            elif(table == 'individual'):
+                write_to = AdministrationIndividual.objects.get(id=id)
+            elif(table == 'legal'):
+                write_to = AdministrationLegal.objects.get(id=id)
+            elif(table == 'cat'):
+                write_to = CatastalData.objects.get(id=id)
+            
+            setattr(write_to, type, value)
+            write_to.save()
+            return JsonResponse({"success":"Info updated."})
+
+        except Exception as e:
+            print('Error saving table data:')
+            print(e)
+            return JsonResponse({'success':False})
+    else:
+        return JsonResponse({'success':False})
