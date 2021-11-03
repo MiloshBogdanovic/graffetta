@@ -142,7 +142,15 @@ class CondominiumForm(ModelForm):
         model = CondominiumData
         exclude = ['id']
         labels = {
-            'name': 'DENOMINAZIONE CONDOMINIO'
+            'name': 'DENOMINAZIONE CONDOMINIO',
+            'fiscal_code': 'CODICE FISCALE',
+            'street': 'VIA',
+            'cap':'CAP',
+            'municipality': 'COMUNE',
+            'province': 'PROVINCIA',
+            'email':'E-MAIL',
+            'pec_mail':'PEC E-MAIL',
+            'select_administrator':'TIPO DI AMMINISTRATORE'
         }
         widgets = {
             'name': TextInput(attrs={
@@ -190,6 +198,25 @@ class AdministrationLegalForm(ModelForm):
     class Meta:
         model = AdministrationLegal
         exclude = ['id']
+        labels = {
+            'company_name':'DENOMINAZIONE SOCIETA',
+            'province':'PROVINCIA/E ISCRIZIONE REGISTRO IMPRESE',
+            'vat_number':'N° ISCRIZIONE REGISTRO IMPRESE - PARTITA IVA - C.F.',
+            'street':'VIA E NUMERO SEDE LEGALE',
+            'cap':'CAP',
+            'municipal_reg_office':'COMUNE SEDE LEGALE',
+            'province_reg_office':'PROVINCIA SEDE LEGALE',
+            'legal_title_rep':'TITOLO ',
+            'leg_rep_name':'COGNOME E NOME LEGALE RAPPRESENTANTE',
+            'leg_rep_tax_code':'CODICE FISCALE LEGALE RAPPRESENTATE',
+            'leg_rep_dob':'DATA DI NASCITA LEGALE RAPPRESENTANTE',
+            'municipal_of_birth_of_leg':'COMUNE DI NASCITA DEL LEGALE RAPPRESENTANTE',
+            'province_of_birth_of_leg':'PROVINCIA DI NASCITA DEL LEGALE RAPPRESENTANTE',
+            'legal_street':'VIA E NUMERO RESIDENZA LEGALE RAPPRESENTANTE',
+            'cap_legal':'CAP RESIDENZA LEGALE RAPPRESENTANTE ',
+            'municipal_of_leg_residence':'COMUNE DI RESIDENZA LEGALE RAPPRESENTANTE',
+            'province_of_birth_of_leg':'PROVINCIA DI RESIDENZA LEGALE RAPPRESENTANTE'
+        }
         widgets = {
             'company_name': TextInput(attrs={
                 'class': 'form-control',
@@ -268,6 +295,23 @@ class AdministrationIndividualForm(ModelForm):
     class Meta:
         model = AdministrationIndividual
         exclude = ['id']
+        labels = {
+            'title':'TITOLO AMMINISTRATORE',
+            'name':'NOME E COGNOME',
+            'fiscal_code':'CODICE FISCALE',
+            'vat_number':'PARTITA IVA',
+            'dob':'DATA DI NASCITA',
+            'birthplace':'LUOGO DI NASCITA',
+            'birthplace_county':'PROVINCIA DI NASCITA',
+            'activity_street':'VIA E NUMERO/I SEDE ATTIVITA',
+            'activity_location_cap':'CAP SEDE ATTIVITA',
+            'activity_municipality':'COMUNE SEDE ATTIVITA',
+            'activity_province':'PROVINCIA SEDE ATTIVITA',
+            'residence_street':'VIA E NUMERO RESIDENZA',
+            'residence_cap':'CAP RESIDENZA',
+            'residence_city':'LUOGO DI RESIDENZA',
+            'residence_province':'PROVINCIA DI RESIDENZA'
+        }
         widgets = {
             'title': Select(attrs={
                 'class': 'form-control',
@@ -337,6 +381,19 @@ class CatastalDataForm(ModelForm):
     class Meta:
         model = CatastalData
         exclude = ['id']
+        labels = {
+            'n_catastal_cheet':'N° FOGLIO CATASTALE DI APPARTENENZA',
+            'n_first_particle':'N° PRIMA PARTICELLA COSTITUENTE IL CONDOMINIO',
+            'n_subscribers_to_first_belonging': 'N° SUBALTERNI APPARTENTI ALLA PRIMA PARTICELLA',
+            'n_second_particle':'SECONDA PARTICELLA COSTITUENTE IL CONDOMINIO',
+            'n_subscribers_to_second_belonging':'N° SUBALTERNI APPARTENTI ALLA SECONDA PARTICELLA',
+            'n_third_particle':'N° TERZA PARTICELLA COSTITUENTE IL CONDOMINIO',
+            'n_subscribers_to_third_belonging':'N° SUBALTERNI APPARTENTI ALLA TERZA PARTICELLA',
+            'n_fourth_particle':'N° QUARTA PARTICELLA COSTITUENTE IL CONDOMINIO',
+            'n_subscribers_to_fourth_belonging':'N° SUBALTERNI APPARTENTI ALLA QUARTA PARTICELLA',
+            'description_of_intervention':"DESCRIZIONE SINTETICA DELL'INTERVENTO",
+            'data_of_condominium_assembly':'DATA ASSEMBLEA CONDOMINIALE IN CUI I CONDOMINI HANNO IRREVOCABILMENTE OPTATO PER LO SCONTO IN FATTURA'
+        }
         widgets = {
             'n_catastal_cheet': NumberInput(attrs={
                 'class': 'form-control',

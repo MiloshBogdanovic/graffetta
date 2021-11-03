@@ -255,33 +255,53 @@ def admin_individual_list(request):
 
 
 @login_required(login_url="/login")
-def edit_condo_form(request, table, id):
+def edit_form(request, table, id):
     context = {'segment': 'index'}
-    if table == 'CondominiumData':
-        try:
+    html_template = loader.get_template('edit-form.html')
+    row = None
+    form = None
+    form_type = None 
+    try: 
+        if table == 'Condominium':
+            form_type = CondominiumForm
             row = CondominiumData.objects.get(pk=id)
             form = CondominiumForm(instance=row)
-            context['form'] = form
-            if request.POST:
-                form=CondominiumForm(request.POST, instance=row)
-                if form.is_valid():
-                    form.save()
-                    context['message'] = 'Changes successfully made'
-                    html_template = loader.get_template('edit-form.html')
-                    return HttpResponse(html_template.render(context, request))
-        except ValueError as e:
-            context['error'] = e
-            html_template = loader.get_template('edit-form.html')
-            return HttpResponse(html_template.render(context, request))
+        elif table == 'AdministrationIndividual':
+            form_type = AdministrationIndividualForm
+            row = AdministrationIndividual.objects.get(pk=id)
+            form = AdministrationIndividualForm(instance=row)
+        elif table == 'AdministrationLegal':
+            form_type = AdministrationLegalForm
+            row = AdministrationLegal.objects.get(pk=id)
+            form = AdministrationLegalForm(instance=row)
+        elif table == 'CatastalData':
+            form_type = CatastalDataForm
+            row = CatastalData.objects.get(pk=id)
+            form = CatastalDataForm(instance=row)
+        
+        
+        context['form'] = form
+        
+        if request.POST:
+            form=form_type(request.POST, instance=row)
+            if form.is_valid():
+                form.save()
+                context['message'] = 'Changes successfully made'
+                return HttpResponse(html_template.render(context, request))
+        
+        print('context')
+        print(context)
 
-
-        html_template = loader.get_template('edit-form.html')
+        return HttpResponse(html_template.render(context, request))
+    except ValueError as e:
+        context['error'] = e
+        return HttpResponse(html_template.render(context, request))
+    except Exception as e:
+        context['error'] = e
         return HttpResponse(html_template.render(context, request))
     
-
-
-
-
+    
+@login_required(login_url="/login")
 def save_table_data(request):
     if(request.method =='POST'):
         try:

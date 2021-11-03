@@ -18,6 +18,7 @@ def tables(request, fff):
     if fff.tables_id is None:
         table_cont = TableContract()
         table_cont.save()
+        print(table_cont.id)
         context = {'segment': 'table', 'form_ex_vat': OverallExVatForm(), 'table_cont': table_cont.id, 'fff': fff.id}
         fff.tables = TableContract.objects.get(id=table_cont.id)
         fff.save()
