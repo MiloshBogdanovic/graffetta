@@ -28,7 +28,7 @@ urlpatterns = [
     path('catastal', views.catastal_list, name="catastal"),
     path('admin-legal', views.admin_legal_list, name="admin-legal"),
     path('admin-individual', views.admin_individual_list, name="admin-individual"),
-    path('condominium/<int:id>', views.edit_condo_form, name="edit-condo"),
+    path('condominium/<str:table>/<int:id>', views.edit_condo_form, name="edit-condo"),
     path('catastal/<int:id>', views.edit_condo_form, name="edit-catastal"),
     re_path(r'^.*\.*', views.pages, name='pages')
 ]

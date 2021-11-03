@@ -2,9 +2,11 @@
 """
 Copyright (c) 2019 - present AppSeed.us
 """
+from django.forms import modelform_factory
 from django import template
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import UpdateView
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView
 from django.http.response import JsonResponse
@@ -251,19 +253,35 @@ def admin_individual_list(request):
         'table': table
     })
 
+
 @login_required(login_url="/login")
-def edit_condo_form(request, id):
-    print('ID ', id)
+def edit_condo_form(request, table, id):
     context = {'segment': 'index'}
-    condo = CondominiumData.objects.filter(pk=id).first()
-    edit_form = CondominiumForm(instance=condo)
-    context['condo_form'] = edit_form
-    context['title'] = 'Edit a condominium'
-    html_template = loader.get_template('edit-form.html')
-    return HttpResponse(html_template.render(context, request))
+    if table == 'CondominiumData':
+        try:
+            row = CondominiumData.objects.get(pk=id)
+            form = CondominiumForm(instance=row)
+            context['form'] = form
+            if request.POST:
+                form=CondominiumForm(request.POST, instance=row)
+                if form.is_valid():
+                    form.save()
+                    context['message'] = 'Changes successfully made'
+                    html_template = loader.get_template('edit-form.html')
+                    return HttpResponse(html_template.render(context, request))
+        except ValueError as e:
+            context['error'] = e
+            html_template = loader.get_template('edit-form.html')
+            return HttpResponse(html_template.render(context, request))
+
+
+        html_template = loader.get_template('edit-form.html')
+        return HttpResponse(html_template.render(context, request))
     
 
-@csrf_exempt
+
+
+
 def save_table_data(request):
     if(request.method =='POST'):
         try:
@@ -292,3 +310,8 @@ def save_table_data(request):
             return JsonResponse({'success':False})
     else:
         return JsonResponse({'success':False})
+
+
+
+
+ # columns = [f.name for f in row._meta.get_fields()]

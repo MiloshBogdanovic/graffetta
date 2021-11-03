@@ -95,9 +95,6 @@ class CondominiumData(models.Model):
     pec_mail = models.EmailField(max_length=254, blank=False)
     select_administrator = models.CharField(null=True, max_length=10, choices=ADMIN_CHOICE)
 
-    def __str__(self):
-        return self.name
-
     class Meta:
         managed = True
 
@@ -144,10 +141,13 @@ class CondominiumForm(ModelForm):
     class Meta:
         model = CondominiumData
         exclude = ['id']
+        labels = {
+            'name': 'DENOMINAZIONE CONDOMINIO'
+        }
         widgets = {
             'name': TextInput(attrs={
                 'class': 'form-control',
-                'id': 'cond_name'
+                'id': 'cond_name',
             }),
             'fiscal_code': NumberInput(attrs={
                 'class': 'form-control',

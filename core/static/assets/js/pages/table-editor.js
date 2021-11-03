@@ -19,7 +19,9 @@ $(document).ready(function(){
         td.html(value);
         td.addClass("editable");
         var type=td.data("type");
-        sendToServer(td.data("id"),value,type,table);
+        var table=td.parent('tr').data('table')
+        console.log(table)
+        sendToServer(td.parent('tr').data('id'),value,type,table);
     });
     $(document).on("keypress",".input-data",function(e){
         var key=e.which;
@@ -32,6 +34,7 @@ $(document).ready(function(){
             var id = td.parent('tr').data('id')
             var type=td.data("type");
             var table=td.parent('tr').data('table')
+
             sendToServer(id,value,type, table);
         }
     });
