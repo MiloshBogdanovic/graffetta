@@ -79,17 +79,17 @@
                                                             <td> - </td>
                                                             {%endif%}
                                                             {%if form.admin_individual_id%}
-                                                            <td><a href="{% url 'individtable' id=form.admin_individual_id %}" >{{form.admin_individual_id}}</a></td>
+                                                            <td><a href="{% url 'edit-form' table='AdministrationIndividual' id=form.admin_individual_id %}" >{{form.admin_individual_id}}</a></td>
                                                             {%else%}
                                                             <td> - </td>
                                                             {%endif%}
                                                             {%if form.admin_legal_id%}
-                                                            <td><a href="{% url 'legaltable' id=form.admin_legal_id %}" >{{form.admin_legal_id}}</a></td>
+                                                            <td><a href="{% url 'edit-form' table='AdministrationLegal' id=form.admin_legal_id %}" >{{form.admin_legal_id}}</a></td>
                                                             {%else%}
                                                             <td> - </td>
                                                             {%endif%}
                                                             {%if form.catastal_id%}
-                                                            <td><a href="{% url 'catasttable' id=form.catastal_id %}" >{{form.catastal_id}}</a></td>
+                                                            <td><a href="{% url 'edit-form' table='CatastalData' id=form.catastal_id %}" >{{form.catastal_id}}</a></td>
                                                             {%else%}
                                                             <td> - </td>
                                                             {%endif%}
