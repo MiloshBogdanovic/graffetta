@@ -262,6 +262,32 @@ class ExVatForm(ModelForm):
     class Meta:
         model = OverallExVat
         exclude = ['id']
+        labels = {
+            'total_amt_of_work':'IMPORTO COMPLESSIVO DEI LAVORI DA ESEGUIRE',
+            'total_amt_safety_charges':'IMPORTO COMPLESSIVO ONERI SICUREZZA',
+            'tech_exp_designer':'SPESE TECNICHE PROGETTISTA',
+            'tech_exp_coordinator_safety_des':'SPESE TECNICHE COORDINATORE SICUREZZA PROGETTAZIONE',
+            'tech_exp_coordinator_safety_exe':'SPESE TECNICHE COORDINATORE SICUREZZA ESECUZIONE',
+            'tech_exp_director_of_work':'SPESE TECNICHE DIRETTORE LAVORI',
+            'tech_exp_thermotechnical':'SPESE TECNICHE TERMOTECNICO',
+            'tech_exp_energy_expert':'SPESE TECNICHE ESPERTO ENERGETICO',
+            'poss_respo_work':'EVENTUALE RESPONSABILE DEI LAVORI',
+            'vat_for_total_work':'IMPORTO IVA PER TOTALE',
+            'ss_cash_for_designer':'CASSA PREVIDENZA PER PROGETTISTA',
+            'vat_for_designer':'IMPORTO IVA PER PROGETTISTA',
+            'vat_for_coordinator_safety_des':'IMPORTO IVA PER COORDINATORE SICUREZZA PROGETTAZIONE',
+            'ss_cash_for_coordinator_safety_des':'CASSA PREVIDENZA PER COORDINATORE SICUREZZA PROGETTAZIONE',
+            'vat_for_coordinator_safety_exe':'IMPORTO IVA PER COORDINATORE SICUREZZA ESECUZIONE',
+            'ss_cash_for_coordinator_safety_exe':'CASSA PREVIDENZA PER COORDINATORE SICUREZZA ESECUZIONE',
+            'vat_for_director_of_work':'IMPORTO IVA PER DIRETTORE LAVORI',
+            'ss_cash_for_director_of_work':'CASSA PREVIDENZA PER DIRETTORE LAVORI',
+            'vat_for_thermotechnical':'IMPORTO IVA PER TECNICHE TERMOTECNICO',
+            'ss_cash_for_thermotechnical':'CASSA PREVIDENZA PER TECNICHE TERMOTECNICO',
+            'vat_for_energy_expert':'IMPORTO IVA PER ESPERTO ENERGETICO',
+            'ss_cash_for_energy_expert':'CASSA PREVIDENZA PER ESPERTO ENERGETICO',
+            'vat_for_respo_work':'IMPORTO IVA PER RESPONSABILE DEI LAVORI',
+            'ss_cash_for_respo_work':'CASSA PREVIDENZA PER RESPONSABILE DEI LAVORI'
+        }
         widgets = {
             'total_amt_of_work': NumberInput(attrs={
                 'class': 'form-control',
