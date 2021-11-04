@@ -45,12 +45,14 @@ $(document).ready(function(){
         console.log(type);
         console.log(table)
         let url = 'edit-table-data';
+        let token = $('[name="csrfmiddlewaretoken"]').val()
         
 
         $.ajax({
             url:`http://localhost:8000/${url}`,
             type:"POST",
-            data:{id:id,type:type,value:value, table: table},
+            data:{id:id,type:type,value:value, table: table, csrfmiddlewaretoken: token},
+            dataType: 'json'
         })
         .done(function(response){
             console.log(response);
