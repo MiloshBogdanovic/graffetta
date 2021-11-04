@@ -1,0 +1,105 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Form Elements {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- [ Main Content ] start -->
+    <section class="pcoded-main-container">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                    <div class="page-block">
+                            <div class="row align-items-center">
+                                    <div class="col-md-12">
+                                            <div class="page-header-title">
+                                                <h5 class="m-b-10">DETTAGLIO INTERVENTO LAVORI SOGGETTIVI</h5>
+                                            </div>
+                                            <nav aria-label="breadcrumb">
+                                                <ul class="breadcrumb">
+                                                    <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+                                                    <li class="breadcrumb-item "><a href="{% url 'bonus' %}">DATI INIZIALI</a></li>
+                                                    <li class="breadcrumb-item active"><a class="breadcrumb-item active" href="#">SINTESI CONTRATTO CLIENTE</a></li>
+                                                    <li class="breadcrumb-item "><a href="#">DETTAGLIO DEI BENEFICIARI</a></li>
+                                                </ul>
+                                            </nav>
+                                            <nav aria-label="breadcrumb">
+                                                <ul class="breadcrumb">
+                                                    <li class="breadcrumb-item active"><a class="breadcrumb-item active" href="#">DETTAGLIO INTERVENTO LAVORI SOGGETTIVI</a></li>
+                                                </ul>
+                                            </nav>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <!-- [ Main Content ] start -->
+
+                <!-- [ form-element ] start -->
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="card table-card">
+                    <div class="card-header">
+                                {% if error %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{error}}
+                                    </div>
+                                {% endif %}
+                                <h5>DETTAGLIO INTERVENTO LAVORI SOGGETTIVI : Modificare</h5>
+                                <div class="card-header-right">
+                                    <div class="btn-group card-option">
+                                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="feather icon-more-horizontal"></i>
+                                        </button>
+                                        <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                            <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                                            <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                                            <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                                            <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                     </div>
+                    {%if message %}
+
+                    <div class="alert alert-success" role="alert">
+                        {{message}}
+                    </div>
+                    {%else%}
+
+                    <form action="" method="post">
+                        {% csrf_token %}
+                          <table>
+                                {{form_ex_vat}}
+                          </table>
+                        <div class="ml-3  mt-3">
+                            <button type="submit" class="btn  btn-primary">Aggiornare</button>
+                        </div>
+                    </form>
+
+                    {%endif%}
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script src="/static/assets/js/pages/tables.js"></script>
+{% endblock javascripts %}

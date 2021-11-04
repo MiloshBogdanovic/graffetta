@@ -7,7 +7,11 @@ from decimal import Decimal
 def overall_calculation(fnovat, table_cont):
     print(fnovat)
     try:
-        form_taxable = OverallTaxable()
+        if table_cont.overall_taxable:
+            form_taxable = OverallTaxable.objects.get(pk=table_cont.overall_taxable_id)
+        else:
+            form_taxable = OverallTaxable()
+
         form_taxable.total_amt_of_work = fnovat.total_amt_of_work
         form_taxable.total_amt_safety_charges = fnovat.total_amt_safety_charges
         form_taxable.tech_exp_designer = fnovat.tech_exp_designer * (1 + fnovat.ss_cash_for_designer)
@@ -34,7 +38,11 @@ def overall_calculation(fnovat, table_cont):
         return e.message_dict
 
     try:
-        form_inc_vat = OverallIncVat()
+        if table_cont.overall_in_vat:
+            form_inc_vat = OverallIncVat.objects.get(pk=table_cont.overall_in_vat_id)
+        else:
+            form_inc_vat = OverallIncVat()
+
         form_inc_vat.vat_for_total_work = fnovat.vat_for_total_work
         form_inc_vat.total_amt_of_work = form_taxable.total_amt_of_work * (1 + fnovat.vat_for_total_work)
         form_inc_vat.total_amt_safety_charges = form_taxable.total_amt_safety_charges * Decimal('1.22')
@@ -79,7 +87,11 @@ def overall_calculation(fnovat, table_cont):
 
     try:
         print(form_inc_vat.total_of_the_order)
-        form_report = OverallReport()
+        if table_cont.overall_rep:
+            form_report = OverallReport.objects.get(pk=table_cont.overall_rep_id)
+        else:
+            form_report = OverallReport()
+
         form_report.total_amount_includin_vat = form_inc_vat.total_of_the_order
         form_report.total_taxable_amount = form_taxable.total_of_the_order
         form_report.total_amount_of_vat = form_inc_vat.total_of_the_order_amount_vat
@@ -98,7 +110,11 @@ def overall_calculation(fnovat, table_cont):
 def common_calculation(fnovat, table_cont):
     print(fnovat)
     try:
-        form_taxable = CommonWorkTaxable()
+        if table_cont.common_taxable:
+            form_taxable = CommonWorkTaxable.objects.get(pk=table_cont.common_taxable_id)
+        else:
+            form_taxable = CommonWorkTaxable()
+
         form_taxable.total_amt_of_work = fnovat.total_amt_of_work
         form_taxable.total_amt_safety_charges = fnovat.total_amt_safety_charges
         form_taxable.tech_exp_designer = fnovat.tech_exp_designer * (1 + fnovat.ss_cash_for_designer)
@@ -125,7 +141,11 @@ def common_calculation(fnovat, table_cont):
         return e.message_dict
 
     try:
-        form_inc_vat = CommonWorkIncVat()
+        if table_cont.common_in_vat:
+            form_inc_vat = CommonWorkIncVat.objects.get(pk=table_cont.common_in_vat_id)
+        else:
+            form_inc_vat = CommonWorkIncVat()
+
         form_inc_vat.vat_for_total_work = fnovat.vat_for_total_work
         form_inc_vat.total_amt_of_work = form_taxable.total_amt_of_work * (1 + fnovat.vat_for_total_work)
         form_inc_vat.total_amt_safety_charges = form_taxable.total_amt_safety_charges * Decimal('1.22')
@@ -170,7 +190,11 @@ def common_calculation(fnovat, table_cont):
 
     try:
         print(form_inc_vat.total_of_the_order)
-        form_report = CommonWorkReport()
+        if table_cont.common_rep:
+            form_report = CommonWorkReport.objects.get(pk=table_cont.common_rep_id)
+        else:
+            form_report = CommonWorkReport()
+
         form_report.total_amount_includin_vat = form_inc_vat.total_of_the_order
         form_report.total_taxable_amount = form_taxable.total_of_the_order
         form_report.total_amount_of_vat = form_inc_vat.total_of_the_order_amount_vat
@@ -189,7 +213,11 @@ def common_calculation(fnovat, table_cont):
 def subjective_calculation(fnovat, table_cont):
     print(fnovat)
     try:
-        form_taxable = SubjectiveWorkTaxable()
+        if table_cont.subjective_taxable:
+            form_taxable = SubjectiveWorkTaxable.objects.get(pk=table_cont.subjective_taxable_id)
+        else:
+            form_taxable = SubjectiveWorkTaxable()
+
         form_taxable.total_amt_of_work = fnovat.total_amt_of_work
         form_taxable.total_amt_safety_charges = fnovat.total_amt_safety_charges
         form_taxable.tech_exp_designer = fnovat.tech_exp_designer * (1 + fnovat.ss_cash_for_designer)
@@ -216,7 +244,11 @@ def subjective_calculation(fnovat, table_cont):
         return e.message_dict
 
     try:
-        form_inc_vat = SubjectiveWorkIncVat()
+        if table_cont.subjective_in_vat:
+            form_inc_vat = SubjectiveWorkIncVat.objects.get(pk=table_cont.subjective_in_vat_id)
+        else:
+            form_inc_vat = SubjectiveWorkIncVat()
+
         form_inc_vat.vat_for_total_work = fnovat.vat_for_total_work
         form_inc_vat.total_amt_of_work = form_taxable.total_amt_of_work * (1 + fnovat.vat_for_total_work)
         form_inc_vat.total_amt_safety_charges = form_taxable.total_amt_safety_charges * Decimal('1.22')
@@ -260,8 +292,11 @@ def subjective_calculation(fnovat, table_cont):
         return e
 
     try:
-        print(form_inc_vat.total_of_the_order)
-        form_report = SubjectiveWorkReport()
+        if table_cont.subjective_rep:
+            form_report = SubjectiveWorkReport.objects.get(pk=table_cont.subjective_rep_id)
+        else:
+            form_report = SubjectiveWorkReport()
+
         form_report.total_amount_includin_vat = form_inc_vat.total_of_the_order
         form_report.total_taxable_amount = form_taxable.total_of_the_order
         form_report.total_amount_of_vat = form_inc_vat.total_of_the_order_amount_vat

@@ -90,7 +90,7 @@ def bonus(request):
             fff.datainit_id = dform.id
             fff.user_id = request.user.id
             fff.save()
-            context['fff']= fff.id
+            context['fff'] = fff.id
             if f.select_administrator == 'Legal':
                 return redirect('legal', form=dform.id)
             elif f.select_administrator == 'Individual':

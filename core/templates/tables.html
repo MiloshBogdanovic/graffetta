@@ -1,419 +1,468 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Form Elements {% endblock %} 
+{% block title %} Form Elements {% endblock %}
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
 
-{% block content %}	
+{% block content %}
 
-    <!-- [ Main Content ] start -->
-    <section class="pcoded-main-container">
-        <div class="pcoded-content">
-            <!-- [ breadcrumb ] start -->
-            <div class="page-header">
-                <div class="page-block">
-                    <div class="row align-items-center">
-                        <div class="col-md-12">
-                            <div class="page-header-title">
-                                <h5 class="m-b-10">SITUAZIONE COMPLESSIVA DELL'INTERVENTO</h5>
-                            </div>
-                            <nav aria-label="breadcrumb">
-                                <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                                    <li class="breadcrumb-item "><a href="{% url 'bonus' %}">DATI INIZIALI</a></li>
-                                    <li class="breadcrumb-item active"><a class="breadcrumb-item active" href="#">SINTESI CONTRATTO CLIENTE</a></li>
-                                    <li class="breadcrumb-item "><a href="#">DETTAGLIO DEI BENEFICIARI</a></li>
-                                </ul>
-                            </nav>
-                             <nav aria-label="breadcrumb">
-                                <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{% url 'common' tc_id=table_cont %}">DETTAGLIO INTERVENTO LAVORI COMUNI</a></li>
-                                    <li class="breadcrumb-item"><a href="{% url 'subjective' tc_id=table_cont %}">DETTAGLIO INTERVENTO LAVORI SOGGETTIVI</a></li>
-                                    <li class="breadcrumb-item active"><a class="breadcrumb-item active" href="#">SITUAZIONE COMPLESSIVA DELL'INTERVENTO</a></li>
-                                </ul>
-                             </nav>
+<!-- [ Main Content ] start -->
+<section class="pcoded-main-container">
+    <div class="pcoded-content">
+        <!-- [ breadcrumb ] start -->
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">SITUAZIONE COMPLESSIVA DELL'INTERVENTO</h5>
                         </div>
+                        <nav aria-label="breadcrumb">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a>
+                                </li>
+                                <li class="breadcrumb-item "><a href="{% url 'bonus' %}">DATI INIZIALI</a></li>
+                                <li class="breadcrumb-item active"><a class="breadcrumb-item active" href="#">SINTESI
+                                    CONTRATTO CLIENTE</a></li>
+                                <li class="breadcrumb-item "><a href="#">DETTAGLIO DEI BENEFICIARI</a></li>
+                            </ul>
+                        </nav>
+                        <nav aria-label="breadcrumb">
+                            <ul class="breadcrumb">
+                                {%if table_cont%}
+                                <li class="breadcrumb-item"><a href="{% url 'common' tc_id=table_cont %}">DETTAGLIO
+                                    INTERVENTO LAVORI COMUNI</a>
+                                </li>
+
+                                {%endif%}
+                                {%if table_cont%}
+                                <li class="breadcrumb-item"><a href="{% url 'subjective' tc_id=table_cont %}">DETTAGLIO
+                                    INTERVENTO LAVORI SOGGETTIVI</a></li>
+                                {%endif%}
+                                <li class="breadcrumb-item active"><a class="breadcrumb-item active" href="#">SITUAZIONE
+                                    COMPLESSIVA DELL'INTERVENTO</a></li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
-            <!-- [ breadcrumb ] end -->
-            <!-- [ Main Content ] start -->
+        </div>
+        <!-- [ breadcrumb ] end -->
+        <!-- [ Main Content ] start -->
 
-                <!-- [ form-element ] start -->
-                <div class="col-sm-12 col-md-12 col-lg-12">
-                    <div class="card table-card">
-                        <div class="card-header">
-                            {% if error %}
-                                <div class="alert alert-danger" role="alert">
-                                    {{error}}
+        <!-- [ form-element ] start -->
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="card table-card">
+                <div class="card-header">
+                    {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{error}}
+                    </div>
+                    {% endif %}
+                    <h5>COMPLESSIVA DELL'INTERVENTO TAVOLO</h5>
+                    <div class="card-header-right">
+                        <div class="btn-group card-option">
+                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                <i class="feather icon-more-horizontal"></i>
+                            </button>
+                            <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                <li class="dropdown-item full-card"><a href="#!"><span><i
+                                        class="feather icon-maximize"></i> maximize</span><span style="display:none"><i
+                                        class="feather icon-minimize"></i> Restore</span></a></li>
+                                <li class="dropdown-item minimize-card"><a href="#!"><span><i
+                                        class="feather icon-minus"></i> collapse</span><span style="display:none"><i
+                                        class="feather icon-plus"></i> expand</span></a></li>
+                                <li class="dropdown-item reload-card"><a href="#!"><i
+                                        class="feather icon-refresh-cw"></i> reload</a></li>
+                                <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i>
+                                    remove</a></li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+                {% if request.method == "POST" %}
+
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>SITUAZIONE COMPLESSIVA DELL'INTERVENTO</h5>
                                 </div>
-                            {% endif %}
-                            <h5>COMPLESSIVA DELL'INTERVENTO TAVOLO</h5>
-                            <div class="card-header-right">
-                                <div class="btn-group card-option">
-                                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="feather icon-more-horizontal"></i>
-                                    </button>
-                                    <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
-                                        <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
-                                        <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
-                                        <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
-                                        <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
-                                    </ul>
+                                <div class="card-body">
+                                    <div class="alert alert-success" role="alert">
+                                        <h4 class="alert-heading">SUCCESSO!</h4>
+                                        <p>
+                                            LA SITUAZIONE COMPLESSIVA DEL TAVOLO D'INTERVENTO È STATA POPOLATA CON SUCCESSO.
+                                            Per aggiungere i dettagli dell'intervento di lavoro comune premere il pulsante COMUNE o SOGGETTIVO per il
+                                            lavoro di intervento soggettivo. Se desideri modificare premi il pulsante EDIT
 
+
+                                        </p>
+                                        <hr>
+                                        <div class="card-body">
+                                            <a href="{% url 'common' tc_id=table_cont %}"><button type="button" class="btn  btn-primary">COMUNE <span class="badge badge-light"></span></button></a>
+                                            <a href="{% url 'subjective' tc_id=table_cont %}"><button type="button" class="btn  btn-secondary">SOGGETTIVO <span class="badge badge-light"></span></button></a>
+                                            <a href="{% url 'tables-edit' id=edit_id %}"><button  type="button" class="btn  btn-danger">EDIT <span class="badge badge-light">ID {{edit_id}}</span></button></a>
+
+                                        </div>
+
+
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        {% if request.method == "POST" %}
-
-                        <table>
-                            {{form_ex_vat}}
-                        </table>
 
 
+                {% elif report%}
 
-                        {% elif report%}
+                <div class="table-responsive">
+                    <div class="customer-scroll " style="height:100%;position:relative;">
+                        <table class="table table-hover m-b-0">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <a href="{% url 'tables-edit' id=edit_id %}"><button  type="button" class="btn  btn-danger">EDIT <span class="badge badge-light">ID {{edit_id}}</span></button></a>
+                                </th>
+                                <th>
+                                    <span>IMPORTO IVA ESCLUSA € </span>
+                                </th>
+                                <th>
 
-                         <div class="table-responsive">
-                                        <div class="customer-scroll " style="height:100%;position:relative;">
-                                        <table class="table table-hover m-b-0">
-                                            <thead>
-                                            <tr>
-                                                <th>
+                                </th>
+                                <th>
+                                    <span>IMPONIBILE IVA  € </span>
+                                </th>
+                                <th>
 
-                                                </th>
-                                                <th>
-                                                    <span>IMPORTO IVA ESCLUSA € </span>
-                                                </th>
-                                                <th>
+                                </th>
+                                <th>
+                                    <span>IMPORTO IVA INCLUSA € </span>
+                                </th>
 
-                                                </th>
-                                                <th>
-                                                    <span>IMPONIBILE IVA  € </span>
-                                                </th>
-                                                <th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    IMPORTO COMPLESSIVO IVA INCLUSA €
+                                </td>
+                                <td>
+                                    {{report.total_amount_includin_vat}}
+                                </td>
+                                <td>
+                                    IMPORTO COMPLESSIVO IMPONIBILE IVA €
+                                </td>
+                                <td>
+                                    {{report.total_taxable_amount}}
+                                </td>
+                                <td>
+                                    IMPORTO COMPLESSIVO IVA €
+                                </td>
+                                <td>
+                                    {{report.total_amount_of_vat}}
+                                </td>
+                            </tr>
 
-                                                </th>
-                                                <th>
-                                                    <span>IMPORTO IVA INCLUSA € </span>
-                                                </th>
+                            <tr>
+                                <td>
+                                    IMPORTO DELLO SCONTO IN FATTURA APPLICATO €
+                                </td>
+                                <td>
+                                    {{report.amount_of_discount_in_invoice}}
+                                </td>
+                                <td>
+                                    IMPORTO DELLO SCONTO APPLICATO IN FATTURA IVA ESCLUSA €
+                                </td>
+                                <td>
+                                    {{report.amount_of_discount_in_invoice_taxable}}
+                                </td>
+                                <td>
+                                    IMPORTO DELLO SCONTO IVA APPLICATO IN FATTURA €
+                                </td>
+                                <td>
+                                    {{report.amount_of_discount_in_invoice_vat}}
+                                </td>
 
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                       IMPORTO COMPLESSIVO IVA INCLUSA €
-                                                    </td>
-                                                    <td>
-                                                        {{report.total_amount_includin_vat}}
-                                                    </td>
-                                                    <td>
-                                                          IMPORTO COMPLESSIVO IMPONIBILE IVA €
-                                                    </td>
-                                                    <td>
-                                                        {{report.total_taxable_amount}}
-                                                    </td>
-                                                    <td>
-                                                        IMPORTO COMPLESSIVO IVA €
-                                                    </td>
-                                                    <td>
-                                                        {{report.total_amount_of_vat}}
-                                                    </td>
-                                                </tr>
+                            </tr>
 
-                                                <tr>
-                                                    <td>
-                                                       IMPORTO DELLO SCONTO IN FATTURA APPLICATO €
-                                                    </td>
-                                                    <td>
-                                                        {{report.amount_of_discount_in_invoice}}
-                                                    </td>
-                                                    <td>
-                                                          IMPORTO DELLO SCONTO APPLICATO IN FATTURA IVA ESCLUSA €
-                                                    </td>
-                                                    <td>
-                                                        {{report.amount_of_discount_in_invoice_taxable}}
-                                                    </td>
-                                                    <td>
-                                                        IMPORTO DELLO SCONTO IVA APPLICATO IN FATTURA €
-                                                    </td>
-                                                    <td>
-                                                        {{report.amount_of_discount_in_invoice_vat}}
-                                                    </td>
+                            <tr>
+                                <td>
+                                    IMPORTO ACCONTO ANTICIPATO DAL CLIENTE €
+                                </td>
+                                <td>
+                                    {{report.amount_advance_deposit_by_customer}}
+                                </td>
+                                <td>
+                                    IMPORTO ACCONTO ANTICIPATO DAL CLIENTE IVA ESCLUSA €
+                                </td>
+                                <td>
+                                    {{report.amount_advance_deposit_by_customer_taxable}}
+                                </td>
+                                <td>
+                                    IMPORTO ACCONTO IVA ANTICIPATO DAL CLIENTE €
+                                </td>
+                                <td>
+                                    {{report.amount_advance_deposit_by_customer_vat}}
+                                </td>
 
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                       IMPORTO ACCONTO ANTICIPATO DAL CLIENTE €
-                                                    </td>
-                                                    <td>
-                                                        {{report.amount_advance_deposit_by_customer}}
-                                                    </td>
-                                                    <td>
-                                                          IMPORTO ACCONTO ANTICIPATO DAL CLIENTE  IVA ESCLUSA €
-                                                    </td>
-                                                    <td>
-                                                        {{report.amount_advance_deposit_by_customer_taxable}}
-                                                    </td>
-                                                    <td>
-                                                         IMPORTO ACCONTO IVA ANTICIPATO DAL CLIENTE €
-                                                    </td>
-                                                    <td>
-                                                        {{report.amount_advance_deposit_by_customer_vat}}
-                                                    </td>
-
-                                                </tr>
-                                            </tbody>
-
+                            </tr>
+                            </tbody>
 
 
+                            {%else%}
 
 
-                        {%else%}
+                            <div class="card-body">
 
 
-                        <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form action="" method="post">
+                                            {% csrf_token %}
+                                            <div class="table-responsive">
+                                                <div class="customer-scroll " style="height:100%;position:relative;">
+                                                    <table class="table table-hover m-b-0">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>
+                                                                <span>Descrizione <a class="help" data-toggle="popover"
+                                                                                     title="ID"
+                                                                                     data-content="Identificativo modulo condominiale"><i
+                                                                        class="feather icon-help-circle f-16"></i></a></span>
+                                                            </th>
+                                                            <th>
+                                                                <span>IMPORTO IVA ESCLUSA € </span>
+                                                            </th>
+                                                            <th>
+                                                                <span>% CASSA PREVIDENZA </span>
+                                                            </th>
 
+                                                            <th>
+                                                                <span>% IVA DA APPLICARE (10% o 22%) </span>
+                                                            </th>
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <form action="" method="post">
-                                     {% csrf_token %}
-                                        <div class="table-responsive">
-                                        <div class="customer-scroll " style="height:100%;position:relative;">
-                                        <table class="table table-hover m-b-0">
-                                            <thead>
-                                                <tr>
-                                                    <th>
-                                                        <span>Descrizione <a class="help" data-toggle="popover" title="ID" data-content="Identificativo modulo condominiale"><i class="feather icon-help-circle f-16"></i></a></span>
-                                                    </th>
-                                                    <th>
-                                                        <span>IMPORTO IVA ESCLUSA € </span>
-                                                    </th>
-                                                    <th>
-                                                        <span>% CASSA PREVIDENZA </span>
-                                                    </th>
-
-                                                    <th>
-                                                        <span>% IVA DA APPLICARE (10% o 22%) </span>
-                                                    </th>
-
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>
                                                         <span class="text-muted mb-30">
                                                              IMPORTO COMPLESSIVO DEI LAVORI DA ESEGUIRE
                                                         </span>
-                                                    </td>
-                                                    <td>
-                                                        {{form_ex_vat.total_amt_of_work}}
-                                                    </td>
-                                                    <td>
-                                                        <span class="input-group-text" >0%</span>
-                                                    </td>
+                                                            </td>
+                                                            <td>
+                                                                {{form_ex_vat.total_amt_of_work}}
+                                                            </td>
+                                                            <td>
+                                                                <span class="input-group-text">0%</span>
+                                                            </td>
 
-                                                    <td>
-                                                       {{form_ex_vat.vat_for_total_work}}
-                                                    </td>
+                                                            <td>
+                                                                {{form_ex_vat.vat_for_total_work}}
+                                                            </td>
 
-                                                </tr>
+                                                        </tr>
 
-                                                <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
 
-                                                </tr>
+                                                        </tr>
 
-                                                <tr>
-                                                    <td>
+                                                        <tr>
+                                                            <td>
                                                         <span class="text-muted mb-30">
                                                              IMPORTO COMPLESSIVO ONERI SICUREZZA
                                                         </span>
-                                                    </td>
-                                                    <td>
-                                                        {{form_ex_vat.total_amt_safety_charges}}
-                                                    </td>
-                                                    <td>
-                                                        <span class="input-group-text" >0%</span>
-                                                    </td>
+                                                            </td>
+                                                            <td>
+                                                                {{form_ex_vat.total_amt_safety_charges}}
+                                                            </td>
+                                                            <td>
+                                                                <span class="input-group-text">0%</span>
+                                                            </td>
 
-                                                    <td>
-                                                        <span class="input-group-text" >22%</span>
-                                                    </td>
+                                                            <td>
+                                                                <span class="input-group-text">22%</span>
+                                                            </td>
 
-                                                </tr>
-                                                 <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
 
-                                                </tr>
-                                                <tr>
-                                                    <td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
                                                         <span class="text-muted mb-30">
                                                              SPESE TECNICHE PROGETTISTA
                                                         </span>
-                                                    </td>
-                                                    <td>
-                                                        {{form_ex_vat.tech_exp_designer}}
-                                                    </td>
-                                                    <td>
-                                                        {{form_ex_vat.ss_cash_for_designer}}
-                                                    </td>
+                                                            </td>
+                                                            <td>
+                                                                {{form_ex_vat.tech_exp_designer}}
+                                                            </td>
+                                                            <td>
+                                                                {{form_ex_vat.ss_cash_for_designer}}
+                                                            </td>
 
-                                                    <td>
-                                                       {{form_ex_vat.vat_for_designer}}
-                                                    </td>
+                                                            <td>
+                                                                {{form_ex_vat.vat_for_designer}}
+                                                            </td>
 
-                                                </tr>
-                                                <tr>
-                                                    <td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
                                                         <span class="text-muted mb-30">
                                                              SPESE TECNICHE COORDINATORE SICUREZZA PROGETTAZIONE
                                                         </span>
-                                                    </td>
-                                                    <td>
-                                                        {{form_ex_vat.tech_exp_coordinator_safety_des}}
-                                                    </td>
-                                                    <td>
-                                                        {{form_ex_vat.ss_cash_for_coordinator_safety_des}}
-                                                    </td>
+                                                            </td>
+                                                            <td>
+                                                                {{form_ex_vat.tech_exp_coordinator_safety_des}}
+                                                            </td>
+                                                            <td>
+                                                                {{form_ex_vat.ss_cash_for_coordinator_safety_des}}
+                                                            </td>
 
-                                                    <td>
-                                                       {{form_ex_vat.vat_for_coordinator_safety_des}}
-                                                    </td>
+                                                            <td>
+                                                                {{form_ex_vat.vat_for_coordinator_safety_des}}
+                                                            </td>
 
-                                                </tr>
-                                                <tr>
-                                                        <td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
                                                             <span class="text-muted mb-30">
                                                                  SPESE TECNICHE COORDINATORE SICUREZZA ESECUZIONE
                                                             </span>
-                                                        </td>
-                                                        <td>
-                                                            {{form_ex_vat.tech_exp_coordinator_safety_exe}}
-                                                        </td>
-                                                        <td>
-                                                            {{form_ex_vat.ss_cash_for_coordinator_safety_exe}}
-                                                        </td>
+                                                            </td>
+                                                            <td>
+                                                                {{form_ex_vat.tech_exp_coordinator_safety_exe}}
+                                                            </td>
+                                                            <td>
+                                                                {{form_ex_vat.ss_cash_for_coordinator_safety_exe}}
+                                                            </td>
 
-                                                        <td>
-                                                           {{form_ex_vat.vat_for_coordinator_safety_exe}}
-                                                        </td>
+                                                            <td>
+                                                                {{form_ex_vat.vat_for_coordinator_safety_exe}}
+                                                            </td>
 
-                                                </tr>
-                                                <tr>
-                                                        <td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
                                                             <span class="text-muted mb-30">
                                                                  SPESE TECNICHE DIRETTORE LAVORI
                                                             </span>
-                                                        </td>
-                                                        <td>
-                                                            {{form_ex_vat.tech_exp_director_of_work}}
-                                                        </td>
-                                                        <td>
-                                                            {{form_ex_vat.ss_cash_for_director_of_work}}
-                                                        </td>
+                                                            </td>
+                                                            <td>
+                                                                {{form_ex_vat.tech_exp_director_of_work}}
+                                                            </td>
+                                                            <td>
+                                                                {{form_ex_vat.ss_cash_for_director_of_work}}
+                                                            </td>
 
-                                                        <td>
-                                                           {{form_ex_vat.vat_for_director_of_work}}
-                                                        </td>
+                                                            <td>
+                                                                {{form_ex_vat.vat_for_director_of_work}}
+                                                            </td>
 
-                                                </tr>
-                                                <tr>
-                                                        <td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
                                                             <span class="text-muted mb-30">
                                                                  SPESE TECNICHE TERMOTECNICO
                                                             </span>
-                                                        </td>
-                                                        <td>
-                                                            {{form_ex_vat.tech_exp_thermotechnical}}
-                                                        </td>
-                                                        <td>
-                                                            {{form_ex_vat.ss_cash_for_thermotechnical}}
-                                                        </td>
+                                                            </td>
+                                                            <td>
+                                                                {{form_ex_vat.tech_exp_thermotechnical}}
+                                                            </td>
+                                                            <td>
+                                                                {{form_ex_vat.ss_cash_for_thermotechnical}}
+                                                            </td>
 
-                                                        <td>
-                                                           {{form_ex_vat.vat_for_thermotechnical}}
-                                                        </td>
+                                                            <td>
+                                                                {{form_ex_vat.vat_for_thermotechnical}}
+                                                            </td>
 
-                                                </tr>
-                                                <tr>
-                                                        <td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
                                                             <span class="text-muted mb-30">
                                                                  SPESE TECNICHE ESPERTO ENERGETICO
                                                             </span>
-                                                        </td>
-                                                        <td>
-                                                            {{form_ex_vat.tech_exp_energy_expert}}
-                                                        </td>
-                                                        <td>
-                                                            {{form_ex_vat.ss_cash_for_energy_expert}}
-                                                        </td>
+                                                            </td>
+                                                            <td>
+                                                                {{form_ex_vat.tech_exp_energy_expert}}
+                                                            </td>
+                                                            <td>
+                                                                {{form_ex_vat.ss_cash_for_energy_expert}}
+                                                            </td>
 
-                                                        <td>
-                                                           {{form_ex_vat.vat_for_energy_expert}}
-                                                        </td>
+                                                            <td>
+                                                                {{form_ex_vat.vat_for_energy_expert}}
+                                                            </td>
 
-                                                </tr>
-                                                <tr>
-                                                        <td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
                                                             <span class="text-muted mb-30">
                                                                  EVENTUALE RESPONSABILE DEI LAVORI
                                                             </span>
-                                                        </td>
-                                                        <td>
-                                                            {{form_ex_vat.poss_respo_work}}
-                                                        </td>
-                                                        <td>
-                                                            {{form_ex_vat.ss_cash_for_respo_work}}
-                                                        </td>
+                                                            </td>
+                                                            <td>
+                                                                {{form_ex_vat.poss_respo_work}}
+                                                            </td>
+                                                            <td>
+                                                                {{form_ex_vat.ss_cash_for_respo_work}}
+                                                            </td>
 
-                                                        <td>
-                                                           {{form_ex_vat.vat_for_respo_work}}
-                                                        </td>
-                                                        <td>
+                                                            <td>
+                                                                {{form_ex_vat.vat_for_respo_work}}
+                                                            </td>
+                                                            <td>
 
-                                                        </td>
-                                                </tr>
+                                                            </td>
+                                                        </tr>
 
-                                            </tbody>
-                                        </table>
-                                        </div>
-                                        </div>
-                                        <div class="ml-3  mt-3">
-                                            <button type="submit" class="btn  btn-primary">Submit</button>
-                                        </div>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="ml-3  mt-3">
+                                                <button type="submit" class="btn  btn-primary">Submit</button>
+                                            </div>
 
-                                    </form>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
 
-                        </div>
-                        {% endif %}
-                    </div>
-                    <!-- Input group -->
+
+                            {% endif %}
+                        </table>
+
 
                 </div>
-                <!-- [ form-element ] end -->
+                <!-- Input group -->
+
+            </div>
+            <!-- [ form-element ] end -->
 
             <!-- [ Main Content ] end -->
-
         </div>
-    </section>
-    <!-- [ Main Content ] end -->
+
+    </div>
+  </div>
+</section>
+<!-- [ Main Content ] end -->
 
 {% endblock content %}
 

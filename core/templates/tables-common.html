@@ -66,11 +66,36 @@
                             </div>
                         </div>
                         {% if request.method == "POST" %}
-                        <table>
-                          {{form_ex_vat}}
-                        </table>
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>INTERVENTO LAVORI COMUNI</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="alert alert-success" role="alert">
+                                            <h4 class="alert-heading">SUCCESSO!</h4>
+                                            <p>
+                                                DETTAGLI DI INTERVENTO OPERE COMUNI È STATA POPOLATA CON SUCCESSO.
+                                                Per aggiungere i dettagli dell'intervento soggettivo di lavoro premere il pulsante SOGGETTO o OVERALL per il lavoro di intervento complessivo. Se vuoi modificare premi il pulsante EDIT.
 
-                          {% elif report%}
+
+                                            </p>
+                                            <hr>
+                                            <div class="card-body">
+                                                <a href="{% url 'tables' fff=fff %}"><button type="button" class="btn  btn-primary">COMPLESSIVA <span class="badge badge-light"></span></button></a>
+                                                <a href="{% url 'subjective' tc_id=table_cont %}"><button type="button" class="btn  btn-secondary">SOGGETTIVO <span class="badge badge-light"></span></button></a>
+                                                <a href="{% url 'common-edit' id=edit_id %}"><button  type="button" class="btn  btn-danger">EDIT <span class="badge badge-light">ID {{edit_id}}</span></button></a>
+
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% elif report%}
 
                          <div class="table-responsive">
                                         <div class="customer-scroll " style="height:100%;position:relative;">

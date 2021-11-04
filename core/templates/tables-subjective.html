@@ -66,9 +66,34 @@
                             </div>
                         </div>
                         {% if request.method == "POST" %}
-                        <table>
-                          {{form_ex_vat}}
-                        </table>
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>DETTAGLIO INTERVENTO LAVORI SOGGETTIVI</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="alert alert-success" role="alert">
+                                            <h4 class="alert-heading">SUCCESSO!</h4>
+                                            <p>
+                                                DETTAGLI DELL'INTERVENTO L'OPERA SOGGETTIVA È STATA POPOLATA CON SUCCESSO.
+                                                Per aggiungere o visualizzare i dettagli dell'intervento di lavoro comune premere il pulsante COMUNE o COMPLESSIVO per il lavoro di intervento complessivo. Se vuoi modificare premi il pulsante EDIT.
+
+
+                                            </p>
+                                            <hr>
+                                            <div class="card-body">
+                                                <a href="{% url 'common' tc_id=table_cont %}"><button type="button" class="btn  btn-primary">COMUNE <span class="badge badge-light"></span></button></a>
+                                                <a href="{% url 'tables' fff=fff %}"><button type="button" class="btn  btn-secondary">COMPLESSIVO  <span class="badge badge-light"></span></button></a>
+                                                <a href="{% url 'sub-edit' id=edit_id %}"><button  type="button" class="btn  btn-danger">EDIT <span class="badge badge-light">ID {{edit_id}}</span></button></a>
+
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                          {% elif report%}
 

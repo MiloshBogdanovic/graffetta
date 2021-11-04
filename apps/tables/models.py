@@ -262,6 +262,33 @@ class ExVatForm(ModelForm):
     class Meta:
         model = OverallExVat
         exclude = ['id']
+        labels = {
+            'total_amt_of_work': 'IMPORTO COMPLESSIVO DEI LAVORI DA ESEGUIRE',
+            'total_amt_safety_charges': 'IMPORTO COMPLESSIVO ONERI SICUREZZA ',
+            'tech_exp_designer': 'SPESE TECNICHE PROGETTISTA ',
+            'tech_exp_coordinator_safety_des': 'SPESE TECNICHE COORDINATORE SICUREZZA PROGETTAZIONE',
+            'tech_exp_coordinator_safety_exe': 'SPESE TECNICHE COORDINATORE SICUREZZA ESECUZIONE',
+            'tech_exp_director_of_work': 'SPESE TECNICHE DIRETTORE LAVORI',
+            'tech_exp_thermotechnical': 'SPESE TECNICHE TERMOTECNICO',
+            'tech_exp_energy_expert': 'SPESE TECNICHE ESPERTO ENERGETICO',
+            'poss_respo_work': 'EVENTUALE RESPONSABILE DEI LAVORI',
+            'vat_for_total_work': 'IVA DA APPLICARE  DEI LAVORI DA ESEGUIRE',
+            'ss_cash_for_designer': 'CASSA PREVIDENZA PROGETTISTA',
+            'vat_for_designer': 'IVA DA APPLICARE PROGETTISTA',
+            'vat_for_coordinator_safety_des': 'IVA DA APPLICARE SICUREZZA PROGETTAZIONE',
+            'ss_cash_for_coordinator_safety_des': 'CASSA PREVIDENZA SICUREZZA PROGETTAZIONE',
+            'vat_for_coordinator_safety_exe': 'IVA DA APPLICARE SICUREZZA ESECUZIONE',
+            'ss_cash_for_coordinator_safety_exe': 'CASSA PREVIDENZA SICUREZZA ESECUZIONE',
+            'vat_for_director_of_work': 'IVA DA APPLICARE DIRETTORE LAVORI',
+            'ss_cash_for_director_of_work': 'CASSA PREVIDENZA DIRETTORE LAVORI',
+            'vat_for_thermotechnical': 'IVA DA APPLICARE TERMOTECNICO',
+            'ss_cash_for_thermotechnical': 'CASSA PREVIDENZA TERMOTECNICO',
+            'vat_for_energy_expert': 'IVA DA APPLICARE ESPERTO ENERGETICO',
+            'ss_cash_for_energy_expert': 'CASSA PREVIDENZA ESPERTO ENERGETICO',
+            'vat_for_respo_work': 'IVA DA APPLICARE RESPONSABILE DEI LAVORI',
+            'ss_cash_for_respo_work': 'CASSA PREVIDENZA  RESPONSABILE DEI LAVORI'
+
+        }
         widgets = {
             'total_amt_of_work': NumberInput(attrs={
                 'class': 'form-control',

@@ -134,52 +134,63 @@
                                                         {%if f.id%}
                                                             <td>{{f.id}}</td>
                                                         {%else%}
+                                                            <td> <a href="{% url 'bonus'%}" > + </a></td>
+                                                        {%endif%}
+
+                                                        {%if f.datainit.condominium_id%}
+                                                            <td>{{f.datainit.condominium_id}}</td>
+                                                        {%else%}
+                                                             <td> - </td>
+                                                        {%endif%}
+
+                                                        {%if f.datainit.admin_individual_id %}
+                                                            <td>{{f.datainit.admin_individual_id}}</td>
+                                                        {%elif f.datainit_id and not f.datainit.admin_legal_id %}
+                                                            <td> <a href="{% url 'individual' form=f.datainit_id %}" > + </a></td>
+                                                        {%else %}
                                                             <td> - </td>
                                                         {%endif%}
 
-                                                        {%if f.datainit_id.condominium_id%}
-                                                            <td>{{f.datainit_id.condominium_id}}</td>
+                                                        {%if f.datainit.admin_legal_id%}
+                                                            <td>{{f.datainit.admin_legal_id}}</td>
+                                                        {%elif f.datainit_id and not f.datainit.admin_individual %}
+                                                            <td> <a href="{% url 'legal' form=f.datainit_id %}" > + </a></td>
+                                                        {%else%}
+                                                        <td> - </td>
+                                                        {%endif%}
+
+                                                        {%if f.datainit.catastal_id%}
+                                                            <td>{{f.datainit.catastal_id}}</td>
+                                                        {%elif f.datainit_id and f.datainit.condominium_id%}
+                                                            <td> <a href="{% url 'catastal' form=f.datainit_id %}" > + </a></td>
                                                         {%else%}
                                                             <td> - </td>
                                                         {%endif%}
 
-                                                        {%if f.datainit_id.admin_individual_id%}
-                                                            <td>{{f.datainit_id.admin_individual_id}}</td>
+                                                        {%if f.tables.overall_rep_id and f.tables.overall_ex_vat_id%}
+                                                            <td><a href="{% url 'tables-edit' id=f.tables.overall_ex_vat_id %}" >{{f.tables.overall_rep_id}}</a></td>
+                                                        {%elif f.tables_id and not f.tables.overall_ex_vat %}
+                                                             <td> <a href="{% url 'tables' fff=f.id %}" > + </a></td>
                                                         {%else%}
                                                             <td> - </td>
                                                         {%endif%}
 
-                                                        {%if f.datainit_id.admin_legal_id%}
-                                                            <td>{{f.datainit_id.admin_legal_id}}</td>
+                                                        {%if f.tables.common_rep_id and f.tables.common_ex_vat_id%}
+                                                            <td><a href="{% url 'common-edit' id=f.tables.common_ex_vat_id %}" >{{f.tables.common_rep_id}}</a></td>
+                                                        {%elif f.tables_id and f.tables.common_ex_vat_id is None%}
+                                                             <td> <a href="{% url 'common' tc_id=f.tables_id %}" > + </a></td>
                                                         {%else%}
-                                                            <td> - </td>
+                                                        <td> - </td>
                                                         {%endif%}
 
-                                                        {%if f.datainit_id.catastal_id%}
-                                                            <td>{{f.datainit_id.catastal_id}}</td>
+                                                        {%if f.tables.subjective_rep_id and f.tables.subjective_ex_vat_id%}
+                                                            <td><a href="{% url 'sub-edit' id=f.tables.subjective_ex_vat_id %}" >{{f.tables.subjective_rep_id}}</a></td>
+                                                        {%elif f.tables_id %}
+                                                             <td> <a href="{% url 'subjective' tc_id=f.tables_id %}" > + </a></td>
                                                         {%else%}
-                                                            <td> - </td>
+                                                        <td> - </td>
                                                         {%endif%}
 
-                                                        {%if f.tables_id.overall_rep_id%}
-                                                            <td>{{f.tables_id.overall_rep_id}}</td>
-                                                        {%else%}
-                                                            <td> - </td>
-                                                        {%endif%}
-
-                                                        {%if f.tables_id.common_rep_id%}
-                                                            <td>{{f.tables_id.common_rep_id}}</td>
-                                                        {%else%}
-                                                            <td> - </td>
-                                                        {%endif%}
-
-                                                        {%if f.subjective_rep_id%}
-                                                            <td>{{f.subjective_rep_id}}</td>
-                                                        {%else%}
-                                                            <td> - </td>
-                                                        {%endif%}
-
-                                                        <td>-</td>
                                                     </tr>
                                                  {% endfor %}
                                                 </tbody>
