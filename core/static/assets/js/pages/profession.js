@@ -4,7 +4,6 @@ $(document).ready(function(){
         let profession = $('#profession').find(':selected').val()
         let type = $('#type').find(':selected').val()
         let stringUrl = '/prof';
-        console.log(profession, type)
         switch(profession){
             case 'data-designer':
                 stringUrl += '/dd'
@@ -34,7 +33,7 @@ $(document).ready(function(){
         }else if(type == 'legal'){
             stringUrl += 'l/'
         }
-        console.log(stringUrl)
+
         window.location.href = window.location.origin + stringUrl
     })
 })
