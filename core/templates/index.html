@@ -74,22 +74,22 @@
                                                             <td> - </td>
                                                             {%endif%}
                                                             {%if form.condominium_id%}
-                                                            <td><a href="{% url 'edit-form' table='Condominium' id=form.condominium_id %}" > {{form.condominium_id}}</a></td>
+                                                            <td><a href="{% url 'edit-form' table='Condominium' id=form.condominium_id %}" > {{form.condominium.name}}</a></td>
                                                             {%else%}
                                                             <td> - </td>
                                                             {%endif%}
                                                             {%if form.admin_individual_id%}
-                                                            <td><a href="{% url 'individtable' id=form.admin_individual_id %}" >{{form.admin_individual_id}}</a></td>
+                                                            <td><a href="{% url 'edit-form' table='AdministrationIndividual' id=form.admin_individual_id %}" > {{form.admin_individual.name}}</a></td>
                                                             {%else%}
                                                             <td> - </td>
                                                             {%endif%}
                                                             {%if form.admin_legal_id%}
-                                                            <td><a href="{% url 'legaltable' id=form.admin_legal_id %}" >{{form.admin_legal_id}}</a></td>
+                                                            <td><a href="{% url 'edit-form' table='AdministrationLegal' id=form.admin_legal_id %}" > {{form.admin_legal.company_name}}</a></td>
                                                             {%else%}
                                                             <td> - </td>
                                                             {%endif%}
                                                             {%if form.catastal_id%}
-                                                            <td><a href="{% url 'catasttable' id=form.catastal_id %}" >{{form.catastal_id}}</a></td>
+                                                            <td><a href="{% url 'edit-form' table='CatastalData' id=form.catastal_id %}" > {{form.catastal.n_catastal_cheet}}</a></td>
                                                             {%else%}
                                                             <td> - </td>
                                                             {%endif%}
@@ -154,7 +154,7 @@
                                                         {%if f.datainit.admin_legal_id%}
                                                             <td>{{f.datainit.admin_legal_id}}</td>
                                                         {%elif f.datainit_id and not f.datainit.admin_individual %}
-                                                            <td> <a href="{% url 'legal' form=f.datainit_id %}" > + </a></td>
+                                                            <td> <a href="{% url 'legal' form=f.datainit_id fff=f.id %}" > + </a></td>
                                                         {%else%}
                                                         <td> - </td>
                                                         {%endif%}
@@ -191,6 +191,16 @@
                                                         <td> - </td>
                                                         {%endif%}
 
+                                                        <td>
+                                                            {%for b in f.beneficiary_set.all%}
+                                                            <a href="{% url 'beneficiary-edit' id=b.id %}" >{{b.id}} |</a>
+                                                            {%endfor%}
+                                                            <a href="{% url 'beneficiary' fff=f.id  %}" >+</a>
+                                                        </td>
+
+
+
+
                                                     </tr>
                                                  {% endfor %}
                                                 </tbody>
@@ -223,79 +233,80 @@
                                                 {%for f in tform%}
                                                     <tr>
                                                         {%if f.id%}
-                                                            <td>{{f.id}}</td>
+
+                                                            <td><a href="{% url 'tables-edit' id=f.id %}">{{f.id}}</a></td>
                                                         {%else%}
                                                             <td> - </td>
                                                         {%endif%}
 
                                                         {%if f.overall_ex_vat%}
-                                                            <td>{{f.overall_ex_vat_id}}</td>
+                                                            <td><a href="{% url 'tables-edit' id=f.overall_ex_vat_id %}">{{f.overall_ex_vat.total_amt_of_work}}</a></td>
                                                         {%else%}
                                                             <td> - </td>
                                                         {%endif%}
 
                                                         {%if f.overall_taxable%}
-                                                            <td>{{f.overall_taxable_id}}</td>
+                                                            <td>{{f.overall_taxable.total_amt_of_work}}</td>
                                                         {%else%}
                                                             <td> - </td>
                                                         {%endif%}
 
                                                         {%if f.overall_in_vat%}
-                                                            <td>{{f.overall_in_vat_id}}</td>
+                                                            <td>{{f.overall_in_vat.total_amt_of_work}}</td>
                                                         {%else%}
                                                             <td> - </td>
                                                         {%endif%}
 
                                                         {%if f.overall_rep%}
-                                                            <td>{{f.overall_rep_id}}</td>
+                                                            <td>{{f.overall_rep.total_amount_includin_vat}}</td>
                                                         {%else%}
                                                             <td> - </td>
                                                         {%endif%}
 
                                                         {%if f.common_ex_vat%}
-                                                            <td>{{f.common_ex_vat_id}}</td>
+                                                            <td><a href="{% url 'common-edit' id=f.common_ex_vat_id %}">{{f.common_ex_vat.total_amt_of_work}}</a></td>
                                                         {%else%}
                                                             <td> - </td>
                                                         {%endif%}
 
                                                         {%if f.common_taxable%}
-                                                            <td>{{f.common_taxable_id}}</td>
+                                                            <td>{{f.common_taxable.total_amt_of_work}}</td>
                                                         {%else%}
                                                             <td> - </td>
                                                         {%endif%}
 
                                                         {%if f.common%}
-                                                            <td>{{f.common_in_vat_id}}</td>
+                                                            <td>{{f.common_in_vat.total_amt_of_work}}</td>
                                                         {%else%}
                                                             <td> - </td>
                                                         {%endif%}
 
                                                         {%if f.common_rep%}
-                                                            <td>{{f.common_rep_id}}</td>
+                                                            <td>{{f.common_rep.total_amount_includin_vat}}</td>
                                                         {%else%}
                                                             <td> - </td>
                                                         {%endif%}
 
                                                         {%if f.subjective_ex_vat%}
-                                                            <td>{{f.subjective_ex_vat_id}}</td>
+                                                            <td><a href="{% url 'sub-edit' id=f.subjective_ex_vat_id %}">{{f.subjective_ex_vat.total_amt_of_work}}</a></td>
                                                         {%else%}
                                                             <td> - </td>
                                                         {%endif%}
 
                                                         {%if f.subjective_taxable%}
-                                                            <td>{{f.subjective_taxable_id}}</td>
+                                                            <td>{{f.subjective_taxable.total_amt_of_work}}</td>
                                                         {%else%}
                                                             <td> - </td>
                                                         {%endif%}
 
                                                         {%if f.subjective_in_vat%}
-                                                            <td>{{f.subjective_in_vat_id}}</td>
+                                                            <td>{{f.subjective_in_vat.total_amt_of_work}}</td>
                                                         {%else%}
                                                             <td> - </td>
                                                         {%endif%}
 
                                                         {%if f.subjective_rep%}
-                                                            <td>{{f.subjective_rep_id}}</td>
+                                                            <td>{{f.subjective_rep.total_amount_includin_vat}}</td>
                                                         {%else%}
                                                             <td> - </td>
                                                         {%endif%}
@@ -315,49 +326,78 @@
                                                 <thead>
                                                     <tr>
                                                         <th><span>ID</span></th>
-                                                        <th><span>DENOMINAZIONE SOCIETA' <a class="help" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>PROVINCIA/E ISCRIZIONE R.I. <a class="help" data-toggle="popover" title="Popover title" data-content="PROVINCIA/E ISCRIZIONE REGISTRO IMPRESE"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>N° ISCRIZIONE R.I.<a class="help" data-toggle="popover" title="Popover title" data-content="N° ISCRIZIONE REGISTRO IMPRESE - PARTITA IVA - C.F."><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>VIA E NUMERO S.L.<a class="help" data-toggle="popover" title="Popover title" data-content="AVIA E NUMERO SEDE LEGALE"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>CAP S.L.<a class="help" data-toggle="popover" title="Popover title" data-content="CAP SEDE LEGALE"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>COMUNE S.L.<a class="help" data-toggle="popover" title="Popover title" data-content="COMUNE SEDE LEGALE"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>PROVINCIA S.L. <a class="help" data-toggle="popover" title="Popover title" data-content="PROVINCIA SEDE LEGALE"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>TITOLO L.R<a class="help" data-toggle="popover" title="Popover title" data-content="TITOLO LEGALE RAPPRESENTATE"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>COGNOME E NOME L.R.<a class="help" data-toggle="popover" title="Popover title" data-content="COGNOME E NOME LEGALE RAPPRESENTANTE"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>CODICE FISCALE L.R.<a class="help" data-toggle="popover" title="Popover title" data-content="CODICE FISCALE LEGALE RAPPRESENTATE"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>DATA DI NASCITA L.R.<a class="help" data-toggle="popover" title="Popover title" data-content="DATA DI NASCITA LEGALE RAPPRESENTANTE"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>COMUNE DI NASCITA DEL L.R.<a class="help" data-toggle="popover" title="Popover title" data-content="COMUNE DI NASCITA DEL LEGALE RAPPRESENTANTE"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>PROVINCIA DI NASCITA DEL L.R.<a class="help" data-toggle="popover" title="Popover title" data-content="PROVINCIA DI NASCITA DEL LEGALE RAPPRESENTANTE"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>VIA E NUMERO RESIDENZA L.R.<a class="help" data-toggle="popover" title="Popover title" data-content="VIA E NUMERO RESIDENZA LEGALE RAPPRESENTANTE?"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>CAP RESIDENZA L.R.<a class="help" data-toggle="popover" title="Popover title" data-content="CAP RESIDENZA LEGALE RAPPRESENTANTE"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>COMUNE DI RESIDENZA L.R.<a class="help" data-toggle="popover" title="Popover title" data-content="COMUNE DI RESIDENZA LEGALE RAPPRESENTANTE"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>PROVINCIA DI RESIDENZA L.R.<a class="help" data-toggle="popover" title="Popover title" data-content="PROVINCIA DI RESIDENZA LEGALE RAPPRESENTANTE"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>PARTICELLA<a class="help" data-toggle="popover" title="Info" data-content="PARTICELLA (P) ---- SUBALTERNO CATASTALE (SC) ---- CATEGORIA CATASTALE (CAT.)"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>COG. NOME<a class="help" data-toggle="popover" title="Info" data-content="COGNOME NOME / RAGIONE O DENOMINAZIONE SOCIALE"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>TITOLO<a class="help" data-toggle="popover" title="Info" data-content="TITOLO"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>QUOTA PROP.<a class="help" data-toggle="popover" title="Info" data-content="QUOTA PROPRIETA' DEL SINGOLO"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>VIA N° COND.<a class="help" data-toggle="popover" title="Info" data-content="VIA E NUMERO IN CUI SI TROVA L'IMMOBILE"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>MILL.<a class="help" data-toggle="popover" title="Info" data-content="MILLESIMI COMPLESSIVI"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>BEN. SCONTO<a class="help" data-toggle="popover" title="Info" data-content="BENEFICIARI DELLO SCONTO IN FATTURA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>MILL.BEN. SCONTO P. COM.<a class="help" data-toggle="popover" title="Info" data-content="MILLESIMI DI BENEFICIO DELLO SCONTO IN FATTURA SU PARTI COMUNI"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>DEN. SOC. BEN.<a class="help" data-toggle="popover" title="Info" data-content="DENOMINAZIONE SOCIETA' BENEFICIARIA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>COM. SEDE LEG. SOC. BEN.<a class="help" data-toggle="popover" title="Info" data-content="COMUNE  SEDE LEGALE SOCIETA' BENEFICIARIA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>PROV SEDE LEG. SOC.  BEN<a class="help" data-toggle="popover" title="Info" data-content="PROVINCIA  SEDE LEGALE SOCIETA' BENEFICIARIA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>CAP SEDE LEG. SOC. BEN.<a class="help" data-toggle="popover" title="Info" data-content="CAP SEDE LEGALE SOCIETA' BENEFICIARIA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>VIA N° SEDE LEG. SOC. BEN.<a class="help" data-toggle="popover" title="Info" data-content="VIA E NUMERO SEDE LEGALE SOCIETA' BENEFICIARIA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>PROV. ISC. REG. IMPRESE SOC. BEN.<a class="help" data-toggle="popover" title="Info" data-content="PROVINCIA ISCRIZIONE REGISTRO IMPRESE SOCIETA' BENEFICIARIA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>N° ISC. REG. IMP. PART. IVA - C.F. SOC. BEN.<a class="help" data-toggle="popover" title="Info" data-content="N° ISCRIZIONE REGISTRO IMPRESE - PARTITA IVA - C.F. SOCIETA' BENEFICIARIA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>COG. E NOME LEG. RAP. SOC. BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="COGNOME E NOME LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>DATA NAS. LEG. RAP. SOC. BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="DATA NASCITA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>COM. NAS. LEG. RAP. SOC.BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="COMUNE NASCITA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>PROV. NAS. LEG. RAP. SOC.BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="PROVINCIA NASCITA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>COM. RES. LEG. RAP. SOC.BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="COMUNE RESIDENZA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>PROV. RES. LEG. RAP. SOC.BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="PROVINCIA RESIDENZA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>CAP RES. LEG. RAP. SOC.BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="CAP RESIDENZA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>VIA  N° RES. LEG. RAP. SOC.BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="VIA E NUMERO RESIDENZA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>COD. FIS. LEG. RAP. SOC.BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="CODICE FISCALE LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>IMP. ACC. INT. COM. CAS. PRE. INC. E IVA INC.<a class="help" data-toggle="popover" title="Info" data-content="IMPORTO ACCONTO INTERVENTI COMUNI - CASSA PREVIDENZA INCLUSA E IVA INCLUSA -"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>IMP. ACC. INT. SOG. CAS. PRE. INC. E IVA INC.<a class="help" data-toggle="popover" title="Info" data-content="IMPORTO ACCONTO INTERVENTI SOGGETTIVI - CASSA PREVIDENZA INCLUSA E IVA INCLUSA -"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>IMP. COMP. ACC. CAS. PRE. INC. E IVA INC.<a class="help" data-toggle="popover" title="Info" data-content="IMPORTO COMPLESSIVO ACCONTO - CASSA PREVIDENZA INCLUSA E IVA INCLUSA -"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>IMP. SCON. INT. COM. CAS. PRE. INC. E IVA INC.<a class="help" data-toggle="popover" title="Info" data-content="IMPORTO SCONTO IN FATTURA INTERVENTI COMUNI - CASSA PREVIDENZA INCLUSA E IVA INCLUSA -"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>IMP. SCON. INT. SOG. CAS. PRE. INC. E IVA INC.<a class="help" data-toggle="popover" title="Info" data-content="IMPORTO SCONTO IN FATTURA INTERVENTI COMUNI - CASSA PREVIDENZA INCLUSA E IVA INCLUSA -"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>IMP. COMP. SCON. IN FAT. CAS. PRE. INC. E IVA INC.<a class="help" data-toggle="popover" title="Info" data-content="AIMPORTO COMPLESSIVO SCONTO IN FATTURA - CASSA PREVIDENZA INCLUSA E IVA INCLUSA -"><i class="feather icon-help-circle f-16"></i></a></span></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                {%for form in flform%}
-                                                    <tr>
-                                                        <td>{{form.id}}</td>
-                                                        <td class="editable" data-id="{{form.company_name}}" data-type="company_name" data-table="legal">{{form.company_name}}</td>
-                                                        <td class="editable" data-id="{{form.province}}" data-type="province" data-table="legal">{{form.province}}</td>
-                                                        <td class="editable" data-id="{{form.company_reg_num}}" data-type="company_reg_num" data-table="legal">{{form.company_reg_num}}</td>
-                                                        <td class="editable" data-id="{{form.vat_number}}" data-type="vat_number" data-table="legal">{{form.vat_number}}</td>
-                                                        <td class="editable" data-id="{{form.street}}" data-type="street" data-table="legal">{{form.street}}</td>
-                                                        <td class="editable" data-id="{{form.cap}}" data-type="cap" data-table="legal">{{form.cap}}</td>
-                                                        <td class="editable" data-id="{{form.municipal_reg_office}}" data-type="municipal_reg_office" data-table="legal">{{form.municipal_reg_office}}</td>
-                                                        <td class="editable" data-id="{{form.province_reg_office}}" data-type="province_reg_office" data-table="legal">{{form.province_reg_office}}</td>
-                                                        <td class="editable" data-id="{{form.legal_title_rep}}" data-type="legal_title_rep" data-table="legal">{{form.legal_title_rep}}</td>
-                                                        <td class="editable" data-id="{{form.leg_rep_name}}" data-type="leg_rep_name" data-table="legal">{{form.leg_rep_name}}</td>
-                                                        <td class="editable" data-id="{{form.leg_rep_tax_code}}" data-type="leg_rep_tax_code" data-table="legal">{{form.leg_rep_tax_code}}</td>
-                                                        <td class="editable" data-id="{{form.leg_rep_dob}}" data-type="leg_rep_dob" data-table="legal">{{form.leg_rep_dob}}</td>
-                                                        <td class="editable" data-id="{{form.municipal_of_birth_of_leg}}" data-type="municipal_of_birth_of_leg" data-table="legal">{{form.municipal_of_birth_of_leg}}</td>
-                                                        <td class="editable" data-id="{{form.province_of_birth_of_leg}}" data-type="province_of_birth_of_leg" data-table="legal">{{form.province_of_birth_of_leg}}</td>
-                                                        <td class="editable" data-id="{{form.legal_street}}" data-type="legal_street" data-table="legal">{{form.legal_street}}</td>
-                                                        <td class="editable" data-id="{{form.legal_street_number}}" data-type="legal_street_number" data-table="legal">{{form.legal_street_number}}</td>
-                                                        <td class="editable" data-id="{{form.cap_legal}}" data-type="cap_legal" data-table="legal">{{form.cap_legal}}</td>
-                                                        <td class="editable" data-id="{{form.municipal_of_leg_residence}}" data-type="municipal_of_leg_residence" data-table="legal">{{form.municipal_of_leg_residence}}</td>
-                                                        <td class="editable" data-id="{{form.province_of_leg_residence}}" data-type="province_of_leg_residence" data-table="legal">{{form.province_of_leg_residence}}</td>
+                                                {%load my_tags %}
+                                                {%for form in beneficiary %}
+
+                                                        <tr>
+
+                                                        <td><a href="{% url 'beneficiary-edit' id=form.id %}">{{form.id}}</a></td>
+                                                        <td><a href="{% url 'beneficiary-edit' id=form.id %}">{{form.parcel}}</a></td>
+                                                        <td>{{form.name}}</td>
+                                                        <td>{{form.title}}</td>
+                                                        <td>{{form.single_ownership_fee}}</td>
+                                                        <td>{{form.street}}</td>
+                                                        <td>{{form.total_thousands}}</td>
+                                                        <td>{{form.benef_of_diss_in_invo}}</td>
+                                                        <td>{{form.thousands_benef_diss}}</td>
+                                                        <td>{{form.name_of_company}}</td>
+                                                        <td>{{form.municipal_reg_office}}</td>
+                                                        <td>{{form.province_reg_office}}</td>
+                                                        <td>{{form.post_code_cap}}</td>
+                                                        <td>{{form.company_street}}</td>
+                                                        <td>{{form.province_reg_comp_office}}</td>
+                                                        <td>{{form.vat_number_company}}</td>
+                                                        <td>{{form.name_of_company_representitave}}</td>
+                                                        <td>{{form.dob_of_rep}}</td>
+                                                        <td>{{form.muncipality_of_birth_rep}}</td>
+                                                        <td>{{form.province_of_birth_rep}}</td>
+                                                        <td>{{form.muncipality_of_res_rep}}</td>
+                                                        <td>{{form.province_of_residance_rep}}</td>
+                                                        <td>{{form.cap_of_residance_rep}}</td>
+                                                        <td>{{form.street_res_of_rep}}</td>
+                                                        <td>{{form.legal_tax_code_rep}}</td>
+                                                        <td>{{form.amount_advance_deposit_by_customer_common}}</td>
+                                                        <td>{{form.amount_advance_deposit_by_customer_subjective}}</td>
+                                                        <td>{{form.total_adv_deposit_customer}}</td>
+                                                        <td>{{form.amount_discount_common}}</td>
+                                                        <td>{{form.amount_discount_subjective}}</td>
+                                                        <td>{{form.total_discount}}</td>
+
                                                     </tr>
+
                                                  {% endfor %}
                                                 </tbody>
                                             </table>

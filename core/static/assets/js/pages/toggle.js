@@ -15,8 +15,11 @@ $(document).ready(function() {
 );
 
 
-
-
+//
+//$(".row-beneficiary").find("td").bind("dblclick", function(){
+//
+//window.location.href = "http://stackoverflow.com";
+//});
 
 
 

@@ -2,23 +2,20 @@
 """
 Copyright (c) 2019 - present AppSeed.us
 """
-from django.forms import modelform_factory
 from django import template
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import UpdateView
 from django.http import HttpResponse, HttpResponseRedirect
-from django.views.generic import ListView
 from django.http.response import JsonResponse
 from django.shortcuts import redirect
 from django.template import loader
 from django.urls import reverse
 from apps.app.tables import AdministrationIndividualTable, AdministrationLegalTable, CatastalTable, CondominiumTable
 from apps.tables.models import TableContract
+from apps.beneficary.models import Beneficiary
 from apps.app.models import CondominiumData, CondominiumForm, AdministrationIndividualForm, AdministrationLegalForm,\
     FormFaccata, CatastalDataForm, AdministrationIndividual, AdministrationLegal, CatastalData, DataInitial
 from django.shortcuts import get_object_or_404, render
-from itertools import chain
+
 
 
 @login_required(login_url="/login/")
@@ -27,50 +24,7 @@ def index(request):
     context['fff'] = FormFaccata.objects.all()
     context['dform'] = DataInitial.objects.all()
     context['tform'] = TableContract.objects.all()
-    html_template = loader.get_template('index.html')
-    return HttpResponse(html_template.render(context, request))
-
-
-@login_required(login_url="/login/")
-def condt(request, id):
-    context = {'segment': 'index'}
-    fform = FormFaccata.objects.all()
-    context['fform'] = fform
-    cform = CondominiumData.objects.filter(id=id)
-    context['cform'] = cform
-    html_template = loader.get_template('index.html')
-    return HttpResponse(html_template.render(context, request))
-
-
-@login_required(login_url="/login/")
-def individt(request, id):
-    context = {'segment': 'index'}
-    fform = FormFaccata.objects.all()
-    context['fform'] = fform
-    iform = AdministrationIndividual.objects.filter(id=id)
-    context['iform'] = iform
-    html_template = loader.get_template('index.html')
-    return HttpResponse(html_template.render(context, request))
-
-
-@login_required(login_url="/login/")
-def flegalt(request, id):
-    context = {'segment': 'index'}
-    fform = FormFaccata.objects.all()
-    context['fform'] = fform
-    flform = AdministrationLegal.objects.filter(id=id)
-    context['flform'] = flform
-    html_template = loader.get_template('index.html')
-    return HttpResponse(html_template.render(context, request))
-
-
-@login_required(login_url="/login/")
-def catastt(request, id):
-    context = {'segment': 'index'}
-    fform = FormFaccata.objects.all()
-    context['fform'] = fform
-    ctform = CatastalData.objects.filter(id=id)
-    context['ctform'] = ctform
+    context['beneficiary'] = Beneficiary.objects.all()
     html_template = loader.get_template('index.html')
     return HttpResponse(html_template.render(context, request))
 
@@ -92,7 +46,7 @@ def bonus(request):
             fff.save()
             context['fff'] = fff.id
             if f.select_administrator == 'Legal':
-                return redirect('legal', form=dform.id)
+                return redirect('legal', form=dform.id, fff=fff.id)
             elif f.select_administrator == 'Individual':
                 return redirect('individual', form=dform.id)
 
@@ -105,10 +59,10 @@ def bonus(request):
 
 
 @login_required(login_url="/login/")
-def legal(request, form):
-    context = {'segment': 'legal'}
+def legal(request, form, fff):
+    context = {'segment': 'legal', 'fff': fff}
     dform = get_object_or_404(DataInitial, pk=form)
-    fff = get_object_or_404(FormFaccata, datainit=form)
+    fff = get_object_or_404(FormFaccata, pk=fff)
     forms = AdministrationLegalForm()
     context['forms'] = forms
     if request.method == 'POST':
@@ -129,7 +83,7 @@ def legal(request, form):
 
 
 @login_required(login_url="/login/")
-def individual(request, form):
+def individual(request, form, fff):
     context = {'segment': 'individual'}
     dform = get_object_or_404(DataInitial, pk=form)
     fff = get_object_or_404(FormFaccata, datainit=form)

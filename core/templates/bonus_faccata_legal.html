@@ -22,12 +22,12 @@
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
                                     <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="">DATI INIZIALI</a></li>
-                                    {% if fff.id %}
-                                    <li class="breadcrumb-item"><a href="{% url 'tables' ff=fff.id %}">SINTESI CONTRATTO CLIENTE</a></li>
-                                    {%else%}
-                                    <li class="breadcrumb-item"><a href="">SINTESI CONTRATTO CLIENTE</a></li>
+                                    {% if fff %}
+                                    <li class="breadcrumb-item"><a href="{% url 'tables' fff=fff %}">SINTESI CONTRATTO CLIENTE</a></li>
+                                    <li class="breadcrumb-item"><a href="{% url 'beneficiary' fff=fff %}">DETTAGLIO DEI BENEFICIARI</a></li>
+                                    <li class="breadcrumb-item"><a href="">PROFESSIONAL ASSIGNMENTS</a></li>
                                     {%endif%}
-                                    <li class="breadcrumb-item"><a href="">DETTAGLIO DEI BENEFICIARI</a></li>
+
                                 </ul>
                             </nav>
                             <nav aria-label="breadcrumb">
@@ -180,8 +180,10 @@
                 </div>
             </div>
         </div>
- {% endblock content %}
+    </div>
+</section>
 
-                            <!-- Specific Page JS goes HERE  -->
+{% endblock content %}
+
 {% block javascripts %}
 {% endblock javascripts %}

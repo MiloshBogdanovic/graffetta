@@ -32,7 +32,8 @@ INSTALLED_APPS = [
     'django_tables2',
     'jquery',
     'apps.app',
-    'apps.tables'
+    'apps.tables',
+    'apps.beneficary',
 
 ]
 

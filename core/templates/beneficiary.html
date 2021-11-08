@@ -1,0 +1,131 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Bonus Faccata {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- [ Main Content ] start -->
+    <section class="pcoded-main-container">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Bonus Facciata</h5>
+                            </div>
+                            <nav aria-label="breadcrumb">
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+                                    <li class="breadcrumb-item " aria-current="page" ><a  href="">DATI INIZIALI</a></li>
+                                    {% if fff.id %}
+                                    <li class="breadcrumb-item"><a href="{% url 'tables' ff=fff.id %}">SINTESI CONTRATTO CLIENTE</a></li>
+                                    {%else%}
+                                    <li class="breadcrumb-item"><a href="">SINTESI CONTRATTO CLIENTE</a></li>
+                                    {%endif%}
+                                    <li class="breadcrumb-item active"><a class="breadcrumb-item active" href="">DETTAGLIO DEI BENEFICIARI</a></li>
+                                </ul>
+                            </nav>
+                            <nav aria-label="breadcrumb">
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item active" aria-current="page"><a class="breadcrumb-item active" href="#">DATI DEL BENEFICIARIO</a></li>
+
+                                </ul>
+                            </nav>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <!-- [ form-element ] start -->
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>DETTAGLIO DEI BENEFICIARI</h4>
+                        </div>
+                        {%if error%}
+                        <hr>
+                        <div class="alert alert-danger" role="alert">
+                            {{error}}
+                         </div>
+                        {%endif%}
+
+                        <div class="card-body">
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {% csrf_token %}
+                                    {% if request.method == "POST" %}
+                                     <div class="card">
+                                            <div class="card-header">
+                                                <h5>BENEFICIARIO CREATO</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="alert alert-success" role="alert">
+                                                    <h4 class="alert-heading">SUCCESSO!</h4>
+
+                                                    <hr>
+                                                    <div class="card-body">
+                                                        <p class="justify">
+                                                            Il beneficiario con ID {{form_id}} è creato.
+                                                        </p>
+                                                        <a href="{% url 'beneficiary' fff=fff %}"><button type="button" class="btn  btn-success">AGGIUNGI NUOVO</button></a>
+                                                        <a href="{% url 'beneficiary-add' id=form_id %}"><button type="button" class="btn  btn-info">AGGIUNGI NUOVO CON GLI STESSI VALORI</button></a>
+                                                        <a href="{% url 'beneficiary-edit' id=form_id %}"><button type="button" class="btn  btn-danger">MODIFICA</button></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+
+                                    {%elif request.method == "POST" and segment.beneficiary_edit%}
+                                    <div class="card">
+                                            <div class="card-header">
+                                                <h5>MODIFICA DEL BENEFICIARIO</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="alert alert-success" role="alert">
+                                                    <h4 class="alert-heading">SUCCESSO!</h4>
+
+                                                    <hr>
+                                                    <div class="card-body">
+                                                        <p class="justify">
+                                                            Il beneficiario con ID e {{form_id}} è stato modificato correttamente.
+                                                        </p>
+                                                        <a href="{% url 'beneficiary fff=fff'%}"><button type="button" class="btn  btn-success">AGGIUNGI NUOVO</button></a>
+                                                        <a href="{% url 'beneficiary-add' id=form_id %}"><button type="button" class="btn  btn-info">AGGIUNGI NUOVO CON GLI STESSI VALORI</button></a>
+                                                        <a href="{% url 'beneficiary-edit' id=form_id %}"><button type="button" class="btn  btn-danger">MODIFICA</button></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    {%else%}
+                                    <form action="" method="post">
+                                        {% csrf_token %}
+                                        <table>
+                                            {{form}}
+
+
+                                        </table>
+                                        <button type="submit" class="btn  btn-primary">INVIA</button>
+                                    </form>
+                                    {%endif%}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

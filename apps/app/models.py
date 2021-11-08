@@ -10,6 +10,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from apps.tables.models import TableContract
+
 # from apps.tables.models import OverallReport, OverallExVat, OverallIncVat, OverallTaxable, CommonWorkReport, CommonWorkExVat, CommonWorkIncVat, CommonWorkTaxable, SubjectiveWorkReport, SubjectiveWorkExVat
 
 
@@ -132,6 +133,9 @@ class FormFaccata(models.Model):
     datainit = models.ForeignKey(DataInitial, models.SET_NULL, blank=True, null=True)
     tables = models.ForeignKey(TableContract, models.SET_NULL, blank=True, null=True)
     user = models.ForeignKey(User, models.SET_NULL, blank=True, null=True)
+
+    def __str__(self):
+        return f'FORM ID-{self.id}'
 
     class Meta:
         managed = True

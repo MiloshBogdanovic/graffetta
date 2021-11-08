@@ -23,11 +23,12 @@
                                     <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
                                     <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="">DATI INIZIALI</a></li>
                                     {% if fff.id %}
-                                    <li class="breadcrumb-item"><a href="{% url 'tables' ff=fff.id %}">SINTESI CONTRATTO CLIENTE</a></li>
+                                    <li class="breadcrumb-item"><a href="{% url 'tables' fff=fff.id %}">SINTESI CONTRATTO CLIENTE</a></li>
                                     {%else%}
-                                    <li class="breadcrumb-item"><a href="">SINTESI CONTRATTO CLIENTE</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript:alert('Primo registro condominio')">SINTESI CONTRATTO CLIENTE</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript:alert('Primo registro condominio')">DETTAGLIO DEI BENEFICIARI</a></li>
                                     {%endif%}
-                                    <li class="breadcrumb-item"><a href="">DETTAGLIO DEI BENEFICIARI</a></li>
+
                                 </ul>
                             </nav>
                             <nav aria-label="breadcrumb">
@@ -128,8 +129,17 @@
                                         </div>
                                         <button type="submit" class="btn  btn-primary">Submit</button>
                                     </form>
-
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+  <script src="/static/assets/js/pages/bonus.js"></script>
+{% endblock javascripts %}
