@@ -9,6 +9,7 @@ from django.urls import path, include  # add this
 urlpatterns = [
     path('admin/', admin_site.urls),          # Django admin route
     path("tables/", include("apps.tables.urls")),
+    path("prof/", include("apps.professionals.urls")),
     path("", include("apps.authentication.urls")), # Auth routes - login / register
     path("", include("apps.app.urls")), # UI Kits Html files
 

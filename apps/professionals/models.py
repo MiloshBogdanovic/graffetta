@@ -1,12 +1,25 @@
 from django.db import models
 from django.db.models import manager
+from django.db.models.deletion import CASCADE
 from django.forms import widgets
-from django.forms.models import ModelForm
+from django.forms.fields import ChoiceField, MultipleChoiceField
+from django.forms.forms import Form
+from django.forms.models import ModelForm, ModelMultipleChoiceField
 from internationalflavor.vat_number.models import VATNumberField
-from django.forms.widgets import EmailInput, TextInput, Select, NumberInput, DateInput, Textarea
+from django.forms.widgets import CheckboxSelectMultiple, EmailInput, TextInput, Select, NumberInput, DateInput, Textarea
 from phone_field import PhoneField
-
+from apps.app.models import FormFaccata
 from apps.app.views import individual
+
+PROFESSION_CHOICES = [
+    ('DATI PROGETTISTA', 'DATI PROGETTISTA'),
+    ('DATI COORDINATORE SICUREZZA IN FASE DI PROGETTAZIONE','DATI COORDINATORE SICUREZZA IN FASE DI PROGETTAZIONE'),
+    ('DATI COORDINATORE SICUREZZA IN FASE DI ESECUZIONE', 'DATI COORDINATORE SICUREZZA IN FASE DI ESECUZIONE'),
+    ('DATI DIRETTORE LAVORI', 'DATI DIRETTORE LAVORI'),
+    ('DATI TERMOTECNICO', 'DATI TERMOTECNICO'),
+    ('DATI ESPERTO ENERGETICO', 'DATI ESPERTO ENERGETICO'),
+    ('DATI RESPONSABILE DEI LAVORI', 'DATI RESPONSABILE DEI LAVORI')
+]
 
 # Create your models here.
 individual_labels = {
@@ -25,32 +38,33 @@ individual_labels = {
     'activity_province':'PROVINCIA SEDE ATTIVITA',
     'province_head_office': 'PROVINCIA DELLA SEDE CENTRALE ',
     'cap_headquarters': 'CAP SEDE CENTRALE',
-    'board_order_registration': "REGISTRAZIONE DELL'ORDINE DI BORDO",
-    'province_college': 'COLLEGIO PROVINCIALE',
-    'province_college_registration_order': "ORDINE DI ISCRIZIONE ALL'UNIVERSITÀ DELLA PROVINCIA",
+    'board_order_registration': "COLLEGIO/ORDINE - ISCRIZIONE",
+    'province_college': 'PROVINCIA COLLEGIO',
+    'number_description': "No ISCRIZIONE",
     'vat_number': 'PARTITA IVA',
     'fiscal_code': 'CODICE FISCALE',
     'phone_number': 'TELEFONO',
-    'security_case_technician': 'TECNICO DEL CASO DI SICUREZZA '
+    'security_case_technician': 'CASSA DI PREVIDENZA TECNICO'
 }
 
 legal_labels = {
     'company_name':'DENOMINAZIONE SOCIETA',
     'municipal_reg_office':'COMUNE SEDE LEGALE',
     'province_reg_office':'PROVINCIA SEDE LEGALE',
-    'cap_reg_office':'CAP',
+    'cap_reg_office':'CAP SEDE LEGALE',
     'street_reg_office':'VIA E NUMERO SEDE LEGALE',
-    'province_of_registration':'PROVINCIA DI REGISTRAZIONE SEDE LEGALE',
-    'company_registration_number':'',
+    'province_of_inscription_enterprises_register':'PROVINCIA/E DI ISCRIZIONE REGISTRO IMPRESE',
+    'number_of_inscription_enterprises_register': 'No ISCRIZIONE REGISTRO IMPRESE - C.F. - P.IVA',
     'rep_name':'COGNOME E NOME LEGALE RAPPRESENTANTE',
     'rep_dob':'DATA DI NASCITA LEGALE RAPPRESENTANTE',
-    'rep_dob_municipality':'COMUNE DE RAPPRESENTANTE',
-    'rep_dob_province':'PROVINCIA DE RAPPRESENTANTE',
-    'rep_residence_zip':'CODICE POSTALE DEL RAPPRESENTANTE',
-    'rep_street':'VIA E NUMERO SEDE RAPPRESENTANTE',
-    'rep_tax_code':'CODICE FISCALE DEL RAPPRESENTANTE ',
+    'rep_dob_municipality':'COMUNE DI NASCITA LEGALE RAPPRESENTANTE',
+    'rep_dob_province':'PROVINCIA DI NASCITA LEGALE RAPPRESENTANTE',
+    'rep_residence_municipality':'CAP RESIDENZA LEGALE RAPPRESENTANTE',
+    'rep_residence_zip':'CODICE POSTALE DEL LEGALE RAPPRESENTANTE',
+    'rep_street':'VIA E NUMERO RESIDENZA SEDE RAPPRESENTANTE',
+    'rep_fiscal_code':'CODICE FISCALE DEL RAPPRESENTANTE ',
     'rep_phone_number':'TELEFONO DEL RAPPRESENTANTE ',
-    'ss_fund':''
+    'ss_fund':"EVENTUALE CASSA DI PREVIDENZA DA APPLICARE ALLA SOCIETA'/STUDIO PROFESSIONALE"
 }
 
 individual_widgets = {
@@ -114,9 +128,9 @@ individual_widgets = {
         'class':'form-control',
         'id':'province_college'
     }),
-    'province_college_registration_order': TextInput(attrs={
+    'number_description': TextInput(attrs={
         'class':'form-control',
-        'id':'province_college_registration_order'
+        'id':'number_description'
     }),
     'vat_number': TextInput(attrs={
         'class':'form-control',
@@ -232,12 +246,12 @@ class DataDesignerIndividual(models.Model):
     cap_headquarters = models.CharField(max_length=50)
     board_order_registration = models.CharField(max_length=50)
     province_college = models.CharField(max_length=40)
-    province_college_registration_order = models.IntegerField(blank=False)
+    number_description = models.IntegerField(blank=False)
     vat_number = VATNumberField(countries=['IT', 'NL'])
     fiscal_code = models.IntegerField(blank=False)
     phone_number = PhoneField(blank=False)
     security_case_technician = models.IntegerField(blank=False)
-
+    form_id = models.ForeignKey(FormFaccata, blank=False, null=False, on_delete=models.CASCADE)
     class Meta:
         managed = True
 
@@ -248,17 +262,19 @@ class DataDesignerLegal(models.Model):
     province_reg_office = models.CharField(max_length=20)
     cap_reg_office = models.CharField(max_length=20)
     street_reg_office = models.CharField(max_length=100)
-    province_of_registration = models.CharField(max_length=20)
-    company_registration_number = VATNumberField(countries=['IT', 'NL'])
+    province_of_inscription_enterprises_register = models.CharField(max_length=20)
+    number_of_inscription_enterprises_register = VATNumberField(countries=['IT', 'NL'])
     rep_name = models.CharField(max_length=100)
     rep_dob = models.DateField(auto_now=False, auto_now_add=False)
     rep_dob_municipality = models.CharField(max_length=50)
     rep_dob_province = models.CharField(max_length=50)
     rep_residence_zip = models.CharField(max_length=30)
     rep_street = models.CharField(max_length=100)
-    rep_tax_code = models.CharField(max_length=20)
+    rep_residence_municipality = models.CharField(max_length=100)
+    rep_fiscal_code = models.CharField(max_length=20)
     rep_phone_number = models.IntegerField(blank=False)
     ss_fund = models.IntegerField(blank=False)
+    form_id = models.ForeignKey(FormFaccata, blank=False, null=False, on_delete=models.CASCADE)
 
     class Meta:
         managed = True
@@ -315,97 +331,105 @@ class DataResponsibleForWorksLegal(DataDesignerLegal):
 class DataDesignerIndividualForm(ModelForm):
     class Meta:
         model = DataDesignerIndividual
-        exclude = ['id']
+        exclude = ['id', 'form_id']
         labels = individual_labels
         widgets = individual_widgets
 
 class DataDesignerLegalForm(ModelForm):
     class Meta:
         model = DataDesignerLegal
-        exclude = ['id']
+        exclude = ['id', 'form_id']
         labels = legal_labels
         widgets = legal_widgets
 
 class DataSecurityCoordinatorIndividualForm(ModelForm):
     class Meta:
         model = DataSecurityCoordinatorIndividual
-        exclude = ['id']
+        exclude = ['id', 'form_id']
         labels =  individual_labels
         widgets = legal_widgets
 
 class DataSecurityCoordinatorLegalForm(ModelForm):
     class Meta:
         model = DataSecurityCoordinatorLegal
-        exclude = ['id']
+        exclude = ['id', 'form_id']
         labels = legal_labels
         widgets = legal_widgets
 
 class DataSecurityCoordinatorExecutionIndividualForm(ModelForm):
     class Meta:
         model = DataSecurityCoordinatorExecutionIndividual
-        exclude = ['id']
+        exclude = ['id', 'form_id']
         labels =  individual_labels
         widgets = legal_widgets
 
 class DataSecurityCoordinatorExecutionLegalForm(ModelForm):
     class Meta:
         model = DataSecurityCoordinatorExecutionLegal
-        exclude = ['id']
+        exclude = ['id', 'form_id']
         labels =  legal_labels
         widgets = legal_widgets
 
 class DataDirectorWorksIndividualForm(ModelForm):
     class Meta:
         model = DataDirectorWorksIndividual
-        exclude = ['id']
+        exclude = ['id', 'form_id']
         labels =  individual_labels
         widgets = legal_widgets
 
 class DataDirectorWorksLegalForm(ModelForm):
     class Meta:
         model = DataDirectorWorksLegal
-        exclude = ['id']
+        exclude = ['id', 'form_id']
         labels =  legal_labels
         widgets = legal_widgets
 
 class DataThermoTechnicalIndividualForm(ModelForm):
     class Meta:
         model = DataThermoTechnicalIndividual
-        exclude = ['id']
+        exclude = ['id', 'form_id']
         labels =  individual_labels
         widgets = legal_widgets
 
 class DataThermoTechnicalLegalForm(ModelForm):
     class Meta:
         model = DataThermoTechnicalLegal
-        exclude = ['id']
+        exclude = ['id', 'form_id']
         labels =  legal_labels
         widgets = legal_widgets
 
 class DataEnergyExpertIndividualForm(ModelForm):
     class Meta:
         model = DataEnergyExpertIndividual
-        exclude = ['id']
+        exclude = ['id', 'form_id']
         labels =  individual_labels
         widgets = legal_widgets
 
 class DataEnergyExpertLegalForm(ModelForm):
     class Meta:
         model = DataEnergyExpertLegal
-        exclude = ['id']
+        exclude = ['id', 'form_id']
         labels =  legal_labels
         widgets = legal_widgets
         
 class DataResponsibleForWorksIndividualForm(ModelForm):
     class Meta:
         model = DataResponsibleForWorksIndividual
-        exclude = ['id']
+        exclude = ['id', 'form_id']
         labels =  individual_labels
         widgets = legal_widgets
 
 class DataResponsibleForWorksLegalForm(ModelForm):
     class Meta:
         model = DataResponsibleForWorksLegal
-        exclude = ['id']
+        exclude = ['id', 'form_id']
         labels =  legal_labels
         widgets = legal_widgets
+
+class ProfessionChoiceForm(Form):
+    professions = ChoiceField(
+        choices=PROFESSION_CHOICES
+    )
+    type = ChoiceField(
+        choices = [('PERSONA FISICA', 'PERSONA FISICA'), ('PERSONA GIURIDICA', 'PERSONA GIURIDICA')]
+    )
