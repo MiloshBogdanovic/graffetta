@@ -201,7 +201,7 @@ def pages(request):
         html_template = loader.get_template('page-500.html')
         return HttpResponse(html_template.render(context, request))
 
-@login_required(login_url="/login")
+@login_required(login_url="/login/")
 def search(request):
     context = {}
     load_template = 'search.html'
@@ -220,7 +220,7 @@ def search(request):
     except:
         return HttpResponse(html_template.render(context, request))
 
-@login_required(login_url="/login")
+@login_required(login_url="/login/")
 def condo_list(request):
     table = CondominiumTable(CondominiumData.objects.all())
     print(table)
@@ -229,7 +229,7 @@ def condo_list(request):
         'table': table
     })
 
-@login_required(login_url="/login")
+@login_required(login_url="/login/")
 def catastal_list(request):
     table = CatastalTable(CatastalData.objects.all())
     return render(request, 'editable-tables.html', {
@@ -237,7 +237,7 @@ def catastal_list(request):
         'table': table
     })
 
-@login_required(login_url="/login")
+@login_required(login_url="/login/")
 def admin_legal_list(request):
     table = AdministrationLegalTable(AdministrationLegal.objects.all())
     return render(request, 'editable-tables.html', {
@@ -245,7 +245,7 @@ def admin_legal_list(request):
         'table': table
     })
 
-@login_required(login_url="/login")
+@login_required(login_url="/login/")
 def admin_individual_list(request):
     table = AdministrationIndividualTable(AdministrationLegal.objects.all())
     return render(request, 'editable-tables.html', {
@@ -254,7 +254,7 @@ def admin_individual_list(request):
     })
 
 
-@login_required(login_url="/login")
+@login_required(login_url="/login/")
 def edit_form(request, table, id):
     context = {'segment': 'index'}
     html_template = loader.get_template('edit-form.html')
@@ -301,7 +301,7 @@ def edit_form(request, table, id):
         return HttpResponse(html_template.render(context, request))
     
     
-@login_required(login_url="/login")
+@login_required(login_url="/login/")
 def save_table_data(request):
     if(request.method =='POST'):
         try:

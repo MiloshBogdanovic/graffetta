@@ -1,0 +1,196 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} {{title}} {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<!-- [ Main Content ] start -->
+<section class="pcoded-main-container">
+    <div class="pcoded-content">
+        <!-- [ breadcrumb ] start -->
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">Bonus Facciata</h5>
+                        </div>
+                        <nav aria-label="breadcrumb">
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+                                    <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="">DATI INIZIALI</a></li>
+                                    {% if fff.id %}
+                                    <li class="breadcrumb-item"><a href="{% url 'tables' ff=fff.id %}">SINTESI CONTRATTO CLIENTE</a></li>
+                                    {%else%}
+                                    <li class="breadcrumb-item"><a href="">SINTESI CONTRATTO CLIENTE</a></li>
+                                    {%endif%}
+                                    <li class="breadcrumb-item"><a href="">DETTAGLIO DEI BENEFICIARI</a></li>
+                                </ul>
+                            </nav>
+                            <nav aria-label="breadcrumb">
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item " aria-current="page"><a  href="{% url 'bonus' %}">DATI DEL CONDOMINIO</a></li>
+                                    <li class="breadcrumb-item " aria-current="page"><a  href="">DATI AMMINISTRATORE PERSONA GIURIDICA</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page"><a class="breadcrumb-item active" href="#">DATI AMMINISTRATORE PERSONA FISICA</a></li>
+                                </ul>
+                            </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- [ breadcrumb ] end -->
+        <!-- [ Main Content ] start -->
+        <div class="row">
+            <!-- [ form-element ] start -->
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>{{title}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <br>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form action="" method="post">
+                                    {% csrf_token %}
+                                    {% if errors %}
+                                            <div class="alert alert-danger" role="alert">
+                                                {{errors}}
+                                            </div>
+                                         {% endif %}
+                                        <div class="row">
+                                            <div class="form-group col-md-2 col-lg-2">
+                                                <label for="title">{{form.title.label}}</label>
+                                                {{form.title}}
+                                                <small>SIG./SIG.RA/GEOM./RAG./ING./ARCH/ALTRO</small>
+                                            </div>
+                                            <div class="form-group col-md-8 col-lg-8">
+                                                <label for="fiscal_code">{{form.name.label}}</label>
+                                                {{form.name}}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-4 col-lg-2">
+                                                <label for="title">{{form.dob.label}}</label>
+                                                {{form.dob}}
+                                            </div>
+                                            <div class="form-group col-md-4 col-lg-8">
+                                                <label for="birthplace">{{form.birthplace.label}}</label>
+                                                {{form.birthplace}}
+                                            </div>
+                                            <div class="form-group col-md-4 col-lg-8">
+                                                <label for="birthplace_county">{{form.birthplace_county.label}}</label>
+                                                {{form.birthplace_county}}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-10 col-lg-2">
+                                                <label for="residence_street">{{form.residence_street.label}}</label>
+                                                {{form.residence_street}}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-4 col-lg-2">
+                                                <label for="residence_cap">{{form.residence_cap.label}}</label>
+                                                {{form.residence_cap}}
+                                            </div>
+                                            <div class="form-group col-md-4 col-lg-2">
+                                                <label for="residence_city">{{form.residence_city.label}}</label>
+                                                {{form.residence_city}}
+                                            </div>
+                                            <div class="form-group col-md-4 col-lg-2">
+                                                <label for="residence_province">{{form.residence_province.label}}</label>
+                                                {{form.residence_province}}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-10 col-lg-2">
+                                                <label for="activity_street">{{form.activity_street.label}}</label>
+                                                {{form.activity_street}}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-10 col-lg-2">
+                                                <label for="activity_cap">{{form.activity_cap.label}}</label>
+                                                {{form.activity_cap}}
+                                            </div>
+                                            <div class="form-group col-md-10 col-lg-2">
+                                                <label for="activity_municipality">{{form.activity_municipality.label}}</label>
+                                                {{form.activity_province}}
+                                            </div>
+                                            <div class="form-group col-md-10 col-lg-2">
+                                                <label for="activity_municipality">{{form.activity_municipality.label}}</label>
+                                                {{form.activity_municipality}}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-10 col-lg-2">
+                                                <label for="province_head_office">{{form.province_head_office.label}}</label>
+                                                {{form.province_head_office}}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-10 col-lg-2">
+                                                <label for="province_head_office">{{form.cap_headquarters.label}}</label>
+                                                {{form.cap_headquarters}}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-10 col-lg-2">
+                                                <label for="province_head_office">{{form.board_order_registration.label}}</label>
+                                                {{form.board_order_registration}}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-10 col-lg-2">
+                                                <label for="province_head_office">{{form.province_college.label}}</label>
+                                                {{form.province_college}}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-10 col-lg-2">
+                                                <label for="province_college_registration_order">{{form.province_college_registration_order.label}}</label>
+                                                {{form.province_college_registration_order}}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-10 col-lg-2">
+                                                <label for="vat_number">{{form.vat_number.label}}</label>
+                                                {{form.vat_number}}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-10 col-lg-2">
+                                                <label for="fiscal_code">{{form.fiscal_code.label}}</label>
+                                                {{form.fiscal_code}}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-10 col-lg-2">
+                                                <label for="phone_number">{{form.phone_number.label}}</label>
+                                                {{form.phone_number}}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-10 col-lg-2">
+                                                <label for="phone_number">{{form.security_case_technician.label}}</label>
+                                                {{form.security_case_technician}}
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+ {% endblock content %}
+
+                            <!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+{% endblock javascripts %}
