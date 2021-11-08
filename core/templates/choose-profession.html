@@ -36,12 +36,20 @@
 							<h5>Choose A Profession</h5>
 						</div>
 						<div class="card-body">
-                            
-                            <form method="POST">
-                                {% csrf_token %}
-                                {{form}}
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
+							<select name="profession" id="profession">
+                                <option value="data-designer">DATI PROGETTISTA</option>
+                                <option value="data-security-coordinator-design">DATI COORDINATORE SICUREZZA IN FASE DI PROGETTAZIONE</option>
+                                <option value="data-security-coordinator-execution">DATI COORDINATORE SICUREZZA IN FASE DI ESECUZIONE</option>
+                                <option value="directory-works">DATI DIRETTORE LAVORI</option>
+                                <option value="thermotechnical">DATI TERMOTECNICO</option>
+                                <option value="data-energy-expert">DATI ESPERTO ENERGETICO</option>
+                                <option value="data-responsible">DATI RESPONSABILE DEI LAVORI</option>
+                            </select>
+                            <select name="type" id="type">
+                                <option value="individual">PERSONA FISICA</option>
+                                <option value="legal">PERSONA GIURIDICA</option>
+                            </select>
+                            <button id="pro-submit">Submit</button>
 						</div>
 					</div>
 				</div>
@@ -55,4 +63,6 @@
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+<script src="/static/assets/js/pages/profession.js"></script>
+{% endblock javascripts %}
