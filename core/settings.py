@@ -34,7 +34,8 @@ INSTALLED_APPS = [
     'apps.app',
     'apps.tables',
     'apps.beneficary',
-
+    'apps.professionals',
+    'phone_field'
 ]
 
 BOOTSTRAP4 = {
