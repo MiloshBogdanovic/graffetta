@@ -4,10 +4,11 @@ from django.forms import widgets
 from django.forms.models import ModelForm
 from internationalflavor.vat_number.models import VATNumberField
 from django.forms.widgets import EmailInput, TextInput, Select, NumberInput, DateInput, Textarea
+from phone_field import PhoneField
 
 from apps.app.views import individual
-# Create your models here.
 
+# Create your models here.
 individual_labels = {
     'title': 'TITOLO',
     'name': 'NOME E COGNOME',
@@ -233,8 +234,8 @@ class DataDesignerIndividual(models.Model):
     province_college = models.CharField(max_length=40)
     province_college_registration_order = models.IntegerField(blank=False)
     vat_number = VATNumberField(countries=['IT', 'NL'])
-    fiscal_code = models.IntegerField(max_length=16)
-    phone_number = models.IntegerField(max_length=16)
+    fiscal_code = models.IntegerField(blank=False)
+    phone_number = PhoneField(blank=False)
     security_case_technician = models.IntegerField(blank=False)
 
     class Meta:

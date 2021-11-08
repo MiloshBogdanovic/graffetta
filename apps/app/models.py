@@ -10,6 +10,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from apps.tables.models import TableContract
+
 # from apps.tables.models import OverallReport, OverallExVat, OverallIncVat, OverallTaxable, CommonWorkReport, CommonWorkExVat, CommonWorkIncVat, CommonWorkTaxable, SubjectiveWorkReport, SubjectiveWorkExVat
 
 
