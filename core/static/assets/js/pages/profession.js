@@ -6,32 +6,32 @@ $(document).ready(function(){
         let stringUrl = '/prof';
         switch(profession){
             case 'data-designer':
-                stringUrl += '/dd'
+                stringUrl += '/?profession=data-designer'
                 break;
             case 'data-security-coordinator-design':
-                stringUrl += '/dscd'
+                stringUrl += '/?profession=data-security-coordinator-design'
                 break;
             case 'data-security-coordinator-execution':
-                stringUrl += '/dsce'
+                stringUrl += '/?profession=data-security-coordinator-execution'
                 break;
-            case 'directory-works':
-                stringUrl += '/dw'
+            case 'director-works':
+                stringUrl += '/?profession=director-works'
                 break;
             case 'thermotechnical':
-                stringUrl += '/tt'
+                stringUrl += '/?profession=thermotechnical'
                 break;
             case 'data-energy-expert':
-                stringUrl += '/dee'
+                stringUrl += '/?profession=data-energy-expert'
                 break;
             case 'data-responsible':
-                stringUrl += '/dr'
+                stringUrl += '/?profession=data-responsible'
                 break;
         }
 
         if(type == 'individual'){
-            stringUrl += 'i/'
+            stringUrl += '&type=individual'
         }else if(type == 'legal'){
-            stringUrl += 'l/'
+            stringUrl += '&type=legal'
         }
 
         window.location.href = window.location.origin + stringUrl
