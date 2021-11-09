@@ -8,8 +8,8 @@ from django.forms.models import ModelForm, ModelMultipleChoiceField
 from internationalflavor.vat_number.models import VATNumberField
 from django.forms.widgets import CheckboxSelectMultiple, EmailInput, TextInput, Select, NumberInput, DateInput, Textarea
 from phone_field import PhoneField
-from apps.app.models import FormFaccata
-from apps.app.views import individual
+
+
 
 PROFESSION_CHOICES = [
     ('DATI PROGETTISTA', 'DATI PROGETTISTA'),
@@ -251,7 +251,7 @@ class DataDesignerIndividual(models.Model):
     fiscal_code = models.IntegerField(blank=False)
     phone_number = PhoneField(blank=False)
     security_case_technician = models.IntegerField(blank=False)
-    form_id = models.ForeignKey(FormFaccata, blank=False, null=False, on_delete=models.CASCADE)
+
     class Meta:
         managed = True
 
@@ -274,34 +274,40 @@ class DataDesignerLegal(models.Model):
     rep_fiscal_code = models.CharField(max_length=20)
     rep_phone_number = models.IntegerField(blank=False)
     ss_fund = models.IntegerField(blank=False)
-    form_id = models.ForeignKey(FormFaccata, blank=False, null=False, on_delete=models.CASCADE)
 
     class Meta:
         managed = True
+
 
 class DataSecurityCoordinatorIndividual(DataDesignerIndividual):
     class Meta:
         managed = True
 
+
 class DataSecurityCoordinatorLegal(DataDesignerLegal):
     class Meta:
         managed = True
+
 
 class DataSecurityCoordinatorExecutionIndividual(DataDesignerIndividual):
     class Meta: 
         managed = True
 
+
 class DataSecurityCoordinatorExecutionLegal(DataDesignerLegal):
     class Meta: 
         managed = True
+
 
 class DataDirectorWorksIndividual(DataDesignerIndividual):
     class Meta: 
         managed = True
 
+
 class DataDirectorWorksLegal(DataDesignerLegal):
     class Meta: 
         managed = True
+
 
 class DataThermoTechnicalIndividual(DataDesignerIndividual):
     class Meta: 
@@ -311,21 +317,58 @@ class DataThermoTechnicalLegal(DataDesignerLegal):
     class Meta: 
         managed = True
 
+
 class DataEnergyExpertIndividual(DataDesignerIndividual):
     class Meta:
         managed = True
+
 
 class DataEnergyExpertLegal(DataDesignerLegal):
     class Meta:
         managed = True
 
+
 class DataResponsibleForWorksIndividual(DataDesignerIndividual):
     class Meta:
         managed = True
 
+
 class DataResponsibleForWorksLegal(DataDesignerLegal):
     class Meta:
         managed = True
+
+
+class Prof_table(models.Model):
+    id = models.AutoField(primary_key=True)
+    designer_individual = models.ForeignKey(DataDesignerIndividual,on_delete=models.SET_NULL, related_name='disgner_individual',
+                                            blank=True, null=True)
+    designer_legal = models.ForeignKey(DataDesignerLegal, on_delete=models.SET_NULL,related_name='disgner_legal',
+                                       blank=True, null=True)
+    security_exe_individual = models.ForeignKey(DataSecurityCoordinatorExecutionIndividual, on_delete=models.SET_NULL,
+                                                related_name='sec_exe_individual', blank=True, null=True)
+    security_exe_legal = models.ForeignKey(DataSecurityCoordinatorExecutionLegal, on_delete=models.SET_NULL,
+                                           related_name='sec_exe_legal', blank=True, null=True)
+    security_plan_individual = models.ForeignKey(DataSecurityCoordinatorIndividual, on_delete=models.SET_NULL,
+                                                 related_name='secutiy_individual', blank=True, null=True)
+    security_plan_legal = models.ForeignKey(DataSecurityCoordinatorLegal, on_delete=models.SET_NULL,
+                                             related_name='security_individual', blank=True, null=True)
+    director_works_individual = models.ForeignKey(DataDirectorWorksIndividual, on_delete=models.SET_NULL,
+                                                  related_name='direktor_individual', blank=True, null=True)
+    director_works_legal = models.ForeignKey(DataDirectorWorksLegal, on_delete=models.SET_NULL,
+                                             related_name='direktor_legal', blank=True, null=True)
+    thermotechnical_individual = models.ForeignKey(DataThermoTechnicalIndividual, on_delete=models.SET_NULL,
+                                                   related_name='+', blank=True, null=True)
+    thermotechnical_legal = models.ForeignKey(DataThermoTechnicalLegal, on_delete=models.SET_NULL,
+                                              related_name='+', blank=True, null=True)
+    energy_expert_individual = models.ForeignKey(DataEnergyExpertIndividual, on_delete=models.SET_NULL,
+                                                 related_name='dividual', blank=True, null=True)
+    energy_expert_legal = models.ForeignKey(DataEnergyExpertLegal, on_delete=models.SET_NULL,
+                                            related_name='energy_legal',
+                                                 blank=True, null=True)
+    resp_work_individual = models.ForeignKey(DataResponsibleForWorksIndividual, on_delete=models.SET_NULL,
+                                             related_name='resposible_for_work_ind', blank=True, null=True)
+    resp_work_legal = models.ForeignKey(DataResponsibleForWorksLegal, on_delete=models.SET_NULL,
+                                        related_name='resposible_for_work_leg', blank=True, null=True)
 
 #Forms
 class DataDesignerIndividualForm(ModelForm):

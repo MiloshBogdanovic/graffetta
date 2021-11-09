@@ -15,7 +15,7 @@
                 <div class="col-lg-12">
                     <div class="card table-card">
                         <div class="card-header">
-                            <h5>Campaign monitor</h5>
+                            <h5></h5>
                             <div class="card-header-right">
                                 <div class="btn-group card-option">
                                     <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -412,36 +412,110 @@
                                                 <thead>
                                                     <tr>
                                                         <th><span>ID</span></th>
-                                                        <th><span>N° FOGLIO C. DI A.<a class="help" data-toggle="popover" title="Popover title" data-content="N° FOGLIO CATASTALE DI APPARTENENZA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>N° PRIMA PARTICELLA C. IL C.<a class="help" data-toggle="popover" title="Popover title" data-content="N° PRIMA PARTICELLA COSTITUENTE IL CONDOMINIO"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>N° SUBALTERNI A.ALLA PRIMA P.<a class="help" data-toggle="popover" title="Popover title" data-content="N° SUBALTERNI APPARTENTI ALLA PRIMA PARTICELLA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>N° SECONDA PARTICELLA C. IL C.<a class="help" data-toggle="popover" title="Popover title" data-content="N° SECONDA PARTICELLA COSTITUENTE IL CONDOMINIO"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>N° SUBALTERNI A. ALLA S. P.<a class="help" data-toggle="popover" title="Popover title" data-content="N° SUBALTERNI APPARTENTI ALLA SECONDA PARTICELLA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>N° TERZA PARTICELLA C. IL C.<a class="help" data-toggle="popover" title="Popover title" data-content="N° TERZA PARTICELLA COSTITUENTE IL CONDOMINIO"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>N° SUBALTERNI A. ALLA T.P.<a class="help" data-toggle="popover" title="Popover title" data-content="N° SUBALTERNI APPARTENTI ALLA TERZA PARTICELLA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>N° QUARTA PARTICELLA C. IL C.<a class="help" data-toggle="popover" title="Popover title" data-content="PROVINCIA SEDE LEGALE"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>N° SUBALTERNI A. ALLA Q. P.<a class="help" data-toggle="popover" title="Popover title" data-content="N° SUBALTERNI APPARTENTI ALLA QUARTA PARTICELLA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>DESCRIZIONE SINTETICA DELL'INTERVENTO<a class="help" data-toggle="popover" title="Popover title" data-content="DESCRIZIONE SINTETICA DELL'INTERVENTO"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>DATA ASSEMBLEA CONDOMINIALE<a class="help" data-toggle="popover" title="Popover title" data-content="DATA ASSEMBLEA CONDOMINIALE IN CUI I CONDOMINI HANNO IRREVOCABILMENTE OPTATO PER LO SCONTO IN FATTURA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>PROG. P.F.<a class="help" data-toggle="popover" title="ID" data-content="DATI PROGETTISTA PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>PROG. P.G.<a class="help" data-toggle="popover" title="ID" data-content="DATI PROGETTISTA PERSONA GIURIDICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>COORD. P.F.<a class="help" data-toggle="popover" title="ID" data-content="DATI COORDINATORE SICUREZZA IN FASE DI PROGETTAZIONE PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>COORD. P.G.<a class="help" data-toggle="popover" title="ID" data-content="DATI COORDINATORE SICUREZZA IN FASE DI PROGETTAZIONE PERSONA GIURIDICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>COORD. ESEC. P.F.<a class="help" data-toggle="popover" title="ID" data-content="DATI COORDINATORE SICUREZZA IN FASE DI ESECUZIONE PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>COORD. ESEC. P.G.<a class="help" data-toggle="popover" title="ID" data-content="DATI COORDINATORE SICUREZZA IN FASE DI ESECUZIONE PERSONA GIURIDICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>DIR. LAVORI P.F.<a class="help" data-toggle="popover" title="ID" data-content="DATI DIRETTORE LAVORI PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>DIR. LAVORI P.G.<a class="help" data-toggle="popover" title="ID" data-content="DATI DIRETTORE LAVORI PERSONA GIURIDICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>TERMOT. P.F.<a class="help" data-toggle="popover" title="ID" data-content="DATI TERMOTECNICO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>TERMOT. P.G.<a class="help" data-toggle="popover" title="ID" data-content="DATI TERMOTECNICO PERSONA GIURIDICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>ENERG. P.F.<a class="help" data-toggle="popover" title="ID" data-content="DATI ESPERTO ENERGETICO PERSONA FISICA (REDAZIONE APE PRE-POST) "><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>ENERG. P.G.<a class="help" data-toggle="popover" title="ID" data-content="DATI ESPERTO ENERGETICO PERSONA GIURIDICA (REDAZIONE APE PRE-POST) "><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>RES. DEI LAVORI P.F<a class="help" data-toggle="popover" title="ID" data-content="DATI RESPONSABILE DEI LAVORI PERSONA FISICA (QUALORA PRESENTE) "><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>RES. DEI LAVORI P.G<a class="help" data-toggle="popover" title="ID" data-content="DATI RESPONSABILE DEI LAVORI PERSONA GIURIDICA (QUALORA PRESENTE) "><i class="feather icon-help-circle f-16"></i></a></span></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                {%for form in ctform%}
+                                                {%for form in ptform%}
                                                     <tr>
                                                         <td>{{form.id}}</td>
-                                                        <td class="editable" data-id="{{form.n_catastal_cheet}}" data-type="n_catastal_cheet" data-table="cat">{{form.n_catastal_cheet}}</td>
-                                                        <td class="editable" data-id="{{form.n_first_particle}}" data-type="n_first_particle" data-table="cat">{{form.n_first_particle}}</td>
-                                                        <td class="editable" data-id="{{form.n_subscribers_to_first_belonging}}" data-type="cap" data-table="cat">{{form.n_subscribers_to_first_belonging}}</td>
-                                                        <td class="editable" data-id="{{form.n_second_particle}}" data-type="n_subscribers_to_first_belonging" data-table="cat">{{form.n_second_particle}}</td>
-                                                        <td class="editable" data-id="{{form.n_subscribers_to_second_belonging}}" data-type="n_subscribers_to_second_belonging" data-table="cat">{{form.n_subscribers_to_second_belonging}}</td>
-                                                        <td class="editable" data-id="{{form.n_third_particle}}" data-type="n_third_particle" data-table="cat">{{form.n_third_particle}}</td>
-                                                        <td class="editable" data-id="{{form.n_subscribers_to_third_belonging}}" data-type="n_subscribers_to_third_belonging" data-table="cat">{{form.n_subscribers_to_third_belonging}}</td>
-                                                        <td class="editable" data-id="{{form.n_fourth_particle}}}" data-type="n_fourth_particle}" data-table="cat">{{form.n_fourth_particle}}</td>
-                                                        <td class="editable" data-id="{{form.n_subscribers_to_fourth_belonging}}" data-type="n_subscribers_to_fourth_belonging" data-table="cat">{{form.n_subscribers_to_fourth_belonging}}</td>
-                                                        <td class="editable" data-id="{{form.description_of_intervention}}" data-type="description_of_intervention" data-table="cat">{{form.description_of_intervention}}</td>
-                                                        <td class="editable" data-id="{{form.data_of_condominium_assembly}}" data-type="data_of_condominium_assembly" data-table="cat">{{form.data_of_condominium_assembly}}</td>
+                                                        {%if form.designer_individual %}
+                                                        <td>{{form.designer_individual.name}}</td>
+                                                        {%else%}
+                                                        <td><a href="">+</a></td>
+                                                        {%endif%}
 
+                                                        {%if form.designer_legal%}
+                                                        <td>{{form.designer_legal.company_name}}</td>
+                                                        {%else%}
+                                                        <td><a href="">+</a></td>
+                                                        {%endif%}
+
+                                                        {%if form.security_exe_individual%}
+                                                        <td>{{form.security_exe_individual.name}}</td>
+                                                        {%else%}
+                                                        <td><a href="">+</a></td>
+                                                        {%endif%}
+
+                                                        {%if form.security_exe_legal%}
+                                                        <td>{{form.security_exe_legal.company_name}}</td>
+                                                        {%else%}
+                                                        <td><a href="">+</a></td>
+                                                        {%endif%}
+
+                                                        {%if form.security_plan_individual%}
+                                                        <td>{{form.security_plan_individual.name}}</td>
+                                                        {%else%}
+                                                        <td><a href="">+</a></td>
+                                                        {%endif%}
+
+                                                        {%if form.security_plan_legal%}
+                                                        <td>{{form.security_plan_legal.company_name}}</td>
+                                                        {%else%}
+                                                        <td><a href="">+</a></td>
+                                                        {%endif%}
+
+                                                        {%if %}
+                                                        <td>{{form.director_works_individual.name}}</td>
+                                                        {%else%}
+                                                        <td><a href="">+</a></td>
+                                                        {%endif%}
+
+                                                        {%if form.director_works_legal%}
+                                                        <td>{{form.director_works_legal.company_name}}</td>
+                                                        {%else%}
+                                                        <td><a href="">+</a></td>
+                                                        {%endif%}
+
+                                                        {%if form.thermotechnical_individual%}
+                                                        <td>{{form.thermotechnical_individual.name}}</td>
+                                                        {%else%}
+                                                        <td><a href="">+</a></td>
+                                                        {%endif%}
+
+                                                        {%if %}
+                                                        <td>{{form.thermotechnical_legal.company_name}}</td>
+                                                        {%else%}
+                                                        <td><a href="">+</a></td>
+                                                        {%endif%}
+
+                                                        {%if %}
+                                                        <td>{{form.energy_expert_individual.name}}</td>
+                                                        {%else%}
+                                                        <td><a href="">+</a></td>
+                                                        {%endif%}
+
+                                                        {%if %}
+                                                        <td>{{form.energy_expert_legal.company_name}}</td>
+                                                        {%else%}
+                                                        <td><a href="">+</a></td>
+                                                        {%endif%}
+
+                                                        {%if form.resp_work_individual%}
+                                                        <td>{{form.resp_work_individual.name}}</td>
+                                                        {%else%}
+                                                        <td><a href="">+</a></td>
+                                                        {%endif%}
+                                                        {%if form.resp_work_legal%}
+                                                        <td>form.resp_work_legal.company_name</td>
+                                                        {%else%}
+                                                        <td><a href="">+</a></td>
+                                                        {%endif%}
                                                     </tr>
+
                                                  {% endfor %}
                                                 </tbody>
                                             </table>

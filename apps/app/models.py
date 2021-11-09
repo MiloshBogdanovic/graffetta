@@ -10,6 +10,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from apps.tables.models import TableContract
+from apps.professionals.models import Prof_table
 
 # from apps.tables.models import OverallReport, OverallExVat, OverallIncVat, OverallTaxable, CommonWorkReport, CommonWorkExVat, CommonWorkIncVat, CommonWorkTaxable, SubjectiveWorkReport, SubjectiveWorkExVat
 
@@ -119,10 +120,10 @@ class CatastalData(models.Model):
 
 class DataInitial(models.Model):
     id = models.AutoField(primary_key=True)
-    condominium = models.ForeignKey(CondominiumData, models.SET_NULL, blank=True, null=True)
-    admin_legal = models.ForeignKey(AdministrationLegal, models.SET_NULL, blank=True, null=True)
-    admin_individual = models.ForeignKey(AdministrationIndividual, models.SET_NULL, blank=True, null=True)
-    catastal = models.ForeignKey(CatastalData, models.SET_NULL, blank=True, null=True)
+    condominium = models.ForeignKey(CondominiumData, on_delete=models.SET_NULL, blank=True, null=True)
+    admin_legal = models.ForeignKey(AdministrationLegal, on_delete=models.SET_NULL, blank=True, null=True)
+    admin_individual = models.ForeignKey(AdministrationIndividual, on_delete=models.SET_NULL, blank=True, null=True)
+    catastal = models.ForeignKey(CatastalData, on_delete=models.SET_NULL, blank=True, null=True)
 
     class Meta:
         managed = True
@@ -133,6 +134,7 @@ class FormFaccata(models.Model):
     datainit = models.ForeignKey(DataInitial, models.SET_NULL, blank=True, null=True)
     tables = models.ForeignKey(TableContract, models.SET_NULL, blank=True, null=True)
     user = models.ForeignKey(User, models.SET_NULL, blank=True, null=True)
+    professionals = models.ForeignKey(Prof_table, models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
         return f'FORM ID-{self.id}'

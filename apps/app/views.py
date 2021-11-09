@@ -11,6 +11,7 @@ from django.template import loader
 from django.urls import reverse
 from apps.app.tables import AdministrationIndividualTable, AdministrationLegalTable, CatastalTable, CondominiumTable
 from apps.tables.models import TableContract
+from apps.professionals.models import Prof_table
 from apps.beneficary.models import Beneficiary
 from apps.app.models import CondominiumData, CondominiumForm, AdministrationIndividualForm, AdministrationLegalForm,\
     FormFaccata, CatastalDataForm, AdministrationIndividual, AdministrationLegal, CatastalData, DataInitial
@@ -25,6 +26,7 @@ def index(request):
     context['dform'] = DataInitial.objects.all()
     context['tform'] = TableContract.objects.all()
     context['beneficiary'] = Beneficiary.objects.all()
+    context['ptform'] = Prof_table.objects.all()
     html_template = loader.get_template('index.html')
     return HttpResponse(html_template.render(context, request))
 
