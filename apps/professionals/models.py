@@ -225,9 +225,8 @@ legal_widgets = {
     })
 }
 
-"""Check type for phone number"""
-"""Check type for registration"""
-class DataDesignerIndividual(models.Model):
+
+class Individual(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=20)
     name = models.CharField(max_length=120)
@@ -253,9 +252,15 @@ class DataDesignerIndividual(models.Model):
     security_case_technician = models.IntegerField(blank=False)
 
     class Meta:
+        abstract = True
+
+
+class DataDesignerIndividual(Individual):
+    class Meta:
         managed = True
 
-class DataDesignerLegal(models.Model):
+
+class Legal(models.Model):
     id = models.AutoField(primary_key=True)
     company_name = models.CharField(max_length=50)
     municipal_reg_office = models.CharField(max_length=20)
@@ -276,64 +281,70 @@ class DataDesignerLegal(models.Model):
     ss_fund = models.IntegerField(blank=False)
 
     class Meta:
-        managed = True
+        abstract = True
 
 
-class DataSecurityCoordinatorIndividual(DataDesignerIndividual):
+class DataDesignerLegal(Legal):
     class Meta:
         managed = True
 
 
-class DataSecurityCoordinatorLegal(DataDesignerLegal):
+class DataSecurityCoordinatorIndividual(Individual):
     class Meta:
         managed = True
 
 
-class DataSecurityCoordinatorExecutionIndividual(DataDesignerIndividual):
-    class Meta: 
-        managed = True
-
-
-class DataSecurityCoordinatorExecutionLegal(DataDesignerLegal):
-    class Meta: 
-        managed = True
-
-
-class DataDirectorWorksIndividual(DataDesignerIndividual):
-    class Meta: 
-        managed = True
-
-
-class DataDirectorWorksLegal(DataDesignerLegal):
-    class Meta: 
-        managed = True
-
-
-class DataThermoTechnicalIndividual(DataDesignerIndividual):
-    class Meta: 
-        managed = True
-
-class DataThermoTechnicalLegal(DataDesignerLegal):
-    class Meta: 
-        managed = True
-
-
-class DataEnergyExpertIndividual(DataDesignerIndividual):
+class DataSecurityCoordinatorLegal(Legal):
     class Meta:
         managed = True
 
 
-class DataEnergyExpertLegal(DataDesignerLegal):
+class DataSecurityCoordinatorExecutionIndividual(Individual):
+    class Meta: 
+        managed = True
+
+
+class DataSecurityCoordinatorExecutionLegal(Legal):
+    class Meta: 
+        managed = True
+
+
+class DataDirectorWorksIndividual(Individual):
+    class Meta: 
+        managed = True
+
+
+class DataDirectorWorksLegal(Legal):
+    class Meta: 
+        managed = True
+
+
+class DataThermoTechnicalIndividual(Individual):
+    class Meta: 
+        managed = True
+
+
+class DataThermoTechnicalLegal(Legal):
+    class Meta: 
+        managed = True
+
+
+class DataEnergyExpertIndividual(Individual):
     class Meta:
         managed = True
 
 
-class DataResponsibleForWorksIndividual(DataDesignerIndividual):
+class DataEnergyExpertLegal(Legal):
     class Meta:
         managed = True
 
 
-class DataResponsibleForWorksLegal(DataDesignerLegal):
+class DataResponsibleForWorksIndividual(Individual):
+    class Meta:
+        managed = True
+
+
+class DataResponsibleForWorksLegal(Legal):
     class Meta:
         managed = True
 
@@ -370,6 +381,7 @@ class Prof_table(models.Model):
     resp_work_legal = models.ForeignKey(DataResponsibleForWorksLegal, on_delete=models.SET_NULL,
                                         related_name='resposible_for_work_leg', blank=True, null=True)
 
+
 #Forms
 class DataDesignerIndividualForm(ModelForm):
     class Meta:
@@ -378,6 +390,7 @@ class DataDesignerIndividualForm(ModelForm):
         labels = individual_labels
         widgets = individual_widgets
 
+
 class DataDesignerLegalForm(ModelForm):
     class Meta:
         model = DataDesignerLegal
@@ -385,12 +398,14 @@ class DataDesignerLegalForm(ModelForm):
         labels = legal_labels
         widgets = legal_widgets
 
+
 class DataSecurityCoordinatorIndividualForm(ModelForm):
     class Meta:
         model = DataSecurityCoordinatorIndividual
         exclude = ['id', 'form_id']
-        labels =  individual_labels
+        labels = individual_labels
         widgets = legal_widgets
+
 
 class DataSecurityCoordinatorLegalForm(ModelForm):
     class Meta:
@@ -399,12 +414,14 @@ class DataSecurityCoordinatorLegalForm(ModelForm):
         labels = legal_labels
         widgets = legal_widgets
 
+
 class DataSecurityCoordinatorExecutionIndividualForm(ModelForm):
     class Meta:
         model = DataSecurityCoordinatorExecutionIndividual
         exclude = ['id', 'form_id']
         labels =  individual_labels
         widgets = legal_widgets
+
 
 class DataSecurityCoordinatorExecutionLegalForm(ModelForm):
     class Meta:
@@ -413,12 +430,14 @@ class DataSecurityCoordinatorExecutionLegalForm(ModelForm):
         labels =  legal_labels
         widgets = legal_widgets
 
+
 class DataDirectorWorksIndividualForm(ModelForm):
     class Meta:
         model = DataDirectorWorksIndividual
         exclude = ['id', 'form_id']
         labels =  individual_labels
         widgets = legal_widgets
+
 
 class DataDirectorWorksLegalForm(ModelForm):
     class Meta:
@@ -427,12 +446,14 @@ class DataDirectorWorksLegalForm(ModelForm):
         labels =  legal_labels
         widgets = legal_widgets
 
+
 class DataThermoTechnicalIndividualForm(ModelForm):
     class Meta:
         model = DataThermoTechnicalIndividual
         exclude = ['id', 'form_id']
         labels =  individual_labels
         widgets = legal_widgets
+
 
 class DataThermoTechnicalLegalForm(ModelForm):
     class Meta:
@@ -441,6 +462,7 @@ class DataThermoTechnicalLegalForm(ModelForm):
         labels =  legal_labels
         widgets = legal_widgets
 
+
 class DataEnergyExpertIndividualForm(ModelForm):
     class Meta:
         model = DataEnergyExpertIndividual
@@ -448,26 +470,30 @@ class DataEnergyExpertIndividualForm(ModelForm):
         labels =  individual_labels
         widgets = legal_widgets
 
+
 class DataEnergyExpertLegalForm(ModelForm):
     class Meta:
         model = DataEnergyExpertLegal
         exclude = ['id', 'form_id']
         labels =  legal_labels
         widgets = legal_widgets
-        
+
+
 class DataResponsibleForWorksIndividualForm(ModelForm):
     class Meta:
         model = DataResponsibleForWorksIndividual
         exclude = ['id', 'form_id']
-        labels =  individual_labels
+        labels = individual_labels
         widgets = legal_widgets
+
 
 class DataResponsibleForWorksLegalForm(ModelForm):
     class Meta:
         model = DataResponsibleForWorksLegal
         exclude = ['id', 'form_id']
-        labels =  legal_labels
+        labels = legal_labels
         widgets = legal_widgets
+
 
 class ProfessionChoiceForm(Form):
     professions = ChoiceField(

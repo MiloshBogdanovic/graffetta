@@ -114,8 +114,10 @@ def catastal(request, form):
     dform = get_object_or_404(DataInitial, pk=form)
     forms = CatastalDataForm()
     fff = get_object_or_404(FormFaccata, datainit=form)
+    context['dform'] = dform
     context['forms'] = forms
     context['form'] = form
+    context['fff'] = fff.id
     if request.method == 'POST':
         form = CatastalDataForm(request.POST)
         if form.is_valid():

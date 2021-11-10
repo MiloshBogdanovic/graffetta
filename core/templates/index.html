@@ -433,7 +433,7 @@
                                                     <tr>
                                                         <td>{{form.id}}</td>
                                                         {%if form.designer_individual %}
-                                                        <td>{{form.designer_individual.name}}</td>
+                                                        <td>{{form.designer_individual_name}}</td>
                                                         {%else%}
                                                         <td><a href="">+</a></td>
                                                         {%endif%}
@@ -468,7 +468,7 @@
                                                         <td><a href="">+</a></td>
                                                         {%endif%}
 
-                                                        {%if %}
+                                                        {%if form.director_works_individual%}
                                                         <td>{{form.director_works_individual.name}}</td>
                                                         {%else%}
                                                         <td><a href="">+</a></td>
@@ -486,19 +486,19 @@
                                                         <td><a href="">+</a></td>
                                                         {%endif%}
 
-                                                        {%if %}
+                                                        {%if form.thermotechnical_legal%}
                                                         <td>{{form.thermotechnical_legal.company_name}}</td>
                                                         {%else%}
                                                         <td><a href="">+</a></td>
                                                         {%endif%}
 
-                                                        {%if %}
+                                                        {%if form.energy_expert_individual%}
                                                         <td>{{form.energy_expert_individual.name}}</td>
                                                         {%else%}
                                                         <td><a href="">+</a></td>
                                                         {%endif%}
 
-                                                        {%if %}
+                                                        {%if form.energy_expert_legal %}
                                                         <td>{{form.energy_expert_legal.company_name}}</td>
                                                         {%else%}
                                                         <td><a href="">+</a></td>

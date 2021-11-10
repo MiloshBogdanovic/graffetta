@@ -23,18 +23,26 @@
                                     <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
                                     <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="">DATI INIZIALI</a></li>
                                     {% if fff.id %}
-                                    <li class="breadcrumb-item"><a href="{% url 'tables' ff=fff.id %}">SINTESI CONTRATTO CLIENTE</a></li>
+                                    <li class="breadcrumb-item"><a href="{% url 'tables' fff=fff %}">SINTESI CONTRATTO CLIENTE</a></li>
+                                    <li class="breadcrumb-item"><a href="{% url 'choose-profession' fff=fff %}">INCARICHI PROFESSIONALI</a></li>
+                                    <li class="breadcrumb-item"><a href="{% url 'beneficiary' fff=fff %}">DETTAGLIO DEI BENEFICIARI</a></li>
                                     {%else%}
-                                    <li class="breadcrumb-item"><a href="">SINTESI CONTRATTO CLIENTE</a></li>
+                                    <li class="breadcrumb-item"><a href="">NO FORM ID</a></li>
                                     {%endif%}
-                                    <li class="breadcrumb-item"><a href="">DETTAGLIO DEI BENEFICIARI</a></li>
+
                                 </ul>
                             </nav>
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item " aria-current="page"><a  href="{% url 'bonus' %}">DATI DEL CONDOMINIO</a></li>
-                                    <li class="breadcrumb-item " aria-current="page"><a  href="{% url 'bonus' form=form%}">DATI AMMINISTRATORE PERSONA GIURIDICA</a></li>
-                                    <li class="breadcrumb-item active" ><a  href="{% url 'bonus' form=form %}">DATI AMMINISTRATORE PERSONA FISICA</a></li>
+
+
+
+                                    <li class="breadcrumb-item " aria-current="page"><a  href="{% url 'edit-form' table='Condominium' id=dform.condominium_id %}">DATI DEL CONDOMINIO</a></li>
+                                    {%if dform.admin_legal%}
+                                    <li class="breadcrumb-item " aria-current="page"><a  href="{% url 'edit-form' table='AdministrationLegal' id=dform.admin_legal_id %}">DATI AMMINISTRATORE PERSONA GIURIDICA</a></li>
+                                    {%elif dform.admin_individual %}
+                                    <li class="breadcrumb-item active" ><a  href="{% url 'edit-form' table='AdministrationIndividual' id=dform.admin_individual_id %}">DATI AMMINISTRATORE PERSONA FISICA</a></li>
+                                    {%endif%}
                                     <li class="breadcrumb-item active" aria-current="page"><a class="breadcrumb-item active" href="#">DATI CATASTALI DEL CONDOMINIO</a></li>
                                 </ul>
                             </nav>

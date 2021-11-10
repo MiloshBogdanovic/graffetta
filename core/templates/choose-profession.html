@@ -19,9 +19,16 @@
 								<h5 class="m-b-10">Professions</h5>
 							</div>
 							<ul class="breadcrumb">
-								<li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-								<li class="breadcrumb-item"><a href="#!">Profession Selection</a></li>
-							</ul>
+                                    <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+									<li class="breadcrumb-item active"><a class="breadcrumb-item active" href="">INCARICHI PROFESSIONALI</a></li>
+
+                                    {% if fff %}
+                                    <li class="breadcrumb-item"><a href="{% url 'tables' fff=fff %}">SINTESI CONTRATTO CLIENTE</a></li>
+                                    <li class="breadcrumb-item " aria-current="page" ><a  href="">DATI INIZIALI</a></li>
+                                    <li class="breadcrumb-item"><a href="{% url 'beneficiary' fff=fff %}">DETTAGLIO DEI BENEFICIARI</a></li>
+                                    {%endif%}
+
+                                </ul>
 						</div>
 					</div>
 				</div>
