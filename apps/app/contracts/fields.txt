@@ -3,10 +3,10 @@ condo_fiscal_code
 condo_street
 condo_city
 condo_province
+
 rep_name
 rep_fiscal_code
 rep_street
-rep_number
 rep_city
 rep_province
 owner_title

@@ -4,6 +4,7 @@ Copyright (c) 2019 - present AppSeed.us
 """
 from django import template
 from django.contrib.auth.decorators import login_required
+from django.forms.forms import Form
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http.response import JsonResponse
 from django.shortcuts import redirect
@@ -15,8 +16,8 @@ from apps.beneficary.models import Beneficiary
 from apps.app.models import CondominiumData, CondominiumForm, AdministrationIndividualForm, AdministrationLegalForm,\
     FormFaccata, CatastalDataForm, AdministrationIndividual, AdministrationLegal, CatastalData, DataInitial
 from django.shortcuts import get_object_or_404, render
-
-
+from mailmerge import MailMerge
+import os 
 
 @login_required(login_url="/login/")
 def index(request):
@@ -287,5 +288,66 @@ def save_table_data(request):
 
 
 
+@login_required(login_url="/login/")
+def generate_contract(request, id):
+    try:
+        print(os.getcwd())
+        template = 'apps/app/contracts/bonus-facciata.docx'
+        ff = FormFaccata.objects.get(pk=id)
+        admin = None
+        
+        legal = ff.datainit.condominium.select_administrator == 'Legal'
 
+        if legal:
+            admin = ff.datainit.admin_legal 
+        else:
+            admin = ff.datainit.admin_individual
+        
+        print(admin.name)
+        print(admin.company_name)
+        print('lel')
+        with MailMerge(template) as document:
+            document.merge(
+                condo_name=ff.datainit.condominium.name,
+                condo_fiscal_code=ff.datainit.condominium.fiscal_code,
+                condo_street=ff.datainit.condominium.street,
+                condo_city=ff.datainit.condominium.cap,
+                condo_province=ff.datainit.condominium.province,
+                rep_name=admin.company_name if legal else admin.name,
+                rep_fiscal_code=admin.fiscal_code if legal else admin.vat_number,
+                rep_street=admin.street if legal else admin.activity_street,
+                rep_city =admin.cap if legal else admin.activity_location_cap,
+                rep_province=admin.province_reg_office if legal else admin.activity_province,
+                owner_title=admin.legal_title_rep if legal else admin.title,
+                subject_of_intervention=ff.datainit.catastal.description_of_intervention,#Catastal -> description_of_intervention
+                total_order_with_taxable_vat=ff.tables.overall_taxable.total_of_the_order, #Overall Taxable total_of_the_order
+                total_price_with_amount_vat=ff.tables.overall_in_vat.total_of_the_order_amount_vat,  #Inc Vat total_of_the_order_amount_vat 
+                total_price_with_vat=ff.tables.overall_in_vat.total_of_the_order, #Inc Vat total_of_the_order
+                total_amount_of_work_to_be_performed=ff.tables.overall_taxable.total_amt_of_work, #Taxable total_amt_of_work overall
+                total_amount_of_common_work=ff.tables.common_taxable.total_amt_of_work,#CommonTaxabe -> total_amt_of_work
+                total_amount_of_common_work_to_be_performed=ff.tables.common_taxable.total_tech_exp, #CommonTaxable -> total_tech_exp ,
+                total_amount_of_safety_charges=ff.tables.common_taxable.total_amt_safety_charges, #CommonTaxable -> total_amt_safety_charges
+                date_of_condo_meeting=ff.datainit.catastal.data_of_condominium_assembly, #Catastall -> data_of_condominium_assembly
+                advanced_deposit_with_taxable_vat=ff.tables.overall_rep.amount_advance_deposit_by_customer_taxable,#OverallReport -> amount_advance_deposit_by_customer_taxable
+                total_amount_including_vat=ff.tables.overall_rep.total_amount_includin_vat, #OverallReport -> total_amount_includin_vat
+                amount_of_discount_applied_excluding_vat=ff.tables.overall_rep.amount_of_discount_in_invoice_taxable,#OverallReport -> amount_of_discount_in_invoice_taxable
+                amount_of_discount_in_invoice_applied=ff.tables.overall_rep.amount_of_discount_in_invoice,#OverallReport -> amount_of_discount_in_invoice
+                name_of_bank_for_the_payment='',
+                duration_of_works='',
+                date_of_payment_from_condo_to_aurica='',
+            )
+            save_template = '/contracts/${id}.docx'.format(id=ff.id)
+            document.write(save_template)
+            with open(save_template, 'r') as f:
+                file_data = f.read()
+                response = HttpResponse(file_data, content_type='application/msword')
+                file_name = '${id}-contract.docx'
+                response['Content-Disposition'] = 'attachment; filename="' + file_name + '"'
+                return response
+    except IOError as e:
+        print(e)
+        return JsonResponse({'success': False, 'msg': 'No file found!'})
+    except Exception as e:
+        print(e)
+        return JsonResponse({'success':False})
  # columns = [f.name for f in row._meta.get_fields()]
