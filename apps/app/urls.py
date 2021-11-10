@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin-legal', views.admin_legal_list, name="admin-legal"),
     path('admin-individual', views.admin_individual_list, name="admin-individual"),
     path('edit-form/<str:table>/<int:id>', views.edit_form, name="edit-form"),
+    path('generate-contract/<int:id>', views.generate_contract, name="generate-contract"),
     re_path(r'^.*\.*', views.pages, name='pages')
 ]
 
