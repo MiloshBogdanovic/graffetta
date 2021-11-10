@@ -23,7 +23,7 @@ def choose_profession(request, fff):
     if request.method == 'POST':
         form_to_redirect = ProfessionChoiceForm(request.POST)
 
-    return render(request, 'choose-profession.html', {'form': form})
+    return render(request, 'choose-profession.html', {'form': form, 'fff': fff})
 
 
 @login_required(login_url="/login/")
@@ -247,3 +247,8 @@ def choose_profession_and_type(request, prof, type, fff):
                 return render(request, template, {'error': form.errors})
     print('im down')
     return render(request, template, {'form': form, 'fff': fff})
+
+
+@login_required(login_url="/login/")
+def edit_profession(request, prof, id):
+    pass
