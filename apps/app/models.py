@@ -106,7 +106,7 @@ class CatastalData(models.Model):
     n_catastal_cheet = models.IntegerField(blank=False)
     n_first_particle = models.IntegerField(blank=False)
     n_subscribers_to_first_belonging = models.CharField(max_length=20, blank=False)
-    n_second_particle = models.IntegerField(blank=False, null=True)
+    n_second_particle = models.IntegerField(blank=True, null=True)
     n_subscribers_to_second_belonging = models.CharField(max_length=20, blank=True, null=True)
     n_third_particle = models.IntegerField(blank=True, null=True)
     n_subscribers_to_third_belonging = models.CharField(max_length=20, blank=True, null=True)

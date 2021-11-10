@@ -19,7 +19,7 @@
 								<h5 class="m-b-10">Professions</h5>
 							</div>
 							<ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+                                    <li class="breadcrumb-item"><a href="{% url 'home'%}"><i class="feather icon-home"></i></a></li>
 									<li class="breadcrumb-item active"><a class="breadcrumb-item active" href="">INCARICHI PROFESSIONALI</a></li>
 
                                     {% if fff %}
@@ -43,6 +43,13 @@
 							<h5>Choose A Profession</h5>
 						</div>
 						<div class="card-body">
+							{% if messages %}
+                            {% for message in messages %}
+                            <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button></div>
+                            {% endfor %}
+                        	{% endif %}
 							<select name="profession" id="profession">
                                 <option value="data-designer">DATI PROGETTISTA</option>
                                 <option value="data-security-coordinator-design">DATI COORDINATORE SICUREZZA IN FASE DI PROGETTAZIONE</option>

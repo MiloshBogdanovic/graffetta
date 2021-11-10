@@ -51,6 +51,13 @@
 
                         </div>
                         <div class="card-body p-0">
+                            {% if messages %}
+                            {% for message in messages %}
+                            <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button></div>
+                            {% endfor %}
+                            {% endif %}
                             <div class="tab-content" id="pills-tabContent">
                                 <div class="tab-pane fade show active" id="pills-data" role="tabpanel" aria-labelledby="pills-data-tab">
                                     <div class="table-responsive">
@@ -129,7 +136,7 @@
                                                 </thead>
                                                 <tbody>
 
-                                                {% for f in fff %}
+                                                {% for f in fform %}
                                                     <tr>
                                                         {%if f.id%}
                                                             <td>{{f.id}}</td>
@@ -435,7 +442,8 @@
                                                         {%if form.designer_individual %}
                                                         <td>{{form.designer_individual_name}}</td>
                                                         {%else%}
-                                                        <td><a href="">+</a></td>
+                                                        <td><a href="{%url 'choose-profession' fff=ptform.Parent.id %}">+</a></td>
+
                                                         {%endif%}
 
                                                         {%if form.designer_legal%}

@@ -16,13 +16,13 @@ from apps.beneficary.models import Beneficiary
 from apps.app.models import CondominiumData, CondominiumForm, AdministrationIndividualForm, AdministrationLegalForm,\
     FormFaccata, CatastalDataForm, AdministrationIndividual, AdministrationLegal, CatastalData, DataInitial
 from django.shortcuts import get_object_or_404, render
-
+from django.contrib import messages
 
 
 @login_required(login_url="/login/")
 def index(request):
     context = {'segment': 'index'}
-    context['fff'] = FormFaccata.objects.all()
+    context['fform'] = FormFaccata.objects.all()
     context['dform'] = DataInitial.objects.all()
     context['tform'] = TableContract.objects.all()
     context['beneficiary'] = Beneficiary.objects.all()
@@ -214,7 +214,7 @@ def admin_individual_list(request):
 
 @login_required(login_url="/login/")
 def edit_form(request, table, id):
-    context = {'segment': 'index'}
+    context = {'segment': 'edit-form'}
     html_template = loader.get_template('edit-form.html')
     row = None
     form = None
@@ -244,8 +244,11 @@ def edit_form(request, table, id):
             form=form_type(request.POST, instance=row)
             if form.is_valid():
                 form.save()
-                context['message'] = 'Changes successfully made'
-                return HttpResponse(html_template.render(context, request))
+                messages.success(request, 'Modifiche salvate con successo')
+                return redirect('home')
+            else:
+                messages.success(request, form.errors)
+                return redirect('edit-form', table=table, id=id)
         
         print('context')
         print(context)

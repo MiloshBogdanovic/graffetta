@@ -20,21 +20,19 @@
                         </div>
                         <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                                    <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="">DATI INIZIALI</a></li>
-                                    {% if fff.id %}
-                                    <li class="breadcrumb-item"><a href="{% url 'tables' ff=fff.id %}">SINTESI CONTRATTO CLIENTE</a></li>
-                                    {%else%}
-                                    <li class="breadcrumb-item"><a href="">SINTESI CONTRATTO CLIENTE</a></li>
+                                    <li class="breadcrumb-item"><a href="{% url 'home'%}"><i class="feather icon-home"></i></a></li>
+                                    <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="">INCARICHI PROFESSIONALI</a></li>
+                                    {% if fff %}
+                                    <li class="breadcrumb-item"><a href="{% url 'tables' fff=fff %}">SINTESI CONTRATTO CLIENTE</a></li>
+                                    <li class="breadcrumb-item"><a  href="">DATI INIZIALI</a></li>
+                                    <li class="breadcrumb-item"><a href="{% url 'beneficiary' fff=fff %}">DETTAGLIO DEI BENEFICIARI</a></li>
                                     {%endif%}
-                                    <li class="breadcrumb-item"><a href="">DETTAGLIO DEI BENEFICIARI</a></li>
                                 </ul>
                             </nav>
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item " aria-current="page"><a  href="{% url 'bonus' %}">DATI DEL CONDOMINIO</a></li>
-                                    <li class="breadcrumb-item " aria-current="page"><a  href="">DATI AMMINISTRATORE PERSONA GIURIDICA</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page"><a class="breadcrumb-item active" href="#">DATI AMMINISTRATORE PERSONA FISICA</a></li>
+
+                                    <li class="breadcrumb-item active" aria-current="page"><a class="breadcrumb-item active" href="#">FORMA GIURIDICA</a></li>
                                 </ul>
                             </nav>
                     </div>

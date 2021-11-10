@@ -5,7 +5,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.exceptions import ValidationError
 from .models import BeneficiaryForm, Beneficiary
 from apps.app.models import FormFaccata
-
+from django.contrib import messages
+from django.shortcuts import redirect
 
 
 @login_required(login_url="/login/")
@@ -23,6 +24,11 @@ def beneficiary(request, fff):
                 saved_form = BeneficiaryForm(instance=prev_form)
                 context['form'] = saved_form
                 context['form_id'] = f.id
+                html_template = loader.get_template('beneficiary.html')
+                return HttpResponse(html_template.render(context, request))
+            else:
+                context['error'] = form.errors
+                context['form'] = form
                 html_template = loader.get_template('beneficiary.html')
                 return HttpResponse(html_template.render(context, request))
 
@@ -64,7 +70,7 @@ def beneficiary_add(request, id):
 @login_required(login_url="/login/")
 def beneficiary_edit(request, id):
     prev_form = Beneficiary.objects.get(pk=id)
-    context = {'segment': 'beneficiary_edit', 'form': BeneficiaryForm(instance=prev_form)}
+    context = {'segment': 'beneficiary_edit', 'form': BeneficiaryForm(instance=prev_form), }
 
     if request.POST:
         form = BeneficiaryForm(request.POST, instance=prev_form)
@@ -72,8 +78,14 @@ def beneficiary_edit(request, id):
             if form.is_valid():
                 f = form.save()
                 context['form_id'] = f.id
-                html_template = loader.get_template('beneficiary.html')
-                return HttpResponse(html_template.render(context, request))
+                messages.success(request, 'Modifiche salvate con successo')
+                return redirect('home')
+
+            else:
+                messages.success(request, form.errors)
+                return redirect('beneficiary-edit', id=id)
+
+
 
         except ValidationError as e:
             context['error'] = e

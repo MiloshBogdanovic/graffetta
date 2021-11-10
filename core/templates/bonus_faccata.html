@@ -20,7 +20,7 @@
                             </div>
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+                                    <li class="breadcrumb-item"><a href="{% url 'home'%}"><i class="feather icon-home"></i></a></li>
                                     <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="">DATI INIZIALI</a></li>
                                     {% if fff.id %}
                                     <li class="breadcrumb-item"><a href="{% url 'tables' fff=fff.id %}">SINTESI CONTRATTO CLIENTE</a></li>

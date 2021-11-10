@@ -351,34 +351,33 @@ class DataResponsibleForWorksLegal(Legal):
 
 class Prof_table(models.Model):
     id = models.AutoField(primary_key=True)
-    designer_individual = models.ForeignKey(DataDesignerIndividual,on_delete=models.SET_NULL, related_name='disgner_individual',
+    designer_individual = models.ForeignKey(DataDesignerIndividual,on_delete=models.CASCADE, related_name='disgner_individual',
                                             blank=True, null=True)
-    designer_legal = models.ForeignKey(DataDesignerLegal, on_delete=models.SET_NULL,related_name='disgner_legal',
+    designer_legal = models.ForeignKey(DataDesignerLegal, on_delete=models.CASCADE, related_name='disgner_legal',
                                        blank=True, null=True)
-    security_exe_individual = models.ForeignKey(DataSecurityCoordinatorExecutionIndividual, on_delete=models.SET_NULL,
+    security_exe_individual = models.ForeignKey(DataSecurityCoordinatorExecutionIndividual, on_delete=models.CASCADE,
                                                 related_name='sec_exe_individual', blank=True, null=True)
-    security_exe_legal = models.ForeignKey(DataSecurityCoordinatorExecutionLegal, on_delete=models.SET_NULL,
+    security_exe_legal = models.ForeignKey(DataSecurityCoordinatorExecutionLegal, on_delete=models.CASCADE,
                                            related_name='sec_exe_legal', blank=True, null=True)
-    security_plan_individual = models.ForeignKey(DataSecurityCoordinatorIndividual, on_delete=models.SET_NULL,
+    security_plan_individual = models.ForeignKey(DataSecurityCoordinatorIndividual, on_delete=models.CASCADE,
                                                  related_name='secutiy_individual', blank=True, null=True)
-    security_plan_legal = models.ForeignKey(DataSecurityCoordinatorLegal, on_delete=models.SET_NULL,
+    security_plan_legal = models.ForeignKey(DataSecurityCoordinatorLegal, on_delete=models.CASCADE,
                                              related_name='security_individual', blank=True, null=True)
-    director_works_individual = models.ForeignKey(DataDirectorWorksIndividual, on_delete=models.SET_NULL,
+    director_works_individual = models.ForeignKey(DataDirectorWorksIndividual, on_delete=models.CASCADE,
                                                   related_name='direktor_individual', blank=True, null=True)
-    director_works_legal = models.ForeignKey(DataDirectorWorksLegal, on_delete=models.SET_NULL,
+    director_works_legal = models.ForeignKey(DataDirectorWorksLegal, on_delete=models.CASCADE,
                                              related_name='direktor_legal', blank=True, null=True)
-    thermotechnical_individual = models.ForeignKey(DataThermoTechnicalIndividual, on_delete=models.SET_NULL,
+    thermotechnical_individual = models.ForeignKey(DataThermoTechnicalIndividual, on_delete=models.CASCADE,
                                                    related_name='+', blank=True, null=True)
-    thermotechnical_legal = models.ForeignKey(DataThermoTechnicalLegal, on_delete=models.SET_NULL,
+    thermotechnical_legal = models.ForeignKey(DataThermoTechnicalLegal, on_delete=models.CASCADE,
                                               related_name='+', blank=True, null=True)
-    energy_expert_individual = models.ForeignKey(DataEnergyExpertIndividual, on_delete=models.SET_NULL,
+    energy_expert_individual = models.ForeignKey(DataEnergyExpertIndividual, on_delete=models.CASCADE,
                                                  related_name='dividual', blank=True, null=True)
-    energy_expert_legal = models.ForeignKey(DataEnergyExpertLegal, on_delete=models.SET_NULL,
-                                            related_name='energy_legal',
-                                                 blank=True, null=True)
-    resp_work_individual = models.ForeignKey(DataResponsibleForWorksIndividual, on_delete=models.SET_NULL,
+    energy_expert_legal = models.ForeignKey(DataEnergyExpertLegal, on_delete=models.CASCADE,
+                                            related_name='energy_legal', blank=True, null=True)
+    resp_work_individual = models.ForeignKey(DataResponsibleForWorksIndividual, on_delete=models.CASCADE,
                                              related_name='resposible_for_work_ind', blank=True, null=True)
-    resp_work_legal = models.ForeignKey(DataResponsibleForWorksLegal, on_delete=models.SET_NULL,
+    resp_work_legal = models.ForeignKey(DataResponsibleForWorksLegal, on_delete=models.CASCADE,
                                         related_name='resposible_for_work_leg', blank=True, null=True)
 
 

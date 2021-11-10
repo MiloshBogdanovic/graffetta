@@ -20,14 +20,16 @@
                             </div>
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+                                    <li class="breadcrumb-item"><a href="{% url 'home'%}"><i class="feather icon-home"></i></a></li>
+
+                                    {% if fff %}
+                                    <li class="breadcrumb-item"><a href="{% url 'tables' fff=fff %}">SINTESI CONTRATTO CLIENTE</a></li>
                                     <li class="breadcrumb-item " aria-current="page" ><a  href="">DATI INIZIALI</a></li>
-                                    {% if fff.id %}
-                                    <li class="breadcrumb-item"><a href="{% url 'tables' ff=fff.id %}">SINTESI CONTRATTO CLIENTE</a></li>
+                                    <li class="breadcrumb-item"><a href="{% url 'choose-profession' fff=fff %}">INCARICHI PROFESSIONALI</a></li>
                                     {%else%}
-                                    <li class="breadcrumb-item"><a href="">SINTESI CONTRATTO CLIENTE</a></li>
-                                    {%endif%}
                                     <li class="breadcrumb-item active"><a class="breadcrumb-item active" href="">DETTAGLIO DEI BENEFICIARI</a></li>
+                                    {%endif%}
+
                                 </ul>
                             </nav>
                             <nav aria-label="breadcrumb">
@@ -56,13 +58,19 @@
                             {{error}}
                          </div>
                         {%endif%}
-
+                        {% if messages %}
+                            {% for message in messages %}
+                            <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button></div>
+                            {% endfor %}
+                        {% endif %}
                         <div class="card-body">
                             <hr>
                             <div class="row">
                                 <div class="col-md-12">
                                     {% csrf_token %}
-                                    {% if request.method == "POST" %}
+                                    {% if request.method == "POST" and not error %}
                                      <div class="card">
                                             <div class="card-header">
                                                 <h5>BENEFICIARIO CREATO</h5>
@@ -76,9 +84,11 @@
                                                         <p class="justify">
                                                             Il beneficiario con ID {{form_id}} è creato.
                                                         </p>
+                                                        {%if fff and form_id%}
                                                         <a href="{% url 'beneficiary' fff=fff %}"><button type="button" class="btn  btn-success">AGGIUNGI NUOVO</button></a>
                                                         <a href="{% url 'beneficiary-add' id=form_id %}"><button type="button" class="btn  btn-info">AGGIUNGI NUOVO CON GLI STESSI VALORI</button></a>
                                                         <a href="{% url 'beneficiary-edit' id=form_id %}"><button type="button" class="btn  btn-danger">MODIFICA</button></a>
+                                                        {%endif%}
                                                     </div>
                                                 </div>
                                             </div>
@@ -98,9 +108,11 @@
                                                         <p class="justify">
                                                             Il beneficiario con ID e {{form_id}} è stato modificato correttamente.
                                                         </p>
+                                                        {%if fff and form_id%}
                                                         <a href="{% url 'beneficiary fff=fff'%}"><button type="button" class="btn  btn-success">AGGIUNGI NUOVO</button></a>
                                                         <a href="{% url 'beneficiary-add' id=form_id %}"><button type="button" class="btn  btn-info">AGGIUNGI NUOVO CON GLI STESSI VALORI</button></a>
                                                         <a href="{% url 'beneficiary-edit' id=form_id %}"><button type="button" class="btn  btn-danger">MODIFICA</button></a>
+                                                        {%endif%}
                                                     </div>
                                                 </div>
                                             </div>
