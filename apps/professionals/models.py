@@ -36,15 +36,14 @@ individual_labels = {
     'acitivity_cap':'CAP SEDE ATTIVITA',
     'activity_municipality': 'COMUNE SEDE ATTIVITA',
     'activity_province':'PROVINCIA SEDE ATTIVITA',
-    'province_head_office': 'PROVINCIA DELLA SEDE CENTRALE ',
-    'cap_headquarters': 'CAP SEDE CENTRALE',
     'board_order_registration': "COLLEGIO/ORDINE - ISCRIZIONE",
     'province_college': 'PROVINCIA COLLEGIO',
-    'number_description': "No ISCRIZIONE",
+    'number_of_reg_order_college': "No ISCRIZIONE",
     'vat_number': 'PARTITA IVA',
     'fiscal_code': 'CODICE FISCALE',
     'phone_number': 'TELEFONO',
-    'security_case_technician': 'CASSA DI PREVIDENZA TECNICO'
+    'security_case_technician': 'CASSA DI PREVIDENZA TECNICO',
+
 }
 
 legal_labels = {
@@ -60,8 +59,9 @@ legal_labels = {
     'rep_dob_municipality':'COMUNE DI NASCITA LEGALE RAPPRESENTANTE',
     'rep_dob_province':'PROVINCIA DI NASCITA LEGALE RAPPRESENTANTE',
     'rep_residence_municipality':'CAP RESIDENZA LEGALE RAPPRESENTANTE',
+    'rep_residence_province': "PROVINCIA RESIDENZA LEGALE RAPPRESENTANTE",
     'rep_residence_zip':'CODICE POSTALE DEL LEGALE RAPPRESENTANTE',
-    'rep_street':'VIA E NUMERO RESIDENZA SEDE RAPPRESENTANTE',
+    'rep_street': 'VIA E NUMERO RESIDENZA SEDE RAPPRESENTANTE',
     'rep_fiscal_code':'CODICE FISCALE DEL RAPPRESENTANTE ',
     'rep_phone_number':'TELEFONO DEL RAPPRESENTANTE ',
     'ss_fund':"EVENTUALE CASSA DI PREVIDENZA DA APPLICARE ALLA SOCIETA'/STUDIO PROFESSIONALE"
@@ -78,7 +78,8 @@ individual_widgets = {
     }),
     'dob': DateInput(attrs={
         'class':'form-control',
-        'id':'dob'
+        'id':'dob',
+        'type': 'date'
     }),
     'birthplace': TextInput(attrs={
         'class':'form-control',
@@ -185,7 +186,8 @@ legal_widgets = {
     }),
     'rep_dob': TextInput(attrs={
         'class':'form-control',
-        'id': 'leg_dob'
+        'id': 'leg_dob',
+        'type': 'date'
     }),
     'rep_dob_municipality': TextInput(attrs={
         'class':'form-control',
@@ -233,23 +235,24 @@ class Individual(models.Model):
     dob = models.DateField(auto_now=False, auto_now_add=False)
     birthplace = models.CharField(max_length=30)
     birthplace_county = models.CharField(max_length=30)
-    residence_street = models.CharField(max_length=50)
-    residence_cap = models.IntegerField(blank=False)
     residence_city = models.CharField(max_length=50)
     residence_province = models.CharField(max_length=50)
+    residence_cap = models.IntegerField(blank=False)
     activity_street = models.CharField(max_length=50)
-    activity_cap = models.IntegerField(blank=False)
     activity_municipality = models.CharField(max_length=50)
     activity_province = models.CharField(max_length=50)
-    province_head_office = models.CharField(max_length=50)
-    cap_headquarters = models.CharField(max_length=50)
+    activity_cap = models.IntegerField(blank=False)
+    residence_street = models.CharField(max_length=50)
     board_order_registration = models.CharField(max_length=50)
     province_college = models.CharField(max_length=40)
-    number_description = models.IntegerField(blank=False)
-    vat_number = VATNumberField(countries=['IT', 'NL'])
-    fiscal_code = models.IntegerField(blank=False)
+    number_of_reg_order_college = models.IntegerField(blank=False)
+    vat_number = VATNumberField(countries=['IT',])
+    fiscal_code = models.CharField(max_length=40)
     phone_number = PhoneField(blank=False)
     security_case_technician = models.IntegerField(blank=False)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         abstract = True
@@ -268,17 +271,21 @@ class Legal(models.Model):
     cap_reg_office = models.CharField(max_length=20)
     street_reg_office = models.CharField(max_length=100)
     province_of_inscription_enterprises_register = models.CharField(max_length=20)
-    number_of_inscription_enterprises_register = VATNumberField(countries=['IT', 'NL'])
+    number_of_inscription_enterprises_register = models.CharField(max_length=50)
     rep_name = models.CharField(max_length=100)
     rep_dob = models.DateField(auto_now=False, auto_now_add=False)
     rep_dob_municipality = models.CharField(max_length=50)
     rep_dob_province = models.CharField(max_length=50)
+    rep_residence_municipality = models.CharField(max_length=100)
+    rep_residence_province = models.CharField(max_length=100)
     rep_residence_zip = models.CharField(max_length=30)
     rep_street = models.CharField(max_length=100)
-    rep_residence_municipality = models.CharField(max_length=100)
-    rep_fiscal_code = models.CharField(max_length=20)
+    rep_fiscal_code = models.CharField(max_length=50)
     rep_phone_number = models.IntegerField(blank=False)
     ss_fund = models.IntegerField(blank=False)
+
+    def __str__(self):
+        return self.company_name
 
     class Meta:
         abstract = True
@@ -501,3 +508,26 @@ class ProfessionChoiceForm(Form):
     type = ChoiceField(
         choices = [('PERSONA FISICA', 'PERSONA FISICA'), ('PERSONA GIURIDICA', 'PERSONA GIURIDICA')]
     )
+
+
+class ProfTableForm(ModelForm):
+    class Meta:
+        model = Prof_table
+        fields = '__all__'
+        labels = {
+            'id': 'ID',
+            'designer_individual': 'PROGETTISTA PERSONA FISICA',
+            'designer_legal': 'PROGETTISTA PERSONA GIURIDICA',
+            'security_plan_individual': 'COORDINATORE SICUREZZA IN FASE DI PROGETTAZIONE PERSONA FISICA',
+            'security_plan_legal': 'COORDINATORE SICUREZZA IN FASE DI PROGETTAZIONE PERSONA GIURIDICA',
+            'security_exe_individual': ' COORDINATORE SICUREZZA IN FASE DI ESECUZIONE PERSONA FISICA',
+            'security_exe_legal': 'COORDINATORE SICUREZZA IN FASE DI ESECUZIONE PERSONA GIURIDICA',
+            'director_works_individual': 'DIRETTORE LAVORI PERSONA FISICA',
+            'director_works_legal': ' DIRETTORE LAVORI PERSONA GIURIDICA',
+            'thermotechnical_individual': 'TERMOTECNICO PERSONA FISICA',
+            'thermotechnical_legal': 'TERMOTECNICO PERSONA GIURIDICA',
+            'energy_expert_individual': 'ESPERTO ENERGETICO PERSONA FISICA',
+            'energy_expert_legal': 'ESPERTO ENERGETICO PERSONA GIURIDICA ',
+            'resp_work_individual': 'RESPONSABILE DEI LAVORI PERSONA FISICA',
+            'resp_work_legal': 'RESPONSABILE DEI LAVORI PERSONA GIURIDICA ',
+        }

@@ -60,88 +60,91 @@
                                                 {{error}}
                                             </div>
                                         {% endif %}
-                                        <div class="row">
-                                            <div class="form-group col-md-2 col-lg-2">
-                                                <label for="company_name">{{form.company_name.label}}</label>
-                                                {{form.company_name}}
-                                            </div>
-                                            <div class="form-group col-md-8 col-lg-8">
-                                                <label for="fiscal_code">{{form.municipal_reg_office.label}}</label>
-                                                {{form.municipal_reg_office}}
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-4 col-lg-2">
-                                                <label for="province_reg_office">{{form.province_reg_office.label}}</label>
-                                                {{form.province_reg_office}}
-                                            </div>
-                                            <div class="form-group col-md-4 col-lg-8">
-                                                <label for="cap_reg_office">{{form.cap_reg_office.label}}</label>
-                                                {{form.cap_reg_office}}
-                                            </div>
-                                            <div class="form-group col-md-4 col-lg-8">
-                                                <label for="street_reg_office">{{form.street_reg_office.label}}</label>
-                                                {{form.street_reg_office}}
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-10 col-lg-2">
-                                                <label for="province_of_inscription_enterprises_register">{{form.province_of_inscription_enterprises_register.label}}</label>
-                                                {{form.province_of_inscription_enterprises_register}}
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-4 col-lg-2">
-                                                <label for="number_of_inscription_enterprises_register">{{form.number_of_inscription_enterprises_register.label}}</label>
-                                                {{form.number_of_inscription_enterprises_register}}
-                                            </div>
-                                            <div class="form-group col-md-4 col-lg-2">
-                                                <label for="rep_name">{{form.rep_name.label}}</label>
-                                                {{form.rep_name}}
-                                            </div>
-                                            <div class="form-group col-md-4 col-lg-2">
-                                                <label for="rep_dob">{{form.rep_dob.label}}</label>
-                                                {{form.rep_dob}}
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-10 col-lg-2">
-                                                <label for="rep_dob_municipality">{{form.rep_dob_municipality.label}}</label>
-                                                {{form.rep_dob_municipality}}
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-10 col-lg-2">
-                                                <label for="rep_dob_province">{{form.rep_dob_province.label}}</label>
-                                                {{form.rep_dob_province}}
-                                            </div>
-                                            <div class="form-group col-md-10 col-lg-2">
-                                                <label for="rep_residence_zip">{{form.rep_residence_zip.label}}</label>
-                                                {{form.rep_residence_zip}}
-                                            </div>
-                                            <div class="form-group col-md-10 col-lg-2">
-                                                <label for="rep_street">{{form.rep_street.label}}</label>
-                                                {{form.rep_street}}
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-10 col-lg-2">
-                                                <label for="rep_fiscal_code">{{form.rep_fiscal_code.label}}</label>
-                                                {{form.rep_fiscal_code}}
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-10 col-lg-2">
-                                                <label for="rep_phone_number">{{form.rep_phone_number.label}}</label>
-                                                {{form.rep_phone_number}}
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-10 col-lg-2">
-                                                <label for="ss_fund">{{form.ss_fund.label}}</label>
-                                                {{form.ss_fund}}
-                                            </div>
-                                        </div>
+<!--                                        <div class="row">-->
+<!--                                            <div class="form-group col-md-2 col-lg-2">-->
+<!--                                                <label for="company_name">{{form.company_name.label}}</label>-->
+<!--                                                {{form.company_name}}-->
+<!--                                            </div>-->
+<!--                                            <div class="form-group col-md-8 col-lg-8">-->
+<!--                                                <label for="fiscal_code">{{form.municipal_reg_office.label}}</label>-->
+<!--                                                {{form.municipal_reg_office}}-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="row">-->
+<!--                                            <div class="form-group col-md-4 col-lg-2">-->
+<!--                                                <label for="province_reg_office">{{form.province_reg_office.label}}</label>-->
+<!--                                                {{form.province_reg_office}}-->
+<!--                                            </div>-->
+<!--                                            <div class="form-group col-md-4 col-lg-8">-->
+<!--                                                <label for="cap_reg_office">{{form.cap_reg_office.label}}</label>-->
+<!--                                                {{form.cap_reg_office}}-->
+<!--                                            </div>-->
+<!--                                            <div class="form-group col-md-4 col-lg-8">-->
+<!--                                                <label for="street_reg_office">{{form.street_reg_office.label}}</label>-->
+<!--                                                {{form.street_reg_office}}-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="row">-->
+<!--                                            <div class="form-group col-md-10 col-lg-2">-->
+<!--                                                <label for="province_of_inscription_enterprises_register">{{form.province_of_inscription_enterprises_register.label}}</label>-->
+<!--                                                {{form.province_of_inscription_enterprises_register}}-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="row">-->
+<!--                                            <div class="form-group col-md-4 col-lg-2">-->
+<!--                                                <label for="number_of_inscription_enterprises_register">{{form.number_of_inscription_enterprises_register.label}}</label>-->
+<!--                                                {{form.number_of_inscription_enterprises_register}}-->
+<!--                                            </div>-->
+<!--                                            <div class="form-group col-md-4 col-lg-2">-->
+<!--                                                <label for="rep_name">{{form.rep_name.label}}</label>-->
+<!--                                                {{form.rep_name}}-->
+<!--                                            </div>-->
+<!--                                            <div class="form-group col-md-4 col-lg-2">-->
+<!--                                                <label for="rep_dob">{{form.rep_dob.label}}</label>-->
+<!--                                                {{form.rep_dob}}-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="row">-->
+<!--                                            <div class="form-group col-md-10 col-lg-2">-->
+<!--                                                <label for="rep_dob_municipality">{{form.rep_dob_municipality.label}}</label>-->
+<!--                                                {{form.rep_dob_municipality}}-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="row">-->
+<!--                                            <div class="form-group col-md-10 col-lg-2">-->
+<!--                                                <label for="rep_dob_province">{{form.rep_dob_province.label}}</label>-->
+<!--                                                {{form.rep_dob_province}}-->
+<!--                                            </div>-->
+<!--                                            <div class="form-group col-md-10 col-lg-2">-->
+<!--                                                <label for="rep_residence_zip">{{form.rep_residence_zip.label}}</label>-->
+<!--                                                {{form.rep_residence_zip}}-->
+<!--                                            </div>-->
+<!--                                            <div class="form-group col-md-10 col-lg-2">-->
+<!--                                                <label for="rep_street">{{form.rep_street.label}}</label>-->
+<!--                                                {{form.rep_street}}-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="row">-->
+<!--                                            <div class="form-group col-md-10 col-lg-2">-->
+<!--                                                <label for="rep_fiscal_code">{{form.rep_fiscal_code.label}}</label>-->
+<!--                                                {{form.rep_fiscal_code}}-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="row">-->
+<!--                                            <div class="form-group col-md-10 col-lg-2">-->
+<!--                                                <label for="rep_phone_number">{{form.rep_phone_number.label}}</label>-->
+<!--                                                {{form.rep_phone_number}}-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="row">-->
+<!--                                            <div class="form-group col-md-10 col-lg-2">-->
+<!--                                                <label for="ss_fund">{{form.ss_fund.label}}</label>-->
+<!--                                                {{form.ss_fund}}-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+                                        <table>
+                                            {{form}}
+                                        </table>
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
                             </div>

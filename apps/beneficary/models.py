@@ -27,11 +27,11 @@ class Beneficiary(models.Model):
     title = models.CharField("TITOLO DI POSSESSO", max_length=50, choices=TITLE, blank=False)
     single_ownership_fee = models.CharField("QUOTA PROPRIETA' DEL SINGOLO", choices=OWNERSHIP, max_length=50,
                                             blank=False)
-    street = models.CharField("VIA E NUMERO IN CUI SI TROVA L'IMMOBILE", max_length=150, blank=False)
-    total_thousands = models.DecimalField("MILLESIMI COMPLESSIVI", decimal_places=3, max_digits=12)
-    benef_of_diss_in_invo = models.CharField("BENEFICIARI DELLO SCONTO IN FATTURA", max_length=50, blank=False)
+    street = models.CharField("VIA E NUMERO IN CUI SI TROVA L'IMMOBILE", max_length=150, blank=True)
+    total_thousands = models.DecimalField("MILLESIMI COMPLESSIVI", decimal_places=3, max_digits=12, blank=True)
+    benef_of_diss_in_invo = models.CharField("BENEFICIARI DELLO SCONTO IN FATTURA", max_length=50, blank=True)
     thousands_benef_diss = models.DecimalField("MILLESIMI DI BENEFICIO DELLO SCONTO IN FATTURA SU PARTI COMUNI",
-                                            decimal_places=3, max_digits=12)
+                                            decimal_places=3, max_digits=12, blank=True)
     name_of_company = models.CharField("DENOMINAZIONE SOCIETA' BENEFICIARIA", max_length=50, blank=True)
     municipal_reg_office = models.CharField("COMUNE  SEDE LEGALE SOCIETA' BENEFICIARIA", max_length=20, blank=True)
     province_reg_office = models.CharField("PROVINCIA  SEDE LEGALE SOCIETA' BENEFICIARIA", max_length=20, blank=True)
@@ -60,17 +60,17 @@ class Beneficiary(models.Model):
     legal_tax_code_rep= models.CharField("CODICE FISCALE LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA",
                                          max_length=50, blank=True)
     amount_advance_deposit_by_customer_common = models.DecimalField("IMPORTO ACCONTO INTERVENTI COMUNI - CASSA PREVIDENZA INCLUSA E IVA INCLUSA",
-                                                                    decimal_places=3, max_digits=12, null=True)
+                                                                    decimal_places=3, max_digits=12, null=True, blank=True, default=0)
     amount_advance_deposit_by_customer_subjective = models.DecimalField("IMPORTO ACCONTO INTERVENTI SOGGETTIVI - CASSA PREVIDENZA INCLUSA E IVA INCLUSA",
-                                     decimal_places=2, max_digits=12, null=True)
+                                     decimal_places=2, max_digits=12, null=True, blank=True, default=0)
     total_adv_deposit_customer = models.DecimalField("IMPORTO COMPLESSIVO ACCONTO - CASSA PREVIDENZA INCLUSA E IVA INCLUSA",
-                                     decimal_places=2, max_digits=12, null=True, blank=True)
+                                     decimal_places=2, max_digits=12, null=True, blank=True, default=0)
     amount_discount_common = models.DecimalField("IMPORTO SCONTO IN FATTURA INTERVENTI COMUNI - CASSA PREVIDENZA INCLUSA E IVA INCLUSA",
-                                                                        decimal_places=3, max_digits=12, null=True)
+                                                                        decimal_places=3, max_digits=12, null=True, blank=True, default=0)
     amount_discount_subjective = models.DecimalField("IMPORTO SCONTO IN FATTURA INTERVENTI SOGGETTIVI - CASSA PREVIDENZA INCLUSA E IVA INCLUSA",
-                                                                        decimal_places=3, max_digits=12, null=True)
+                                                                        decimal_places=3, max_digits=12, null=True, blank=True, default=0)
     total_discount = models.DecimalField("IMPORTO COMPLESSIVO SCONTO IN FATTURA - CASSA PREVIDENZA INCLUSA E IVA INCLUSA",
-                                                   decimal_places=3, max_digits=12, null=True, blank=True)
+                                                   decimal_places=3, max_digits=12, null=True, blank=True, default=0)
     select_form = models.ManyToManyField(FormFaccata)
 
     def save(self, *args, **kwargs):

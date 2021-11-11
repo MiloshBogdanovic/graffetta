@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from apps.app.models import FormFaccata
 from .models import Prof_table, DataDesignerIndividual, DataDesignerIndividualForm, DataDesignerLegalForm, \
@@ -14,26 +14,38 @@ from .models import Prof_table, DataDesignerIndividual, DataDesignerIndividualFo
     DataThermoTechnicalIndividual, DataThermoTechnicalLegalForm, ProfessionChoiceForm, \
     DataSecurityCoordinatorExecutionIndividual, \
     DataDirectorWorksLegal, DataThermoTechnicalIndividualForm, DataThermoTechnicalLegal, DataEnergyExpertIndividual, \
-    DataResponsibleForWorksIndividual, DataResponsibleForWorksLegal
+    DataResponsibleForWorksIndividual, DataResponsibleForWorksLegal, ProfTableForm
 
 
 @login_required(login_url="/login/")
 def choose_profession(request, fff):
     form = ProfessionChoiceForm()
+    context = {}
     if request.method == 'POST':
         form_to_redirect = ProfessionChoiceForm(request.POST)
-
-    return render(request, 'choose-profession.html', {'form': form, 'fff': fff})
+    ff = FormFaccata.objects.get(pk=fff)
+    print(ff.professionals_id)
+    if ff.professionals_id:
+        prof_table = Prof_table.objects.get(pk=ff.professionals_id)
+        prof_form = ProfTableForm(instance=prof_table)
+        context['prof_form'] = prof_form
+    context['form'] = form
+    context['fff'] = fff
+    return render(request, 'choose-profession.html', context)
 
 
 @login_required(login_url="/login/")
 def choose_profession_and_type(request, prof, type, fff):
     print(prof,type,fff)
     profession = prof
-    prof_table = Prof_table()
-    prof_table.save()
     ff = FormFaccata.objects.get(pk=fff)
-    ff.professionals = Prof_table.objects.get(pk=prof_table.id)
+    if ff.professionals_id:
+        prof_table = Prof_table.objects.get(pk=ff.professionals_id)
+        prof_table.save()
+    else:
+        prof_table = Prof_table()
+        prof_table.save()
+        ff.professionals.id = Prof_table.objects.get(pk=prof_table.id)
     ff.save()
     if profession == 'data-designer' and type == 'individual':
         form = DataDesignerIndividualForm()
@@ -250,5 +262,228 @@ def choose_profession_and_type(request, prof, type, fff):
 
 
 @login_required(login_url="/login/")
-def edit_profession(request, prof, id):
-    pass
+def edit_profession(request, prof, type, fff):
+    ff = get_object_or_404(FormFaccata, id=fff)
+    prof_table = get_object_or_404(Prof_table, id=ff.professionals_id)
+    if prof == 'data-designer' and type == 'individual':
+        edit_tbl = get_object_or_404(DataDesignerIndividual, id=prof_table.designer_individual_id)
+        form = DataDesignerIndividualForm(instance=edit_tbl)
+        template = 'professional-individual.html'
+        if request.method == 'POST':
+            form = DataDesignerIndividualForm(request.POST,instance=edit_tbl)
+            if form.is_valid():
+                m = form.save()
+                prof_table.save()
+                messages.success(request, 'Modifiche salvate con successo')
+                return redirect('home')
+
+            else:
+                messages.error(request, form.errors)
+                return render(request, template, {'form': form})
+    elif prof == 'data-designer' and type == 'legal':
+        edit_tbl = get_object_or_404(DataDesignerLegal, id=prof_table.designer_legal_id)
+        form = DataDesignerLegalForm(instance=edit_tbl)
+        template = 'professional-individual.html'
+        if request.method == 'POST':
+            form = DataDesignerIndividualForm(request.POST, instance=edit_tbl)
+            if form.is_valid():
+                m = form.save()
+                prof_table.save()
+                messages.success(request, 'Modifiche salvate con successo')
+                return redirect('home')
+
+            else:
+                messages.error(request, form.errors)
+                return render(request, template, {'form': form})
+
+    elif prof == 'data-security-coordinator-design' and type == 'individual':
+        edit_tbl = get_object_or_404(DataSecurityCoordinatorIndividual, id=prof_table.security_plan_individual_id)
+        form = DataSecurityCoordinatorIndividualForm(instance=edit_tbl)
+        template = 'professional-individual.html'
+        if request.method == 'POST':
+            form = DataSecurityCoordinatorIndividualForm(request.POST,instance=edit_tbl)
+            if form.is_valid():
+                m = form.save()
+                prof_table.save()
+                messages.success(request, 'Modifiche salvate con successo')
+                return redirect('home')
+
+            else:
+                messages.error(request, form.errors)
+                return render(request, template, {'form': form})
+    elif prof == 'data-security-coordinator-design' and type == 'legal':
+        edit_tbl = get_object_or_404(DataSecurityCoordinatorLegal, id=prof_table.security_plan_legal_id)
+        form = DataSecurityCoordinatorLegalForm(instance=edit_tbl)
+        template = 'professional-individual.html'
+        if request.method == 'POST':
+            form = DataSecurityCoordinatorLegalForm(request.POST, instance=edit_tbl)
+            if form.is_valid():
+                m = form.save()
+                prof_table.save()
+                messages.success(request, 'Modifiche salvate con successo')
+                return redirect('home')
+
+            else:
+                messages.error(request, form.errors)
+                return render(request, template, {'form': form})
+
+    elif prof == 'data-security-coordinator-execution' and type == 'individual':
+        edit_tbl = get_object_or_404(DataSecurityCoordinatorExecutionIndividual, id=prof_table.security_exe_individual_id)
+        form = DataSecurityCoordinatorExecutionIndividualForm(instance=edit_tbl)
+        template = 'professional-individual.html'
+        if request.method == 'POST':
+            form = DataSecurityCoordinatorExecutionIndividualForm(request.POST,instance=edit_tbl)
+            if form.is_valid():
+                m = form.save()
+                prof_table.save()
+                messages.success(request, 'Modifiche salvate con successo')
+                return redirect('home')
+
+            else:
+                messages.error(request, form.errors)
+                return render(request, template, {'form': form})
+    elif prof == 'data-security-coordinator-execution' and type == 'legal':
+        edit_tbl = get_object_or_404(DataSecurityCoordinatorExecutionLegal, id=prof_table.security_exe_legal_id)
+        form = DataSecurityCoordinatorExecutionLegalForm(instance=edit_tbl)
+        template = 'professional-individual.html'
+        if request.method == 'POST':
+            form = DataSecurityCoordinatorExecutionLegalForm(request.POST, instance=edit_tbl)
+            if form.is_valid():
+                m = form.save()
+                prof_table.save()
+                messages.success(request, 'Modifiche salvate con successo')
+                return redirect('home')
+
+            else:
+                messages.error(request, form.errors)
+                return render(request, template, {'form': form})
+
+    elif prof == 'director-works' and type == 'individual':
+        edit_tbl = get_object_or_404(DataDirectorWorksIndividual, id=prof_table.director_works_individual_id)
+        form = DataDirectorWorksIndividualForm(instance=edit_tbl)
+        template = 'professional-individual.html'
+        if request.method == 'POST':
+            form = DataDirectorWorksIndividualForm(request.POST,instance=edit_tbl)
+            if form.is_valid():
+                m = form.save()
+                prof_table.save()
+                messages.success(request, 'Modifiche salvate con successo')
+                return redirect('home')
+
+            else:
+                messages.error(request, form.errors)
+                return render(request, template, {'form': form})
+
+    elif prof == 'director-works' and type == 'legal':
+        edit_tbl = get_object_or_404(DataDirectorWorksLegal, id=prof_table.director_works_legal_id)
+        form = DataDirectorWorksLegalForm(instance=edit_tbl)
+        template = 'professional-individual.html'
+        if request.method == 'POST':
+            form = DataDirectorWorksLegalForm(request.POST, instance=edit_tbl)
+            if form.is_valid():
+                m = form.save()
+                prof_table.save()
+                messages.success(request, 'Modifiche salvate con successo')
+                return redirect('home')
+
+            else:
+                messages.error(request, form.errors)
+                return render(request, template, {'form': form})
+
+    elif prof == 'thermotechnical' and type == 'individual':
+        edit_tbl = get_object_or_404(DataThermoTechnicalIndividual, id=prof_table.thermotechnical_individual_id)
+        form = DataThermoTechnicalIndividualForm(instance=edit_tbl)
+        template = 'professional-individual.html'
+        if request.method == 'POST':
+            form = DataThermoTechnicalIndividualForm(request.POST, instance=edit_tbl)
+            if form.is_valid():
+                m = form.save()
+                prof_table.save()
+                messages.success(request, 'Modifiche salvate con successo')
+                return redirect('home')
+
+            else:
+                messages.error(request, form.errors)
+                return render(request, template, {'form': form})
+
+    elif prof == 'thermotechnical' and type == 'legal':
+        edit_tbl = get_object_or_404(DataThermoTechnicalLegal, id=prof_table.thermotechnical_legal_id)
+        form = DataThermoTechnicalLegalForm(instance=edit_tbl)
+        template = 'professional-individual.html'
+        if request.method == 'POST':
+            form = DataThermoTechnicalLegalForm(request.POST, instance=edit_tbl)
+            if form.is_valid():
+                m = form.save()
+                prof_table.save()
+                messages.success(request, 'Modifiche salvate con successo')
+                return redirect('home')
+
+            else:
+                messages.error(request, form.errors)
+                return render(request, template, {'form': form})
+
+    elif prof == 'data-energy-expert' and type == 'individual':
+        edit_tbl = get_object_or_404(DataEnergyExpertIndividual, id=prof_table.energy_expert_individual_id)
+        form = DataEnergyExpertIndividualForm(instance=edit_tbl)
+        template = 'professional-individual.html'
+        if request.method == 'POST':
+            form = DataEnergyExpertIndividualForm(request.POST, instance=edit_tbl)
+            if form.is_valid():
+                m = form.save()
+                prof_table.save()
+                messages.success(request, 'Modifiche salvate con successo')
+                return redirect('home')
+
+            else:
+                messages.error(request, form.errors)
+                return render(request, template, {'form': form})
+
+    elif prof == 'data-energy-expert' and type == 'legal':
+        edit_tbl = get_object_or_404(DataEnergyExpertLegal, id=prof_table.energy_expert_legal_id)
+        form = DataEnergyExpertLegalForm(instance=edit_tbl)
+        template = 'professional-individual.html'
+        if request.method == 'POST':
+            form = DataEnergyExpertLegalForm(request.POST, instance=edit_tbl)
+            if form.is_valid():
+                m = form.save()
+                prof_table.save()
+                messages.success(request, 'Modifiche salvate con successo')
+                return redirect('home')
+
+            else:
+                messages.error(request, form.errors)
+                return render(request, template, {'form': form})
+
+    elif prof == 'data-responsible' and type == 'individual':
+        edit_tbl = get_object_or_404(DataResponsibleForWorksIndividual, id=prof_table.resp_work_individual_id)
+        form = DataResponsibleForWorksIndividualForm(instance=edit_tbl)
+        template = 'professional-individual.html'
+        if request.method == 'POST':
+            form = DataResponsibleForWorksIndividualForm(request.POST, instance=edit_tbl)
+            if form.is_valid():
+                m = form.save()
+                prof_table.save()
+                messages.success(request, 'Modifiche salvate con successo')
+                return redirect('home')
+
+            else:
+                messages.error(request, form.errors)
+                return render(request, template, {'form': form})
+
+    elif prof == 'data-responsible' and type == 'legal':
+        edit_tbl = get_object_or_404(DataResponsibleForWorksLegal, id=prof_table.resp_work_legal_id)
+        form = DataResponsibleForWorksLegalForm(instance=edit_tbl)
+        template = 'professional-individual.html'
+        if request.method == 'POST':
+            form = DataResponsibleForWorksLegalForm(request.POST, instance=edit_tbl)
+            if form.is_valid():
+                m = form.save()
+                prof_table.save()
+                messages.success(request, 'Modifiche salvate con successo')
+                return redirect('home')
+
+            else:
+                messages.error(request, form.errors)
+                return render(request, template, {'form': form})
+
+    return render(request, template, {'form': form, 'fff': fff})

@@ -23,7 +23,7 @@
                                     <li class="breadcrumb-item"><a href="{% url 'home'%}"><i class="feather icon-home"></i></a></li>
                                     <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="">DATI INIZIALI</a></li>
                                     {% if fff.id %}
-                                    <li class="breadcrumb-item"><a href="{% url 'tables' fff=fff.id %}">SINTESI CONTRATTO CLIENTE</a></li>
+                                    <li class="breadcrumb-item"><a href="{% url 'tables' fff=fff %}">SINTESI CONTRATTO CLIENTE</a></li>
                                     {%else%}
                                     <li class="breadcrumb-item"><a href="javascript:alert('Primo registro condominio')">SINTESI CONTRATTO CLIENTE</a></li>
                                     <li class="breadcrumb-item"><a href="javascript:alert('Primo registro condominio')">DETTAGLIO DEI BENEFICIARI</a></li>

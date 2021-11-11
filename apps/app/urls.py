@@ -14,7 +14,7 @@ urlpatterns = [
     # Matches any html file
     path('bonus-faccata/', views.bonus, name='bonus'),
     path('bonus-faccata/legal<int:form>/<int:fff>', views.legal, name='legal'),
-    path('bonus-faccata/individual<int:form>', views.individual, name='individual'),
+    path('bonus-faccata/individual<int:form>/<int:fff>', views.individual, name='individual'),
     path('bonus-faccata/catastal<int:form>', views.catastal, name='catastal'),
     path('search', views.search, name='search_results'),
     # Api views for editing tables

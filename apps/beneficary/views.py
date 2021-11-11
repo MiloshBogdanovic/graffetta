@@ -55,6 +55,8 @@ def beneficiary_add(request, id):
                 saved_form = BeneficiaryForm(instance=prev_form)
                 context['form'] = saved_form
                 context['form_id'] = f.id
+                fform=FormFaccata.objects.get(beneficiary=f.id)
+                context['fff'] = fform.id
                 html_template = loader.get_template('beneficiary.html')
                 return HttpResponse(html_template.render(context, request))
 

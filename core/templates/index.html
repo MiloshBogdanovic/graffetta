@@ -59,7 +59,7 @@
                             {% endfor %}
                             {% endif %}
                             <div class="tab-content" id="pills-tabContent">
-                                <div class="tab-pane fade show active" id="pills-data" role="tabpanel" aria-labelledby="pills-data-tab">
+                                <div class="tab-pane fade  " id="pills-data" role="tabpanel" aria-labelledby="pills-data-tab">
                                     <div class="table-responsive">
                                         <div class="customer-scroll" style="height:420px;position:relative;">
                                             <table class="table table-hover m-b-0">
@@ -109,7 +109,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="pills-form" role="tabpanel" aria-labelledby="pills-form-tab">
+                                <div class="tab-pane fade show active" id="pills-form" role="tabpanel" aria-labelledby="pills-form-tab">
                                     <div class="table-responsive">
                                         <div class="customer-scroll1" style="height:420px;position:relative;">
                                             <table class="table table-hover m-b-0">
@@ -153,7 +153,7 @@
                                                         {%if f.datainit.admin_individual_id %}
                                                             <td>{{f.datainit.admin_individual_id}}</td>
                                                         {%elif f.datainit_id and not f.datainit.admin_legal_id %}
-                                                            <td> <a href="{% url 'individual' form=f.datainit_id %}" > + </a></td>
+                                                            <td> <a href="{% url 'individual' form=f.datainit_id fff=f.id %}" > + </a></td>
                                                         {%else %}
                                                             <td> - </td>
                                                         {%endif%}
@@ -204,8 +204,74 @@
                                                             {%endfor%}
                                                             <a href="{% url 'beneficiary' fff=f.id  %}" >+</a>
                                                         </td>
-
-
+                                                        <td>
+                                                            {%if f.professionals.designer_individual%}
+                                                            <a href="{% url 'edit-profession' prof='data-designer' type='individual' fff=f.id  %}" >{{f.professionals.designer_individual.name}}</a>
+                                                            {%elif f.professionals.designer_designer_legal%}
+                                                            <a href="{% url 'edit-profession' prof='data-designer' type='legal' fff=f.id  %}" >{{f.professionals.designer_legal.company_name}}</a>
+                                                            {%else%}
+                                                            <a href="{% url 'choose-profession' fff=f.id  %}" >+</a>
+                                                            {%endif%}
+                                                        </td>
+                                                       <td>
+                                                            {%if f.professionals.security_plan_individual%}
+                                                            <a href="{% url 'edit-profession' prof='data-security-coordinator-design' type='individual' fff=f.id  %}" >{{f.professionals.security_plan_individual.name}}</a>
+                                                            {%elif f.professionals.security_plan_legal%}
+                                                            <a href="{% url 'edit-profession' prof='data-security-coordinator-design' type='legal' fff=f.id  %}" >{{f.professionals.security_plan_legal.company_name}}</a>
+                                                            {%else%}
+                                                            <a href="{% url 'choose-profession' fff=f.id  %}" >+</a>
+                                                            {%endif%}
+                                                        </td>
+                                                        <td>
+                                                            {%if f.professionals.security_exe_individual%}
+                                                            <a href="{% url 'edit-profession' prof='data-security-coordinator-execution' type='individual' fff=f.id  %}" >{{f.professionals.security_exe_individual.name}}</a>
+                                                            {%elif f.professionals.security_exe_legal%}
+                                                            <a href="{% url 'edit-profession' prof='data-security-coordinator-execution' type='legal' fff=f.id  %}" >{{f.professionals.security_exe_legal.company_name}}</a>
+                                                            {%else%}
+                                                            <a href="{% url 'choose-profession' fff=f.id  %}" >+</a>
+                                                            {%endif%}
+                                                        </td>
+                                                        <td>
+                                                            {%if f.professionals.director_works_individual%}
+                                                            <a href="{% url 'edit-profession' prof='director-works' type='individual' fff=f.id  %}" >{{f.professionals.director_works_individual.name}}</a>
+                                                            {%elif f.professionals.director_works_legal%}
+                                                            <a href="{% url 'edit-profession' prof='director-works' type='legal' fff=f.id  %}" >{{f.professionals.director_works_legal.company_name}}</a>
+                                                            {%else%}
+                                                            <a href="{% url 'choose-profession' fff=f.id  %}" >+</a>
+                                                            {%endif%}
+                                                        </td>
+                                                        <td>
+                                                            {%if f.professionals.thermotechnical_individual%}
+                                                            <a href="{% url 'edit-profession' prof='thermotechnical' fff=f.id  %}" >{{f.professionals.thermotechnical_individual.name}}</a>
+                                                            {%elif f.professionals.thermotechnical_legal%}
+                                                            <a href="{% url 'edit-profession' prof='thermotechnical' type='legal' fff=f.id  %}" >{{f.professionals.thermotechnical_legal.company_name}}</a>
+                                                            {%else%}
+                                                            <a href="{% url 'choose-profession' fff=f.id  %}" >+</a>
+                                                            {%endif%}
+                                                        </td>
+                                                        <td>
+                                                            {%if f.professionals.energy_expert_individual%}
+                                                            <a href="{% url 'edit-profession' prof='data-energy-expert' type='legal' fff=f.id  %}" >{{f.professionals.energy_expert_individual.name}}</a>
+                                                            {%elif f.professionals.energy_expert_legal%}
+                                                            <a href="{% url 'edit-profession' prof='data-energy-expert' type='legal' fff=f.id  %}" >{{f.professionals.energy_expert_legal.company_name}}</a>
+                                                            {%else%}
+                                                            <a href="{% url 'choose-profession' fff=f.id  %}" >+</a>
+                                                            {%endif%}
+                                                        </td>
+                                                        <td>
+                                                            {%if f.professionals.resp_work_individual%}
+                                                            <a href="{% url 'edit-profession' prof='data-responsible' type='legal' fff=f.id  %}" >{{f.professionals.resp_work_individual}}</a>
+                                                            {%elif f.professionals.resp_work_legal%}
+                                                            <a href="{% url 'edit-profession' prof='data-responsible' type='legal' fff=f.id  %}" >{{f.professionals.resp_work_legal.company_name}}</a>
+                                                            {%else%}
+                                                            <a href="{% url 'choose-profession' fff=f.id  %}" >+</a>
+                                                            {%endif%}
+                                                        </td>
+                                                        {%if f.datainit.condominium_id and f.datainit.catastal_id and f.tables.overall_rep_id and f.tables.common_rep_id or f.tables.subjective_rep_id %}
+                                                        <td>
+                                                            <a href="{%url 'generate-contract' id=f.id%}"><button>CREA CONTRATTO</button></a>
+                                                        </td>
+                                                        {%endif%}
 
 
                                                     </tr>
@@ -436,95 +502,128 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                {%for form in ptform%}
-                                                    <tr>
+                                                {%for f in fform%}
+                                                  {%if f.professionals_id%}
+                                                    {%for form in ptform%}
+                                                     <tr>
                                                         <td>{{form.id}}</td>
-                                                        {%if form.designer_individual %}
-                                                        <td>{{form.designer_individual_name}}</td>
-                                                        {%else%}
-                                                        <td><a href="">+</a></td>
 
-                                                        {%endif%}
+                                                         {%if form.designer_individual_id %}
+                                                            <td><a href="{%url 'edit-profession' prof='data-designer' type='individual' fff=f.id %}">{{form.designer_individual.name}}</a></td>
+                                                         {%elif not form.designer_individual_id%}
+                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
+                                                         {%else%}
+                                                            <td> - </td>
+                                                         {%endif%}
 
-                                                        {%if form.designer_legal%}
-                                                        <td>{{form.designer_legal.company_name}}</td>
-                                                        {%else%}
-                                                        <td><a href="">+</a></td>
-                                                        {%endif%}
+                                                        {%if form.designer_legal_id %}
+                                                            <td><a href="{%url 'edit-profession' prof='data-designer' type='legal' fff=f.id %}">{{form.designer_individual.company_name}}</a></td>
+                                                         {%elif not form.designer_legal_id%}
+                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
+                                                         {%else%}
+                                                            <td> - </td>
+                                                         {%endif%}
 
-                                                        {%if form.security_exe_individual%}
-                                                        <td>{{form.security_exe_individual.name}}</td>
-                                                        {%else%}
-                                                        <td><a href="">+</a></td>
-                                                        {%endif%}
+                                                        {%if form.security_plan_individual_id %}
+                                                            <td><a href="{%url 'edit-profession' prof='data-security-coordinator-design' type='individual' fff=f.id %}">{{form.security_plan_individual.name}}</a></td>
+                                                         {%elif not form.designer_individual_id%}
+                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
+                                                         {%else%}
+                                                            <td> - </td>
+                                                         {%endif%}
 
-                                                        {%if form.security_exe_legal%}
-                                                        <td>{{form.security_exe_legal.company_name}}</td>
-                                                        {%else%}
-                                                        <td><a href="">+</a></td>
-                                                        {%endif%}
+                                                        {%if form.security_plan_legal_id %}
+                                                            <td><a href="{%url 'edit-profession' prof='data-security-coordinator-design' type='legal' fff=f.id %}">{{form.security_plan_legal.company_name}}</a></td>
+                                                         {%elif not form.security_plan_legal_id%}
+                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
+                                                         {%else%}
+                                                            <td> - </td>
+                                                         {%endif%}
 
-                                                        {%if form.security_plan_individual%}
-                                                        <td>{{form.security_plan_individual.name}}</td>
-                                                        {%else%}
-                                                        <td><a href="">+</a></td>
-                                                        {%endif%}
+                                                        {%if form.security_exe_individual_id %}
+                                                            <td><a href="{%url 'edit-profession' prof='data-security-coordinator-execution' type='individual' fff=f.id %}">{{form.security_exe_individual.name}}</a></td>
+                                                         {%elif not form.security_exe_individual_id%}
+                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
+                                                         {%else%}
+                                                            <td> - </td>
+                                                         {%endif%}
 
-                                                        {%if form.security_plan_legal%}
-                                                        <td>{{form.security_plan_legal.company_name}}</td>
-                                                        {%else%}
-                                                        <td><a href="">+</a></td>
-                                                        {%endif%}
+                                                        {%if form.security_exe_legal_id %}
+                                                            <td><a href="{%url 'edit-profession' prof='data-security-coordinator-execution' type='individual' fff=f.id %}">{{form.security_exe_legal.company_name}}</a></td>
+                                                         {%elif not form.security_exe_legal_id%}
+                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
+                                                         {%else%}
+                                                            <td> - </td>
+                                                         {%endif%}
 
-                                                        {%if form.director_works_individual%}
-                                                        <td>{{form.director_works_individual.name}}</td>
-                                                        {%else%}
-                                                        <td><a href="">+</a></td>
-                                                        {%endif%}
+                                                        {%if form.director_works_individual_id %}
+                                                            <td><a href="{%url 'edit-profession' prof='director-works' type='individual' fff=f.id %}">{{form.director_works_individual.name}}</a></td>
+                                                         {%elif not form.director_works_individual_id%}
+                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
+                                                         {%else%}
+                                                            <td> - </td>
+                                                         {%endif%}
 
-                                                        {%if form.director_works_legal%}
-                                                        <td>{{form.director_works_legal.company_name}}</td>
-                                                        {%else%}
-                                                        <td><a href="">+</a></td>
-                                                        {%endif%}
+                                                        {%if form.director_works_legal_id %}
+                                                            <td><a href="{%url 'edit-profession' prof='director-works' type='legal' fff=f.id %}">{{form.director_works_legal.company_name}}</a></td>
+                                                         {%elif not form.director_works_legal_id%}
+                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
+                                                         {%else%}
+                                                            <td> - </td>
+                                                         {%endif%}
 
-                                                        {%if form.thermotechnical_individual%}
-                                                        <td>{{form.thermotechnical_individual.name}}</td>
-                                                        {%else%}
-                                                        <td><a href="">+</a></td>
-                                                        {%endif%}
+                                                         {%if form.thermotechnical_individual_id %}
+                                                            <td><a href="{%url 'edit-profession' prof='thermotechnical' type='individual' fff=f.id %}">{{form.thermotechnical_individual.name}}</a></td>
+                                                         {%elif not form.thermotechnical_individual_id%}
+                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
+                                                         {%else%}
+                                                            <td> - </td>
+                                                         {%endif%}
 
-                                                        {%if form.thermotechnical_legal%}
-                                                        <td>{{form.thermotechnical_legal.company_name}}</td>
-                                                        {%else%}
-                                                        <td><a href="">+</a></td>
-                                                        {%endif%}
+                                                        {%if form.thermotechnical_legal_id %}
+                                                            <td><a href="{%url 'edit-profession' prof='thermotechnical' type='legal' fff=f.id %}">{{form.thermotechnical_legal.company_name}}</a></td>
+                                                         {%elif not form.thermotechnical_legal_id%}
+                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
+                                                         {%else%}
+                                                            <td> - </td>
+                                                         {%endif%}
 
-                                                        {%if form.energy_expert_individual%}
-                                                        <td>{{form.energy_expert_individual.name}}</td>
-                                                        {%else%}
-                                                        <td><a href="">+</a></td>
-                                                        {%endif%}
+                                                        {%if form.energy_expert_individual_id %}
+                                                            <td><a href="{%url 'edit-profession' prof='data-energy-expert' type='individual' fff=f.id %}">{{form.energy_expert_individual.name}}</a></td>
+                                                         {%elif not form.energy_expert_individual_id%}
+                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
+                                                         {%else%}
+                                                            <td> - </td>
+                                                         {%endif%}
 
-                                                        {%if form.energy_expert_legal %}
-                                                        <td>{{form.energy_expert_legal.company_name}}</td>
-                                                        {%else%}
-                                                        <td><a href="">+</a></td>
-                                                        {%endif%}
+                                                        {%if form.energy_expert_legal_id %}
+                                                            <td><a href="{%url 'edit-profession' prof='data-energy-expert' type='legal' fff=f.id %}">{{form.energy_expert_legal.company_name}}</a></td>
+                                                         {%elif not form.energy_expert_legal_id%}
+                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
+                                                         {%else%}
+                                                            <td> - </td>
+                                                         {%endif%}
 
-                                                        {%if form.resp_work_individual%}
-                                                        <td>{{form.resp_work_individual.name}}</td>
-                                                        {%else%}
-                                                        <td><a href="">+</a></td>
-                                                        {%endif%}
-                                                        {%if form.resp_work_legal%}
-                                                        <td>form.resp_work_legal.company_name</td>
-                                                        {%else%}
-                                                        <td><a href="">+</a></td>
-                                                        {%endif%}
+                                                        {%if form.resp_work_individual_id %}
+                                                            <td><a href="{%url 'edit-profession' prof='data-responsible' type='individual' fff=f.id %}">{{form.resp_work_individual.name}}</a></td>
+                                                         {%elif not form.resp_work_individual_id%}
+                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
+                                                         {%else%}
+                                                            <td> - </td>
+                                                         {%endif%}
+
+                                                        {%if form.resp_work_legal_id %}
+                                                            <td><a href="{%url 'edit-profession' prof='data-responsible' type='legal' fff=f.id %}">{{form.resp_work_legal.company_name}}</a></td>
+                                                         {%elif not form.resp_work_legal_id%}
+                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
+                                                         {%else%}
+                                                            <td> - </td>
+                                                         {%endif%}
                                                     </tr>
 
-                                                 {% endfor %}
+                                                    {% endfor %}
+                                                  {%endif%}
+                                                {%endfor%}
                                                 </tbody>
                                             </table>
                                         </div>

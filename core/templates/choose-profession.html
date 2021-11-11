@@ -68,6 +68,32 @@
 				</div>
 				<!-- [ sample-page ] end -->
 			</div>
+			<div class="row">
+				<div class="col-sm-12">
+						<div class="card">
+							<div class="card-header">
+								<h5>Tavolo di tutti i professionisti</h5>
+							</div>
+
+							<div class="card-body">
+
+									{%if prof_form%}
+									<table>
+									{{prof_form}}
+									</table>
+									{%else%}
+									<table>
+										<tr>
+										<td>NO DATA</td>
+										</tr>
+									</table>
+
+									{%endif%}
+
+							</div>
+						</div>
+				</div>
+			</div>
 			<!-- [ Main Content ] end -->
 		</div>
 	</div>

@@ -54,7 +54,7 @@ def bonus(request):
             if f.select_administrator == 'Legal':
                 return redirect('legal', form=dform.id, fff=fff.id)
             elif f.select_administrator == 'Individual':
-                return redirect('individual', form=dform.id)
+                return redirect('individual', form=dform.id, fff=fff.id)
 
         else:
             context['errors'] = form.errors
@@ -92,7 +92,7 @@ def legal(request, form, fff):
 def individual(request, form, fff):
     context = {'segment': 'individual'}
     dform = get_object_or_404(DataInitial, pk=form)
-    fff = get_object_or_404(FormFaccata, datainit=form)
+    fff = get_object_or_404(FormFaccata, id=fff)
     forms = AdministrationIndividualForm()
     context['forms'] = forms
     if request.method == 'POST':
@@ -172,7 +172,7 @@ def search(request):
         value = request.GET.get('q')
         print(request.user.id)
         print(value)
-        user_forms = FormFaccata.objects.filter(user='{}'.format(request.user.id)).values_list('condominium_id', flat=True)
+        user_forms = FormFaccata.objects.filter(user='{}'.format(request.user.id)).values_list('datainit.condominium.name', flat=True)
         print(list(user_forms))
         context['results'] = CondominiumData.objects.filter(name__icontains='{}'.format(value), pk__in=user_forms)
         print(list(context['results']))
@@ -251,7 +251,7 @@ def edit_form(request, table, id):
                 messages.success(request, 'Modifiche salvate con successo')
                 return redirect('home')
             else:
-                messages.success(request, form.errors)
+                messages.error(request, form.errors)
                 return redirect('edit-form', table=table, id=id)
         
         print('context')
@@ -345,6 +345,8 @@ def generate_contract(request, id):
                 name_of_bank_for_the_payment='',
                 duration_of_works='',
                 date_of_payment_from_condo_to_aurica='',
+                pec=str(ff.datainit.condominium.pec_mail),
+                email=str(ff.datainit.condominium.email),
             )
             save_template = 'apps/app/contracts/${id}.docx'.format(id=ff.id)
             document.write(save_template)
@@ -353,13 +355,16 @@ def generate_contract(request, id):
                 response = HttpResponse(file_data, content_type='application/msword')
                 file_name = '${id}-contract.docx'
                 response['Content-Disposition'] = 'attachment; filename="' + file_name + '"'
+
                 return response
     except IOError as e:
         print(traceback.format_exc())
         print(e)
-        return JsonResponse({'success': False, 'msg': 'No file found!'})
+        messages.error(request, e)
+        return redirect('home')
     except Exception as e:
         print(traceback.format_exc())
         print(e)
-        return JsonResponse({'success':False})
+        messages.error(request, e)
+        return redirect('home')
  # columns = [f.name for f in row._meta.get_fields()]
