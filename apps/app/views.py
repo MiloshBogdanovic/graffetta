@@ -351,12 +351,12 @@ def generate_contract(request, id):
                 email=str(ff.datainit.condominium.email),
             )
             particles_info = []
-            for i in len(beneficiarys):
+            for ben in beneficiarys:
                 particles_info.append({
-                    'particle':str(beneficiarys[i].parcel),
-                    'rep_name':str(beneficiarys[i].name),
-                    'possession':str(beneficiarys[i].title),
-                    'overall_thousands':str(beneficiarys[i].total_thousands)
+                    'particle':str(ben.parcel),
+                    'ben_name':str(ben.name),
+                    'possession':str(ben.title),
+                    'overall_thousands':str(ben.total_thousands)
                 })
                 """
                 if i == 0:
@@ -395,7 +395,7 @@ def generate_contract(request, id):
             with open(save_template, 'rb') as f:
                 file_data = f.read()
                 response = HttpResponse(file_data, content_type='application/msword')
-                file_name = '${id}-contract.docx'
+                file_name = 'FORM FACCIATA ID-{id}-contract.docx'.format(id=ff.id)
                 response['Content-Disposition'] = 'attachment; filename="' + file_name + '"'
                 return response
     except IOError as e:

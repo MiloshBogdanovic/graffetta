@@ -45,7 +45,7 @@ def choose_profession_and_type(request, prof, type, fff):
     else:
         prof_table = Prof_table()
         prof_table.save()
-        ff.professionals.id = Prof_table.objects.get(pk=prof_table.id)
+        ff.professionals_id = Prof_table.objects.get(pk=prof_table.id)
     ff.save()
     if profession == 'data-designer' and type == 'individual':
         form = DataDesignerIndividualForm()

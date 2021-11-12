@@ -10,6 +10,10 @@ from django.forms.widgets import CheckboxSelectMultiple, EmailInput, TextInput, 
 from phone_field import PhoneField
 
 
+SSCT =[
+    ('4%', '4%'),
+    ('4%', '5%')
+]
 
 PROFESSION_CHOICES = [
     ('DATI PROGETTISTA', 'DATI PROGETTISTA'),
@@ -33,7 +37,7 @@ individual_labels = {
     'residence_city': 'LUOGO DI RESIDENZA',
     'residence_province': 'PROVINCIA DI RESIDENZA',
     'activity_street': 'VIA E NUMERO/I SEDE ATTIVITA',
-    'acitivity_cap':'CAP SEDE ATTIVITA',
+    'activity_cap':'CAP SEDE ATTIVITA',
     'activity_municipality': 'COMUNE SEDE ATTIVITA',
     'activity_province':'PROVINCIA SEDE ATTIVITA',
     'board_order_registration': "COLLEGIO/ORDINE - ISCRIZIONE",
@@ -109,6 +113,14 @@ individual_widgets = {
         'class':'form-control',
         'id':'activity_street'
     }),
+    'activity_cap': TextInput(attrs={
+        'class': 'form-control',
+        'id': 'activity_cap'
+    }),
+    'activity_province': TextInput(attrs={
+        'class': 'form-control',
+        'id': 'activity_province'
+    }),
     'activity_municipality': TextInput(attrs={
         'class':'form-control',
         'id':'activity_municipality'
@@ -137,7 +149,7 @@ individual_widgets = {
         'class':'form-control',
         'id':'vat_number'
     }),
-    'fiscal_code': NumberInput(attrs={
+    'fiscal_code': TextInput(attrs={
         'class':'form-control',
         'id':'fiscal_code'
     }),
@@ -145,7 +157,7 @@ individual_widgets = {
         'class':'form-control',
         'id':'phone_number'
     }),
-    'security_case_technician': TextInput(attrs={
+    'security_case_technician': Select(attrs={
         'class':'form-control',
         'id':'security_case_technician'
     })
@@ -197,10 +209,7 @@ legal_widgets = {
         'class':'form-control',
         'id': 'leg_dob_province'
     }),
-    'rep_name': TextInput(attrs={
-        'class':'form-control',
-        'id': 'leg_rep_name'
-    }),
+
     'rep_residence_zip': TextInput(attrs={
         'class':'form-control',
         'id': 'leg_rep_name'
@@ -209,9 +218,9 @@ legal_widgets = {
         'class':'form-control',
         'id': 'rep_street'
     }),
-    'rep_residence_zip': TextInput(attrs={
+    'rep_fiscal_code': TextInput(attrs={
         'class':'form-control',
-        'id': 'leg_rep_zip'
+        'id': 'rep_fiscal_code'
     }),
     'rep_tax_code': TextInput(attrs={
         'class':'form-control',
@@ -246,10 +255,10 @@ class Individual(models.Model):
     board_order_registration = models.CharField(max_length=50)
     province_college = models.CharField(max_length=40)
     number_of_reg_order_college = models.IntegerField(blank=False)
-    vat_number = VATNumberField(countries=['IT',])
+    vat_number = VATNumberField(countries=['IT'])
     fiscal_code = models.CharField(max_length=40)
     phone_number = PhoneField(blank=False)
-    security_case_technician = models.IntegerField(blank=False)
+    security_case_technician = models.CharField(max_length=5, choices=SSCT)
 
     def __str__(self):
         return self.name
@@ -410,7 +419,7 @@ class DataSecurityCoordinatorIndividualForm(ModelForm):
         model = DataSecurityCoordinatorIndividual
         exclude = ['id', 'form_id']
         labels = individual_labels
-        widgets = legal_widgets
+        widgets = individual_widgets
 
 
 class DataSecurityCoordinatorLegalForm(ModelForm):
@@ -426,7 +435,7 @@ class DataSecurityCoordinatorExecutionIndividualForm(ModelForm):
         model = DataSecurityCoordinatorExecutionIndividual
         exclude = ['id', 'form_id']
         labels =  individual_labels
-        widgets = legal_widgets
+        widgets = individual_widgets
 
 
 class DataSecurityCoordinatorExecutionLegalForm(ModelForm):
@@ -441,8 +450,8 @@ class DataDirectorWorksIndividualForm(ModelForm):
     class Meta:
         model = DataDirectorWorksIndividual
         exclude = ['id', 'form_id']
-        labels =  individual_labels
-        widgets = legal_widgets
+        labels = individual_labels
+        widgets = individual_widgets
 
 
 class DataDirectorWorksLegalForm(ModelForm):
@@ -458,7 +467,7 @@ class DataThermoTechnicalIndividualForm(ModelForm):
         model = DataThermoTechnicalIndividual
         exclude = ['id', 'form_id']
         labels =  individual_labels
-        widgets = legal_widgets
+        widgets = individual_widgets
 
 
 class DataThermoTechnicalLegalForm(ModelForm):
@@ -473,15 +482,15 @@ class DataEnergyExpertIndividualForm(ModelForm):
     class Meta:
         model = DataEnergyExpertIndividual
         exclude = ['id', 'form_id']
-        labels =  individual_labels
-        widgets = legal_widgets
+        labels = individual_labels
+        widgets = individual_widgets
 
 
 class DataEnergyExpertLegalForm(ModelForm):
     class Meta:
         model = DataEnergyExpertLegal
         exclude = ['id', 'form_id']
-        labels =  legal_labels
+        labels = legal_labels
         widgets = legal_widgets
 
 
@@ -490,7 +499,7 @@ class DataResponsibleForWorksIndividualForm(ModelForm):
         model = DataResponsibleForWorksIndividual
         exclude = ['id', 'form_id']
         labels = individual_labels
-        widgets = legal_widgets
+        widgets = individual_widgets
 
 
 class DataResponsibleForWorksLegalForm(ModelForm):
