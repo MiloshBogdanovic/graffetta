@@ -12,6 +12,7 @@ from django.shortcuts import redirect
 from django.template import loader
 from django.urls import reverse
 from apps.app.tables import AdministrationIndividualTable, AdministrationLegalTable, CatastalTable, CondominiumTable
+from apps.beneficary.views import beneficiary
 from apps.tables.models import TableContract
 from apps.professionals.models import Prof_table
 from apps.beneficary.models import Beneficiary
@@ -304,6 +305,7 @@ def generate_contract(request, id):
         print(os.getcwd())
         template = 'apps/app/contracts/bonus-facciata.docx'
         ff = FormFaccata.objects.get(pk=id)
+        beneficiarys = Beneficiary.objects.all().filter(select_form=ff.id)
         admin = None
         
         legal = ff.datainit.condominium.select_administrator == 'Legal'
@@ -348,14 +350,49 @@ def generate_contract(request, id):
                 pec=str(ff.datainit.condominium.pec_mail),
                 email=str(ff.datainit.condominium.email),
             )
-            save_template = 'apps/app/contracts/${id}.docx'.format(id=ff.id)
+            particles_info = []
+            for i in len(beneficiarys):
+                if i == 0:
+                    particles_info.append({
+                        'particle':str(ff.datainit.catastal.first_particle),
+                        'sub_cat':str(ff.datainit.catastal.n_subscribers_to_first_belonging),
+                        'rep_name':str(beneficiarys[i].name),
+                        'possession':str(beneficiarys[i].title),
+                        'overall_thousands':str(beneficiarys[i].total_thousands)
+                    })
+                elif i == 1:
+                    particles_info.append({
+                        'particle':str(ff.datainit.catastal.n_second_particle),
+                        'sub_cat':str(ff.datainit.catastal.n_subscribers_to_second_belonging),
+                        'rep_name':str(beneficiarys[i].name),
+                        'possession':str(beneficiarys[i].title),
+                        'overall_thousands':str(beneficiarys[i].total_thousands) 
+                    })
+                elif i == 2:
+                    particles_info.append({
+                        'particle':str(ff.datainit.catastal.n_third_particle),
+                        'sub_cat':str(ff.datainit.catastal.n_subscribers_to_third_belonging),
+                        'rep_name':str(beneficiarys[i].name),
+                        'possession':str(beneficiarys[i].title),
+                        'overall_thousands':str(beneficiarys[i].total_thousands)
+                    })
+                elif i == 3:
+                    particles_info.append({
+                       'particle':str(ff.datainit.catastal.n_fourth_particle),
+                        'sub_cat':str(ff.datainit.catastal.n_subscribers_to_fourth_belonging),
+                        'rep_name':str(beneficiarys[i].name),
+                        'possession':str(beneficiarys[i].title),
+                        'overall_thousands':str(beneficiarys[i].total_thousands)
+                    })
+            
+            document.merge_rows('particle', particles_info)
+            save_template = 'apps/app/contracts/saved/${id}-contract.docx'.format(id=ff.id)
             document.write(save_template)
             with open(save_template, 'rb') as f:
                 file_data = f.read()
                 response = HttpResponse(file_data, content_type='application/msword')
                 file_name = '${id}-contract.docx'
                 response['Content-Disposition'] = 'attachment; filename="' + file_name + '"'
-
                 return response
     except IOError as e:
         print(traceback.format_exc())
