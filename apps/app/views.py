@@ -246,17 +246,23 @@ def edit_form(request, table, id):
         context['form'] = form
         
         if request.POST:
-            form=form_type(request.POST, instance=row)
-            if form.is_valid():
-                form.save()
-                messages.success(request, 'Modifiche salvate con successo')
+            if request.POST.get('delete') == 'delete':
+                row.delete()
+                messages.success(request, 'Eliminato con successo')
                 return redirect('home')
             else:
-                messages.error(request, form.errors)
-                return redirect('edit-form', table=table, id=id)
+                form=form_type(request.POST, instance=row)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Modifiche salvate con successo')
+                    return redirect('home')
+                else:
+                    messages.error(request, form.errors)
+                    return redirect('edit-form', table=table, id=id)
         
         print('context')
         print(context)
+        print(request.method)
 
         return HttpResponse(html_template.render(context, request))
     except ValueError as e:
@@ -302,7 +308,6 @@ def save_table_data(request):
 @login_required(login_url="/login/")
 def generate_contract(request, id):
     try:
-        print(os.getcwd())
         template = 'apps/app/contracts/bonus-facciata.docx'
         ff = FormFaccata.objects.get(pk=id)
         beneficiarys = Beneficiary.objects.all().filter(select_form=ff.id)
@@ -351,43 +356,13 @@ def generate_contract(request, id):
                 email=str(ff.datainit.condominium.email),
             )
             particles_info = []
-            for i in len(beneficiarys):
+            for ben in beneficiarys:
                 particles_info.append({
-                    'particle':str(beneficiarys[i].parcel),
-                    'rep_name':str(beneficiarys[i].name),
-                    'possession':str(beneficiarys[i].title),
-                    'overall_thousands':str(beneficiarys[i].total_thousands)
+                    'particle':str(ben.parcel),
+                    'rep_name':str(ben.name),
+                    'possession':str(ben.title),
+                    'overall_thousands':str(ben.total_thousands)
                 })
-                """
-                if i == 0:
-                    particles_info.append({
-                        'particle':str(beneficiarys[i].parcel),
-                        'rep_name':str(beneficiarys[i].name),
-                        'possession':str(beneficiarys[i].title),
-                        'overall_thousands':str(beneficiarys[i].total_thousands)
-                    })
-                elif i == 1:
-                    particles_info.append({
-                        'particle':str(ff.datainit.catastal.n_second_particle),
-                        'rep_name':str(beneficiarys[i].name),
-                        'possession':str(beneficiarys[i].title),
-                        'overall_thousands':str(beneficiarys[i].total_thousands) 
-                    })
-                elif i == 2:
-                    particles_info.append({
-                        'particle':str(ff.datainit.catastal.n_third_particle),
-                        'rep_name':str(beneficiarys[i].name),
-                        'possession':str(beneficiarys[i].title),
-                        'overall_thousands':str(beneficiarys[i].total_thousands)
-                    })
-                elif i == 3:
-                    particles_info.append({
-                        'particle':str(ff.datainit.catastal.n_fourth_particle),
-                        'rep_name':str(beneficiarys[i].name),
-                        'possession':str(beneficiarys[i].title),
-                        'overall_thousands':str(beneficiarys[i].total_thousands)
-                    })
-                """
             
             document.merge_rows('particle', particles_info)
             save_template = 'apps/app/contracts/saved/${id}-contract.docx'.format(id=ff.id)
