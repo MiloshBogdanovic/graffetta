@@ -352,10 +352,16 @@ def generate_contract(request, id):
             )
             particles_info = []
             for i in len(beneficiarys):
+                particles_info.append({
+                    'particle':str(beneficiarys[i].parcel),
+                    'rep_name':str(beneficiarys[i].name),
+                    'possession':str(beneficiarys[i].title),
+                    'overall_thousands':str(beneficiarys[i].total_thousands)
+                })
+                """
                 if i == 0:
                     particles_info.append({
-                        'particle':str(ff.datainit.catastal.first_particle),
-                        'sub_cat':str(ff.datainit.catastal.n_subscribers_to_first_belonging),
+                        'particle':str(beneficiarys[i].parcel),
                         'rep_name':str(beneficiarys[i].name),
                         'possession':str(beneficiarys[i].title),
                         'overall_thousands':str(beneficiarys[i].total_thousands)
@@ -363,7 +369,6 @@ def generate_contract(request, id):
                 elif i == 1:
                     particles_info.append({
                         'particle':str(ff.datainit.catastal.n_second_particle),
-                        'sub_cat':str(ff.datainit.catastal.n_subscribers_to_second_belonging),
                         'rep_name':str(beneficiarys[i].name),
                         'possession':str(beneficiarys[i].title),
                         'overall_thousands':str(beneficiarys[i].total_thousands) 
@@ -371,19 +376,18 @@ def generate_contract(request, id):
                 elif i == 2:
                     particles_info.append({
                         'particle':str(ff.datainit.catastal.n_third_particle),
-                        'sub_cat':str(ff.datainit.catastal.n_subscribers_to_third_belonging),
                         'rep_name':str(beneficiarys[i].name),
                         'possession':str(beneficiarys[i].title),
                         'overall_thousands':str(beneficiarys[i].total_thousands)
                     })
                 elif i == 3:
                     particles_info.append({
-                       'particle':str(ff.datainit.catastal.n_fourth_particle),
-                        'sub_cat':str(ff.datainit.catastal.n_subscribers_to_fourth_belonging),
+                        'particle':str(ff.datainit.catastal.n_fourth_particle),
                         'rep_name':str(beneficiarys[i].name),
                         'possession':str(beneficiarys[i].title),
                         'overall_thousands':str(beneficiarys[i].total_thousands)
                     })
+                """
             
             document.merge_rows('particle', particles_info)
             save_template = 'apps/app/contracts/saved/${id}-contract.docx'.format(id=ff.id)
