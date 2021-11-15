@@ -226,18 +226,22 @@ def edit_form(request, table, id):
     form_type = None 
     try: 
         if table == 'Condominium':
+            context['title'] = 'Condominium'
             form_type = CondominiumForm
             row = CondominiumData.objects.get(pk=id)
             form = CondominiumForm(instance=row)
         elif table == 'AdministrationIndividual':
+            context['title'] = 'Indvidual Admin'
             form_type = AdministrationIndividualForm
             row = AdministrationIndividual.objects.get(pk=id)
             form = AdministrationIndividualForm(instance=row)
         elif table == 'AdministrationLegal':
+            context['title'] = 'Legal Administration'
             form_type = AdministrationLegalForm
             row = AdministrationLegal.objects.get(pk=id)
             form = AdministrationLegalForm(instance=row)
         elif table == 'CatastalData':
+            context['title'] = 'Catastal Data'
             form_type = CatastalDataForm
             row = CatastalData.objects.get(pk=id)
             form = CatastalDataForm(instance=row)
@@ -246,7 +250,7 @@ def edit_form(request, table, id):
         context['form'] = form
         
         if request.POST:
-            if request.POST.get('delete') == 'delete':
+            if request.POST.get('delete') == 'delete' and form_type != CondominiumForm:
                 row.delete()
                 messages.success(request, 'Eliminato con successo')
                 return redirect('home')
@@ -259,10 +263,6 @@ def edit_form(request, table, id):
                 else:
                     messages.error(request, form.errors)
                     return redirect('edit-form', table=table, id=id)
-        
-        print('context')
-        print(context)
-        print(request.method)
 
         return HttpResponse(html_template.render(context, request))
     except ValueError as e:
