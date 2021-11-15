@@ -41,7 +41,6 @@ def choose_profession_and_type(request, prof, type, fff):
     ff = FormFaccata.objects.get(pk=fff)
     if ff.professionals_id:
         prof_table = Prof_table.objects.get(pk=ff.professionals_id)
-        prof_table.save()
     else:
         prof_table = Prof_table()
         prof_table.save()
@@ -91,7 +90,7 @@ def choose_profession_and_type(request, prof, type, fff):
                 return redirect('choose-profession', fff=fff)
             else:
                 messages.error(request, form.errors)
-                return render(request, template, {'error': form.errors})
+                return render(request, template, {'form': form})
 
     elif profession == 'data-security-coordinator-design' and type == 'legal':
         form = DataSecurityCoordinatorLegalForm()
@@ -106,7 +105,7 @@ def choose_profession_and_type(request, prof, type, fff):
                 return redirect('choose-profession', fff=fff)
             else:
                 messages.error(request, form.errors)
-                return render(request, template, {'error': form.errors})
+                return render(request, template, {'form': form})
 
     elif profession == 'data-security-coordinator-execution' and type == 'individual':
         form = DataSecurityCoordinatorExecutionIndividualForm()
@@ -121,7 +120,7 @@ def choose_profession_and_type(request, prof, type, fff):
                 return redirect('choose-profession', fff=fff)
             else:
                 messages.error(request, form.errors)
-                return render(request, template, {'error': form.errors})
+                return render(request, template, {'form': form})
 
     elif profession == 'data-security-coordinator-execution' and type == 'legal':
         form = DataSecurityCoordinatorExecutionLegalForm()
@@ -136,7 +135,7 @@ def choose_profession_and_type(request, prof, type, fff):
                 return redirect('choose-profession', fff=fff)
             else:
                 messages.error(request, form.errors)
-                return render(request, template, {'error': form.errors})
+                return render(request, template, {'form': form})
 
     elif profession == 'director-works' and type == 'individual':
         form = DataDirectorWorksIndividualForm()
@@ -151,7 +150,7 @@ def choose_profession_and_type(request, prof, type, fff):
                 return redirect('choose-profession', fff=fff)
             else:
                 messages.error(request, form.errors)
-                return render(request, template, {'error': form.errors})
+                return render(request, template, {'form': form})
 
     elif profession == 'director-works' and type == 'legal':
         form = DataDirectorWorksLegalForm()
@@ -166,7 +165,7 @@ def choose_profession_and_type(request, prof, type, fff):
                 return redirect('choose-profession', fff=fff)
             else:
                 messages.error(request, form.errors)
-                return render(request, template, {'error': form.errors})
+                return render(request, template, {'form': form})
 
     elif profession == 'thermotechnical' and type == 'individual':
         form = DataThermoTechnicalIndividualForm()
@@ -181,7 +180,7 @@ def choose_profession_and_type(request, prof, type, fff):
                 return redirect('choose-profession', fff=fff)
             else:
                 messages.error(request, form.errors)
-                return render(request, template, {'error': form.errors})
+                return render(request, template, {'form': form})
 
     elif profession == 'thermotechnical' and type == 'legal':
         form = DataThermoTechnicalLegalForm()
@@ -196,7 +195,7 @@ def choose_profession_and_type(request, prof, type, fff):
                 return redirect('choose-profession', args={'fff': fff})
             else:
                 messages.error(request, form.errors)
-                return render(request, template, {'error': form.errors})
+                return render(request, template, {'form': form})
 
     elif profession == 'data-energy-expert' and type == 'individual':
         form = DataEnergyExpertIndividualForm()
@@ -211,7 +210,7 @@ def choose_profession_and_type(request, prof, type, fff):
                 return redirect('choose-profession', fff=fff)
             else:
                 messages.error(request, form.errors)
-                return render(request, template, {'error': form.errors})
+                return render(request, template, {'form': form})
 
     elif profession == 'data-energy-expert' and type == 'legal':
         form = DataEnergyExpertLegalForm()
@@ -226,7 +225,7 @@ def choose_profession_and_type(request, prof, type, fff):
                 return redirect('choose-profession', fff=fff)
             else:
                 messages.error(request, form.errors)
-                return render(request, template, {'error': form.errors})
+                return render(request, template, {'form': form})
 
     elif profession == 'data-responsible' and type == 'individual':
         form = DataResponsibleForWorksIndividualForm()
@@ -241,7 +240,7 @@ def choose_profession_and_type(request, prof, type, fff):
                 return redirect('choose-profession', fff=fff)
             else:
                 messages.error(request, form.errors)
-                return render(request, template, {'error': form.errors})
+                return render(request, template, {'form': form})
 
     elif profession == 'data-responsible' and type == 'lega':
         form = DataResponsibleForWorksLegalForm()
@@ -256,7 +255,7 @@ def choose_profession_and_type(request, prof, type, fff):
                 return redirect('choose-profession', fff=fff)
             else:
                 messages.error(request, form.errors)
-                return render(request, template, {'error': form.errors})
+                return render(request, template, {'form': form})
     print('im down')
     return render(request, template, {'form': form, 'fff': fff})
 

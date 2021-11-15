@@ -1,7 +1,4 @@
 from django.db import models
-from django.db.models import manager
-from django.db.models.deletion import CASCADE
-from django.forms import widgets
 from django.forms.fields import ChoiceField, MultipleChoiceField
 from django.forms.forms import Form
 from django.forms.models import ModelForm, ModelMultipleChoiceField
@@ -434,7 +431,7 @@ class DataSecurityCoordinatorExecutionIndividualForm(ModelForm):
     class Meta:
         model = DataSecurityCoordinatorExecutionIndividual
         exclude = ['id', 'form_id']
-        labels =  individual_labels
+        labels = individual_labels
         widgets = individual_widgets
 
 
@@ -442,7 +439,7 @@ class DataSecurityCoordinatorExecutionLegalForm(ModelForm):
     class Meta:
         model = DataSecurityCoordinatorExecutionLegal
         exclude = ['id', 'form_id']
-        labels =  legal_labels
+        labels = legal_labels
         widgets = legal_widgets
 
 
