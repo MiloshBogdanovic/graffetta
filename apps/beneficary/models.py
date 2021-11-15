@@ -27,11 +27,12 @@ class Beneficiary(models.Model):
     title = models.CharField("TITOLO DI POSSESSO", max_length=50, choices=TITLE, blank=False)
     single_ownership_fee = models.CharField("QUOTA PROPRIETA' DEL SINGOLO", choices=OWNERSHIP, max_length=50,
                                             blank=False)
-    street = models.CharField("VIA E NUMERO IN CUI SI TROVA L'IMMOBILE", max_length=150, blank=True)
+    street = models.CharField("VIA E NUMERO IN CUI SI TROVA L'IMMOBILE", max_length=150, blank=True, null=True,
+                              default=0)
     total_thousands = models.DecimalField("MILLESIMI COMPLESSIVI", decimal_places=3, max_digits=12, blank=True)
     benef_of_diss_in_invo = models.CharField("BENEFICIARI DELLO SCONTO IN FATTURA", max_length=50, blank=True)
     thousands_benef_diss = models.DecimalField("MILLESIMI DI BENEFICIO DELLO SCONTO IN FATTURA SU PARTI COMUNI",
-                                            decimal_places=3, max_digits=12, blank=True)
+                                            decimal_places=3, max_digits=12, null=True, blank=True, default=0)
     name_of_company = models.CharField("DENOMINAZIONE SOCIETA' BENEFICIARIA", max_length=50, blank=True)
     municipal_reg_office = models.CharField("COMUNE  SEDE LEGALE SOCIETA' BENEFICIARIA", max_length=20, blank=True)
     province_reg_office = models.CharField("PROVINCIA  SEDE LEGALE SOCIETA' BENEFICIARIA", max_length=20, blank=True)
