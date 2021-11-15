@@ -171,11 +171,7 @@ def search(request):
     html_template = loader.get_template(load_template)
     try:
         value = request.GET.get('q')
-        print(request.user.id)
-        print(value)
-        user_forms = FormFaccata.objects.filter(user='{}'.format(request.user.id)).values_list('datainit.condominium.name', flat=True)
-        print(list(user_forms))
-        context['results'] = CondominiumData.objects.filter(name__icontains='{}'.format(value), pk__in=user_forms)
+        context['results'] = CondominiumData.objects.filter(name__icontains='{}'.format(value))
         print(list(context['results']))
         return HttpResponse(html_template.render(context, request))
     except template.TemplateDoesNotExist:
@@ -226,18 +222,22 @@ def edit_form(request, table, id):
     form_type = None 
     try: 
         if table == 'Condominium':
+            context['title'] = 'Condominium'
             form_type = CondominiumForm
             row = CondominiumData.objects.get(pk=id)
             form = CondominiumForm(instance=row)
         elif table == 'AdministrationIndividual':
+            context['title'] = 'Indvidual Admin'
             form_type = AdministrationIndividualForm
             row = AdministrationIndividual.objects.get(pk=id)
             form = AdministrationIndividualForm(instance=row)
         elif table == 'AdministrationLegal':
+            context['title'] = 'Legal Administration'
             form_type = AdministrationLegalForm
             row = AdministrationLegal.objects.get(pk=id)
             form = AdministrationLegalForm(instance=row)
         elif table == 'CatastalData':
+            context['title'] = 'Catastal Data'
             form_type = CatastalDataForm
             row = CatastalData.objects.get(pk=id)
             form = CatastalDataForm(instance=row)
@@ -246,17 +246,19 @@ def edit_form(request, table, id):
         context['form'] = form
         
         if request.POST:
-            form=form_type(request.POST, instance=row)
-            if form.is_valid():
-                form.save()
-                messages.success(request, 'Modifiche salvate con successo')
+            if request.POST.get('delete') == 'delete' and form_type != CondominiumForm:
+                row.delete()
+                messages.success(request, 'Eliminato con successo')
                 return redirect('home')
             else:
-                messages.error(request, form.errors)
-                return redirect('edit-form', table=table, id=id)
-        
-        print('context')
-        print(context)
+                form=form_type(request.POST, instance=row)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Modifiche salvate con successo')
+                    return redirect('home')
+                else:
+                    messages.error(request, form.errors)
+                    return redirect('edit-form', table=table, id=id)
 
         return HttpResponse(html_template.render(context, request))
     except ValueError as e:
@@ -302,7 +304,6 @@ def save_table_data(request):
 @login_required(login_url="/login/")
 def generate_contract(request, id):
     try:
-        print(os.getcwd())
         template = 'apps/app/contracts/bonus-facciata.docx'
         ff = FormFaccata.objects.get(pk=id)
         beneficiarys = Beneficiary.objects.all().filter(select_form=ff.id)
@@ -354,40 +355,14 @@ def generate_contract(request, id):
             for ben in beneficiarys:
                 particles_info.append({
                     'particle':str(ben.parcel),
+<<<<<<< HEAD
                     'ben_name':str(ben.name),
+=======
+                    'rep_name':str(ben.name),
+>>>>>>> 467393cf13ba2ef2d7978554b88796e76885f03c
                     'possession':str(ben.title),
                     'overall_thousands':str(ben.total_thousands)
                 })
-                """
-                if i == 0:
-                    particles_info.append({
-                        'particle':str(beneficiarys[i].parcel),
-                        'rep_name':str(beneficiarys[i].name),
-                        'possession':str(beneficiarys[i].title),
-                        'overall_thousands':str(beneficiarys[i].total_thousands)
-                    })
-                elif i == 1:
-                    particles_info.append({
-                        'particle':str(ff.datainit.catastal.n_second_particle),
-                        'rep_name':str(beneficiarys[i].name),
-                        'possession':str(beneficiarys[i].title),
-                        'overall_thousands':str(beneficiarys[i].total_thousands) 
-                    })
-                elif i == 2:
-                    particles_info.append({
-                        'particle':str(ff.datainit.catastal.n_third_particle),
-                        'rep_name':str(beneficiarys[i].name),
-                        'possession':str(beneficiarys[i].title),
-                        'overall_thousands':str(beneficiarys[i].total_thousands)
-                    })
-                elif i == 3:
-                    particles_info.append({
-                        'particle':str(ff.datainit.catastal.n_fourth_particle),
-                        'rep_name':str(beneficiarys[i].name),
-                        'possession':str(beneficiarys[i].title),
-                        'overall_thousands':str(beneficiarys[i].total_thousands)
-                    })
-                """
             
             document.merge_rows('particle', particles_info)
             save_template = 'apps/app/contracts/saved/${id}-contract.docx'.format(id=ff.id)
