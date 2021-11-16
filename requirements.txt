@@ -19,3 +19,4 @@ django-bootstrap-datepicker-plus
 django-tables2
 docx-mailmerge
 django-phone-field
+psycopg2

@@ -355,11 +355,8 @@ def generate_contract(request, id):
             for ben in beneficiarys:
                 particles_info.append({
                     'particle':str(ben.parcel),
-<<<<<<< HEAD
                     'ben_name':str(ben.name),
-=======
                     'rep_name':str(ben.name),
->>>>>>> 467393cf13ba2ef2d7978554b88796e76885f03c
                     'possession':str(ben.title),
                     'overall_thousands':str(ben.total_thousands)
                 })

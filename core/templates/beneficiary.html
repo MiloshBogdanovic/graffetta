@@ -23,11 +23,10 @@
                                     <li class="breadcrumb-item"><a href="{% url 'home'%}"><i class="feather icon-home"></i></a></li>
 
                                     {% if fff %}
+                                    <li class="breadcrumb-item active"><a class="breadcrumb-item active" href="">DETTAGLIO DEI BENEFICIARI</a></li>
                                     <li class="breadcrumb-item"><a href="{% url 'tables' fff=fff %}">SINTESI CONTRATTO CLIENTE</a></li>
                                     <li class="breadcrumb-item " aria-current="page" ><a  href="">DATI INIZIALI</a></li>
                                     <li class="breadcrumb-item"><a href="{% url 'choose-profession' fff=fff %}">INCARICHI PROFESSIONALI</a></li>
-                                    {%else%}
-                                    <li class="breadcrumb-item active"><a class="breadcrumb-item active" href="">DETTAGLIO DEI BENEFICIARI</a></li>
                                     {%endif%}
 
                                 </ul>
