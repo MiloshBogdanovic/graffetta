@@ -14,7 +14,7 @@ from apps.app.models import FormFaccata
 @login_required(login_url="/login/")
 def tables(request, fff):
     fff = get_object_or_404(FormFaccata, id=fff)
-    context = {'segment': 'table', 'form_ex_vat': OverallExVatForm(),'fff': fff.id}
+    context = {'segment': 'table', 'form_ex_vat': OverallExVatForm(),'fff': fff.id, 'fform': fff}
     if fff.tables_id is None:
         table_cont = TableContract()
         table_cont.save()

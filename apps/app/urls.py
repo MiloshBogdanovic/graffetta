@@ -13,6 +13,7 @@ urlpatterns = [
     path('', views.index, name='home'),
     # Matches any html file
     path('bonus-faccata/', views.bonus, name='bonus'),
+    path('bonus-faccata/<int:fff>', views.data_iniziali_view, name='data-iniziali'),
     path('bonus-faccata/legal<int:form>/<int:fff>', views.legal, name='legal'),
     path('bonus-faccata/individual<int:form>/<int:fff>', views.individual, name='individual'),
     path('bonus-faccata/catastal<int:form>', views.catastal, name='catastal'),

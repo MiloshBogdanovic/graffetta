@@ -18,16 +18,18 @@
 							<div class="page-header-title">
 								<h5 class="m-b-10">Professions</h5>
 							</div>
+						<nav aria-label="breadcrumb">
 							<ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{% url 'home'%}"><i class="feather icon-home"></i></a></li>
 
                                     {% if fff %}
-                                    <li class="breadcrumb-item"><a href="{% url 'tables' fff=fff %}">SINTESI CONTRATTO CLIENTE</a></li>
-                                    <li class="breadcrumb-item"><a href="">DATI INIZIALI</a></li>
-                                    <li class="breadcrumb-item"><a href="{% url 'beneficiary' fff=fff %}">DETTAGLIO DEI BENEFICIARI</a></li>
+									<li class="breadcrumb-item" aria-current="page"><a href="{% url 'data-iniziali' fff=fff %}">DATI INIZIALI</a></li>
+                                    <li class="breadcrumb-item" aria-current="page"><a href="{% url 'tables' fff=fff %}">SINTESI CONTRATTO CLIENTE</a></li>
+                                    <li class="breadcrumb-item" aria-current="page"><a href="{% url 'beneficiary' fff=fff %}">DETTAGLIO DEI BENEFICIARI</a></li>
                                     {%endif%}
 									<li class="breadcrumb-item active"><a class="breadcrumb-item active" href="">INCARICHI PROFESSIONALI</a></li>
                                 </ul>
+						</nav>
 						</div>
 					</div>
 				</div>

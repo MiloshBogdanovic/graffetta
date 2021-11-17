@@ -21,8 +21,8 @@
                         <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{% url 'home'%}"><i class="feather icon-home"></i></a></li>
-                                    <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="">DATI INIZIALI</a></li>
-                                    {% if fff.id %}
+                                    <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="{% url 'data-iniziali' fff=fff %}">DATI INIZIALI</a></li>
+                                    {% if fff%}
                                     <li class="breadcrumb-item"><a href="{% url 'tables' fff=fff %}">SINTESI CONTRATTO CLIENTE</a></li>
                                     <li class="breadcrumb-item"><a href="{% url 'choose-profession' fff=fff %}">INCARICHI PROFESSIONALI</a></li>
                                     <li class="breadcrumb-item"><a href="{% url 'beneficiary' fff=fff %}">DETTAGLIO DEI BENEFICIARI</a></li>
@@ -34,9 +34,6 @@
                             </nav>
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
-
-
-
                                     <li class="breadcrumb-item " aria-current="page"><a  href="{% url 'edit-form' table='Condominium' id=dform.condominium_id %}">DATI DEL CONDOMINIO</a></li>
                                     {%if dform.admin_legal%}
                                     <li class="breadcrumb-item " aria-current="page"><a  href="{% url 'edit-form' table='AdministrationLegal' id=dform.admin_legal_id %}">DATI AMMINISTRATORE PERSONA GIURIDICA</a></li>

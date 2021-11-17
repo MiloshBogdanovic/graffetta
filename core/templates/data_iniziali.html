@@ -1,0 +1,83 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Bonus Faccata {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- [ Main Content ] start -->
+    <section class="pcoded-main-container">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Bonus Facciata</h5>
+                            </div>
+                            <nav aria-label="breadcrumb">
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="{% url 'home'%}"><i class="feather icon-home"></i></a></li>
+                                    <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="">DATI INIZIALI</a></li>
+                                    {% if fff%}
+                                    <li class="breadcrumb-item"><a href="{% url 'tables' fff=fff %}">SINTESI CONTRATTO CLIENTE</a></li>
+                                    <li class="breadcrumb-item"><a href="{% url 'choose-profession' fff=fff %}">INCARICHI PROFESSIONALI</a></li>
+                                    <li class="breadcrumb-item"><a href="{% url 'beneficiary' fff=fff %}">DETTAGLIO DEI BENEFICIARI</a></li>
+                                    {%endif%}
+
+                                </ul>
+                            </nav>
+                            <nav aria-label="breadcrumb">
+                                <ul class="breadcrumb">
+                                    {%if fform.datainit.condominium_id%}
+                                    <li class="breadcrumb-item " aria-current="page"><a  href="{% url 'edit-form' table='Condominium' id=fform.datainit.condominium_id %}">DATI DEL CONDOMINIO</a></li>
+                                    {%endif%}
+                                    {%if fform.datainit.admin_legal_id%}
+                                    <li class="breadcrumb-item " aria-current="page"><a  href="{% url 'edit-form' table='AdministrationLegal' id=fform.datainit.admin_legal_id %}">DATI AMMINISTRATORE PERSONA GIURIDICA</a></li>
+                                    {%else%
+                                    <li class="breadcrumb-item " aria-current="page"><a  href="{% url 'legal'  form=fform.datainit_id fff=fform.id %}">DATI AMMINISTRATORE PERSONA GIURIDICA</a></li>
+                                    {%endif%}
+                                    {%if fform.datainit.admin_individual_id %}
+                                    <li class="breadcrumb-item " aria-current="page"><a  href="{% url 'edit-form' table='AdministrationIndividual' id=fform.datainit.admin_individual_id %}">DATI AMMINISTRATORE PERSONA FISICA</a></li>
+                                    {%else%}
+                                    <li class="breadcrumb-item " aria-current="page"><a  href="{% url 'individual' form=fform.datainit_id fff=fform.id %}">DATI AMMINISTRATORE PERSONA FISICA</a></li>
+                                    {%endif%}
+                                    {%if fform.datainit.catastal_id%}
+                                    <li class="breadcrumb-item " aria-current="page"><a  href="{% url 'edit-form' table='CatastalData' id=fform.datainit.catastal_id %}">DATI CATASTALI DEL CONDOMINIO</a></li>
+                                    {%else%}
+                                    <li class="breadcrumb-item " aria-current="page"><a  href="{% url 'catastal' form=fform.datainit_id  %}">DATI CATASTALI DEL CONDOMINIO</a></li>
+                                    {%endif%}
+                                </ul>
+                            </nav>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <!-- [ form-element ] start -->
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+
+                        </div>
+                        <div class="card-body">
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+  <script src="/static/assets/js/pages/bonus.js"></script>
+{% endblock javascripts %}

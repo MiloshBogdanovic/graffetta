@@ -66,12 +66,20 @@ def bonus(request):
 
 
 @login_required(login_url="/login/")
+def data_iniziali_view(request, fff):
+    fform = get_object_or_404(FormFaccata, pk=fff)
+    context = {'segment': 'bonus', 'fform': fform, 'fff': fff}
+    return render(request, 'data_iniziali.html', context)
+
+
+@login_required(login_url="/login/")
 def legal(request, form, fff):
     context = {'segment': 'legal', 'fff': fff}
     dform = get_object_or_404(DataInitial, pk=form)
     fff = get_object_or_404(FormFaccata, pk=fff)
     forms = AdministrationLegalForm()
     context['forms'] = forms
+    context['dform'] = dform
     if request.method == 'POST':
         form = AdministrationLegalForm(request.POST)
         if form.is_valid():
@@ -96,6 +104,7 @@ def individual(request, form, fff):
     fff = get_object_or_404(FormFaccata, id=fff)
     forms = AdministrationIndividualForm()
     context['forms'] = forms
+    context['dform'] = dform
     if request.method == 'POST':
         form = AdministrationIndividualForm(request.POST)
         if form.is_valid():
