@@ -68,20 +68,42 @@
                                                 </thead>
 
                                                 <tbody>
-                                                    <tr>
+                                                   {%for t in table%}
+                                                   {%if t.bonus_villa_id%}
+
+                                                    <tr data-href="{% url 'home' %}">
                                                         <td>
-                                                            -
+                                                            {{t.bonus_villa.name}}
                                                         </td>
                                                         <td>
-                                                            -
+                                                            {{t.bonus_villa.street}}
                                                         </td>
                                                         <td>
-                                                            -
+                                                            {{t.bonus_villa.municipality}}
                                                         </td>
                                                         <td>
-                                                            -
+                                                            {{t.bonus_villa.province}}
                                                         </td>
                                                     </tr>
+
+                                                   {%else%}
+                                                    <tr>
+                                                        <td>
+                                                            {{t.bonus_condo.name}}
+                                                        </td>
+                                                        <td>
+                                                            {{t.bonus_condo.street}}
+                                                        </td>
+                                                        <td>
+                                                            {{t.bonus_condo.municipality}}
+                                                        </td>
+                                                        <td>
+                                                            {{t.bonus_condo.province}}
+                                                        </td>
+                                                    </tr>
+
+                                                   {%endif%}
+                                                    {%endfor%}
                                                 </tbody>
                                             </table>
                                         </div>
@@ -98,7 +120,7 @@
                             <h4>Add new Super Bonus Application</h4>
                         </div>
                         <div class="card-body">
-                            <a href=""><button type="submit" class="btn  btn-primary">Villa</button></a>
+                            <a href="{% url 'bonus-add-villa' %}"><button type="submit" class="btn  btn-primary">Villa</button></a>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                             <a href=""><button type="submit" class="btn  btn-primary">Condominio</button></a>
@@ -112,5 +134,5 @@
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-<!--  <script src="/static/assets/js/pages/bonus.js"></script>-->
+  <script src="/static/assets/js/pages/superbonus.js"></script>
 {% endblock javascripts %}

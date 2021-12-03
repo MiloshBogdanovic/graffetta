@@ -1,0 +1,117 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Super Bonus Form{% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- [ Main Content ] start -->
+    <section class="pcoded-main-container">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Super Bonus</h5>
+                            </div>
+                            <nav aria-label="breadcrumb">
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="{% url 'home'%}"><i class="feather icon-home"></i></a></li>
+                                    <li class="breadcrumb-item " aria-current="page" ><a class="breadcrumb-item " href="{% url 'bonus-app-view' %}">SUPER BONUS</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="{% url 'bonus-app-view' %}">ADD CONDO</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <!-- [ form-element ] start -->
+                <div class="col-sm-12 col-md-8 col-lg-8">
+                    <div class="card table-card">
+                        <div class="card-header">
+                            <h4>Table of Super Bonus Application</h4>
+                            {% if messages %}
+                                {% for message in messages %}
+                                <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}
+                                    <a href="{% url 'bonus-app-view' %}">
+                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                         <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </a>
+                                    <a href="#">
+                                    <button type="button" class="close mr-3 "  data-dismiss="alert" aria-label="Close">
+                                     <span aria-hidden="true" ><i class="far fa-edit"></i></span>
+                                    </button>
+                                    </a>
+                                    <a href="#">
+                                     <button type="button" class=" close mr-3"  data-dismiss="alert" aria-label="Close">
+                                      <span aria-hidden="true" ><i class="far fa-plus-square"></i></span>
+                                     </button>
+                                    </a>
+                                </div>
+                                {%endfor%}
+                            {% endif %}
+                            <div class="card-header-right">
+                                <div class="btn-group card-option">
+                                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="feather icon-more-horizontal"></i>
+                                    </button>
+                                    <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                        <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                                        <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                                        <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                                        <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="m-2 p-2">
+                                {%if not request.POST%}
+
+                                <form action="" method="post">
+                                {% csrf_token %}
+                                    <table>
+                                    {{form}}
+                                    </table>
+                                    <div class="ml-3  mt-3">
+                                        <button type="submit" class="btn  btn-primary">Aggiornare</button>
+                                    </div>
+                                </form>
+                                {%endif%}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-4 col-lg-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Add new Super Bonus Application</h4>
+                        </div>
+                        <div class="card-body">
+                            <a href=><button type="submit" class="btn  btn-primary">Villa</button></a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                            <a href=""><button type="submit" class="btn  btn-primary">Condominio</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<!--  <script src="/static/assets/js/pages/bonus.js"></script>-->
+{% endblock javascripts %}

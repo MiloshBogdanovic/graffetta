@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} New Super Bonus Form{% endblock %}
+{% block title %}Super Bonus Form{% endblock %}
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -21,7 +21,8 @@
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{% url 'home'%}"><i class="feather icon-home"></i></a></li>
-                                    <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="">SUPER BONUS</a></li>
+                                    <li class="breadcrumb-item " aria-current="page" ><a class="breadcrumb-item " href="{% url 'bonus-app-view' %}">SUPER BONUS</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="{% url 'bonus-app-view' %}">ADD CONDO</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -36,6 +37,27 @@
                     <div class="card table-card">
                         <div class="card-header">
                             <h4>Table of Super Bonus Application</h4>
+                            {% if messages %}
+                                {% for message in messages %}
+                                <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}
+                                    <a href="{% url 'bonus-app-view' %}">
+                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                         <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </a>
+                                    <a href="#">
+                                    <button type="button" class="close mr-3 "  data-dismiss="alert" aria-label="Close">
+                                     <span aria-hidden="true" ><i class="far fa-edit"></i></span>
+                                    </button>
+                                    </a>
+                                    <a href="#">
+                                     <button type="button" class=" close mr-3"  data-dismiss="alert" aria-label="Close">
+                                      <span aria-hidden="true" ><i class="far fa-plus-square"></i></span>
+                                     </button>
+                                    </a>
+                                </div>
+                                {%endfor%}
+                            {% endif %}
                             <div class="card-header-right">
                                 <div class="btn-group card-option">
                                     <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -52,42 +74,21 @@
                             </div>
                         </div>
                         <div class="card-body">
-<!--                            <div class="tab-content" id="pills-tabContent">-->
-<!--                                <div class="tab-pane fade" id="pills-data" role="tabpanel" aria-labelledby="pills-data-tab">-->
+                            <div class="m-2 p-2">
+                                {%if not request.POST%}
 
-                                    <div class="table-responsive">
-                                        <div class="customer-scroll2" style="height:80vh;position:relative;">
-                                            <table class="table table-hover m-b-0">
-                                                 <thead>
-                                                    <tr>
-                                                        <th><span>DENOMINAZIONE ELL'IMMOBILE</span></th>
-                                                        <th><span>VIA UBICAZIONE  DELL'IMMOBILE<a class="help" data-toggle="popover" title="ID" data-content="Identificativo modulo condominiale"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                         <th><span>COMUNE UBICAZIONE DELL'IMMOBILE<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>PROVINCIA UBICAZIONE DELL'IMMOBILE<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                    </tr>
-                                                </thead>
-
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            -
-                                                        </td>
-                                                        <td>
-                                                            -
-                                                        </td>
-                                                        <td>
-                                                            -
-                                                        </td>
-                                                        <td>
-                                                            -
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                <form action="" method="post">
+                                {% csrf_token %}
+                                    <table>
+                                    {{form}}
+                                    </table>
+                                    <div class="ml-3  mt-3">
+                                        <button type="submit" class="btn  btn-primary">Aggiornare</button>
                                     </div>
-<!--                                </div>-->
-<!--                            </div>-->
+                                </form>
+                                {%endif%}
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -98,7 +99,7 @@
                             <h4>Add new Super Bonus Application</h4>
                         </div>
                         <div class="card-body">
-                            <a href=""><button type="submit" class="btn  btn-primary">Villa</button></a>
+                            <a href=><button type="submit" class="btn  btn-primary">Villa</button></a>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                             <a href=""><button type="submit" class="btn  btn-primary">Condominio</button></a>
