@@ -4,13 +4,16 @@ Copyright (c) 2019 - present AppSeed.us
 """
 from django.contrib.auth.models import User, Group
 from django.contrib.admin import AdminSite
-from .models import AdministrationLegal, AdministrationIndividual, CondominiumData, CatastalData, FormFaccata
+from .models import AdministrationLegal, AdministrationIndividual, CondominiumData, CatastalData, FormFaccata, DataInitial
 from django.contrib import admin
+from apps.beneficary.models import Beneficiary
+from apps.tables.models import *
+from apps.professionals.models import *
 
 
 # Register your models here.
 class MyAdminSite(AdminSite):
-    site_header = 'Graffetta Admin Page'
+    site_header = 'Auri-Soft Admin Page'
 
 
 class AdminAdministratorLegal(admin.ModelAdmin):
@@ -56,6 +59,7 @@ class AdminIndividualPanel(admin.ModelAdmin):
         form.base_fields['residence_province'].label = 'PROVINCIA DI RESIDENZA'
         return form
 
+
 class AdminCondominiumPanel(admin.ModelAdmin):
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
@@ -94,6 +98,37 @@ admin_site.register(AdministrationIndividual, admin_class=AdminIndividualPanel)
 admin_site.register(CondominiumData, admin_class=AdminCondominiumPanel)
 admin_site.register(CatastalData, admin_class=AdminCatastalDataPanel)
 admin_site.register(FormFaccata)
+admin_site.register(DataInitial)
+
+admin_site.register(Beneficiary)
+
+admin_site.register(OverallReport)
+admin_site.register(OverallExVat)
+admin_site.register(OverallIncVat)
+admin_site.register(OverallTaxable)
+admin_site.register(CommonWorkReport)
+admin_site.register(CommonWorkExVat)
+admin_site.register(CommonWorkIncVat)
+admin_site.register(CommonWorkTaxable)
+admin_site.register(SubjectiveWorkReport)
+admin_site.register(SubjectiveWorkExVat)
+admin_site.register(SubjectiveWorkIncVat)
+admin_site.register(SubjectiveWorkTaxable)
+admin_site.register(DataDesignerIndividual)
+admin_site.register(DataDesignerLegal)
+admin_site.register(DataSecurityCoordinatorIndividual)
+admin_site.register(DataSecurityCoordinatorLegal)
+admin_site.register(DataSecurityCoordinatorExecutionIndividual)
+admin_site.register(DataSecurityCoordinatorExecutionLegal)
+admin_site.register(DataDirectorWorksIndividual)
+admin_site.register(DataDirectorWorksLegal)
+admin_site.register(DataThermoTechnicalIndividual)
+admin_site.register(DataThermoTechnicalLegal)
+admin_site.register(DataEnergyExpertIndividual)
+admin_site.register(DataEnergyExpertLegal)
+admin_site.register(DataResponsibleForWorksIndividual)
+admin_site.register(DataResponsibleForWorksLegal)
+admin_site.register(Prof_table)
 admin_site.register(User)
 admin_site.register(Group)
 

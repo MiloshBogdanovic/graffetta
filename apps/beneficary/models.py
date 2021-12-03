@@ -40,7 +40,7 @@ class Beneficiary(models.Model):
     company_street = models.CharField("VIA E NUMERO SEDE LEGALE SOCIETA' BENEFICIARIA", max_length=150, blank=True)
     province_reg_comp_office = models.CharField("PROVINCIA ISCRIZIONE REGISTRO IMPRESE SOCIETA' BENEFICIARIA", max_length=20,
                                            blank=True)
-    vat_number_company = VATNumberField(countries=['IT'], blank=True)#"N° ISCRIZIONE REGISTRO IMPRESE-PARTITA IVA-C.F.SOCIETA BENEFICIARIA"
+    vat_number_company = VATNumberField(countries=['IT'], blank=True, verbose_name="IVA-C.F")#"N° ISCRIZIONE REGISTRO IMPRESE-PARTITA IVA-C.F.SOCIETA BENEFICIARIA"
     name_of_company_representitave = models.CharField("COGNOME E NOME LEGALE RAPPRESENTATE SOCIETA' "
                                                       "BENEFICIARIA o del BENEFICIARIO PERSONA FISICA", max_length=120,
                                                       blank=True)
@@ -99,5 +99,11 @@ class BeneficiaryForm(ModelForm):
                 'id': 'dob_of_rep',
                 'type': 'date'
             }),
+        }
+        error_messages = {
+            'vat_number_company': {
+                'invalid': ("Il numero di partita IVA dovrebbe iniziare con IT seguito da undici cifre"),
+            },
+
         }
 

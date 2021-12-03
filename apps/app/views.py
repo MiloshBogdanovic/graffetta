@@ -59,6 +59,7 @@ def bonus(request):
 
         else:
             context['errors'] = form.errors
+            context['forms'] = form
             return render(request, 'bonus_faccata.html', context)
 
     html_template = loader.get_template('bonus_faccata.html')
@@ -92,6 +93,7 @@ def legal(request, form, fff):
 
         else:
             context['errors'] = form.errors
+            context['forms'] = form
             return render(request, 'bonus_faccata_legal.html', context)
 
     return render(request, 'bonus_faccata_legal.html', context)
@@ -117,6 +119,7 @@ def individual(request, form, fff):
 
         else:
             context['errors'] = form.errors
+            context['forms'] = form
             return render(request, 'bonus_faccata_individual.html', context)
 
     return render(request, 'bonus_faccata_individual.html', context)
@@ -144,6 +147,7 @@ def catastal(request, form):
 
         else:
             context['errors'] = form.errors
+            context['forms'] = form
             return render(request, 'bonus_faccata_catastal.html', context)
 
     return render(request, 'bonus_faccata_catastal.html', context)

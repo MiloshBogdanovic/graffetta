@@ -53,6 +53,7 @@ def tables(request, fff):
         else:
             print(form_ex_vat.errors)
             context['error'] = form_ex_vat.errors
+            context['form_ex_vat'] = form_ex_vat
     else:
         html_template = loader.get_template('tables.html')
         return HttpResponse(html_template.render(context, request))
@@ -77,6 +78,7 @@ def overall_edit(request, id):
 
         except ValidationError as e:
             context['error'] = e
+            context['form_ex_vat'] = form
             html_template = loader.get_template('tables-edit.html')
             return HttpResponse(html_template.render(context, request))
 
@@ -115,6 +117,7 @@ def common(request, tc_id):
         else:
             print(form_ex_vat.errors)
             context['error'] = form_ex_vat.errors
+            context['form_ex_vat'] = form_ex_vat
 
     html_template = loader.get_template('tables-common.html')
     return HttpResponse(html_template.render(context, request))
@@ -139,6 +142,7 @@ def common_edit(request, id):
 
         except ValidationError as e:
             context['error'] = e
+            context['form_ex_vat'] = form
             html_template = loader.get_template('edit-common.html')
             return HttpResponse(html_template.render(context, request))
 
@@ -178,6 +182,7 @@ def subjective(request, tc_id):
         else:
             print(form_ex_vat.errors)
             context['error'] = form_ex_vat.errors
+            context['form_ex_vat'] = form_ex_vat
 
     html_template = loader.get_template('tables-subjective.html')
     return HttpResponse(html_template.render(context, request))
@@ -202,6 +207,7 @@ def sub_edit(request, id):
 
         except ValidationError as e:
             context['error'] = e
+            context['form_ex_vat'] = form
             html_template = loader.get_template('sub-edit.html')
             return HttpResponse(html_template.render(context, request))
 

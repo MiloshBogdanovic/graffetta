@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'apps.tables',
     'apps.beneficary',
     'apps.professionals',
+    'apps.superbonus',
     'phone_field'
 ]
 

@@ -62,6 +62,7 @@ def beneficiary_add(request, id):
 
         except ValidationError as e:
             context['error'] = e
+            context['form'] = form
             html_template = loader.get_template('beneficiary.html')
             return HttpResponse(html_template.render(context, request))
 
@@ -84,13 +85,14 @@ def beneficiary_edit(request, id):
                 return redirect('home')
 
             else:
-                messages.success(request, form.errors)
+                messages.error(request, form.errors)
                 return redirect('beneficiary-edit', id=id)
 
 
 
         except ValidationError as e:
             context['error'] = e
+            context['form'] = form
             html_template = loader.get_template('beneficiary.html')
             return HttpResponse(html_template.render(context, request))
 

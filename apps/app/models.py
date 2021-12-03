@@ -65,7 +65,7 @@ class AdministrationIndividual(models.Model):
     title = models.CharField(max_length=50, choices=TITLE)
     name = models.CharField(max_length=120)
     fiscal_code = models.CharField(max_length=16)
-    vat_number = VATNumberField(countries=['IT', 'NL'])
+    vat_number = VATNumberField(countries=['IT'])
     dob = models.DateField(auto_now=False, auto_now_add=False)
     birthplace = models.CharField(max_length=30)
     birthplace_county = models.CharField(max_length=30)
@@ -93,8 +93,8 @@ class CondominiumData(models.Model):
     cap = models.IntegerField(blank=False)
     municipality = models.CharField(max_length=50, blank=False)
     province = models.CharField(max_length=10, blank=False)
-    email = models.EmailField(max_length=254, blank=False)
-    pec_mail = models.EmailField(max_length=254, blank=False)
+    email = models.EmailField(max_length=254, blank=False, verbose_name='Email')
+    pec_mail = models.EmailField(max_length=254, blank=False,verbose_name='PEC')
     select_administrator = models.CharField(null=True, max_length=10, choices=ADMIN_CHOICE)
 
     class Meta:
@@ -191,12 +191,22 @@ class CondominiumForm(ModelForm):
             'pec_mail': EmailInput(attrs={
                 'class': 'form-control',
                 'placeholder': "Enter email",
-                'id': "pec_mail"
+                'id': "pec_mail",
+                'verbose_name': 'PEC'
             }),
             'select_administrator': Select(attrs={
                 'class': 'custom-select',
                 'id': "select_administrator"
             })
+        }
+        error_messages = {
+            'pec_mail': {
+                'invalid': ("Inserisci una email valida per PEC"),
+
+            },
+            'email': {
+                'invalid': ("Inserisci una email valida"),
+            },
         }
 
 
@@ -295,6 +305,12 @@ class AdministrationLegalForm(ModelForm):
             }),
 
         }
+        error_messages = {
+            'vat_number': {
+                'invalid': ("Il numero di partita IVA dovrebbe iniziare con IT seguito da undici cifre"),
+            },
+
+        }
 
 
 class AdministrationIndividualForm(ModelForm):
@@ -380,6 +396,12 @@ class AdministrationIndividualForm(ModelForm):
                 'class': 'form-control',
                 'id': 'residence_province'
             }),
+        }
+        error_messages = {
+            'vat_number': {
+                'invalid': ("Il numero di partita IVA dovrebbe iniziare con IT seguito da undici cifre"),
+            },
+
         }
 
 

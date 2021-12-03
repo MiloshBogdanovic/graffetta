@@ -392,7 +392,8 @@ class Prof_table(models.Model):
                                              related_name='resposible_for_work_ind', blank=True, null=True)
     resp_work_legal = models.ForeignKey(DataResponsibleForWorksLegal, on_delete=models.CASCADE,
                                         related_name='resposible_for_work_leg', blank=True, null=True)
-
+    class Meta:
+        verbose_name=("Proifessionals Table List")
 
 #Forms
 class DataDesignerIndividualForm(ModelForm):
