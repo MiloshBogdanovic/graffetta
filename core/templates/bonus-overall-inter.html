@@ -22,7 +22,14 @@
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{% url 'home'%}"><i class="feather icon-home"></i></a></li>
                                     <li class="breadcrumb-item " aria-current="page" ><a class="breadcrumb-item " href="{% url 'bonus-app-view' %}">SUPER BONUS</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="">INTERVENTI EFFETTUATI</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="">INTERVENTO</a></li>
+                                </ul>
+                            </nav>
+                            <nav aria-label="breadcrumb">
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href=""></a>SITUAZIONE COMPLESSIVA DELL'INTERVENTO</li>
+                                    <li class="breadcrumb-item " aria-current="page" ><a class="breadcrumb-item " href="">DETTAGLIO INTERVENTO LAVORI TRAINANTI</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="">DETTAGLIO INTERVENTO LAVORI TRAINATI</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -36,25 +43,16 @@
                 <div class="col-sm-12 col-md-8 col-lg-8">
                     <div class="card table-card">
                         <div class="card-header">
-                            <h4>Table of Super Bonus Application</h4>
+                            <h4>SITUAZIONE COMPLESSIVA DELL'INTERVENTO</h4>
                             {% if messages %}
                                 {% for message in messages %}
                                 <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}
-                                    <a href="{% url 'bonus-app-view' %}">
+
                                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                          <span aria-hidden="true">&times;</span>
                                     </button>
-                                    </a>
-                                    <a href="#">
-                                    <button type="button" class="close mr-3 "  data-dismiss="alert" aria-label="Close">
-                                     <span aria-hidden="true" ><i class="far fa-edit"></i></span>
-                                    </button>
-                                    </a>
-                                    <a href="#">
-                                     <button type="button" class=" close mr-3"  data-dismiss="alert" aria-label="Close">
-                                      <span aria-hidden="true" ><i class="far fa-plus-square"></i></span>
-                                     </button>
-                                    </a>
+
+
                                 </div>
                                 {%endfor%}
                             {% endif %}

@@ -39,6 +39,7 @@ class InterventionReport(models.Model):
 
     class Meta:
         abstract = True
+        managed = True
 
 
 class InterventionCost(models.Model):
@@ -77,29 +78,10 @@ class InterventionCost(models.Model):
 
     class Meta:
         abstract = True
+        managed = True
 
 
-class OverallInterCostsAmountVat(InterventionCost):
-    pass
-
-
-class OverallInterCostsVatIncluded(InterventionCost):
-    pass
-
-
-class OverallInterCostsExcludingVat(InterventionCost):
-    pass
-
-
-class OverallInterCostsTaxableVat(InterventionCost):
-    pass
-
-
-class OverallInterCostsReport(InterventionReport):
-    pass
-
-
-class OverallInterCostsNOVat(InterventionCost):
+class InterCostsNOVat(InterventionCost):
     vat_for_total_work = models.DecimalField("IMPORTO COMPLESSIVO IVA DA APPLICARE", decimal_places=2, max_digits=10,
                                              default=Decimal('0.22'), blank=False,
                                              choices=VTA_CHOICE)
@@ -127,6 +109,70 @@ class OverallInterCostsNOVat(InterventionCost):
     ss_app_for_conformity_visa = models.DecimalField("CASSA PREVIDENZA ", decimal_places=2, max_digits=10,
                                                      default=Decimal('0.0'),
                                                      blank=False, choices=CASSA_CHOICE)
+
+    class Meta:
+        abstract = True
+        managed = True
+
+
+class OverallInterCostsNOVat(InterCostsNOVat):
+    pass
+
+
+class OverallInterCostsTaxableVat(InterventionCost):
+    pass
+
+
+class OverallInterCostsVatIncluded(InterventionCost):
+    pass
+
+
+class OverallInterCostsAmountVat(InterventionCost):
+    pass
+
+
+class OverallInterCostsReport(InterventionReport):
+    pass
+
+
+class InterDrivingWorkNOVat(InterCostsNOVat):
+    pass
+
+
+class InterDrivingWorkTaxableVat(InterventionCost):
+    pass
+
+
+class InterDrivingWorkVatIncluded(InterventionCost):
+    pass
+
+
+class InterDrivingWorkAmountVat(InterventionCost):
+    pass
+
+
+class InterDrivingWorkReport(InterventionReport):
+    pass
+
+
+class InterTrailedWorkNOVat(InterCostsNOVat):
+    pass
+
+
+class InterTrailedWorkTaxableVat(InterventionCost):
+    pass
+
+
+class InterTrailedWorkVatIncluded(InterventionCost):
+    pass
+
+
+class InterTrailedWorkAmountVat(InterventionCost):
+    pass
+
+
+class InterTrailedWorkReport(InterventionReport):
+    pass
 
 
 class CatastalData(models.Model):
@@ -173,10 +219,13 @@ class Interventions(models.Model):
     towed_art119_c = models.CharField(max_length=2, choices=YN)
     description = models.TextField(max_length=500)
 
+    class Meta:
+        managed = True
+
 
 class OverallInterventions(models.Model):
     id = models.AutoField(primary_key=True)
-    excluding_vat = models.ForeignKey(OverallInterCostsExcludingVat, on_delete=models.CASCADE, blank=True, null=True,
+    excluding_vat = models.ForeignKey(OverallInterCostsNOVat, on_delete=models.CASCADE, blank=True, null=True,
                                       verbose_name="IMPORTO IVA ESCLUSA")
     taxable_vat = models.ForeignKey(OverallInterCostsTaxableVat, on_delete=models.CASCADE, blank=True, null=True,
                                     verbose_name="IMPONIBILE IVA")
@@ -185,6 +234,34 @@ class OverallInterventions(models.Model):
     amount_vat = models.ForeignKey(OverallInterCostsAmountVat, on_delete=models.CASCADE, blank=True, null=True,
                                    verbose_name="IMPORTO IVA")
     report = models.ForeignKey(OverallInterCostsReport, on_delete=models.CASCADE, blank=True, null=True,
+                               verbose_name="RAPPORTO")
+
+
+class DrivingInterventions(models.Model):
+    id = models.AutoField(primary_key=True)
+    excluding_vat = models.ForeignKey(InterDrivingWorkNOVat, on_delete=models.CASCADE, blank=True, null=True,
+                                      verbose_name="IMPORTO IVA ESCLUSA")
+    taxable_vat = models.ForeignKey(InterDrivingWorkTaxableVat, on_delete=models.CASCADE, blank=True, null=True,
+                                    verbose_name="IMPONIBILE IVA")
+    included_vat = models.ForeignKey(InterDrivingWorkVatIncluded, on_delete=models.CASCADE, blank=True, null=True,
+                                     verbose_name="IMPORTO IVA INCLUSA")
+    amount_vat = models.ForeignKey(InterDrivingWorkAmountVat, on_delete=models.CASCADE, blank=True, null=True,
+                                   verbose_name="IMPORTO IVA")
+    report = models.ForeignKey(InterDrivingWorkReport, on_delete=models.CASCADE, blank=True, null=True,
+                               verbose_name="RAPPORTO")
+
+
+class TrailingInterventions(models.Model):
+    id = models.AutoField(primary_key=True)
+    excluding_vat = models.ForeignKey(InterTrailedWorkNOVat, on_delete=models.CASCADE, blank=True, null=True,
+                                      verbose_name="IMPORTO IVA ESCLUSA")
+    taxable_vat = models.ForeignKey(InterTrailedWorkTaxableVat, on_delete=models.CASCADE, blank=True, null=True,
+                                    verbose_name="IMPONIBILE IVA")
+    included_vat = models.ForeignKey(InterTrailedWorkVatIncluded, on_delete=models.CASCADE, blank=True, null=True,
+                                     verbose_name="IMPORTO IVA INCLUSA")
+    amount_vat = models.ForeignKey(InterTrailedWorkAmountVat, on_delete=models.CASCADE, blank=True, null=True,
+                                   verbose_name="IMPORTO IVA")
+    report = models.ForeignKey(InterTrailedWorkReport, on_delete=models.CASCADE, blank=True, null=True,
                                verbose_name="RAPPORTO")
 
 
@@ -200,14 +277,17 @@ class BonusVilla(models.Model):
     catastal = models.ForeignKey(CatastalData, on_delete=models.CASCADE, blank=True, null=True,
                                  verbose_name="DATI CATASTALI")
     beneficiary = models.ForeignKey(Beneficiary, on_delete=models.SET_NULL, blank=True, null=True,
-                                    verbose_name="INTERVENTI")
+                                    verbose_name="DETTAGLIO DEI BENEFICIARI")
     professionals = models.ForeignKey(Prof_table, on_delete=models.SET_NULL, blank=True, null=True,
                                       verbose_name="PROFESSIONALI")
     interventions = models.ForeignKey(Interventions, on_delete=models.SET_NULL, blank=True, null=True,
                                       verbose_name="INTERVENTI")
     overall_interventions = models.ForeignKey(OverallInterventions, on_delete=models.SET_NULL, blank=True, null=True,
-
                                               verbose_name="COMPLESSIVA DELL'INTERVENTO")
+    driving_interventions = models.ForeignKey(DrivingInterventions, on_delete=models.SET_NULL, blank=True, null=True,
+                                              verbose_name="DETTAGLIO INTERVENTO LAVORI TRAINANTI")
+    trailed_interventions = models.ForeignKey(TrailingInterventions, on_delete=models.SET_NULL, blank=True, null=True,
+                                              verbose_name="DETTAGLIO INTERVENTO LAVORI TRAINATI")
 
     class Meta:
         managed = True
@@ -222,11 +302,14 @@ class SuperBonus(models.Model):
     bonus_villa = models.ForeignKey(BonusVilla, on_delete=models.CASCADE, blank=True, null=True)
     bonus_condo = models.ForeignKey(BonusCondo, on_delete=models.CASCADE, blank=True, null=True)
 
+    class Meta:
+        managed = True
+
 
 class BonusVillaForm(ModelForm):
     class Meta:
         model = BonusVilla
-        exclude = ['id']
+        exclude = ['id', 'catastal', 'beneficiary', 'professionals', 'interventions', 'overall_interventions']
         labels = {}
         widgets = {}
 
@@ -262,3 +345,27 @@ class InterventionsForm(ModelForm):
                 'id': 'description'
             }),
         }
+
+
+class CatastalDataForm(ModelForm):
+    class Meta:
+        model = CatastalData
+        exclude = ['id']
+
+
+class OverallInterCostsNOVatForm(ModelForm):
+    class Meta:
+        model = OverallInterCostsNOVat
+        exclude = ['id']
+
+
+class InterDrivingWorkNOVatForm(ModelForm):
+    class Meta:
+        model = InterDrivingWorkNOVat
+        exclude = ['id']
+
+
+class InterTrailedWorkNOVatForm(ModelForm):
+    class Meta:
+        model = InterTrailedWorkNOVat
+        exclude = ['id']

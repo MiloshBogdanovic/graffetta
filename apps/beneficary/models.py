@@ -88,7 +88,7 @@ class Beneficiary(models.Model):
 class BeneficiaryForm(ModelForm):
     class Meta:
         model = Beneficiary
-        exclude = ['id']
+        exclude = ['id', 'select_form']
         labels = {
             'vat_number_company': 'N° ISCRIZIONE REGISTRO IMPRESE-PARTITA IVA-C.F.SOCIETA BENEFICIARIA',
             'select_form': 'SELEZIONA LA FORMA DI CONDOMINIO RELATIVA AL BENEFICIARIO'
