@@ -1,0 +1,147 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Status Page {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}	
+
+	<!-- [ Main Content ] start -->
+	<div class="pcoded-main-container">
+		<div class="pcoded-content">
+			<!-- [ breadcrumb ] start -->
+			<div class="page-header">
+				<div class="page-block">
+					<div class="row align-items-center">
+						<div class="col-md-12">
+							<div class="page-header-title">
+								<h5 class="m-b-10">Status Page</h5>
+							</div>
+							<ul class="breadcrumb">
+								<li class="breadcrumb-item"><a href="{% url 'home'%}"><i class="feather icon-home"></i></a></li>
+								<li class="breadcrumb-item"><a href="#!">Status Page</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- [ breadcrumb ] end -->
+			<!-- [ Main Content ] start -->
+			<div class="row">
+				<!-- [ sample-page ] start -->
+				<div class="col-xl-12">
+					<div class="row">
+						<div class="col-sm-12 col-md-4">
+							<div class="card text-center bg-primary text-white">
+								<div class="card-body">
+									<h5 class="card-title">Condominium Table</h5>
+                                    {% if condominium == True %}
+									<p class="card-text">Condominium Data Finished</p>
+                                    {% elif condominium == 'missing' %}
+                                    <p class="card-text">Missing Data From Condominium</p>
+                                    <a href="{% url 'common' tc_id=table_cont %}" class="btn btn-primary">Edit</a>
+                                    {% elif condominium == False }
+                                    <p class="card-text">No Data For Condominium</p>
+                                    <a href="{% url 'bonus' %}" class="btn btn-primary">Create</a>
+                                    {% endif %}
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12 col-md-4">
+							<div class="card text-white bg-warning text-center text-white">
+								<div class="card-body">
+									<h5 class="card-title">Admin Table</h5>
+                                    {% if admin == True %}
+									<p class="card-text">Admin Data Finished</p>
+                                    {% elif admin == 'missing' %}
+                                    <p class="card-text">Missing fields found in admin data</p>
+                                    <a href="{% url 'edit-form' table=admin_type %}" class="btn btn-primary">Edit</a>
+                                    {% elif admin == False }
+                                    <p class="card-text">No data found for administrator</p>
+                                    <a href="#" class="btn btn-primary">Create</a>
+                                    {% endif %}
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12 col-md-4">
+							<div class="card text-center bg-danger text-white">
+								<div class="card-body">
+									<h5 class="card-title">Catastal Table</h5>
+                                    {% if catastal == True %}
+									<p class="card-text">Catastal Data was found</p>
+                                    {% elif catastal == 'missing' %}
+                                    <p class="card-text">Missing fields found in catastal data</p>
+                                    <a href="{% url 'edit-form' table='CatastalData' id=form.catastal.id %}" class="btn btn-primary">Edit</a>
+                                    {% elif catastal == False }
+                                    <p class="card-text">No data for catastal found</p>
+                                    <a href="{% url 'catastal' id=form.id %}" class="btn btn-primary">Create</a>
+                                    {% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+                </div>
+                <div class="col-xl-12">
+					<div class="row">
+						<div class="col-sm-12 col-md-4">
+							<div class="card text-center bg-secondary text-whire">
+								<div class="card-body">
+									<h5 class="card-title">Professionals Table</h5>
+                                    {% if professionals == True %}
+									<p class="card-text">Professionals data has been completed</p>
+                                    {% elif professionals == 'missing' %}
+                                    <p class="card-text">Missing data from professionals fields</p>
+                                    <a href="{% url 'edit-profession' fff=id %}" class="btn btn-primary">Edit</a>
+                                    {% elif professionals == False }
+                                    <p class="card-text">No data for professionals found</p>
+                                    <a href="{% url 'choose-profession fff=id" class="btn btn-primary">Create</a>
+                                    {% endif %}
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12 col-md-4">
+							<div class="card text-center bg-success text-white">
+								<div class="card-body">
+									<h5 class="card-title">Money Calculations</h5>
+                                    {% if tables == True %}
+									<p class="card-text">Data for money calculations finished</p>
+                                    {% elif tables == 'missing' %}
+                                    <p class="card-text">Missing fields found in money calculations</p>
+                                    <a href="{% url 'tables-edit' fff=id %}" class="btn btn-primary">Edit</a>
+                                    {% elif tables == False }
+                                    <p class="card-text">No data found for money calculations</p>
+                                    <a href="{% url 'tables' fff=id %}" class="btn btn-primary">Create</a>
+                                    {% endif %}
+								</div>
+							</div>
+						</div>
+						<!--<div class="col-sm-12 col-md-4">
+							<div class="card text-center bg-danger text-white">
+								<div class="card-body">
+									<h5 class="card-title">Catastal Table</h5>
+                                    {% if catastal == True %}
+									<p class="card-text">Catastal Data was found</p>
+                                    {% elif catastal == 'missing' %}
+                                    <p class="card-text">Missing fields found in catastal data</p>
+                                    <a href="{% url 'edit-form' table='CatastalData' id=form.catastal.id %}" class="btn btn-primary">Edit</a>
+                                    {% elif catastal == False }
+                                    <p class="card-text">No data for catastal found</p>
+                                    <a href="{% url 'catastal' id=form.id %}" class="btn btn-primary">Create</a>
+                                    {% endif %}
+								</div>
+							</div>
+						</div>-->
+					</div>
+                </div>
+				<!-- [ sample-page ] end -->
+			</div>
+			<!-- [ Main Content ] end -->
+		</div>
+	</div>
+	<!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

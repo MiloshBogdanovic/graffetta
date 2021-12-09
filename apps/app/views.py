@@ -13,7 +13,7 @@ from django.template import loader
 from django.urls import reverse
 from apps.app.tables import AdministrationIndividualTable, AdministrationLegalTable, CatastalTable, CondominiumTable
 from apps.beneficary.views import beneficiary
-from apps.tables.models import TableContract
+from apps.tables.models import CommonWorkTaxable, OverallIncVat, OverallReport, OverallTaxable, TableContract
 from apps.professionals.models import Prof_table
 from apps.beneficary.models import Beneficiary
 from apps.app.models import CondominiumData, CondominiumForm, AdministrationIndividualForm, AdministrationLegalForm,\
@@ -239,17 +239,17 @@ def edit_form(request, table, id):
             form_type = CondominiumForm
             row = CondominiumData.objects.get(pk=id)
             form = CondominiumForm(instance=row)
-        elif table == 'AdministrationIndividual':
+        elif table == 'AdministrationIndividual' or 'Individual':
             context['title'] = 'Indvidual Admin'
             form_type = AdministrationIndividualForm
             row = AdministrationIndividual.objects.get(pk=id)
             form = AdministrationIndividualForm(instance=row)
-        elif table == 'AdministrationLegal':
+        elif table == 'AdministrationLegal' or 'Legal':
             context['title'] = 'Legal Administration'
             form_type = AdministrationLegalForm
             row = AdministrationLegal.objects.get(pk=id)
             form = AdministrationLegalForm(instance=row)
-        elif table == 'CatastalData':
+        elif table == 'CatastalData' or 'Catastal':
             context['title'] = 'Catastal Data'
             form_type = CatastalDataForm
             row = CatastalData.objects.get(pk=id)
@@ -394,3 +394,75 @@ def generate_contract(request, id):
         messages.error(request, e)
         return redirect('home')
  # columns = [f.name for f in row._meta.get_fields()]
+
+@login_required(login_url="/login/")
+def check_bonus_facciata_tables_status(request, id):
+    html_template = loader.get_template('status.html')
+    info_to_send = {
+        'condominium':False,
+        'professionals':False,
+        'catastal':False,
+        'admin':False,
+        'condominium':False,
+        'tables': False,
+        'admin_type':''
+    }
+    admin = None
+    admin_check = None
+    try:
+        form = FormFaccata.objects.filter(pk=id).all()
+        
+        if(form.datainit.condominium):
+            info_to_send['condominium'] = True
+        
+        if(form.datainit.condominum.select_administrator == 'Legal'):
+            info_to_send['admin_type'] = 'Legal'
+            admin = form.datainit.admin_legal
+            admin_check = AdministrationLegal.objects.filter(id=form.datainit.admin_legal.id, company_name__isnull=False, vat_number__isnull=False, street__isnull=False, cap__isnull=False, province_reg_office__isnull=False, egal_title_rep__isnull=False).exists()
+        elif(form.datainit.condominium.select_administrator == 'Individual'):
+            info_to_send['admin_type'] = 'Individual'
+            admin = form.datainit.admin_individual
+            admin_check = AdministrationIndividual.objects.filter(id=form.datainit.admin_indvidiual.id, name__isnull=False, fiscal_code__isnull=False, activity_street__isnull=False, activity_location_cap__isnull=False, activity_province__isnull=False, title__isnull=False).exists()
+        
+        ## Check if administrator values have anything missing
+        if(admin_check):
+            info_to_send['admin'] = True
+        else:
+            admin_fields = [field.value for field in admin._meta.get_fields()]
+            for field in admin_fields:
+                if field == '' or field == None:
+                    info_to_send['admin'] = 'missing'
+                    return
+
+        ## Table fields
+        if(OverallTaxable.objects.filter(id=form.tables.overall_taxable.id, total_of_the_order__isnull=False, total_amt_of_work__isnull=False).exists() and OverallIncVat.objects.filter(pk=form.tables.overall_in_vat.id, total_of_the_order_amount_vat__isnull=False, total_of_the_order__isnull=False).exists() and CommonWorkTaxable.objects.filter(id=form.tables.common_taxable.id, total_amt_of_work__isnull=False, total_tech_exp__isnull=False, total_amt_safety_charges__isnull=False).exists() and OverallReport.objects.filter(pk=form.tables.overall_rep.id, amount_advance_deposit_by_customer_taxable_isnull=False, total_amount_includin_vat__isnull=False, amount_of_discount_in_invoice_taxable__isnull=False, amount_of_discount_in_invoice__isnull=False).exists()):
+            info_to_send['tables'] = True
+        else:
+            tables_fields = [field.value for field in form.tables._meta.get_fields()]
+            for field in tables_fields:
+                if field == '' or field == None:
+                    info_to_send['tables'] =  'missing'
+                    return
+        
+        if(CatastalData.objects.filter(id=form.datainit.catastal.id, description_of_intervention__isnull=False, data_of_condominium_assembly__isnull=False).exists):
+            info_to_send['catastal'] = True
+        else:
+            cat_fields = [field.value for field in form.datainit.catastal._meta.get_fields()]
+            for field in cat_fields:
+                if field == '' or field == None:
+                    info_to_send['catastal'] = 'missing'
+                    return
+        
+        if(Prof_table.objects.filter(id=form.professionals.id).exists()):
+            info_to_send['catastal'] = True
+        else:
+            pro_fields = [field.value for field in form.professionals._meta.get_fields()]
+            for field in pro_fields:
+                if field == ''  or field == None:
+                    info_to_send['professionals'] = 'missing'
+        
+        return HttpResponse(html_template.render(info_to_send, request))
+    except Exception as e:
+        print(traceback.format_exc())
+        print(e)
+        return redirect('home')
