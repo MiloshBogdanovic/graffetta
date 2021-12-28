@@ -1,8 +1,7 @@
 {% extends "layouts/base.html" %}
 
-{% block title %}Super Bonus Form{% endblock %}
+{% block title %} Super Bonus {% endblock %}
 
-<!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
@@ -23,7 +22,8 @@
                                     <li class="breadcrumb-item"><a href="{% url 'home'%}"><i class="feather icon-home"></i></a></li>
                                     <li class="breadcrumb-item " aria-current="page" ><a class="breadcrumb-item " href="{% url 'bonus-app-view' %}">SUPER BONUS</a></li>
                                     <li class="breadcrumb-item " aria-current="page" ><a class="breadcrumb-item " href="{% url 'bonus-preview' id=id%}">ANTEPRIMA</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="">INTERVENTI EFFETTUATI</a></li>
+                                    <li class="breadcrumb-item " aria-current="page" ><a class="breadcrumb-item " href="{% url 'bonus-professional' id=id%}">PROFEESSIONALI</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="">INSERISCI PROFEESSIONALI</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -34,31 +34,10 @@
             <!-- [ Main Content ] start -->
             <div class="row">
                 <!-- [ form-element ] start -->
-                <div class="col-sm-12 col-md-8 col-lg-8">
+                <div class="col-sm-12 col-md-10 col-lg-10">
                     <div class="card table-card">
                         <div class="card-header">
-                            <h4>Table of Super Bonus Application</h4>
-                            {% if messages %}
-                                {% for message in messages %}
-                                <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}
-                                    <a href="{% url 'bonus-app-view' %}">
-                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                         <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    </a>
-                                    <a href="#">
-                                    <button type="button" class="close mr-3 "  data-dismiss="alert" aria-label="Close">
-                                     <span aria-hidden="true" ><i class="far fa-edit"></i></span>
-                                    </button>
-                                    </a>
-                                    <a href="#">
-                                     <button type="button" class=" close mr-3"  data-dismiss="alert" aria-label="Close">
-                                      <span aria-hidden="true" ><i class="far fa-plus-square"></i></span>
-                                     </button>
-                                    </a>
-                                </div>
-                                {%endfor%}
-                            {% endif %}
+                            <h4>Table of Available Professionals</h4>
                             <div class="card-header-right">
                                 <div class="btn-group card-option">
                                     <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -75,34 +54,44 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="m-2 p-2">
+<!--                            <div class="tab-content" id="pills-tabContent">-->
+<!--                                <div class="tab-pane fade" id="pills-data" role="tabpanel" aria-labelledby="pills-data-tab">-->
 
-                                <form action="" method="post">
-                                {% csrf_token %}
-                                    <table>
-                                    {{form}}
-                                    </table>
-                                    <div class="ml-3  mt-3">
-                                        <button type="submit" class="btn  btn-primary">Aggiornare</button>
+                                    <div class="table-responsive">
+                                            {% if messages %}
+                                                {% for message in messages %}
+                                                <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}
+
+
+                                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                         <span aria-hidden="true">&times;</span>
+                                                    </button>
+
+                                                </div>
+                                                {%endfor%}
+                                            {% endif %}
+                                        <div class="customer-scroll1" style="height:80vh;position:relative;">
+                                             <form action="" method="post">
+                                                {% csrf_token %}
+                                               <table class="table table-hover m-b-0">
+                                                {{form}}
+                                               </table>
+                                                <button type="submit" class="m-3 btn btn-primary">Save </button>
+                                            </form>
+
+                                        </div>
                                     </div>
-                                </form>
-
-                            </div>
-
+<!--                                </div>-->
+<!--                            </div>-->
                         </div>
                     </div>
                 </div>
 
-<!--                <div class="col-sm-12 col-md-4 col-lg-4">-->
-<!--                    <div class="card">-->
-<!--                        <div class="card-header">-->
-<!--                            <h4>Add new Super Bonus Application</h4>-->
-<!--                        </div>-->
-<!--                        <div class="card-body">-->
-<!--                            <a href=><button type="submit" class="btn  btn-primary">Villa</button></a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <div class="card">
+
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -110,5 +99,5 @@
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-<!--  <script src="/static/assets/js/pages/bonus.js"></script>-->
+<!--  <script src="/static/assets/js/pages/superbonus.js"></script>-->
 {% endblock javascripts %}

@@ -6,15 +6,14 @@ from internationalflavor.vat_number.models import VATNumberField
 from django.forms.widgets import CheckboxSelectMultiple, EmailInput, TextInput, Select, NumberInput, DateInput, Textarea
 from phone_field import PhoneField
 
-
-SSCT =[
+SSCT = [
     ('4%', '4%'),
     ('4%', '5%')
 ]
 
 PROFESSION_CHOICES = [
     ('DATI PROGETTISTA', 'DATI PROGETTISTA'),
-    ('DATI COORDINATORE SICUREZZA IN FASE DI PROGETTAZIONE','DATI COORDINATORE SICUREZZA IN FASE DI PROGETTAZIONE'),
+    ('DATI COORDINATORE SICUREZZA IN FASE DI PROGETTAZIONE', 'DATI COORDINATORE SICUREZZA IN FASE DI PROGETTAZIONE'),
     ('DATI COORDINATORE SICUREZZA IN FASE DI ESECUZIONE', 'DATI COORDINATORE SICUREZZA IN FASE DI ESECUZIONE'),
     ('DATI DIRETTORE LAVORI', 'DATI DIRETTORE LAVORI'),
     ('DATI TERMOTECNICO', 'DATI TERMOTECNICO'),
@@ -34,9 +33,9 @@ individual_labels = {
     'residence_city': 'LUOGO DI RESIDENZA',
     'residence_province': 'PROVINCIA DI RESIDENZA',
     'activity_street': 'VIA E NUMERO/I SEDE ATTIVITA',
-    'activity_cap':'CAP SEDE ATTIVITA',
+    'activity_cap': 'CAP SEDE ATTIVITA',
     'activity_municipality': 'COMUNE SEDE ATTIVITA',
-    'activity_province':'PROVINCIA SEDE ATTIVITA',
+    'activity_province': 'PROVINCIA SEDE ATTIVITA',
     'board_order_registration': "COLLEGIO/ORDINE - ISCRIZIONE",
     'province_college': 'PROVINCIA COLLEGIO',
     'number_of_reg_order_college': "No ISCRIZIONE",
@@ -48,67 +47,67 @@ individual_labels = {
 }
 
 legal_labels = {
-    'company_name':'DENOMINAZIONE SOCIETA',
-    'municipal_reg_office':'COMUNE SEDE LEGALE',
-    'province_reg_office':'PROVINCIA SEDE LEGALE',
-    'cap_reg_office':'CAP SEDE LEGALE',
-    'street_reg_office':'VIA E NUMERO SEDE LEGALE',
-    'province_of_inscription_enterprises_register':'PROVINCIA/E DI ISCRIZIONE REGISTRO IMPRESE',
+    'company_name': 'DENOMINAZIONE SOCIETA',
+    'municipal_reg_office': 'COMUNE SEDE LEGALE',
+    'province_reg_office': 'PROVINCIA SEDE LEGALE',
+    'cap_reg_office': 'CAP SEDE LEGALE',
+    'street_reg_office': 'VIA E NUMERO SEDE LEGALE',
+    'province_of_inscription_enterprises_register': 'PROVINCIA/E DI ISCRIZIONE REGISTRO IMPRESE',
     'number_of_inscription_enterprises_register': 'No ISCRIZIONE REGISTRO IMPRESE - C.F. - P.IVA',
-    'rep_name':'COGNOME E NOME LEGALE RAPPRESENTANTE',
-    'rep_dob':'DATA DI NASCITA LEGALE RAPPRESENTANTE',
-    'rep_dob_municipality':'COMUNE DI NASCITA LEGALE RAPPRESENTANTE',
-    'rep_dob_province':'PROVINCIA DI NASCITA LEGALE RAPPRESENTANTE',
-    'rep_residence_municipality':'CAP RESIDENZA LEGALE RAPPRESENTANTE',
+    'rep_name': 'COGNOME E NOME LEGALE RAPPRESENTANTE',
+    'rep_dob': 'DATA DI NASCITA LEGALE RAPPRESENTANTE',
+    'rep_dob_municipality': 'COMUNE DI NASCITA LEGALE RAPPRESENTANTE',
+    'rep_dob_province': 'PROVINCIA DI NASCITA LEGALE RAPPRESENTANTE',
+    'rep_residence_municipality': 'CAP RESIDENZA LEGALE RAPPRESENTANTE',
     'rep_residence_province': "PROVINCIA RESIDENZA LEGALE RAPPRESENTANTE",
-    'rep_residence_zip':'CODICE POSTALE DEL LEGALE RAPPRESENTANTE',
+    'rep_residence_zip': 'CODICE POSTALE DEL LEGALE RAPPRESENTANTE',
     'rep_street': 'VIA E NUMERO RESIDENZA SEDE RAPPRESENTANTE',
-    'rep_fiscal_code':'CODICE FISCALE DEL RAPPRESENTANTE ',
-    'rep_phone_number':'TELEFONO DEL RAPPRESENTANTE ',
-    'ss_fund':"EVENTUALE CASSA DI PREVIDENZA DA APPLICARE ALLA SOCIETA'/STUDIO PROFESSIONALE"
+    'rep_fiscal_code': 'CODICE FISCALE DEL RAPPRESENTANTE ',
+    'rep_phone_number': 'TELEFONO DEL RAPPRESENTANTE ',
+    'ss_fund': "EVENTUALE CASSA DI PREVIDENZA DA APPLICARE ALLA SOCIETA'/STUDIO PROFESSIONALE"
 }
 
 individual_widgets = {
     'title': TextInput(attrs={
-        'class':'form-control',
+        'class': 'form-control',
         'id': 'title'
     }),
     'name': TextInput(attrs={
-        'class':'form-control',
-        'id':'name'
+        'class': 'form-control',
+        'id': 'name'
     }),
     'dob': DateInput(attrs={
-        'class':'form-control',
-        'id':'dob',
+        'class': 'form-control',
+        'id': 'dob',
         'type': 'date'
     }),
     'birthplace': TextInput(attrs={
-        'class':'form-control',
-        'id':'birthplace'
+        'class': 'form-control',
+        'id': 'birthplace'
     }),
     'birthplace_county': TextInput(attrs={
-        'class':'form-control',
-        'id':'birthplace_county'
+        'class': 'form-control',
+        'id': 'birthplace_county'
     }),
     'residence_street': TextInput(attrs={
-        'class':'form-control',
-        'id':'residence_street'
+        'class': 'form-control',
+        'id': 'residence_street'
     }),
     'residence_cap': TextInput(attrs={
-        'class':'form-control',
-        'id':'residence_cap'
+        'class': 'form-control',
+        'id': 'residence_cap'
     }),
     'residence_city': TextInput(attrs={
-        'class':'form-control',
-        'id':'residence_city'
+        'class': 'form-control',
+        'id': 'residence_city'
     }),
     'residence_province': TextInput(attrs={
-        'class':'form-control',
-        'id':'residence_province'
+        'class': 'form-control',
+        'id': 'residence_province'
     }),
     'activity_street': TextInput(attrs={
-        'class':'form-control',
-        'id':'activity_street'
+        'class': 'form-control',
+        'id': 'activity_street'
     }),
     'activity_cap': TextInput(attrs={
         'class': 'form-control',
@@ -119,116 +118,116 @@ individual_widgets = {
         'id': 'activity_province'
     }),
     'activity_municipality': TextInput(attrs={
-        'class':'form-control',
-        'id':'activity_municipality'
+        'class': 'form-control',
+        'id': 'activity_municipality'
     }),
     'province_head_office': TextInput(attrs={
-        'class':'form-control',
-        'id':'province_head_office'
+        'class': 'form-control',
+        'id': 'province_head_office'
     }),
     'cap_headquarters': NumberInput(attrs={
-        'class':'form-control',
-        'id':'cap_headquarters'
+        'class': 'form-control',
+        'id': 'cap_headquarters'
     }),
     'board_order_registration': TextInput(attrs={
-        'class':'form-control',
-        'id':'board_order_registration'
+        'class': 'form-control',
+        'id': 'board_order_registration'
     }),
     'province_college': TextInput(attrs={
-        'class':'form-control',
-        'id':'province_college'
+        'class': 'form-control',
+        'id': 'province_college'
     }),
     'number_description': TextInput(attrs={
-        'class':'form-control',
-        'id':'number_description'
+        'class': 'form-control',
+        'id': 'number_description'
     }),
     'vat_number': TextInput(attrs={
-        'class':'form-control',
-        'id':'vat_number'
+        'class': 'form-control',
+        'id': 'vat_number'
     }),
     'fiscal_code': TextInput(attrs={
-        'class':'form-control',
-        'id':'fiscal_code'
+        'class': 'form-control',
+        'id': 'fiscal_code'
     }),
     'phone_number': TextInput(attrs={
-        'class':'form-control',
-        'id':'phone_number'
+        'class': 'form-control',
+        'id': 'phone_number'
     }),
     'security_case_technician': Select(attrs={
-        'class':'form-control',
-        'id':'security_case_technician'
+        'class': 'form-control',
+        'id': 'security_case_technician'
     })
 }
 
 legal_widgets = {
     'company_name': TextInput(attrs={
-        'class':'form-control',
+        'class': 'form-control',
         'id': 'company_name'
     }),
-    'municipal_reg_office':TextInput(attrs={
-        'class':'form-control',
-        'id':'municipal_reg_office'
+    'municipal_reg_office': TextInput(attrs={
+        'class': 'form-control',
+        'id': 'municipal_reg_office'
     }),
     'province_reg_office': TextInput(attrs={
-        'class':'form-control',
+        'class': 'form-control',
         'id': 'province_reg_office'
     }),
     'cap_reg_office': NumberInput(attrs={
-        'class':'form-control',
+        'class': 'form-control',
         'id': 'cap_reg_office'
     }),
     'street_reg_office': TextInput(attrs={
-        'class':'form-control',
+        'class': 'form-control',
         'id': 'street_reg_office'
     }),
     'province_of_registration': TextInput(attrs={
-        'class':'form-control',
+        'class': 'form-control',
         'id': 'province_of_registration'
     }),
     'company_registration_number': TextInput(attrs={
-        'class':'form-control',
+        'class': 'form-control',
         'id': 'company_registration_number'
     }),
     'rep_name': TextInput(attrs={
-        'class':'form-control',
+        'class': 'form-control',
         'id': 'leg_rep_name'
     }),
     'rep_dob': TextInput(attrs={
-        'class':'form-control',
+        'class': 'form-control',
         'id': 'leg_dob',
         'type': 'date'
     }),
     'rep_dob_municipality': TextInput(attrs={
-        'class':'form-control',
+        'class': 'form-control',
         'id': 'leg_dob_municipality'
     }),
     'rep_dob_province': TextInput(attrs={
-        'class':'form-control',
+        'class': 'form-control',
         'id': 'leg_dob_province'
     }),
 
     'rep_residence_zip': TextInput(attrs={
-        'class':'form-control',
+        'class': 'form-control',
         'id': 'leg_rep_name'
     }),
     'rep_street': TextInput(attrs={
-        'class':'form-control',
+        'class': 'form-control',
         'id': 'rep_street'
     }),
     'rep_fiscal_code': TextInput(attrs={
-        'class':'form-control',
+        'class': 'form-control',
         'id': 'rep_fiscal_code'
     }),
     'rep_tax_code': TextInput(attrs={
-        'class':'form-control',
+        'class': 'form-control',
         'id': 'rep_tax_code'
     }),
     'rep_phone_number': TextInput(attrs={
-        'class':'form-control',
+        'class': 'form-control',
         'id': 'rep_phone_number'
     }),
     'ss_fund': TextInput(attrs={
-        'class':'form-control',
+        'class': 'form-control',
         'id': 'ss_fund'
     })
 }
@@ -313,32 +312,32 @@ class DataSecurityCoordinatorLegal(Legal):
 
 
 class DataSecurityCoordinatorExecutionIndividual(Individual):
-    class Meta: 
+    class Meta:
         managed = True
 
 
 class DataSecurityCoordinatorExecutionLegal(Legal):
-    class Meta: 
+    class Meta:
         managed = True
 
 
 class DataDirectorWorksIndividual(Individual):
-    class Meta: 
+    class Meta:
         managed = True
 
 
 class DataDirectorWorksLegal(Legal):
-    class Meta: 
+    class Meta:
         managed = True
 
 
 class DataThermoTechnicalIndividual(Individual):
-    class Meta: 
+    class Meta:
         managed = True
 
 
 class DataThermoTechnicalLegal(Legal):
-    class Meta: 
+    class Meta:
         managed = True
 
 
@@ -364,7 +363,8 @@ class DataResponsibleForWorksLegal(Legal):
 
 class Prof_table(models.Model):
     id = models.AutoField(primary_key=True)
-    designer_individual = models.ForeignKey(DataDesignerIndividual,on_delete=models.CASCADE, related_name='disgner_individual',
+    designer_individual = models.ForeignKey(DataDesignerIndividual, on_delete=models.CASCADE,
+                                            related_name='disgner_individual',
                                             blank=True, null=True)
     designer_legal = models.ForeignKey(DataDesignerLegal, on_delete=models.CASCADE, related_name='disgner_legal',
                                        blank=True, null=True)
@@ -375,7 +375,7 @@ class Prof_table(models.Model):
     security_plan_individual = models.ForeignKey(DataSecurityCoordinatorIndividual, on_delete=models.CASCADE,
                                                  related_name='secutiy_individual', blank=True, null=True)
     security_plan_legal = models.ForeignKey(DataSecurityCoordinatorLegal, on_delete=models.CASCADE,
-                                             related_name='security_individual', blank=True, null=True)
+                                            related_name='security_individual', blank=True, null=True)
     director_works_individual = models.ForeignKey(DataDirectorWorksIndividual, on_delete=models.CASCADE,
                                                   related_name='direktor_individual', blank=True, null=True)
     director_works_legal = models.ForeignKey(DataDirectorWorksLegal, on_delete=models.CASCADE,
@@ -392,10 +392,12 @@ class Prof_table(models.Model):
                                              related_name='resposible_for_work_ind', blank=True, null=True)
     resp_work_legal = models.ForeignKey(DataResponsibleForWorksLegal, on_delete=models.CASCADE,
                                         related_name='resposible_for_work_leg', blank=True, null=True)
-    class Meta:
-        verbose_name=("Proifessionals Table List")
 
-#Forms
+    class Meta:
+        verbose_name = ("Proifessionals Table List")
+
+
+# Forms
 class DataDesignerIndividualForm(ModelForm):
     class Meta:
         model = DataDesignerIndividual
@@ -456,7 +458,7 @@ class DataDirectorWorksLegalForm(ModelForm):
     class Meta:
         model = DataDirectorWorksLegal
         exclude = ['id', 'form_id']
-        labels =  legal_labels
+        labels = legal_labels
         widgets = legal_widgets
 
 
@@ -464,7 +466,7 @@ class DataThermoTechnicalIndividualForm(ModelForm):
     class Meta:
         model = DataThermoTechnicalIndividual
         exclude = ['id', 'form_id']
-        labels =  individual_labels
+        labels = individual_labels
         widgets = individual_widgets
 
 
@@ -472,7 +474,7 @@ class DataThermoTechnicalLegalForm(ModelForm):
     class Meta:
         model = DataThermoTechnicalLegal
         exclude = ['id', 'form_id']
-        labels =  legal_labels
+        labels = legal_labels
         widgets = legal_widgets
 
 
@@ -513,7 +515,7 @@ class ProfessionChoiceForm(Form):
         choices=PROFESSION_CHOICES
     )
     type = ChoiceField(
-        choices = [('PERSONA FISICA', 'PERSONA FISICA'), ('PERSONA GIURIDICA', 'PERSONA GIURIDICA')]
+        choices=[('PERSONA FISICA', 'PERSONA FISICA'), ('PERSONA GIURIDICA', 'PERSONA GIURIDICA')]
     )
 
 
@@ -538,3 +540,65 @@ class ProfTableForm(ModelForm):
             'resp_work_individual': 'RESPONSABILE DEI LAVORI PERSONA FISICA',
             'resp_work_legal': 'RESPONSABILE DEI LAVORI PERSONA GIURIDICA ',
         }
+
+
+class ProfTableLegalForm(ModelForm):
+    class Meta:
+        model = Prof_table
+        exclude = ['id', 'designer_individual', 'security_plan_individual', 'security_exe_individual',
+                   'director_works_individual', 'thermotechnical_individual', 'energy_expert_individual',
+                   'resp_work_individual']
+        labels = {
+            'designer_legal': 'PROGETTISTA PERSONA GIURIDICA',
+            'security_plan_legal': 'COORDINATORE SICUREZZA IN FASE DI PROGETTAZIONE PERSONA GIURIDICA',
+            'security_exe_legal': 'COORDINATORE SICUREZZA IN FASE DI ESECUZIONE PERSONA GIURIDICA',
+            'director_works_legal': ' DIRETTORE LAVORI PERSONA GIURIDICA',
+            'thermotechnical_legal': 'TERMOTECNICO PERSONA GIURIDICA',
+            'energy_expert_legal': 'ESPERTO ENERGETICO PERSONA GIURIDICA ',
+            'resp_work_legal': 'RESPONSABILE DEI LAVORI PERSONA GIURIDICA ',
+        }
+
+
+class ProfTableIndividualForm(ModelForm):
+    class Meta:
+        model = Prof_table
+        exclude = ['id', 'designer_legal', 'security_plan_legal', 'security_exe_legal', 'director_works_legal',
+                   'thermotechnical_legal', 'energy_expert_legal', 'resp_work_legal']
+        labels = {
+            'designer_individual': 'PROGETTISTA PERSONA FISICA',
+            'security_plan_individual': 'COORDINATORE SICUREZZA IN FASE DI PROGETTAZIONE PERSONA FISICA',
+            'security_exe_individual': ' COORDINATORE SICUREZZA IN FASE DI ESECUZIONE PERSONA FISICA',
+            'director_works_individual': 'DIRETTORE LAVORI PERSONA FISICA',
+            'thermotechnical_individual': 'TERMOTECNICO PERSONA FISICA',
+            'energy_expert_individual': 'ESPERTO ENERGETICO PERSONA FISICA',
+            'resp_work_individual': 'RESPONSABILE DEI LAVORI PERSONA FISICA',
+        }
+
+
+profession_individual = {
+    'data-designer': DataDesignerIndividualForm,
+    'data-security-coordinator-design': DataSecurityCoordinatorIndividualForm,
+    'data-security-coordinator-execution': DataSecurityCoordinatorExecutionIndividualForm,
+    'director-works': DataDesignerIndividualForm,
+    'thermotechnical': DataThermoTechnicalIndividualForm,
+    'data-energy-expert': DataEnergyExpertIndividualForm,
+    'data-responsible': DataResponsibleForWorksIndividualForm,
+}
+
+profession_legal = {
+    'data-designer': DataDesignerLegalForm,
+    'data-security-coordinator-design': DataSecurityCoordinatorLegalForm,
+    'data-security-coordinator-execution': DataSecurityCoordinatorExecutionLegalForm,
+    'director-works': DataDesignerLegalForm,
+    'thermotechnical': DataThermoTechnicalLegalForm,
+    'data-energy-expert': DataEnergyExpertLegalForm,
+    'data-responsible': DataResponsibleForWorksLegalForm,
+}
+
+
+def get_form_class_individual(prof):
+    return profession_individual.get(prof)
+
+
+def get_form_class_legal(prof):
+    return profession_legal.get(prof)

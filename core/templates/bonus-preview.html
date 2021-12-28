@@ -22,7 +22,7 @@
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{% url 'home'%}"><i class="feather icon-home"></i></a></li>
                                     <li class="breadcrumb-item " aria-current="page" ><a class="breadcrumb-item " href="{% url 'bonus-app-view' %}">SUPER BONUS</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="{% url 'bonus-app-view' %}">ADD CONDO</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="">ANTEPRIMA</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -68,8 +68,9 @@
                             <div class="m-2 p-2">
                                 {%if not request.POST%}
 
-                                <form action="" method="post">
+                                <form action="" class="" method="post">
                                 {% csrf_token %}
+                                    <div></div>
                                     <table>
                                     {{form}}
                                     </table>
@@ -124,7 +125,7 @@
 
                     <div class="card {%if not bonus.catastal_id%}alert-danger{%elif bonus.catastal_id%}alert-success{%endif%}">
                         <div class="card-header">
-                            <a href="{% url 'bonus-catastal' id=id%}"><h4>DATA CATASTALI</h4></a>
+                            <a href="{% url 'bonus-catastal' id=id%}"><h4>DATA CATASTALI</h4></a><br>
                         </div>
                         <div class="card-body">
                            <div class="progress">
@@ -160,50 +161,55 @@
 
             </div>
 
-                        <div class="row">
-                <div class="col-sm-4 col-md-4 col-lg-4">
-                    <div class="card">
+            <div class="row">
+
+                <div class="col-sm-4 col-md-5 col-lg-5">
+
+                    <div class="card {%if  not bonus.overall_interventions %} alert-danger {%elif bonus.overall_interventions and bonus.driving_interventions and bonus.trailed_interventions%}alert-success{%else%}alert-warning{%endif%}">
                         <div class="card-header">
-                            <h4>Super Bonus Element</h4>
+                            <a href="{% url 'bonus-costs' id=id type='overall' %}"><h4>SINTESI CONTRATTO CLIENTE</h4></a>
                         </div>
                         <div class="card-body">
                            <div class="progress">
-                                     <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                               {%if not bonus.overall_interventions%}
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: 5%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+                               {%elif bonus.overall_interventions and bonus.driving_interventions or bonus.trailed_interventions%}
+                               <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                               {%else%}
+                               <div class="progress-bar bg-warning" role="progressbar" style="width: 50%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                               {%endif%}
+
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-sm-4 col-md-4 col-lg-4">
-                    <div class="card">
+                <div class="col-sm-4 col-md-5 col-lg-5">
+
+                    <div class="card {%if not bonus.professionals%}alert-danger{%elif bonus.professionals %}alert-success{%endif%}">
                         <div class="card-header">
-                            <h4>Super Bonus Element</h4>
+                            <a href="{% url 'bonus-professional' id=id  %}"><h4>INCARICHI PROFESSIONALI</h4></a>
                         </div>
                         <div class="card-body">
                            <div class="progress">
-                                     <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                               {%if not bonus.professionals%}
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: 5%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+                               {%elif bonus.professionals%}
+                               <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                               {%endif%}
+
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-sm-4 col-md-4 col-lg-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Super Bonus Element</h4>
-                        </div>
-                        <div class="card-body">
-                           <div class="progress">
-                                     <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
 
             </div>
 
 
         </div>
+      </div>
     </section>
 {% endblock content %}
 

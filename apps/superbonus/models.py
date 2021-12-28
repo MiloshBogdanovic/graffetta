@@ -34,7 +34,7 @@ class InterventionReport(models.Model):
 
     def save(self, *args, **kwargs):
         self.amt_discount_applied = self.total_amt_inc_vat
-        self.amt_deduction_accrued = self.total_amt_inc_vat * 1.1
+        self.amt_deduction_accrued = self.total_amt_inc_vat * Decimal('1.1')
         super().save(*args, **kwargs)
 
     class Meta:
@@ -236,6 +236,9 @@ class OverallInterventions(models.Model):
     report = models.ForeignKey(OverallInterCostsReport, on_delete=models.CASCADE, blank=True, null=True,
                                verbose_name="RAPPORTO")
 
+    class Meta:
+        managed = True
+
 
 class DrivingInterventions(models.Model):
     id = models.AutoField(primary_key=True)
@@ -309,7 +312,7 @@ class SuperBonus(models.Model):
 class BonusVillaForm(ModelForm):
     class Meta:
         model = BonusVilla
-        exclude = ['id', 'catastal', 'beneficiary', 'professionals', 'interventions', 'overall_interventions']
+        exclude = ['id', 'catastal', 'beneficiary', 'professionals', 'interventions', 'overall_interventions', 'driving_interventions', 'trailed_interventions']
         labels = {}
         widgets = {}
 
