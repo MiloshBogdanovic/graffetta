@@ -16,5 +16,6 @@ urlpatterns = [
     path('edit-interventions-costs/<int:id>/<str:type>', views.edit_intervention_costs, name='edit-bonus-costs'),
     path('add-professional/<int:id>', views.professionals, name='bonus-professional'),
     path('add-professional/<int:id>/<str:type>/<str:prof>/', views.add_professionals, name='bonus-add-professional'),
+    path('add-administrator/<int:id>', views.administrator, name='bonus-administrator'),
     path('delete/<str:type>/<int:id>', views.delete_prop, name='bonus-delete'),
 ]

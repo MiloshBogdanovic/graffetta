@@ -40,21 +40,9 @@
                             {% if messages %}
                                 {% for message in messages %}
                                 <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}
-                                    <a href="{% url 'bonus-app-view' %}">
                                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                          <span aria-hidden="true">&times;</span>
                                     </button>
-                                    </a>
-                                    <a href="#">
-                                    <button type="button" class="close mr-3 "  data-dismiss="alert" aria-label="Close">
-                                     <span aria-hidden="true" ><i class="far fa-edit"></i></span>
-                                    </button>
-                                    </a>
-                                    <a href="#">
-                                     <button type="button" class=" close mr-3"  data-dismiss="alert" aria-label="Close">
-                                      <span aria-hidden="true" ><i class="far fa-plus-square"></i></span>
-                                     </button>
-                                    </a>
                                 </div>
                                 {%endfor%}
                             {% endif %}
@@ -75,8 +63,6 @@
                         </div>
                         <div class="card-body">
                             <div class="m-2 p-2">
-                                {%if not request.POST%}
-
                                 <form action="" method="post">
                                 {% csrf_token %}
                                     <table>
@@ -86,9 +72,7 @@
                                         <button type="submit" class="btn  btn-primary">Aggiornare</button>
                                     </div>
                                 </form>
-                                {%endif%}
                             </div>
-
                         </div>
                     </div>
                 </div>

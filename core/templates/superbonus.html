@@ -107,7 +107,7 @@
                                                             {{t.bonus_condo.street}}
                                                         </td>
                                                         <td>
-                                                            {{t.bonus_condo.municipality}}
+                                                            {{t.bonus_condo.common_location}}
                                                         </td>
                                                         <td>
                                                             {{t.bonus_condo.province}}
@@ -135,7 +135,7 @@
                             <a href="{% url 'bonus-add-villa' %}"><button type="submit" class="btn  btn-primary">Villa <i class="fas fa-home"></i></button></a>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                            <a href=""><button type="submit" class="btn  btn-primary">Condominio <i class="far fa-building"></i></button></a>
+                            <a href="{% url 'bonus-add-condo' %}"><button type="submit" class="btn  btn-primary">Condominio <i class="far fa-building"></i></button></a>
                         </div>
                     </div>
                 </div>

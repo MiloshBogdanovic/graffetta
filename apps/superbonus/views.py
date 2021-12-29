@@ -10,9 +10,6 @@ from django.urls import reverse
 from django.core.exceptions import ValidationError
 from apps.professionals.models import *
 from django.utils.translation import activate
-from django.apps import apps
-from django.forms import modelform_factory
-# Create your views here.
 
 
 @login_required(login_url="/login/")
@@ -24,7 +21,19 @@ def app(request):
 
 @login_required(login_url="/login/")
 def add_condo(request):
-    context = {'segment': 'bonus-add-condo'}
+    activate('it')
+    context = {'segment': 'bonus-add-condo', 'form': BonusCondoForm()}
+    if request.method == 'POST':
+        form = BonusCondoForm(request.POST)
+        if form.is_valid():
+            super_bonus = SuperBonus(bonus_condo=form.save())
+            super_bonus.save()
+            messages.success(request, 'Successfully')
+            return redirect('bonus-preview', id=super_bonus.id)
+        else:
+            context['form'] = form
+            messages.error(request, form.errors)
+
     html_template = loader.get_template('add-condo.html')
     return HttpResponse(html_template.render(context, request))
 
@@ -39,7 +48,7 @@ def add_villa(request):
             super_bonus = SuperBonus(bonus_villa=form.save())
             super_bonus.save()
             messages.success(request, 'Successfully')
-            return redirect('bonus-preview', id=super_bonus.bonus_villa_id)
+            return redirect('bonus-preview', id=super_bonus.id)
         else:
             context['form'] = form
             messages.error(request, form.errors)
@@ -85,9 +94,9 @@ def interventions(request, id):
         condo = BonusCondo.objects.get(id=bonus.bonus_condo_id)
         if condo.interventions:
             intervention = Interventions.objects.get(id=condo.interventions_id)
-            context['form'] = InterventionsForm(instance=intervention)
+            context['form'] = InterventionsCondoForm(instance=intervention)
             if request.method == 'POST':
-                form = InterventionsForm(request.POST, instance=intervention)
+                form = InterventionsCondoForm(request.POST, instance=intervention)
                 if form.is_valid():
                     condo.interventions = form.save()
                     condo.save()
@@ -97,9 +106,9 @@ def interventions(request, id):
                     context['form'] = form
                     messages.error(request, form.errors)
         else:
-            context['form'] = InterventionsForm()
+            context['form'] = InterventionsCondoForm()
             if request.method == 'POST':
-                form = InterventionsForm(request.POST)
+                form = InterventionsCondoForm(request.POST)
                 if form.is_valid():
                     condo.interventions = form.save()
                     condo.save()
@@ -428,8 +437,18 @@ def preview(request, id):
 
     elif bonus.bonus_condo:
         condo = get_object_or_404(BonusCondo, pk=bonus.bonus_condo_id)
-        context['form'] = BonusVillaForm(instance=condo)
+        context['form'] = BonusCondoForm(instance=condo)
         context['bonus'] = condo
+        context['type'] = 'condo'
+        if request.POST:
+            form = BonusCondoForm(request.POST, instance=condo)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Successfully')
+                return redirect('bonus-preview', id=id)
+            else:
+                context['form'] = form
+                messages.error(request, form.errors)
     html_template = loader.get_template('bonus-preview.html')
     return HttpResponse(html_template.render(context, request))
 
@@ -464,6 +483,49 @@ def professionals(request, id):
         pass
 
     html_template = loader.get_template('bonus-professionals.html')
+    return HttpResponse(html_template.render(context, request))
+
+
+@login_required(login_url="/login/")
+def administrator(request, id):
+    bonus = get_object_or_404(SuperBonus, pk=id)
+    context = {'segment': 'bonus-administrator', 'id': id}
+    condo = get_object_or_404(BonusCondo, pk=bonus.bonus_condo_id)
+    if condo.admin_legal is None and condo.admin_individual is None:
+        context['form_inv'] = AdministrationIndividualForm()
+        context['form_leg'] = AdministrationLegalForm()
+    elif condo.admin_legal:
+        prev = BonusCondo.objects.get(id=condo.admin_legal_id)
+        context['form_inv'] = ''
+        context['form_leg'] = AdministrationLegalForm(instance=prev)
+    elif condo.admin_individual:
+        prev = BonusCondo.objects.get(id=condo.admin_individual_id)
+        context['form_inv'] = AdministrationIndividualForm(instance=prev)
+        context['form_leg'] = ''
+
+    if 'legal' in request.POST:
+        form = AdministrationLegalForm(request.POST)
+        if form.is_valid():
+            condo.admin_legal = form.save()
+            condo.save()
+            messages.success(request, 'Successfully')
+            return redirect('bonus-preview', id=id)
+        else:
+            context['form_leg'] = form
+            messages.error(request, form.errors)
+
+    elif 'individual' in request.POST:
+        form = AdministrationIndividualForm(request.POST)
+        if form.is_valid():
+            condo.admin_individual = form.save()
+            condo.save()
+            messages.success(request, 'Successfully')
+            return redirect('bonus-preview', id=id)
+        else:
+            context['form_inv'] = form
+            messages.error(request, form.errors)
+
+    html_template = loader.get_template('bonus-administrator.html')
     return HttpResponse(html_template.render(context, request))
 
 
