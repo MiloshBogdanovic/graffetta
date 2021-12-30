@@ -1,11 +1,14 @@
-from django.db import models
+
 from apps.beneficary.models import Beneficiary, BeneficiaryForm
-from apps.professionals.models import Prof_table
+from apps.professionals.models import *
 from decimal import Decimal
 from django.forms import ModelForm
 from django.forms.widgets import Textarea, DateInput
 from internationalflavor.vat_number import VATNumberField
-from django.core.validators import MaxValueValidator, MinValueValidator
+import re
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+from datetime import date
 # Create your models here.
 
 YN = [
@@ -32,6 +35,14 @@ VTA_CHOICE = [
     (Decimal('0.1'), '10%'),
     (Decimal('0.22'), '22%')
 ]
+
+
+def validate_cap(value):
+    if not re.match(r'^([\s\d]{5})$', value):
+        raise ValidationError(
+            _('%(value)s is not an 5 digits cap number'),
+            params={'value': value},
+        )
 
 
 class InterventionReport(models.Model):
@@ -131,18 +142,16 @@ class AdministrationIndividual(models.Model):
     title = models.CharField('TITOLO AMMINISTRATORE', max_length=50, choices=TITLE)
     name = models.CharField('COGNOME e NOME', max_length=120)
     fiscal_code = models.CharField('CODICE FISCALE', max_length=16, blank=True)
-    vat_number = VATNumberField(countries=['IT'], verbose_name='PARTITA IVA', blank=True)
-    dob = models.DateField('DATA DI NASCITA', auto_now=False, auto_now_add=False, blank=True)
+    vat_number = VATNumberField(countries=['IT'], verbose_name='PARTITA IVA', default='IT12345678901')
+    dob = models.DateField('DATA DI NASCITA', auto_now=False, auto_now_add=False, default=date.today)
     birthplace = models.CharField('COMUNE DI NASCITA', max_length=50, blank=True)
     birthplace_county = models.CharField('PROVINCIA DI NASCITA', max_length=30, blank=True)
     activity_street = models.CharField("VIA E NUMERO/I SEDE ATTIVITA'", max_length=50, blank=True)
-    activity_location_cap = models.IntegerField("CAP SEDE ATTIVITA'", default=0, validators=[
-        MaxValueValidator(99999), MinValueValidator(1)])
+    activity_location_cap = models.CharField("CAP SEDE ATTIVITA'", max_length=5, validators=[validate_cap])
     activity_municipality = models.CharField("COMUNE SEDE ATTIVITA'", max_length=50, blank=True)
     activity_province = models.CharField("PROVINCIA SEDE ATTIVITA'", max_length=50, blank=True)
     residence_street = models.CharField('VIA E NUMERO RESIDENZA', max_length=50, blank=True)
-    residence_cap = models.IntegerField("CAP RESIDENZA", default=0, validators=[
-        MaxValueValidator(99999), MinValueValidator(1)])
+    residence_cap = models.CharField("CAP RESIDENZA", max_length=5, validators=[validate_cap])
     residence_city = models.CharField('COMUNE DI RESIDENZA', max_length=50, blank=True)
     residence_province = models.CharField('PROVINCIA DI RESIDENZA', max_length=50, blank=True)
 
@@ -159,20 +168,19 @@ class AdministrationLegal(models.Model):
     province = models.CharField('PROVINCIA/E ISCRIZIONE', max_length=20, blank=True)
     company_register = models.BigIntegerField('REGISTRO IMPRESE', blank=True)
     vat_number = VATNumberField(countries=['IT'], verbose_name='N° ISCRIZIONE REGISTRO IMPRESE - PARTITA IVA - C.F.',
-                                blank=True)
+                                default='IT12345678901')
     street_legal = models.CharField('VIA E NUMERO SEDE LEGALE', max_length=100, blank=True)
-    cap_legal = models.CharField('CAP SEDE LEGALE', max_length=30, blank=True)
+    cap_legal = models.CharField('CAP SEDE LEGALE',  max_length=5, validators=[validate_cap])
     municipal_reg_office = models.CharField('COMUNE SEDE LEGALE', max_length=30, blank=True)
     province_reg_office = models.CharField('PROVINCIA SEDE LEGALE', max_length=20, blank=True)
     legal_title_rep = models.CharField('TITOLO LEGALE RAPPRESENTATE', null=True, max_length=10, choices=TITLE)
     leg_rep_name = models.CharField('COGNOME E NOME LEGALE RAPPRESENTANTE', max_length=100, blank=True)
     leg_rep_tax_code = models.CharField('CODICE FISCALE LEGALE RAPPRESENTATE', max_length=20, blank=True)
-    leg_rep_dob = models.DateField('DATA DI NASCITA LEGALE RAPPRESENTANTE', auto_now=False, auto_now_add=False, blank=True)
+    leg_rep_dob = models.DateField('DATA DI NASCITA LEGALE RAPPRESENTANTE', auto_now=False, auto_now_add=False, default=date.today)
     municipal_of_birth_of_leg = models.CharField('COMUNE DI NASCITA DEL LEGALE RAPPRESENTANTE', max_length=30, blank=True)
     province_of_birth_of_leg = models.CharField('PROVINCIA DI NASCITA DEL LEGALE RAPPRESENTANTE', max_length=30, blank=True)
     leg_rep_street = models.CharField('VIA E NUMERO RESIDENZA LEGALE RAPPRESENTANTE', max_length=50, blank=True)
-    cap_rep_res = models.IntegerField('CAP RESIDENZA LEGALE RAPPRESENTANTE', default=0, validators=[
-        MaxValueValidator(99999), MinValueValidator(1)])
+    cap_rep_res = models.CharField('CAP RESIDENZA LEGALE RAPPRESENTANTE', max_length=5, validators=[validate_cap])
     municipal_of_leg_residence = models.CharField('COMUNE DI RESIDENZA LEGALE RAPPRESENTANTE', max_length=30, blank=True)
     province_of_leg_residence = models.CharField('PROVINCIA DI RESIDENZA LEGALE RAPPRESENTANTE', max_length=30, blank=True)
 
@@ -325,7 +333,7 @@ class Interventions(models.Model):
     towed_art119_c = models.CharField(max_length=2, choices=YN)
     description = models.TextField(max_length=500)
     date_of_assembly = models.DateField('DATA ASSEMBLEA CONDOMINIALE IN CUI I CONDOMINI HANNO IRREVOCABILMENTE OPTATO PER LO SCONTO IN FATTURA',
-                                        auto_now=False, auto_now_add=False, blank=True)
+                                        auto_now=False, auto_now_add=False, default=date.today)
 
     class Meta:
         managed = True
@@ -408,7 +416,7 @@ class BonusVilla(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField("DENOMINAZIONE DELL'IMMOBILE", max_length=50, blank=False)
     street = models.CharField("VIA E NUMERO/I UBICAZIONE  DELL'IMMOBILE", max_length=50, blank=False)
-    cap = models.IntegerField("CAP UBICAZIONE DELL'IMMOBILE", blank=False)
+    cap = models.CharField("CAP UBICAZIONE DELL'IMMOBILE", max_length=5, validators=[validate_cap])
     municipality = models.CharField("COMUNE UBICAZIONE DELL'IMMOBILE", max_length=50, blank=False)
     province = models.CharField("PROVINCIA UBICAZIONE DELL'IMMOBILE", max_length=10, blank=False)
     email = models.EmailField("INDIRIZZO MAIL DELL'IMMOBILE - DEL CLIENTE", max_length=254, blank=False)
@@ -437,8 +445,7 @@ class BonusCondo(models.Model):
     name = models.CharField("DENOMINAZIONE CONDOMINIO", max_length=50, blank=False)
     fiscal_code = models.CharField("CODICE FISCALE", max_length=16, blank=True)
     street = models.CharField("CONDOMINIO VIA E NUMERO/I UBICAZIONE", max_length=50, blank=False)
-    cap = models.IntegerField("CAP UBICAZIONE CONDOMINIO - IMMOBILE", default=0, validators=[
-        MaxValueValidator(99999), MinValueValidator(1)])
+    cap = models.CharField("CAP UBICAZIONE CONDOMINIO - IMMOBILE", max_length=5, validators=[validate_cap])
     common_location = models.CharField("COMUNE UBICAZIONE CONDOMINIO - IMMOBILE", max_length=50, blank=True)
     province = models.CharField("CONDOMINIO - IMMOBILE PROVINCIA UBICAZIONE ", max_length=10, blank=True)
     email = models.EmailField("CONDOMINIO - IMMOBILE INDIRIZZO MAIL DEL", max_length=54, blank=False)

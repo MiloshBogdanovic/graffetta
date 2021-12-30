@@ -7,8 +7,6 @@ from .models import *
 from .calculations import overall_calculation_villa, trailed_calculation_villa, driving_calculation_villa
 from django.contrib import messages
 from django.urls import reverse
-from django.core.exceptions import ValidationError
-from apps.professionals.models import *
 from django.utils.translation import activate
 
 
@@ -480,7 +478,25 @@ def professionals(request, id):
                 messages.error(request, form.errors)
 
     elif bonus.bonus_condo:
-        pass
+        condo = get_object_or_404(BonusCondo, pk=bonus.bonus_condo_id)
+        if condo.professionals is None:
+            context['form_inv'] = ProfTableIndividualForm()
+            context['form_leg'] = ProfTableLegalForm()
+        else:
+            prof = Prof_table.objects.get(id=condo.professionals_id)
+            context['form_inv'] = ProfTableIndividualForm(instance=prof)
+            context['form_leg'] = ProfTableLegalForm(instance=prof)
+
+        if request.POST:
+            form = ProfTableForm(request.POST)
+            if form.is_valid():
+                condo.professionals = form.save()
+                condo.save()
+                messages.success(request, 'Successfully')
+                return redirect('bonus-professional', id=id)
+            else:
+                context['form'] = form
+                messages.error(request, form.errors)
 
     html_template = loader.get_template('bonus-professionals.html')
     return HttpResponse(html_template.render(context, request))
@@ -495,11 +511,11 @@ def administrator(request, id):
         context['form_inv'] = AdministrationIndividualForm()
         context['form_leg'] = AdministrationLegalForm()
     elif condo.admin_legal:
-        prev = BonusCondo.objects.get(id=condo.admin_legal_id)
+        prev = AdministrationLegal.objects.get(id=condo.admin_legal_id)
         context['form_inv'] = ''
         context['form_leg'] = AdministrationLegalForm(instance=prev)
     elif condo.admin_individual:
-        prev = BonusCondo.objects.get(id=condo.admin_individual_id)
+        prev = AdministrationIndividual.objects.get(id=condo.admin_individual_id)
         context['form_inv'] = AdministrationIndividualForm(instance=prev)
         context['form_leg'] = ''
 

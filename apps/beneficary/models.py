@@ -3,6 +3,22 @@ from django.forms import ModelForm
 from apps.app.models import FormFaccata
 from internationalflavor.vat_number import VATNumberField
 from django.forms.widgets import DateInput
+import re
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+from datetime import date
+
+
+
+def validate_cap(value):
+    if not re.match(r'^([\s\d]{5})$', value):
+        raise ValidationError(
+            _('%(value)s is not an 5 digits cap number'),
+            params={'value': value},
+        )
+
+
+
 
 TITLE = [
     ('PROPRIETARIO', 'PROPRIETARIO'),
@@ -36,7 +52,7 @@ class Beneficiary(models.Model):
     name_of_company = models.CharField("DENOMINAZIONE SOCIETA' BENEFICIARIA", max_length=50, blank=True)
     municipal_reg_office = models.CharField("COMUNE  SEDE LEGALE SOCIETA' BENEFICIARIA", max_length=20, blank=True)
     province_reg_office = models.CharField("PROVINCIA  SEDE LEGALE SOCIETA' BENEFICIARIA", max_length=20, blank=True)
-    post_code_cap = models.CharField("CAP SEDE LEGALE SOCIETA' BENEFICIARIA", max_length=20, blank=True)
+    post_code_cap = models.CharField("CAP SEDE LEGALE SOCIETA' BENEFICIARIA", max_length=5, validators=[validate_cap])
     company_street = models.CharField("VIA E NUMERO SEDE LEGALE SOCIETA' BENEFICIARIA", max_length=150, blank=True)
     province_reg_comp_office = models.CharField("PROVINCIA ISCRIZIONE REGISTRO IMPRESE SOCIETA' BENEFICIARIA", max_length=20,
                                            blank=True)
@@ -45,7 +61,7 @@ class Beneficiary(models.Model):
                                                       "BENEFICIARIA o del BENEFICIARIO PERSONA FISICA", max_length=120,
                                                       blank=True)
     dob_of_rep = models.DateField("DATA NASCITA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA",
-                                  auto_now=False, auto_now_add=False)
+                                  auto_now=False, auto_now_add=False, default=date.today)
     muncipality_of_birth_rep = models.CharField("COMUNE NASCITA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA",
                                                 max_length=50, blank=True)
     province_of_birth_rep = models.CharField("PROVINCIA NASCITA LEGALE RAPPRESENTANTE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA",
@@ -55,7 +71,7 @@ class Beneficiary(models.Model):
     province_of_residance_rep = models.CharField("PROVINCIA RESIDENZA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA",
                                                  max_length=50, blank=True)
     cap_of_residance_rep = models.CharField("CAP RESIDENZA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA",
-                                            max_length=50, blank=True)
+                                            max_length=5, validators=[validate_cap])
     street_res_of_rep = models.CharField("VIA E NUMERO RESIDENZA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA",
                                          max_length=150, blank=True)
     legal_tax_code_rep= models.CharField("CODICE FISCALE LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA",

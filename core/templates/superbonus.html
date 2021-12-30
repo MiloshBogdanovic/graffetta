@@ -73,9 +73,9 @@
                                                  <thead>
                                                     <tr>
                                                         <th><span>DENOMINAZIONE ELL'IMMOBILE</span></th>
-                                                        <th><span>VIA UBICAZIONE  DELL'IMMOBILE<a class="help" data-toggle="popover" title="ID" data-content="Identificativo modulo condominiale"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                         <th><span>COMUNE UBICAZIONE DELL'IMMOBILE<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>PROVINCIA UBICAZIONE DELL'IMMOBILE<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
+                                                        <th><span>VIA UBICAZIONE  DELL'IMMOBILE</span></th>
+                                                         <th><span>COMUNE UBICAZIONE DELL'IMMOBILE</span></th>
+                                                        <th><span>PROVINCIA UBICAZIONE DELL'IMMOBILE</span></th>
                                                     </tr>
                                                 </thead>
 
@@ -129,13 +129,17 @@
                 <div class="col-sm-12 col-md-4 col-lg-4">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Add new Super Bonus Application</h4>
+                            <h4 class="text-center">Add new Super Bonus Application</h4>
                         </div>
                         <div class="card-body">
-                            <a href="{% url 'bonus-add-villa' %}"><button type="submit" class="btn  btn-primary">Villa <i class="fas fa-home"></i></button></a>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                            <a href="{% url 'bonus-add-condo' %}"><button type="submit" class="btn  btn-primary">Condominio <i class="far fa-building"></i></button></a>
+                            <ul class="nav  nav-fill ">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'bonus-add-villa' %}"><button type="submit" class="btn  btn-primary">Villa <i class="fas fa-home"></i></button></a>
+                                </li>
+                                <li>
+                                    <a class="nav-link" href="{% url 'bonus-add-condo' %}"><button type="submit" class="btn  btn-primary">Condominio <i class="far fa-building"></i></button></a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>

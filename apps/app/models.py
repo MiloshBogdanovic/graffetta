@@ -12,8 +12,6 @@ from django.forms import ModelForm
 from apps.tables.models import TableContract
 from apps.professionals.models import Prof_table
 
-# from apps.tables.models import OverallReport, OverallExVat, OverallIncVat, OverallTaxable, CommonWorkReport, CommonWorkExVat, CommonWorkIncVat, CommonWorkTaxable, SubjectiveWorkReport, SubjectiveWorkExVat
-
 
 from django.forms.widgets import EmailInput, TextInput, Select, NumberInput, DateInput, Textarea
 
@@ -57,7 +55,6 @@ class AdministrationLegal(models.Model):
 
     class Meta:
         managed = True
-
 
 
 class AdministrationIndividual(models.Model):

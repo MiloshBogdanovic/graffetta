@@ -5,6 +5,21 @@ from django.forms.models import ModelForm, ModelMultipleChoiceField
 from internationalflavor.vat_number.models import VATNumberField
 from django.forms.widgets import CheckboxSelectMultiple, EmailInput, TextInput, Select, NumberInput, DateInput, Textarea
 from phone_field import PhoneField
+import re
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+from datetime import date
+
+
+
+def validate_cap(value):
+    if not re.match(r'^([\s\d]{5})$', value):
+        raise ValidationError(
+            _('%(value)s is not an 5 digits cap number'),
+            params={'value': value},
+        )
+
+
 
 SSCT = [
     ('4%', '4%'),
@@ -172,7 +187,7 @@ legal_widgets = {
         'class': 'form-control',
         'id': 'province_reg_office'
     }),
-    'cap_reg_office': NumberInput(attrs={
+    'cap_reg_office': TextInput(attrs={
         'class': 'form-control',
         'id': 'cap_reg_office'
     }),
@@ -237,16 +252,16 @@ class Individual(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=20)
     name = models.CharField(max_length=120)
-    dob = models.DateField(auto_now=False, auto_now_add=False)
+    dob = models.DateField(auto_now=False, auto_now_add=False, default=date.today)
     birthplace = models.CharField(max_length=30)
     birthplace_county = models.CharField(max_length=30)
     residence_city = models.CharField(max_length=50)
     residence_province = models.CharField(max_length=50)
-    residence_cap = models.IntegerField(blank=False)
+    residence_cap = models.CharField(max_length=5, validators=[validate_cap])
     activity_street = models.CharField(max_length=50)
     activity_municipality = models.CharField(max_length=50)
     activity_province = models.CharField(max_length=50)
-    activity_cap = models.IntegerField(blank=False)
+    activity_cap = models.CharField(max_length=5, validators=[validate_cap])
     residence_street = models.CharField(max_length=50)
     board_order_registration = models.CharField(max_length=50)
     province_college = models.CharField(max_length=40)
@@ -273,12 +288,12 @@ class Legal(models.Model):
     company_name = models.CharField(max_length=50)
     municipal_reg_office = models.CharField(max_length=20)
     province_reg_office = models.CharField(max_length=20)
-    cap_reg_office = models.CharField(max_length=20)
+    cap_reg_office = models.CharField(max_length=5, validators=[validate_cap])
     street_reg_office = models.CharField(max_length=100)
     province_of_inscription_enterprises_register = models.CharField(max_length=20)
     number_of_inscription_enterprises_register = models.CharField(max_length=50)
     rep_name = models.CharField(max_length=100)
-    rep_dob = models.DateField(auto_now=False, auto_now_add=False)
+    rep_dob = models.DateField(auto_now=False, auto_now_add=False, default=date.today)
     rep_dob_municipality = models.CharField(max_length=50)
     rep_dob_province = models.CharField(max_length=50)
     rep_residence_municipality = models.CharField(max_length=100)

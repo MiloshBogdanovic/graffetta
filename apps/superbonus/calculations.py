@@ -288,3 +288,5 @@ def trailed_calculation_villa(costs):
 
     except ValidationError as e:
         return messages.error(e)
+
+#CREATE COMMON AND SUBJETIVE CALCULATION FUCNTIONS
