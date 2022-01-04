@@ -452,8 +452,7 @@ class BonusCondo(models.Model):
     pec_mail = models.EmailField("CONDOMINIO INDIRIZZO PEC DEL CONDOMINIO", max_length=54, blank=False)
     catastal = models.ForeignKey(CatastalData, on_delete=models.CASCADE, blank=True, null=True,
                                  verbose_name="DATI CATASTALI")
-    beneficiary = models.ForeignKey(Beneficiary, on_delete=models.SET_NULL, blank=True, null=True,
-                                    verbose_name="DETTAGLIO DEI BENEFICIARI")
+    beneficiary = models.ManyToManyField(Beneficiary, verbose_name="DETTAGLIO DEI BENEFICIARI")
     professionals = models.ForeignKey(Prof_table, on_delete=models.SET_NULL, blank=True, null=True,
                                       verbose_name="PROFESSIONALI")
     interventions = models.ForeignKey(Interventions, on_delete=models.SET_NULL, blank=True, null=True,
@@ -613,6 +612,7 @@ class AdministrationIndividualForm(ModelForm):
                 'type': 'date'
             })
         }
+
 
 class AdministrationLegalForm(ModelForm):
     class Meta:

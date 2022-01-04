@@ -74,8 +74,10 @@
                                     </table>
                                     <input class="btn btn-warning m-1" type="submit" value="Edit" />
                                 </form>
-                                {%if not table.vat_number%}
-                                <a href="{% url 'bonus-delete' type='villa' id=id %}"><button class="btn btn-danger m-1">Delete</button></a>
+                                {%if type == 'villa'%}
+                                <a href="{% url 'bonus-delete' type='villa' id=id %}"><button class="btn btn-danger m-1" onclick="return confirm('Sei sicuro?')">Delete</button></a>
+                                {%elif type == 'condo'%}
+                                 <a href="{% url 'bonus-delete' type='condo' id=id %}"><button class="btn btn-danger m-1" onclick="return confirm('Sei sicuro?')">Delete</button></a>
                                 {%endif%}
                             </div>
 

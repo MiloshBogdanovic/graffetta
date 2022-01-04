@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.template import loader
 from .models import *
-from .calculations import overall_calculation_villa, trailed_calculation_villa, driving_calculation_villa
+from .calculations import *
 from django.contrib import messages
 from django.urls import reverse
 from django.utils.translation import activate
@@ -184,75 +184,78 @@ def catastal(request, id):
 
 @login_required(login_url="/login/")
 def beneficiary(request, id):
-    context = {'segment': 'bonus-beneficiary', 'id':id}
-    html_template = loader.get_template('bonus-beneficiary.html')
     bonus = get_object_or_404(SuperBonus, pk=id)
+    context = {'segment': 'bonus-beneficiary', 'id': id }
+    html_template = loader.get_template('bonus-beneficiary.html')
     if bonus.bonus_villa:
         villa = BonusVilla.objects.get(id=bonus.bonus_villa_id)
-        if villa.beneficiary:
-            beneficiary = Beneficiary.objects.get(id=villa.beneficiary_id)
-            context['form'] = BeneficiaryForm(instance=beneficiary)
-            if request.method == 'POST':
-                form = BeneficiaryForm(request.POST, instance=beneficiary)
-                if form.is_valid():
-                    villa.beneficiary = form.save()
-                    villa.save()
-                    messages.success(request, 'Successfully Changed Values')
-                    return redirect('bonus-preview', id=id)
-                else:
-                    context['form'] = form
-                    messages.error(request, form.errors)
-        else:
-            context['form'] = BeneficiaryForm()
-            if request.method == 'POST':
-                form = BeneficiaryForm(request.POST)
-                try:
-                    if form.is_valid():
-                        villa.beneficiary = form.save()
-                        villa.save()
-                        messages.success(request, 'Successfully Created Interventions')
-                        return redirect('bonus-preview', id=id)
-                    else:
-                        context['form'] = form
-                        messages.error(request, form.errors)
-                except:
-                    raise ValidationError(form.errors)
+        context['form'] = BeneficiaryForm()
+        context['table'] = villa.beneficiary.all()
+        if request.method == 'POST':
+            form = BeneficiaryForm(request.POST)
+            if form.is_valid():
+                f = form.save()
+                villa.beneficiary.add(f)
+                messages.success(request, 'Successfully Changed Values')
+                return redirect('bonus-preview', id=id)
+            else:
+                context['form'] = form
+                messages.error(request, form.errors)
 
     elif bonus.bonus_condo:
         condo = BonusCondo.objects.get(id=bonus.bonus_condo_id)
-        if condo.catastal:
-            beneficiary = Beneficiary.objects.get(id=condo.beneficiary_id)
-            context['form'] = BeneficiaryForm(instance=catastal)
-            if request.method == 'POST':
-                form = BeneficiaryForm(request.POST, instance=beneficiary)
-                if form.is_valid():
-                    condo.beneficiary = form.save()
-                    condo.save()
-                    messages.success(request, 'Successfully Changed Values')
-                    return redirect('bonus-preview', id=id)
-                else:
-                    context['form'] = form
-                    messages.error(request, form.errors)
-
-        else:
-            context['form'] = BeneficiaryForm()
-            if request.method == 'POST':
-                form = BeneficiaryForm(request.POST)
-                try:
-                    if form.is_valid():
-                        condo.beneficiary = form.save()
-                        condo.save()
-                        messages.success(request, 'Successfully Created Interventions')
-                        return redirect('bonus-preview', id=id)
-                    else:
-                        context['form'] = form
-                        messages.error(request, form.errors)
-                except:
-                    raise ValidationError(form.errors)
+        context['form'] = BeneficiaryForm()
+        context['table'] = condo.beneficiary.all()
+        if request.method == 'POST':
+            form = BeneficiaryForm(request.POST)
+            if form.is_valid():
+                f = form.save()
+                condo.beneficiary.add(f)
+                messages.success(request, 'Successfully Changed Values')
+                return redirect('bonus-preview', id=id)
+            else:
+                context['form'] = form
+                messages.error(request, form.errors)
 
     return HttpResponse(html_template.render(context, request))
 
 
+@login_required(login_url="/login/")
+def edit_beneficiary(request, id, ben_id):
+    bonus = get_object_or_404(SuperBonus, pk=id)
+    context = {'segment': 'bonus-edit-beneficiary', 'id': id }
+    if bonus.bonus_villa:
+        villa = BonusVilla.objects.get(id=bonus.bonus_villa_id)
+        edit = Beneficiary.objects.get(id=ben_id)
+        context['form'] = BeneficiaryForm(instance=edit)
+        if request.POST:
+            form = BeneficiaryForm(request.POST,instance=edit)
+            if form.is_valid():
+                f = form.save()
+                villa.beneficiary.add(f)
+                messages.success(request, 'Successfully Changed Values')
+                return redirect('bonus-beneficiary', id=id)
+            else:
+                context['form'] = form
+                messages.error(request, form.errors)
+
+    elif bonus.bonus_condo:
+        condo = BonusCondo.objects.get(id=bonus.bonus_condo_id)
+        edit = Beneficiary.objects.get(id=ben_id)
+        context['form'] = BeneficiaryForm(instance=edit)
+        if request.POST:
+            form = BeneficiaryForm(request.POST,instance=edit)
+            if form.is_valid():
+                f = form.save()
+                condo.beneficiary.add(f)
+                messages.success(request, 'Successfully Changed Values')
+                return redirect('bonus-beneficiary', id=id)
+            else:
+                context['form'] = form
+                messages.error(request, form.errors)
+
+    html_template = loader.get_template('bonus-beneficiary.html')
+    return HttpResponse(html_template.render(context, request))
 
 @login_required(login_url="/login/")
 def intervention_costs(request, id, type):
@@ -332,7 +335,70 @@ def add_intervention_costs(request, id, type):
                 messages.warning(request, 'Trailed intervention already exist')
 
     elif bonus.bonus_condo:
-        pass
+        condo = BonusCondo.objects.get(id=bonus.bonus_condo_id)
+        if type == 'overall':
+            if condo.overall_interventions is None:
+                context['form'] = OverallInterCostsNOVatForm()
+                if request.method == 'POST':
+                    form = OverallInterCostsNOVatForm(request.POST)
+                    try:
+                        if form.is_valid():
+                            cost = OverallInterventions.objects.create(excluding_vat=form.save())
+                            condo.overall_interventions = cost
+                            condo.save()
+                            overall_calculation_villa(cost)
+                            messages.success(request, 'Successfully Created Interventions')
+                            return redirect('bonus-costs', id=bonus.id, type=type)
+                        else:
+                            context['form'] = form
+                            messages.error(request, form.errors)
+
+                    except:
+                        raise ValidationError(form.errors)
+            else:
+                messages.warning(request, 'Overall intervention already exist')
+
+        elif type == 'common':
+            if bonus.bonus_condo.common_interventions is None:
+                context['form'] = CommonWorkNOVatForm()
+                if request.method == 'POST':
+                    form = CommonWorkNOVatForm(request.POST)
+                    try:
+                        if form.is_valid():
+                            cost = CommonInterventions.objects.create(excluding_vat=form.save())
+                            condo.common_interventions = cost
+                            condo.save()
+                            common_calculation_condo(cost)
+                            messages.success(request, 'Successfully Created Interventions')
+                            return redirect('bonus-costs', id=bonus.id, type=type)
+                        else:
+                            context['form'] = form
+                            messages.error(request, form.errors)
+                    except:
+                        raise ValidationError(form.errors)
+            else:
+                messages.warning(request, 'Common intervention already exist')
+
+        elif type == 'subjective':
+            if bonus.bonus_condo.subjective_interventions is None:
+                context['form'] = SubjectiveWorkNOVatForm()
+                if request.method == 'POST':
+                    form = SubjectiveWorkNOVatForm(request.POST)
+                    try:
+                        if form.is_valid():
+                            cost = SubjectiveInterventions.objects.create(excluding_vat=form.save())
+                            condo.subjective_interventions = cost
+                            condo.save()
+                            subjective_calculation_condo(cost)
+                            messages.success(request, 'Successfully Created  Subjective Interventions')
+                            return redirect('bonus-costs', id=bonus.id, type=type)
+                        else:
+                            context['form'] = form
+                            messages.error(request, form.errors)
+                    except:
+                        raise ValidationError(form.errors)
+            else:
+                messages.warning(request, 'Subjective intervention already exist')
 
     bonus.save()
     return HttpResponse(html_template.render(context, request))
@@ -392,7 +458,7 @@ def edit_intervention_costs(request, id, type):
                 prev_form = InterTrailedWorkNOVat.objects.get(id=costs.excluding_vat_id)
                 context['form'] = InterTrailedWorkNOVatForm(instance=prev_form)
                 if request.method == 'POST':
-                    form = InterTrailedWorkNOVatForm(request.POST,instance=prev_form)
+                    form = InterTrailedWorkNOVatForm(request.POST, instance=prev_form)
                     try:
                         if form.is_valid():
                             costs.excluding_vat = form.save()
@@ -408,7 +474,69 @@ def edit_intervention_costs(request, id, type):
                 messages.warning(request, 'Trailed intervention does not exist')
 
     elif bonus.bonus_condo:
-        pass
+        condo = BonusCondo.objects.get(id=bonus.bonus_condo_id)
+        if type == 'overall':
+            if condo.overall_interventions:
+                costs = OverallInterventions.objects.get(id=condo.overall_interventions_id)
+                prev_form = OverallInterCostsNOVat.objects.get(id=costs.excluding_vat_id)
+                context['form'] = OverallInterCostsNOVatForm(instance=prev_form)
+                if request.method == 'POST':
+                    form = OverallInterCostsNOVatForm(request.POST, instance=prev_form)
+                    try:
+                        if form.is_valid():
+                            costs.excluding_vat = form.save()
+                            overall_calculation_villa(costs)
+                            messages.success(request, 'Successfully Edited Interventions')
+                            return redirect('bonus-costs', id=bonus.id, type=type)
+                        else:
+                            context['form'] = form
+                            messages.error(request, form.errors)
+                    except:
+                        raise ValidationError(form.errors)
+            else:
+                messages.warning(request, 'Overall intervention doesnt  exist')
+
+        elif type == 'common':
+            if condo.common_interventions:
+                costs = CommonInterventions.objects.get(id=condo.common_interventions_id)
+                prev_form = CommonWorkNOVat.objects.get(id=costs.excluding_vat_id)
+                context['form'] = CommonWorkNOVatForm(instance=prev_form)
+                if request.method == 'POST':
+                    form = CommonWorkNOVatForm(request.POST, instance=prev_form)
+                    try:
+                        if form.is_valid():
+                            costs.excluding_vat = form.save()
+                            common_calculation_condo(costs)
+                            messages.success(request, 'Successfully Edited Interventions')
+                            return redirect('bonus-costs', id=bonus.id, type=type)
+                        else:
+                            context['form'] = form
+                            messages.error(request, form.errors)
+                    except:
+                        raise ValidationError(form.errors)
+            else:
+                messages.warning(request, 'Common intervention does not  exist')
+
+        elif type == 'subjective':
+            if condo.subjective_interventions:
+                costs = SubjectiveInterventions.objects.get(id=condo.subjective_interventions_id)
+                prev_form = SubjectiveWorkNOVat.objects.get(id=costs.excluding_vat_id)
+                context['form'] = SubjectiveWorkNOVatForm(instance=prev_form)
+                if request.method == 'POST':
+                    form = SubjectiveWorkNOVatForm(request.POST, instance=prev_form)
+                    try:
+                        if form.is_valid():
+                            costs.excluding_vat = form.save()
+                            subjective_calculation_condo(costs)
+                            messages.success(request, 'Successfully Edited Interventions')
+                            return redirect('bonus-costs', id=bonus.id, type=type)
+                        else:
+                            context['form'] = form
+                            messages.error(request, form.errors)
+                    except:
+                        raise ValidationError(form.errors)
+            else:
+                messages.warning(request, 'Subjective intervention does not exist')
 
     bonus.save()
     return HttpResponse(html_template.render(context, request))
@@ -569,13 +697,14 @@ def add_professionals(request, id, type, prof):
 
 @login_required(login_url="/login/")
 def delete_prop(request, type, id):
+    bonus = get_object_or_404(SuperBonus, pk=id)
     if type == 'condo':
-        row = BonusCondo.objects.get(id=id)
+        row = get_object_or_404(BonusCondo, pk=bonus.bonus_condo_id)
         row.delete()
         messages.success(request, 'Successfully Deleted')
 
     elif type == 'villa':
-        row = get_object_or_404(BonusVilla, pk=id)
+        row = get_object_or_404(BonusVilla, pk=bonus.bonus_villa_id)
         print(row)
         row.delete()
         messages.success(request, 'Successfully Deleted')

@@ -37,16 +37,18 @@
                 <div class="col-sm-12 col-md-8 col-lg-8">
                     <div class="card table-card">
                         <div class="card-header">
-                            <h4>DETTAGLIO DEI BENEFICIARI</h4>
+                             {%if  segment == 'bonus-beneficiary'%}
+                            <h4>AGGIUNGI NUOVO BENEFICIARIO</h4>
+                            {%else%}
+                            <h4>MODIFICA BENEFICIARIO</h4>
+                            {%endif%}
+
                             {% if messages %}
                                 {% for message in messages %}
                                 <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}
-
                                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                          <span aria-hidden="true">&times;</span>
                                     </button>
-
-
                                 </div>
                                 {%endfor%}
                             {% endif %}
@@ -61,7 +63,6 @@
                                         <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
                                         <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
                                     </ul>
-
                                 </div>
                             </div>
                         </div>
@@ -83,17 +84,39 @@
                         </div>
                     </div>
                 </div>
+                {%if  segment == 'bonus-beneficiary'%}
+                <div class="col-sm-12 col-md-4 col-lg-4">
+                    <div class="card">
+                        <table class="table">
+                            <thead>
+                                <div class="card-header">
+                                    <h4>DETTAGLIO DEI BENEFICIARI</h4>
+                                    <tr>
+                                      <th scope="col">NOME</th>
+                                      <th scope="col">QUOTA PROPRIETA' DEL SINGOLO</th>
+                                    </tr>
+                                </div>
+                            </thead>
+                            <tbody>
+                                <div class="card-body">
+                                    {%for t in table%}
+                                     <tr class="trclick" data-href="{% url 'bonus-edit-beneficiary' id=id ben_id=t.id %}">
+                                        <td>
+                                            {{t.name}}
+                                        </td>
+                                        <td>
+                                            {{t.single_ownership_fee}}
+                                        </td>
+                                    </tr>
+                                    {%endfor%}
+                                </div>
+                            </tbody>
 
-<!--                <div class="col-sm-12 col-md-4 col-lg-4">-->
-<!--                    <div class="card">-->
-<!--                        <div class="card-header">-->
-<!--                            <h4>Add new Super Bonus Application</h4>-->
-<!--                        </div>-->
-<!--                        <div class="card-body">-->
-<!--                            <a href=><button type="submit" class="btn  btn-primary">Villa</button></a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
+                        </table>
+                    </div>
+                </div>
+
+                {%endif%}
             </div>
         </div>
     </section>
@@ -101,5 +124,5 @@
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-<!--  <script src="/static/assets/js/pages/bonus.js"></script>-->
+  <script src="/static/assets/js/pages/trclick.js"></script>
 {% endblock javascripts %}

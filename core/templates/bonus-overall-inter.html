@@ -28,9 +28,15 @@
                             </nav>
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
+                                    {% if bonus.bonus_villa_id%}
                                     <li class="breadcrumb-item {%if type == 'overall' %}active{%endif%}" aria-current="page" ><a class="breadcrumb-item {%if type == 'overall' %}active{%endif%}" href="{% url 'bonus-costs' id=bonus.id type='overall'%}">SITUAZIONE COMPLESSIVA DELL'INTERVENTO</a></li>
                                     <li class="breadcrumb-item {%if type == 'driving' %}active{%endif%}" aria-current="page" ><a class="breadcrumb-item {%if type == 'driving' %}active{%endif%}" href="{% url 'bonus-costs' id=bonus.id type='driving'%}">DETTAGLIO INTERVENTO LAVORI TRAINANTI</a></li>
                                     <li class="breadcrumb-item {%if type == 'trailed' %}active{%endif%}" aria-current="page" ><a class="breadcrumb-item {%if type == 'trailed' %}active{%endif%}" href="{% url 'bonus-costs' id=bonus.id type='trailed'%}">DETTAGLIO INTERVENTO LAVORI TRAINATI</a></li>
+                                    {%elif bonus.bonus_condo_id%}
+                                    <li class="breadcrumb-item {%if type == 'overall' %}active{%endif%}" aria-current="page" ><a class="breadcrumb-item {%if type == 'overall' %}active{%endif%}" href="{% url 'bonus-costs' id=bonus.id type='overall'%}">SITUAZIONE COMPLESSIVA DELL'INTERVENTO</a></li>
+                                    <li class="breadcrumb-item {%if type == 'common' %}active{%endif%}" aria-current="page" ><a class="breadcrumb-item {%if type == 'common' %}active{%endif%}" href="{% url 'bonus-costs' id=bonus.id type='common'%}">DETTAGLIO INTERVENTO LAVORI COMUNI</a></li>
+                                    <li class="breadcrumb-item {%if type == 'subjective' %}active{%endif%}" aria-current="page" ><a class="breadcrumb-item {%if type == 'subjective' %}active{%endif%}" href="{% url 'bonus-costs' id=bonus.id type='subjective'%}">DETTAGLIO INTERVENTO LAVORI SOGGETTIVI</a></li>
+                                    {%endif%}
                                 </ul>
                             </nav>
                         </div>
@@ -83,11 +89,15 @@
                                   <tbody>
                                     <tr>
 
-                                       {%if type == 'overall'%}
+                                       {%if type == 'overall' and bonus.bonus_villa_id %}
                                           <td>{{bonus.bonus_villa.overall_interventions.report.total_amt_inc_vat}}</td>
                                           <td>{{bonus.bonus_villa.overall_interventions.report.amt_discount_applied}}</td>
                                           <td>{{bonus.bonus_villa.overall_interventions.report.amt_deduction_accrued}}</td>
-                                        {%elif type == 'driving' %}
+                                        {%elif type == 'overall' and bonus.bonus_condo_id %}
+                                          <td>{{bonus.bonus_condo.overall_interventions.report.total_amt_inc_vat}}</td>
+                                          <td>{{bonus.bonus_condo.overall_interventions.report.amt_discount_applied}}</td>
+                                          <td>{{bonus.bonus_condo.overall_interventions.report.amt_deduction_accrued}}</td>
+                                        {%elif type == 'driving'  %}
                                           <td>{{bonus.bonus_villa.driving_interventions.report.total_amt_inc_vat}}</td>
                                           <td>{{bonus.bonus_villa.driving_interventions.report.amt_discount_applied}}</td>
                                           <td>{{bonus.bonus_villa.driving_interventions.report.amt_deduction_accrued}}</td>
@@ -95,20 +105,38 @@
                                           <td>{{bonus.bonus_villa.trailed_interventions.report.total_amt_inc_vat}}</td>
                                           <td>{{bonus.bonus_villa.trailed_interventions.report.amt_discount_applied}}</td>
                                           <td>{{bonus.bonus_villa.trailed_interventions.report.amt_deduction_accrued}}</td>
+                                        {%elif type == 'common' %}
+                                          <td>{{bonus.bonus_condo.common_interventions.report.total_amt_inc_vat}}</td>
+                                          <td>{{bonus.bonus_condo.common_interventions.report.amt_discount_applied}}</td>
+                                          <td>{{bonus.bonus_condo.common_interventions.report.amt_deduction_accrued}}</td>
+                                        {%elif type == 'subjective' %}
+                                          <td>{{bonus.bonus_condo.subjective_interventions.report.total_amt_inc_vat}}</td>
+                                          <td>{{bonus.bonus_condo.subjective_interventions.report.amt_discount_applied}}</td>
+                                          <td>{{bonus.bonus_condo.subjective_interventions.report.amt_deduction_accrued}}</td>
                                         {%endif%}
+
                                     </tr>
                                   </tbody>
 
                                 </table>
 
                                 <div class="m-3">
-                                    {%if type == 'overall'%}
+                                    {%if type == 'overall' and bonus.bonus_villa_id%}
+                                        <a href="{% url 'add-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Add New</button></a>
+                                        <a href="{% url 'edit-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Edit</button></a>
+                                    {%elif type == 'overall' and bonus.bonus_condo_id%}
                                         <a href="{% url 'add-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Add New</button></a>
                                         <a href="{% url 'edit-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Edit</button></a>
                                     {%elif type == 'driving' %}
                                         <a href="{% url 'add-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Add New</button></a>
                                         <a href="{% url 'edit-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Edit</button></a>
                                     {%elif type == 'trailed' %}
+                                        <a href="{% url 'add-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Add New</button></a>
+                                        <a href="{% url 'edit-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Edit</button></a>
+                                    {%elif type == 'common' %}
+                                        <a href="{% url 'add-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Add New</button></a>
+                                        <a href="{% url 'edit-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Edit</button></a>
+                                    {%elif type == 'subjective' %}
                                         <a href="{% url 'add-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Add New</button></a>
                                         <a href="{% url 'edit-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Edit</button></a>
                                     {%endif%}
@@ -118,16 +146,6 @@
                     </div>
                 </div>
 
-<!--                <div class="col-sm-12 col-md-4 col-lg-4">-->
-<!--                    <div class="card">-->
-<!--                        <div class="card-header">-->
-<!--                            <h4>Add new Super Bonus Application</h4>-->
-<!--                        </div>-->
-<!--                        <div class="card-body">-->
-<!--                            <a href=><button type="submit" class="btn  btn-primary">Villa</button></a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
             </div>
         </div>
     </section>

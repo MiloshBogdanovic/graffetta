@@ -32,7 +32,10 @@ OWNERSHIP = [
     ('1/2', '1/2'),
     ('1/3', '1/3'),
     ('1/4', '1/4'),
-    ('1/16', '1/16'),
+    ('1/5', '1/5'),
+    ('1/6', '1/6'),
+    ('1/7', '1/7'),
+    ('1/8', '1/8'),
 ]
 
 
@@ -89,6 +92,9 @@ class Beneficiary(models.Model):
     total_discount = models.DecimalField("IMPORTO COMPLESSIVO SCONTO IN FATTURA - CASSA PREVIDENZA INCLUSA E IVA INCLUSA",
                                                    decimal_places=3, max_digits=12, null=True, blank=True, default=0)
     select_form = models.ManyToManyField(FormFaccata)
+
+    def __str__(self):
+        return self.name
 
     def save(self, *args, **kwargs):
         self.total_adv_deposit_customer = self. amount_advance_deposit_by_customer_common + \
