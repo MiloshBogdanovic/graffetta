@@ -10,643 +10,646 @@
     <!-- [ Main Content ] start -->
     <div class="pcoded-main-container">
 
-
-                <!-- Customer overview start -->
-                <div class="col-lg-12">
-                    <div class="card table-card">
-                        <div class="card-header">
-                            <h5></h5>
-                            <div class="card-header-right">
-                                <div class="btn-group card-option">
-                                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="feather icon-more-horizontal"></i>
-                                    </button>
-                                    <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
-                                        <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
-                                        <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
-                                        <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
-                                        <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
-                                    </ul>
-
-                                </div>
-                            </div>
-
-                                <ul class="nav nav-pills nav-fill mt-3 border-bottom pb-3" id="pills-tab" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="pills-form-tab" data-toggle="pill" href="#pills-form" role="tab" aria-controls="pills-form" aria-selected="true"><i class="feather icon-file-text m-r-5"></i>Forme Popolate</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="pills-data-tab" data-toggle="pill" href="#pills-data" role="tab" aria-controls="pills-data-tab" aria-selected="false"><i class="feather icon-file-text m-r-5"></i>Dati Iniziali</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="pills-table-tab" data-toggle="pill" href="#pills-table" role="tab" aria-controls="pills-table" aria-selected="false"><i class="feather icon-file-text m-r-5"></i>Sintesi Contratto Cliente</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="pills-beneficiary-tab" data-toggle="pill" href="#pills-beneficiary" role="tab" aria-controls="pills-beneficiary" aria-selected="false"><i class="feather icon-file-text m-r-5"></i>Dettaglio Dei Beneficiari</a>
-                                    </li>
-                                     <li class="nav-item">
-                                        <a class="nav-link" id="pills-professional-tab" data-toggle="pill" href="#pills-professional" role="tab" aria-controls="pills-professional" aria-selected="false"><i class="feather icon-file-text m-r-5"></i>Incarichi Professionali</a>
-                                    </li>
-                                </ul>
-
-                        </div>
-                        <div class="card-body p-0">
-                            {% if messages %}
-                            {% for message in messages %}
-                            <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button></div>
-                            {% endfor %}
-                            {% endif %}
-                            <div class="tab-content" id="pills-tabContent">
-                                <div class="tab-pane fade" id="pills-data" role="tabpanel" aria-labelledby="pills-data-tab">
-                                    <div class="table-responsive">
-                                        <div class="customer-scroll2" style="height:80vh;position:relative;">
-                                            <table class="table table-hover m-b-0">
-                                                <thead>
-                                                    <tr>
-                                                        <th><span>ID modulo</span></th>
-                                                        <th><span>CONDOMINIO <a class="help" data-toggle="popover" title="ID" data-content="Identificativo modulo condominiale"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>AMMINISTRATORE PERSONA FISICA<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>AMMINISTRATORE PERSONA GIURIDICA<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>CATASTALI<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                 {%for form in fform%}
-                                                 {%if form.datainit_id%}
-                                                    <tr>
-                                                            {%if form.datainit.id%}
-                                                            <td>{{form.id}}</td>
-                                                            {%else%}
-                                                            <td> - </td>
-                                                            {%endif%}
-                                                            {%if form.datainit.condominium_id%}
-                                                            <td><a href="{% url 'edit-form' table='Condominium' id=form.datainit.condominium_id %}" > {{form.datainit.condominium.name}}</a></td>
-                                                            {%else%}
-                                                            <td> - </td>
-                                                            {%endif%}
-                                                            {%if form.datainit.admin_individual_id%}
-                                                            <td><a href="{% url 'edit-form' table='AdministrationIndividual' id=form.datainit.admin_individual_id %}" > {{form.datainit.admin_individual.name}}</a></td>
-                                                            {%elif not  form.datainit.admin_individual_id and not form.datainit.admin_legal_id%}
-                                                            <td><a href="{% url 'individual' form=form.datainit.id fff=form.id %}">+</a></td>
-                                                            {%else%}
-                                                            <td> - </td>
-                                                            {%endif%}
-                                                            {%if form.datainit.admin_legal_id%}
-                                                            <td><a href="{% url 'edit-form' table='AdministrationLegal' id=form.datainit.admin_legal_id %}" > {{form.datainit.admin_legal.company_name}}</a></td>
-                                                            {%elif not form.datainit.admin_legal_id and  not form.datainit.admin_individual_id%}
-                                                            <td><a href="{% url 'legal' form=form.datainit.id fff=form.id %}" >+</a></td>
-                                                            {%else%}
-                                                            <td> - </td>
-                                                            {%endif%}
-                                                            {%if form.datainit.catastal_id%}
-                                                            <td><a href="{% url 'edit-form' table='CatastalData' id=form.datainit.catastal_id %}" > {{form.datainit.catastal.n_catastal_cheet}}</a></td>
-                                                            {%elif not form.datainit.catastal_id%}
-                                                            <td><a href="{% url 'catastal' form=form.datainit_id %}" >+</a></td>
-                                                            {%else%}
-                                                            <td> - </td>
-                                                            {%endif%}
-
-                                                    </tr>
-                                                     {%endif%}
-                                                     {% endfor %}
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade show active" id="pills-form" role="tabpanel" aria-labelledby="pills-form-tab">
-                                    <div class="table-responsive">
-                                        <div class="customer-scroll1" style="height:80vh;position:relative;">
-                                            <table class="table table-hover m-b-0">
-                                                <thead>
-                                                    <tr>
-                                                        <th><span>DATI ID</span></th>
-                                                        <th><span>Condominio <a class="help" data-toggle="popover" title="ID" data-content="Identificativo modulo condominiale"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>Amm. Fisica<a class="help" data-toggle="popover" title="ID" data-content="AMMINISTRATORE PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>Amm. Giuridica<a class="help" data-toggle="popover" title="ID" data-content="AMMINISTRATORE PERSONA GIURIDICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>CATASTALI<a class="help" data-toggle="popover" title="ID" data-content="AMMINISTRATORE PERSONA GIURIDICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>Sit. Comp. Int.<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>Det. Int. Comuni<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>Det. Int. Soggettivi<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>Beneficiari<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>Progettista<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>Coor. Sicurezza Prog.<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>Coor. Sicurezza Esec.<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>Dir. Lavori<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>Termotecnico<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>Energ. Esp.<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>Resp. Lavori<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>
-
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                {% for f in fform %}
-                                                    <tr>
-                                                        {%if f.id%}
-                                                            <td>{{f.id}}</td>
-                                                        {%else%}
-                                                            <td> <a href="{% url 'bonus'%}" > + </a></td>
-                                                        {%endif%}
-
-                                                        {%if f.datainit.condominium_id%}
-                                                            <td>{{f.datainit.condominium_id}}</td>
-                                                        {%else%}
-                                                             <td> - </td>
-                                                        {%endif%}
-
-                                                        {%if f.datainit.admin_individual_id %}
-                                                            <td>{{f.datainit.admin_individual_id}}</td>
-                                                        {%elif f.datainit_id and not f.datainit.admin_legal_id %}
-                                                            <td> <a href="{% url 'individual' form=f.datainit_id fff=f.id %}" > + </a></td>
-                                                        {%else %}
-                                                            <td> - </td>
-                                                        {%endif%}
-
-                                                        {%if f.datainit.admin_legal_id%}
-                                                            <td>{{f.datainit.admin_legal_id}}</td>
-                                                        {%elif f.datainit_id and not f.datainit.admin_individual %}
-                                                            <td> <a href="{% url 'legal' form=f.datainit_id fff=f.id %}" > + </a></td>
-                                                        {%else%}
-                                                        <td> - </td>
-                                                        {%endif%}
-
-                                                        {%if f.datainit.catastal_id%}
-                                                            <td>{{f.datainit.catastal_id}}</td>
-                                                        {%elif f.datainit_id and f.datainit.condominium_id%}
-                                                            <td> <a href="{% url 'catastal' form=f.datainit_id %}" > + </a></td>
-                                                        {%else%}
-                                                            <td> - </td>
-                                                        {%endif%}
-
-                                                        {%if f.tables.overall_rep_id and f.tables.overall_ex_vat_id%}
-                                                            <td><a href="{% url 'tables-edit' id=f.tables.overall_ex_vat_id %}" >{{f.tables.overall_rep_id}}</a></td>
-                                                        {%elif f.tables_id and not f.tables.overall_ex_vat %}
-                                                             <td> <a href="{% url 'tables' fff=f.id %}" > + </a></td>
-                                                        {%else%}
-                                                            <td> - </td>
-                                                        {%endif%}
-
-                                                        {%if f.tables.common_rep_id and f.tables.common_ex_vat_id%}
-                                                            <td><a href="{% url 'common-edit' id=f.tables.common_ex_vat_id %}" >{{f.tables.common_rep_id}}</a></td>
-                                                        {%elif f.tables_id and f.tables.common_ex_vat_id is None%}
-                                                             <td> <a href="{% url 'common' tc_id=f.tables_id %}" > + </a></td>
-                                                        {%else%}
-                                                        <td> - </td>
-                                                        {%endif%}
-
-                                                        {%if f.tables.subjective_rep_id and f.tables.subjective_ex_vat_id%}
-                                                            <td><a href="{% url 'sub-edit' id=f.tables.subjective_ex_vat_id %}" >{{f.tables.subjective_rep_id}}</a></td>
-                                                        {%elif f.tables_id %}
-                                                             <td> <a href="{% url 'subjective' tc_id=f.tables_id %}" > + </a></td>
-                                                        {%else%}
-                                                        <td> - </td>
-                                                        {%endif%}
-
-                                                        <td>
-                                                            {%for b in f.beneficiary_set.all%}
-                                                            <a href="{% url 'beneficiary-edit' id=b.id %}" >{{b.id}} |</a>
-                                                            {%endfor%}
-                                                            <a href="{% url 'beneficiary' fff=f.id  %}" >+</a>
-                                                        </td>
-                                                        <td>
-                                                            {%if f.professionals.designer_individual%}
-                                                            <a href="{% url 'edit-profession' prof='data-designer' type='individual' fff=f.id  %}" >{{f.professionals.designer_individual.name}}</a>
-                                                            {%elif f.professionals.designer_designer_legal%}
-                                                            <a href="{% url 'edit-profession' prof='data-designer' type='legal' fff=f.id  %}" >{{f.professionals.designer_legal.company_name}}</a>
-                                                            {%else%}
-                                                            <a href="{% url 'choose-profession' fff=f.id  %}" >+</a>
-                                                            {%endif%}
-                                                        </td>
-                                                       <td>
-                                                            {%if f.professionals.security_plan_individual%}
-                                                            <a href="{% url 'edit-profession' prof='data-security-coordinator-design' type='individual' fff=f.id  %}" >{{f.professionals.security_plan_individual.name}}</a>
-                                                            {%elif f.professionals.security_plan_legal%}
-                                                            <a href="{% url 'edit-profession' prof='data-security-coordinator-design' type='legal' fff=f.id  %}" >{{f.professionals.security_plan_legal.company_name}}</a>
-                                                            {%else%}
-                                                            <a href="{% url 'choose-profession' fff=f.id  %}" >+</a>
-                                                            {%endif%}
-                                                        </td>
-                                                        <td>
-                                                            {%if f.professionals.security_exe_individual%}
-                                                            <a href="{% url 'edit-profession' prof='data-security-coordinator-execution' type='individual' fff=f.id  %}" >{{f.professionals.security_exe_individual.name}}</a>
-                                                            {%elif f.professionals.security_exe_legal%}
-                                                            <a href="{% url 'edit-profession' prof='data-security-coordinator-execution' type='legal' fff=f.id  %}" >{{f.professionals.security_exe_legal.company_name}}</a>
-                                                            {%else%}
-                                                            <a href="{% url 'choose-profession' fff=f.id  %}" >+</a>
-                                                            {%endif%}
-                                                        </td>
-                                                        <td>
-                                                            {%if f.professionals.director_works_individual%}
-                                                            <a href="{% url 'edit-profession' prof='director-works' type='individual' fff=f.id  %}" >{{f.professionals.director_works_individual.name}}</a>
-                                                            {%elif f.professionals.director_works_legal%}
-                                                            <a href="{% url 'edit-profession' prof='director-works' type='legal' fff=f.id  %}" >{{f.professionals.director_works_legal.company_name}}</a>
-                                                            {%else%}
-                                                            <a href="{% url 'choose-profession' fff=f.id  %}" >+</a>
-                                                            {%endif%}
-                                                        </td>
-                                                        <td>
-                                                            {%if f.professionals.thermotechnical_individual%}
-                                                            <a href="{% url 'edit-profession' prof='thermotechnical' fff=f.id  %}" >{{f.professionals.thermotechnical_individual.name}}</a>
-                                                            {%elif f.professionals.thermotechnical_legal%}
-                                                            <a href="{% url 'edit-profession' prof='thermotechnical' type='legal' fff=f.id  %}" >{{f.professionals.thermotechnical_legal.company_name}}</a>
-                                                            {%else%}
-                                                            <a href="{% url 'choose-profession' fff=f.id  %}" >+</a>
-                                                            {%endif%}
-                                                        </td>
-                                                        <td>
-                                                            {%if f.professionals.energy_expert_individual%}
-                                                            <a href="{% url 'edit-profession' prof='data-energy-expert' type='legal' fff=f.id  %}" >{{f.professionals.energy_expert_individual.name}}</a>
-                                                            {%elif f.professionals.energy_expert_legal%}
-                                                            <a href="{% url 'edit-profession' prof='data-energy-expert' type='legal' fff=f.id  %}" >{{f.professionals.energy_expert_legal.company_name}}</a>
-                                                            {%else%}
-                                                            <a href="{% url 'choose-profession' fff=f.id  %}" >+</a>
-                                                            {%endif%}
-                                                        </td>
-                                                        <td>
-                                                            {%if f.professionals.resp_work_individual%}
-                                                            <a href="{% url 'edit-profession' prof='data-responsible' type='legal' fff=f.id  %}" >{{f.professionals.resp_work_individual}}</a>
-                                                            {%elif f.professionals.resp_work_legal%}
-                                                            <a href="{% url 'edit-profession' prof='data-responsible' type='legal' fff=f.id  %}" >{{f.professionals.resp_work_legal.company_name}}</a>
-                                                            {%else%}
-                                                            <a href="{% url 'choose-profession' fff=f.id  %}" >+</a>
-                                                            {%endif%}
-                                                        </td>
-                                                        {%if f.datainit.condominium_id and f.datainit.catastal_id and f.tables.overall_rep_id and f.tables.common_rep_id or f.tables.subjective_rep_id %}
-                                                        <td>
-                                                            <a href="{%url 'generate-contract' id=f.id%}"><button>CREA CONTRATTO</button></a>
-                                                        </td>
-                                                        {%endif%}
-
-
-                                                    </tr>
-                                                 {% endfor %}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="pills-table" role="tabpanel" aria-labelledby="pills-table-tab">
-                                    <div class="table-responsive">
-                                        <div class="customer-scroll2" style="height:80vh;position:relative;">
-                                            <table class="table table-hover m-b-0">
-                                                <thead>
-                                                    <tr>
-                                                        <th><span>ID CONTRATTO </span></th>
-                                                        <th><span>SIT. COMP. IVA ESC.<a class="help" data-toggle="popover" title="Popover title" data-content="SITUAZIONE COMPLESSIVA IVA ESCLUSA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>SIT. COMP. IMPONIBILE IVA<a class="help" data-toggle="popover" title="Popover title" data-content="SITUAZIONE COMPLESSIVA IMPONIBILE IVA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>SIT. COMP. IMPORTO IVA INC.<a class="help" data-toggle="popover" title="Popover title" data-content="SITUAZIONE COMPLESSIVA IMPORTO IVA INCLUSA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>GLOBALE DELL'INTERVENTO<a class="help" data-toggle="popover" title="Popover title" data-content="RAPPORTO GLOBALE DELL'INTERVENTO"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>INT. LAV. COM. IVA ESC.<a class="help" data-toggle="popover" title="Popover title" data-content="INTERVENTO LAVORI COMUNI IVA ESCLUSA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>INT. LAV. COM. IMPONIBILE IVA<a class="help" data-toggle="popover" title="Popover title" data-content="INTERVENTO LAVORI COMUNI IMPONIBILE IVA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>INT. LAV. COM. IMPORTO IVA INC.<a class="help" data-toggle="popover" title="Popover title" data-content="INTERVENTO LAVORI COMUNI IMPORTO IVA INCLUSA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>LAVORI COMUNI<a class="help" data-toggle="popover" title="Popover title" data-content="RAPPORTO LAVORI COMUNI"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>INT. LAV. SOGG. IVA ESC.<a class="help" data-toggle="popover" title="Popover title" data-content="INTERVENTO LAVORI SOGGETTIVI IVA ESCLUSA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>INT. LAV. SOGG. IMPONIBILE IVA<a class="help" data-toggle="popover" title="Popover title" data-content="INTERVENTO LAVORI SOGGETTIVI IMPONIBILE IVA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>INT. LAV. SOGG. IMPORTO IVA INC.<a class="help" data-toggle="popover" title="Popover title" data-content="INTERVENTO LAVORI SOGGETTIVI IMPORTO IVA INCLUSA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>LAVORI SOGGETTIVI <a class="help" data-toggle="popover" title="Popover title" data-content="RAPPORTO LAVORI SOGGETTIVI"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                {%for f in tform%}
-                                                    <tr>
-                                                        {%if f.id%}
-
-                                                            <td><a href="{% url 'tables-edit' id=f.id %}">{{f.id}}</a></td>
-                                                        {%else%}
-                                                            <td> - </td>
-                                                        {%endif%}
-
-                                                        {%if f.overall_ex_vat%}
-                                                            <td><a href="{% url 'tables-edit' id=f.overall_ex_vat_id %}">{{f.overall_ex_vat.total_amt_of_work}}</a></td>
-                                                        {%else%}
-                                                            <td> - </td>
-                                                        {%endif%}
-
-                                                        {%if f.overall_taxable%}
-                                                            <td>{{f.overall_taxable.total_amt_of_work}}</td>
-                                                        {%else%}
-                                                            <td> - </td>
-                                                        {%endif%}
-
-                                                        {%if f.overall_in_vat%}
-                                                            <td>{{f.overall_in_vat.total_amt_of_work}}</td>
-                                                        {%else%}
-                                                            <td> - </td>
-                                                        {%endif%}
-
-                                                        {%if f.overall_rep%}
-                                                            <td>{{f.overall_rep.total_amount_includin_vat}}</td>
-                                                        {%else%}
-                                                            <td> - </td>
-                                                        {%endif%}
-
-                                                        {%if f.common_ex_vat%}
-                                                            <td><a href="{% url 'common-edit' id=f.common_ex_vat_id %}">{{f.common_ex_vat.total_amt_of_work}}</a></td>
-                                                        {%else%}
-                                                            <td> - </td>
-                                                        {%endif%}
-
-                                                        {%if f.common_taxable%}
-                                                            <td>{{f.common_taxable.total_amt_of_work}}</td>
-                                                        {%else%}
-                                                            <td> - </td>
-                                                        {%endif%}
-
-                                                        {%if f.common%}
-                                                            <td>{{f.common_in_vat.total_amt_of_work}}</td>
-                                                        {%else%}
-                                                            <td> - </td>
-                                                        {%endif%}
-
-                                                        {%if f.common_rep%}
-                                                            <td>{{f.common_rep.total_amount_includin_vat}}</td>
-                                                        {%else%}
-                                                            <td> - </td>
-                                                        {%endif%}
-
-                                                        {%if f.subjective_ex_vat%}
-                                                            <td><a href="{% url 'sub-edit' id=f.subjective_ex_vat_id %}">{{f.subjective_ex_vat.total_amt_of_work}}</a></td>
-                                                        {%else%}
-                                                            <td> - </td>
-                                                        {%endif%}
-
-                                                        {%if f.subjective_taxable%}
-                                                            <td>{{f.subjective_taxable.total_amt_of_work}}</td>
-                                                        {%else%}
-                                                            <td> - </td>
-                                                        {%endif%}
-
-                                                        {%if f.subjective_in_vat%}
-                                                            <td>{{f.subjective_in_vat.total_amt_of_work}}</td>
-                                                        {%else%}
-                                                            <td> - </td>
-                                                        {%endif%}
-
-                                                        {%if f.subjective_rep%}
-                                                            <td>{{f.subjective_rep.total_amount_includin_vat}}</td>
-                                                        {%else%}
-                                                            <td> - </td>
-                                                        {%endif%}
-
-
-                                                    </tr>
-                                                 {% endfor %}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="pills-beneficiary" role="tabpanel" aria-labelledby="pills-beneficiary-tab">
-                                    <div class="table-responsive">
-                                        <div class="customer-scroll3" style="height:80vh;position:relative;">
-                                            <table class="table table-hover m-b-0">
-                                                <thead>
-                                                    <tr>
-                                                        <th><span>ID</span></th>
-                                                        <th><span>PARTICELLA<a class="help" data-toggle="popover" title="Info" data-content="PARTICELLA (P) ---- SUBALTERNO CATASTALE (SC) ---- CATEGORIA CATASTALE (CAT.)"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>COG. NOME<a class="help" data-toggle="popover" title="Info" data-content="COGNOME NOME / RAGIONE O DENOMINAZIONE SOCIALE"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>TITOLO<a class="help" data-toggle="popover" title="Info" data-content="TITOLO"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>QUOTA PROP.<a class="help" data-toggle="popover" title="Info" data-content="QUOTA PROPRIETA' DEL SINGOLO"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>VIA N° COND.<a class="help" data-toggle="popover" title="Info" data-content="VIA E NUMERO IN CUI SI TROVA L'IMMOBILE"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>MILL.<a class="help" data-toggle="popover" title="Info" data-content="MILLESIMI COMPLESSIVI"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>BEN. SCONTO<a class="help" data-toggle="popover" title="Info" data-content="BENEFICIARI DELLO SCONTO IN FATTURA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>MILL.BEN. SCONTO P. COM.<a class="help" data-toggle="popover" title="Info" data-content="MILLESIMI DI BENEFICIO DELLO SCONTO IN FATTURA SU PARTI COMUNI"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>DEN. SOC. BEN.<a class="help" data-toggle="popover" title="Info" data-content="DENOMINAZIONE SOCIETA' BENEFICIARIA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>COM. SEDE LEG. SOC. BEN.<a class="help" data-toggle="popover" title="Info" data-content="COMUNE  SEDE LEGALE SOCIETA' BENEFICIARIA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>PROV SEDE LEG. SOC.  BEN<a class="help" data-toggle="popover" title="Info" data-content="PROVINCIA  SEDE LEGALE SOCIETA' BENEFICIARIA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>CAP SEDE LEG. SOC. BEN.<a class="help" data-toggle="popover" title="Info" data-content="CAP SEDE LEGALE SOCIETA' BENEFICIARIA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>VIA N° SEDE LEG. SOC. BEN.<a class="help" data-toggle="popover" title="Info" data-content="VIA E NUMERO SEDE LEGALE SOCIETA' BENEFICIARIA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>PROV. ISC. REG. IMPRESE SOC. BEN.<a class="help" data-toggle="popover" title="Info" data-content="PROVINCIA ISCRIZIONE REGISTRO IMPRESE SOCIETA' BENEFICIARIA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>N° ISC. REG. IMP. PART. IVA - C.F. SOC. BEN.<a class="help" data-toggle="popover" title="Info" data-content="N° ISCRIZIONE REGISTRO IMPRESE - PARTITA IVA - C.F. SOCIETA' BENEFICIARIA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>COG. E NOME LEG. RAP. SOC. BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="COGNOME E NOME LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>DATA NAS. LEG. RAP. SOC. BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="DATA NASCITA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>COM. NAS. LEG. RAP. SOC.BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="COMUNE NASCITA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>PROV. NAS. LEG. RAP. SOC.BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="PROVINCIA NASCITA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>COM. RES. LEG. RAP. SOC.BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="COMUNE RESIDENZA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>PROV. RES. LEG. RAP. SOC.BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="PROVINCIA RESIDENZA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>CAP RES. LEG. RAP. SOC.BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="CAP RESIDENZA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>VIA  N° RES. LEG. RAP. SOC.BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="VIA E NUMERO RESIDENZA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>COD. FIS. LEG. RAP. SOC.BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="CODICE FISCALE LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>IMP. ACC. INT. COM. CAS. PRE. INC. E IVA INC.<a class="help" data-toggle="popover" title="Info" data-content="IMPORTO ACCONTO INTERVENTI COMUNI - CASSA PREVIDENZA INCLUSA E IVA INCLUSA -"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>IMP. ACC. INT. SOG. CAS. PRE. INC. E IVA INC.<a class="help" data-toggle="popover" title="Info" data-content="IMPORTO ACCONTO INTERVENTI SOGGETTIVI - CASSA PREVIDENZA INCLUSA E IVA INCLUSA -"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>IMP. COMP. ACC. CAS. PRE. INC. E IVA INC.<a class="help" data-toggle="popover" title="Info" data-content="IMPORTO COMPLESSIVO ACCONTO - CASSA PREVIDENZA INCLUSA E IVA INCLUSA -"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>IMP. SCON. INT. COM. CAS. PRE. INC. E IVA INC.<a class="help" data-toggle="popover" title="Info" data-content="IMPORTO SCONTO IN FATTURA INTERVENTI COMUNI - CASSA PREVIDENZA INCLUSA E IVA INCLUSA -"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>IMP. SCON. INT. SOG. CAS. PRE. INC. E IVA INC.<a class="help" data-toggle="popover" title="Info" data-content="IMPORTO SCONTO IN FATTURA INTERVENTI COMUNI - CASSA PREVIDENZA INCLUSA E IVA INCLUSA -"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>IMP. COMP. SCON. IN FAT. CAS. PRE. INC. E IVA INC.<a class="help" data-toggle="popover" title="Info" data-content="AIMPORTO COMPLESSIVO SCONTO IN FATTURA - CASSA PREVIDENZA INCLUSA E IVA INCLUSA -"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                {%load my_tags %}
-                                                {%for form in beneficiary %}
-
-                                                        <tr>
-
-                                                        <td><a href="{% url 'beneficiary-edit' id=form.id %}">{{form.id}}</a></td>
-                                                        <td><a href="{% url 'beneficiary-edit' id=form.id %}">{{form.parcel}}</a></td>
-                                                        <td>{{form.name}}</td>
-                                                        <td>{{form.title}}</td>
-                                                        <td>{{form.single_ownership_fee}}</td>
-                                                        <td>{{form.street}}</td>
-                                                        <td>{{form.total_thousands}}</td>
-                                                        <td>{{form.benef_of_diss_in_invo}}</td>
-                                                        <td>{{form.thousands_benef_diss}}</td>
-                                                        <td>{{form.name_of_company}}</td>
-                                                        <td>{{form.municipal_reg_office}}</td>
-                                                        <td>{{form.province_reg_office}}</td>
-                                                        <td>{{form.post_code_cap}}</td>
-                                                        <td>{{form.company_street}}</td>
-                                                        <td>{{form.province_reg_comp_office}}</td>
-                                                        <td>{{form.vat_number_company}}</td>
-                                                        <td>{{form.name_of_company_representitave}}</td>
-                                                        <td>{{form.dob_of_rep}}</td>
-                                                        <td>{{form.muncipality_of_birth_rep}}</td>
-                                                        <td>{{form.province_of_birth_rep}}</td>
-                                                        <td>{{form.muncipality_of_res_rep}}</td>
-                                                        <td>{{form.province_of_residance_rep}}</td>
-                                                        <td>{{form.cap_of_residance_rep}}</td>
-                                                        <td>{{form.street_res_of_rep}}</td>
-                                                        <td>{{form.legal_tax_code_rep}}</td>
-                                                        <td>{{form.amount_advance_deposit_by_customer_common}}</td>
-                                                        <td>{{form.amount_advance_deposit_by_customer_subjective}}</td>
-                                                        <td>{{form.total_adv_deposit_customer}}</td>
-                                                        <td>{{form.amount_discount_common}}</td>
-                                                        <td>{{form.amount_discount_subjective}}</td>
-                                                        <td>{{form.total_discount}}</td>
-
-                                                    </tr>
-
-                                                 {% endfor %}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane fade" id="pills-professional" role="tabpanel" aria-labelledby="pills-professional-tab">
-                                    <div class="table-responsive">
-                                        <div class="customer-scroll3" style="height:80vh;position:relative;">
-                                            <table class="table table-hover m-b-0">
-                                                <thead>
-                                                    <tr>
-                                                        <th><span>ID</span></th>
-                                                        <th><span>PROG. P.F.<a class="help" data-toggle="popover" title="ID" data-content="DATI PROGETTISTA PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>PROG. P.G.<a class="help" data-toggle="popover" title="ID" data-content="DATI PROGETTISTA PERSONA GIURIDICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>COORD. P.F.<a class="help" data-toggle="popover" title="ID" data-content="DATI COORDINATORE SICUREZZA IN FASE DI PROGETTAZIONE PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>COORD. P.G.<a class="help" data-toggle="popover" title="ID" data-content="DATI COORDINATORE SICUREZZA IN FASE DI PROGETTAZIONE PERSONA GIURIDICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>COORD. ESEC. P.F.<a class="help" data-toggle="popover" title="ID" data-content="DATI COORDINATORE SICUREZZA IN FASE DI ESECUZIONE PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>COORD. ESEC. P.G.<a class="help" data-toggle="popover" title="ID" data-content="DATI COORDINATORE SICUREZZA IN FASE DI ESECUZIONE PERSONA GIURIDICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>DIR. LAVORI P.F.<a class="help" data-toggle="popover" title="ID" data-content="DATI DIRETTORE LAVORI PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>DIR. LAVORI P.G.<a class="help" data-toggle="popover" title="ID" data-content="DATI DIRETTORE LAVORI PERSONA GIURIDICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>TERMOT. P.F.<a class="help" data-toggle="popover" title="ID" data-content="DATI TERMOTECNICO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>TERMOT. P.G.<a class="help" data-toggle="popover" title="ID" data-content="DATI TERMOTECNICO PERSONA GIURIDICA"><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>ENERG. P.F.<a class="help" data-toggle="popover" title="ID" data-content="DATI ESPERTO ENERGETICO PERSONA FISICA (REDAZIONE APE PRE-POST) "><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>ENERG. P.G.<a class="help" data-toggle="popover" title="ID" data-content="DATI ESPERTO ENERGETICO PERSONA GIURIDICA (REDAZIONE APE PRE-POST) "><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>RES. DEI LAVORI P.F<a class="help" data-toggle="popover" title="ID" data-content="DATI RESPONSABILE DEI LAVORI PERSONA FISICA (QUALORA PRESENTE) "><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                        <th><span>RES. DEI LAVORI P.G<a class="help" data-toggle="popover" title="ID" data-content="DATI RESPONSABILE DEI LAVORI PERSONA GIURIDICA (QUALORA PRESENTE) "><i class="feather icon-help-circle f-16"></i></a></span></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                {%for f in fform%}
-
-                                                  {%if f.professionals_id%}
-
-
-
-                                                     <tr>
-                                                        <td>{{f.professionals_id}}</td>
-
-                                                         {%if f.professionals.designer_individual_id %}
-                                                            <td><a href="{%url 'edit-profession' prof='data-designer' type='individual' fff=f.id %}">{{f.professionals.designer_individual.name}}</a></td>
-                                                         {%elif not f.professionals.designer_individual_id%}
-                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
-                                                         {%else%}
-                                                            <td> - </td>
-                                                         {%endif%}
-
-                                                        {%if f.professionals.designer_legal_id %}
-                                                            <td><a href="{%url 'edit-profession' prof='data-designer' type='legal' fff=f.id %}">{{f.professionals.designer_individual.company_name}}</a></td>
-                                                         {%elif not f.professionals.designer_legal_id%}
-                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
-                                                         {%else%}
-                                                            <td> - </td>
-                                                         {%endif%}
-
-                                                        {%if f.professionals.security_plan_individual_id %}
-                                                            <td><a href="{%url 'edit-profession' prof='data-security-coordinator-design' type='individual' fff=f.id %}">{{f.professionals.security_plan_individual.name}}</a></td>
-                                                         {%elif not f.professionals.designer_individual_id%}
-                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
-                                                         {%else%}
-                                                            <td> - </td>
-                                                         {%endif%}
-
-                                                        {%if f.professionals.security_plan_legal_id %}
-                                                            <td><a href="{%url 'edit-profession' prof='data-security-coordinator-design' type='legal' fff=f.id %}">{{f.professionals.security_plan_legal.company_name}}</a></td>
-                                                         {%elif not f.professionals.security_plan_legal_id%}
-                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
-                                                         {%else%}
-                                                            <td> - </td>
-                                                         {%endif%}
-
-                                                        {%if f.professionals.security_exe_individual_id %}
-                                                            <td><a href="{%url 'edit-profession' prof='data-security-coordinator-execution' type='individual' fff=f.id %}">{{f.professionals.security_exe_individual.name}}</a></td>
-                                                         {%elif not f.professionals.security_exe_individual_id%}
-                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
-                                                         {%else%}
-                                                            <td> - </td>
-                                                         {%endif%}
-
-                                                        {%if f.professionals.security_exe_legal_id %}
-                                                            <td><a href="{%url 'edit-profession' prof='data-security-coordinator-execution' type='individual' fff=f.id %}">{{f.professionals.security_exe_legal.company_name}}</a></td>
-                                                         {%elif not f.professionals.security_exe_legal_id%}
-                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
-                                                         {%else%}
-                                                            <td> - </td>
-                                                         {%endif%}
-
-                                                        {%if f.professionals.director_works_individual_id %}
-                                                            <td><a href="{%url 'edit-profession' prof='director-works' type='individual' fff=f.id %}">{{f.professionals.director_works_individual.name}}</a></td>
-                                                         {%elif not f.professionals.director_works_individual_id%}
-                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
-                                                         {%else%}
-                                                            <td> - </td>
-                                                         {%endif%}
-
-                                                        {%if f.professionals.director_works_legal_id %}
-                                                            <td><a href="{%url 'edit-profession' prof='director-works' type='legal' fff=f.id %}">{{f.professionals.director_works_legal.company_name}}</a></td>
-                                                         {%elif not f.professionals.director_works_legal_id%}
-                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
-                                                         {%else%}
-                                                            <td> - </td>
-                                                         {%endif%}
-
-                                                         {%if f.professionals.thermotechnical_individual_id %}
-                                                            <td><a href="{%url 'edit-profession' prof='thermotechnical' type='individual' fff=f.id %}">{{f.professionals.thermotechnical_individual.name}}</a></td>
-                                                         {%elif not f.professionals.thermotechnical_individual_id%}
-                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
-                                                         {%else%}
-                                                            <td> - </td>
-                                                         {%endif%}
-
-                                                        {%if f.professionals.thermotechnical_legal_id %}
-                                                            <td><a href="{%url 'edit-profession' prof='thermotechnical' type='legal' fff=f.id %}">{{f.professionals.thermotechnical_legal.company_name}}</a></td>
-                                                         {%elif not f.professionals.thermotechnical_legal_id%}
-                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
-                                                         {%else%}
-                                                            <td> - </td>
-                                                         {%endif%}
-
-                                                        {%if f.professionals.energy_expert_individual_id %}
-                                                            <td><a href="{%url 'edit-profession' prof='data-energy-expert' type='individual' fff=f.id %}">{{f.professionals.energy_expert_individual.name}}</a></td>
-                                                         {%elif not f.professionals.energy_expert_individual_id%}
-                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
-                                                         {%else%}
-                                                            <td> - </td>
-                                                         {%endif%}
-
-                                                        {%if f.professionals.energy_expert_legal_id %}
-                                                            <td><a href="{%url 'edit-profession' prof='data-energy-expert' type='legal' fff=f.id %}">{{f.professionals.energy_expert_legal.company_name}}</a></td>
-                                                         {%elif not f.professionals.energy_expert_legal_id%}
-                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
-                                                         {%else%}
-                                                            <td> - </td>
-                                                         {%endif%}
-
-                                                        {%if f.professionals.resp_work_individual_id %}
-                                                            <td><a href="{%url 'edit-profession' prof='data-responsible' type='individual' fff=f.id %}">{{f.professionals.resp_work_individual.name}}</a></td>
-                                                         {%elif not f.professionals.resp_work_individual_id%}
-                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
-                                                         {%else%}
-                                                            <td> - </td>
-                                                         {%endif%}
-
-                                                        {%if f.professionals.resp_work_legal_id %}
-                                                            <td><a href="{%url 'edit-profession' prof='data-responsible' type='legal' fff=f.id %}">{{f.professionals.resp_work_legal.company_name}}</a></td>
-                                                         {%elif not f.professionals.resp_work_legal_id%}
-                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>
-                                                         {%else%}
-                                                            <td> - </td>
-                                                         {%endif%}
-                                                    </tr>
-
-
-
-                                                  {%endif%}
-                                                {%endfor%}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-lg-12 col-md-12 col-sm-12" >
+                    {% load static %}
+                    <img class="w-100 d-block" src="{% static 'assets/images/home-bonus.jpg' %}" alt="My image">
                 </div>
+                <!-- Customer overview start -->
+<!--                <div class="col-lg-12">-->
+<!--                    <div class="card table-card">-->
+<!--                        <div class="card-header">-->
+<!--                            <h5></h5>-->
+<!--                            <div class="card-header-right">-->
+<!--                                <div class="btn-group card-option">-->
+<!--                                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                                        <i class="feather icon-more-horizontal"></i>-->
+<!--                                    </button>-->
+<!--                                    <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">-->
+<!--                                        <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>-->
+<!--                                        <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>-->
+<!--                                        <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>-->
+<!--                                        <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>-->
+<!--                                    </ul>-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                                <ul class="nav nav-pills nav-fill mt-3 border-bottom pb-3" id="pills-tab" role="tablist">-->
+<!--                                    <li class="nav-item">-->
+<!--                                        <a class="nav-link active" id="pills-form-tab" data-toggle="pill" href="#pills-form" role="tab" aria-controls="pills-form" aria-selected="true"><i class="feather icon-file-text m-r-5"></i>Forme Popolate</a>-->
+<!--                                    </li>-->
+<!--                                    <li class="nav-item">-->
+<!--                                        <a class="nav-link" id="pills-data-tab" data-toggle="pill" href="#pills-data" role="tab" aria-controls="pills-data-tab" aria-selected="false"><i class="feather icon-file-text m-r-5"></i>Dati Iniziali</a>-->
+<!--                                    </li>-->
+<!--                                    <li class="nav-item">-->
+<!--                                        <a class="nav-link" id="pills-table-tab" data-toggle="pill" href="#pills-table" role="tab" aria-controls="pills-table" aria-selected="false"><i class="feather icon-file-text m-r-5"></i>Sintesi Contratto Cliente</a>-->
+<!--                                    </li>-->
+<!--                                    <li class="nav-item">-->
+<!--                                        <a class="nav-link" id="pills-beneficiary-tab" data-toggle="pill" href="#pills-beneficiary" role="tab" aria-controls="pills-beneficiary" aria-selected="false"><i class="feather icon-file-text m-r-5"></i>Dettaglio Dei Beneficiari</a>-->
+<!--                                    </li>-->
+<!--                                     <li class="nav-item">-->
+<!--                                        <a class="nav-link" id="pills-professional-tab" data-toggle="pill" href="#pills-professional" role="tab" aria-controls="pills-professional" aria-selected="false"><i class="feather icon-file-text m-r-5"></i>Incarichi Professionali</a>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+
+<!--                        </div>-->
+<!--                        <div class="card-body p-0">-->
+<!--                            {% if messages %}-->
+<!--                            {% for message in messages %}-->
+<!--                            <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}<button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+<!--                            <span aria-hidden="true">&times;</span>-->
+<!--                            </button></div>-->
+<!--                            {% endfor %}-->
+<!--                            {% endif %}-->
+<!--                            <div class="tab-content" id="pills-tabContent">-->
+<!--                                <div class="tab-pane fade" id="pills-data" role="tabpanel" aria-labelledby="pills-data-tab">-->
+<!--                                    <div class="table-responsive">-->
+<!--                                        <div class="customer-scroll2" style="height:80vh;position:relative;">-->
+<!--                                            <table class="table table-hover m-b-0">-->
+<!--                                                <thead>-->
+<!--                                                    <tr>-->
+<!--                                                        <th><span>ID modulo</span></th>-->
+<!--                                                        <th><span>CONDOMINIO <a class="help" data-toggle="popover" title="ID" data-content="Identificativo modulo condominiale"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>AMMINISTRATORE PERSONA FISICA<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>AMMINISTRATORE PERSONA GIURIDICA<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>CATASTALI<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                    </tr>-->
+<!--                                                </thead>-->
+<!--                                                <tbody>-->
+<!--                                                 {%for form in fform%}-->
+<!--                                                 {%if form.datainit_id%}-->
+<!--                                                    <tr>-->
+<!--                                                            {%if form.datainit.id%}-->
+<!--                                                            <td>{{form.id}}</td>-->
+<!--                                                            {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                            {%endif%}-->
+<!--                                                            {%if form.datainit.condominium_id%}-->
+<!--                                                            <td><a href="{% url 'edit-form' table='Condominium' id=form.datainit.condominium_id %}" > {{form.datainit.condominium.name}}</a></td>-->
+<!--                                                            {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                            {%endif%}-->
+<!--                                                            {%if form.datainit.admin_individual_id%}-->
+<!--                                                            <td><a href="{% url 'edit-form' table='AdministrationIndividual' id=form.datainit.admin_individual_id %}" > {{form.datainit.admin_individual.name}}</a></td>-->
+<!--                                                            {%elif not  form.datainit.admin_individual_id and not form.datainit.admin_legal_id%}-->
+<!--                                                            <td><a href="{% url 'individual' form=form.datainit.id fff=form.id %}">+</a></td>-->
+<!--                                                            {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                            {%endif%}-->
+<!--                                                            {%if form.datainit.admin_legal_id%}-->
+<!--                                                            <td><a href="{% url 'edit-form' table='AdministrationLegal' id=form.datainit.admin_legal_id %}" > {{form.datainit.admin_legal.company_name}}</a></td>-->
+<!--                                                            {%elif not form.datainit.admin_legal_id and  not form.datainit.admin_individual_id%}-->
+<!--                                                            <td><a href="{% url 'legal' form=form.datainit.id fff=form.id %}" >+</a></td>-->
+<!--                                                            {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                            {%endif%}-->
+<!--                                                            {%if form.datainit.catastal_id%}-->
+<!--                                                            <td><a href="{% url 'edit-form' table='CatastalData' id=form.datainit.catastal_id %}" > {{form.datainit.catastal.n_catastal_cheet}}</a></td>-->
+<!--                                                            {%elif not form.datainit.catastal_id%}-->
+<!--                                                            <td><a href="{% url 'catastal' form=form.datainit_id %}" >+</a></td>-->
+<!--                                                            {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                            {%endif%}-->
+
+<!--                                                    </tr>-->
+<!--                                                     {%endif%}-->
+<!--                                                     {% endfor %}-->
+
+<!--                                                </tbody>-->
+<!--                                            </table>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="tab-pane fade show active" id="pills-form" role="tabpanel" aria-labelledby="pills-form-tab">-->
+<!--                                    <div class="table-responsive">-->
+<!--                                        <div class="customer-scroll1" style="height:80vh;position:relative;">-->
+<!--                                            <table class="table table-hover m-b-0">-->
+<!--                                                <thead>-->
+<!--                                                    <tr>-->
+<!--                                                        <th><span>DATI ID</span></th>-->
+<!--                                                        <th><span>Condominio <a class="help" data-toggle="popover" title="ID" data-content="Identificativo modulo condominiale"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>Amm. Fisica<a class="help" data-toggle="popover" title="ID" data-content="AMMINISTRATORE PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>Amm. Giuridica<a class="help" data-toggle="popover" title="ID" data-content="AMMINISTRATORE PERSONA GIURIDICA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>CATASTALI<a class="help" data-toggle="popover" title="ID" data-content="AMMINISTRATORE PERSONA GIURIDICA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>Sit. Comp. Int.<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>Det. Int. Comuni<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>Det. Int. Soggettivi<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>Beneficiari<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>Progettista<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>Coor. Sicurezza Prog.<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>Coor. Sicurezza Esec.<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>Dir. Lavori<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>Termotecnico<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>Energ. Esp.<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>Resp. Lavori<a class="help" data-toggle="popover" title="ID" data-content=""><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+
+<!--                                                    </tr>-->
+<!--                                                </thead>-->
+<!--                                                <tbody>-->
+
+<!--                                                {% for f in fform %}-->
+<!--                                                    <tr>-->
+<!--                                                        {%if f.id%}-->
+<!--                                                            <td>{{f.id}}</td>-->
+<!--                                                        {%else%}-->
+<!--                                                            <td> <a href="{% url 'bonus'%}" > + </a></td>-->
+<!--                                                        {%endif%}-->
+
+<!--                                                        {%if f.datainit.condominium_id%}-->
+<!--                                                            <td>{{f.datainit.condominium_id}}</td>-->
+<!--                                                        {%else%}-->
+<!--                                                             <td> - </td>-->
+<!--                                                        {%endif%}-->
+
+<!--                                                        {%if f.datainit.admin_individual_id %}-->
+<!--                                                            <td>{{f.datainit.admin_individual_id}}</td>-->
+<!--                                                        {%elif f.datainit_id and not f.datainit.admin_legal_id %}-->
+<!--                                                            <td> <a href="{% url 'individual' form=f.datainit_id fff=f.id %}" > + </a></td>-->
+<!--                                                        {%else %}-->
+<!--                                                            <td> - </td>-->
+<!--                                                        {%endif%}-->
+
+<!--                                                        {%if f.datainit.admin_legal_id%}-->
+<!--                                                            <td>{{f.datainit.admin_legal_id}}</td>-->
+<!--                                                        {%elif f.datainit_id and not f.datainit.admin_individual %}-->
+<!--                                                            <td> <a href="{% url 'legal' form=f.datainit_id fff=f.id %}" > + </a></td>-->
+<!--                                                        {%else%}-->
+<!--                                                        <td> - </td>-->
+<!--                                                        {%endif%}-->
+
+<!--                                                        {%if f.datainit.catastal_id%}-->
+<!--                                                            <td>{{f.datainit.catastal_id}}</td>-->
+<!--                                                        {%elif f.datainit_id and f.datainit.condominium_id%}-->
+<!--                                                            <td> <a href="{% url 'catastal' form=f.datainit_id %}" > + </a></td>-->
+<!--                                                        {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                        {%endif%}-->
+
+<!--                                                        {%if f.tables.overall_rep_id and f.tables.overall_ex_vat_id%}-->
+<!--                                                            <td><a href="{% url 'tables-edit' id=f.tables.overall_ex_vat_id %}" >{{f.tables.overall_rep_id}}</a></td>-->
+<!--                                                        {%elif f.tables_id and not f.tables.overall_ex_vat %}-->
+<!--                                                             <td> <a href="{% url 'tables' fff=f.id %}" > + </a></td>-->
+<!--                                                        {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                        {%endif%}-->
+
+<!--                                                        {%if f.tables.common_rep_id and f.tables.common_ex_vat_id%}-->
+<!--                                                            <td><a href="{% url 'common-edit' id=f.tables.common_ex_vat_id %}" >{{f.tables.common_rep_id}}</a></td>-->
+<!--                                                        {%elif f.tables_id and f.tables.common_ex_vat_id is None%}-->
+<!--                                                             <td> <a href="{% url 'common' tc_id=f.tables_id %}" > + </a></td>-->
+<!--                                                        {%else%}-->
+<!--                                                        <td> - </td>-->
+<!--                                                        {%endif%}-->
+
+<!--                                                        {%if f.tables.subjective_rep_id and f.tables.subjective_ex_vat_id%}-->
+<!--                                                            <td><a href="{% url 'sub-edit' id=f.tables.subjective_ex_vat_id %}" >{{f.tables.subjective_rep_id}}</a></td>-->
+<!--                                                        {%elif f.tables_id %}-->
+<!--                                                             <td> <a href="{% url 'subjective' tc_id=f.tables_id %}" > + </a></td>-->
+<!--                                                        {%else%}-->
+<!--                                                        <td> - </td>-->
+<!--                                                        {%endif%}-->
+
+<!--                                                        <td>-->
+<!--                                                            {%for b in f.beneficiary_set.all%}-->
+<!--                                                            <a href="{% url 'beneficiary-edit' id=b.id %}" >{{b.id}} |</a>-->
+<!--                                                            {%endfor%}-->
+<!--                                                            <a href="{% url 'beneficiary' fff=f.id  %}" >+</a>-->
+<!--                                                        </td>-->
+<!--                                                        <td>-->
+<!--                                                            {%if f.professionals.designer_individual%}-->
+<!--                                                            <a href="{% url 'edit-profession' prof='data-designer' type='individual' fff=f.id  %}" >{{f.professionals.designer_individual.name}}</a>-->
+<!--                                                            {%elif f.professionals.designer_designer_legal%}-->
+<!--                                                            <a href="{% url 'edit-profession' prof='data-designer' type='legal' fff=f.id  %}" >{{f.professionals.designer_legal.company_name}}</a>-->
+<!--                                                            {%else%}-->
+<!--                                                            <a href="{% url 'choose-profession' fff=f.id  %}" >+</a>-->
+<!--                                                            {%endif%}-->
+<!--                                                        </td>-->
+<!--                                                       <td>-->
+<!--                                                            {%if f.professionals.security_plan_individual%}-->
+<!--                                                            <a href="{% url 'edit-profession' prof='data-security-coordinator-design' type='individual' fff=f.id  %}" >{{f.professionals.security_plan_individual.name}}</a>-->
+<!--                                                            {%elif f.professionals.security_plan_legal%}-->
+<!--                                                            <a href="{% url 'edit-profession' prof='data-security-coordinator-design' type='legal' fff=f.id  %}" >{{f.professionals.security_plan_legal.company_name}}</a>-->
+<!--                                                            {%else%}-->
+<!--                                                            <a href="{% url 'choose-profession' fff=f.id  %}" >+</a>-->
+<!--                                                            {%endif%}-->
+<!--                                                        </td>-->
+<!--                                                        <td>-->
+<!--                                                            {%if f.professionals.security_exe_individual%}-->
+<!--                                                            <a href="{% url 'edit-profession' prof='data-security-coordinator-execution' type='individual' fff=f.id  %}" >{{f.professionals.security_exe_individual.name}}</a>-->
+<!--                                                            {%elif f.professionals.security_exe_legal%}-->
+<!--                                                            <a href="{% url 'edit-profession' prof='data-security-coordinator-execution' type='legal' fff=f.id  %}" >{{f.professionals.security_exe_legal.company_name}}</a>-->
+<!--                                                            {%else%}-->
+<!--                                                            <a href="{% url 'choose-profession' fff=f.id  %}" >+</a>-->
+<!--                                                            {%endif%}-->
+<!--                                                        </td>-->
+<!--                                                        <td>-->
+<!--                                                            {%if f.professionals.director_works_individual%}-->
+<!--                                                            <a href="{% url 'edit-profession' prof='director-works' type='individual' fff=f.id  %}" >{{f.professionals.director_works_individual.name}}</a>-->
+<!--                                                            {%elif f.professionals.director_works_legal%}-->
+<!--                                                            <a href="{% url 'edit-profession' prof='director-works' type='legal' fff=f.id  %}" >{{f.professionals.director_works_legal.company_name}}</a>-->
+<!--                                                            {%else%}-->
+<!--                                                            <a href="{% url 'choose-profession' fff=f.id  %}" >+</a>-->
+<!--                                                            {%endif%}-->
+<!--                                                        </td>-->
+<!--                                                        <td>-->
+<!--                                                            {%if f.professionals.thermotechnical_individual%}-->
+<!--                                                            <a href="{% url 'edit-profession' prof='thermotechnical' fff=f.id  %}" >{{f.professionals.thermotechnical_individual.name}}</a>-->
+<!--                                                            {%elif f.professionals.thermotechnical_legal%}-->
+<!--                                                            <a href="{% url 'edit-profession' prof='thermotechnical' type='legal' fff=f.id  %}" >{{f.professionals.thermotechnical_legal.company_name}}</a>-->
+<!--                                                            {%else%}-->
+<!--                                                            <a href="{% url 'choose-profession' fff=f.id  %}" >+</a>-->
+<!--                                                            {%endif%}-->
+<!--                                                        </td>-->
+<!--                                                        <td>-->
+<!--                                                            {%if f.professionals.energy_expert_individual%}-->
+<!--                                                            <a href="{% url 'edit-profession' prof='data-energy-expert' type='legal' fff=f.id  %}" >{{f.professionals.energy_expert_individual.name}}</a>-->
+<!--                                                            {%elif f.professionals.energy_expert_legal%}-->
+<!--                                                            <a href="{% url 'edit-profession' prof='data-energy-expert' type='legal' fff=f.id  %}" >{{f.professionals.energy_expert_legal.company_name}}</a>-->
+<!--                                                            {%else%}-->
+<!--                                                            <a href="{% url 'choose-profession' fff=f.id  %}" >+</a>-->
+<!--                                                            {%endif%}-->
+<!--                                                        </td>-->
+<!--                                                        <td>-->
+<!--                                                            {%if f.professionals.resp_work_individual%}-->
+<!--                                                            <a href="{% url 'edit-profession' prof='data-responsible' type='legal' fff=f.id  %}" >{{f.professionals.resp_work_individual}}</a>-->
+<!--                                                            {%elif f.professionals.resp_work_legal%}-->
+<!--                                                            <a href="{% url 'edit-profession' prof='data-responsible' type='legal' fff=f.id  %}" >{{f.professionals.resp_work_legal.company_name}}</a>-->
+<!--                                                            {%else%}-->
+<!--                                                            <a href="{% url 'choose-profession' fff=f.id  %}" >+</a>-->
+<!--                                                            {%endif%}-->
+<!--                                                        </td>-->
+<!--                                                        {%if f.datainit.condominium_id and f.datainit.catastal_id and f.tables.overall_rep_id and f.tables.common_rep_id or f.tables.subjective_rep_id %}-->
+<!--                                                        <td>-->
+<!--                                                            <a href="{%url 'generate-contract' id=f.id%}"><button>CREA CONTRATTO</button></a>-->
+<!--                                                        </td>-->
+<!--                                                        {%endif%}-->
+
+
+<!--                                                    </tr>-->
+<!--                                                 {% endfor %}-->
+<!--                                                </tbody>-->
+<!--                                            </table>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="tab-pane fade" id="pills-table" role="tabpanel" aria-labelledby="pills-table-tab">-->
+<!--                                    <div class="table-responsive">-->
+<!--                                        <div class="customer-scroll2" style="height:80vh;position:relative;">-->
+<!--                                            <table class="table table-hover m-b-0">-->
+<!--                                                <thead>-->
+<!--                                                    <tr>-->
+<!--                                                        <th><span>ID CONTRATTO </span></th>-->
+<!--                                                        <th><span>SIT. COMP. IVA ESC.<a class="help" data-toggle="popover" title="Popover title" data-content="SITUAZIONE COMPLESSIVA IVA ESCLUSA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>SIT. COMP. IMPONIBILE IVA<a class="help" data-toggle="popover" title="Popover title" data-content="SITUAZIONE COMPLESSIVA IMPONIBILE IVA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>SIT. COMP. IMPORTO IVA INC.<a class="help" data-toggle="popover" title="Popover title" data-content="SITUAZIONE COMPLESSIVA IMPORTO IVA INCLUSA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>GLOBALE DELL'INTERVENTO<a class="help" data-toggle="popover" title="Popover title" data-content="RAPPORTO GLOBALE DELL'INTERVENTO"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>INT. LAV. COM. IVA ESC.<a class="help" data-toggle="popover" title="Popover title" data-content="INTERVENTO LAVORI COMUNI IVA ESCLUSA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>INT. LAV. COM. IMPONIBILE IVA<a class="help" data-toggle="popover" title="Popover title" data-content="INTERVENTO LAVORI COMUNI IMPONIBILE IVA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>INT. LAV. COM. IMPORTO IVA INC.<a class="help" data-toggle="popover" title="Popover title" data-content="INTERVENTO LAVORI COMUNI IMPORTO IVA INCLUSA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>LAVORI COMUNI<a class="help" data-toggle="popover" title="Popover title" data-content="RAPPORTO LAVORI COMUNI"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>INT. LAV. SOGG. IVA ESC.<a class="help" data-toggle="popover" title="Popover title" data-content="INTERVENTO LAVORI SOGGETTIVI IVA ESCLUSA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>INT. LAV. SOGG. IMPONIBILE IVA<a class="help" data-toggle="popover" title="Popover title" data-content="INTERVENTO LAVORI SOGGETTIVI IMPONIBILE IVA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>INT. LAV. SOGG. IMPORTO IVA INC.<a class="help" data-toggle="popover" title="Popover title" data-content="INTERVENTO LAVORI SOGGETTIVI IMPORTO IVA INCLUSA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>LAVORI SOGGETTIVI <a class="help" data-toggle="popover" title="Popover title" data-content="RAPPORTO LAVORI SOGGETTIVI"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                    </tr>-->
+<!--                                                </thead>-->
+<!--                                                <tbody>-->
+<!--                                                {%for f in tform%}-->
+<!--                                                    <tr>-->
+<!--                                                        {%if f.id%}-->
+
+<!--                                                            <td><a href="{% url 'tables-edit' id=f.id %}">{{f.id}}</a></td>-->
+<!--                                                        {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                        {%endif%}-->
+
+<!--                                                        {%if f.overall_ex_vat%}-->
+<!--                                                            <td><a href="{% url 'tables-edit' id=f.overall_ex_vat_id %}">{{f.overall_ex_vat.total_amt_of_work}}</a></td>-->
+<!--                                                        {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                        {%endif%}-->
+
+<!--                                                        {%if f.overall_taxable%}-->
+<!--                                                            <td>{{f.overall_taxable.total_amt_of_work}}</td>-->
+<!--                                                        {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                        {%endif%}-->
+
+<!--                                                        {%if f.overall_in_vat%}-->
+<!--                                                            <td>{{f.overall_in_vat.total_amt_of_work}}</td>-->
+<!--                                                        {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                        {%endif%}-->
+
+<!--                                                        {%if f.overall_rep%}-->
+<!--                                                            <td>{{f.overall_rep.total_amount_includin_vat}}</td>-->
+<!--                                                        {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                        {%endif%}-->
+
+<!--                                                        {%if f.common_ex_vat%}-->
+<!--                                                            <td><a href="{% url 'common-edit' id=f.common_ex_vat_id %}">{{f.common_ex_vat.total_amt_of_work}}</a></td>-->
+<!--                                                        {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                        {%endif%}-->
+
+<!--                                                        {%if f.common_taxable%}-->
+<!--                                                            <td>{{f.common_taxable.total_amt_of_work}}</td>-->
+<!--                                                        {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                        {%endif%}-->
+
+<!--                                                        {%if f.common%}-->
+<!--                                                            <td>{{f.common_in_vat.total_amt_of_work}}</td>-->
+<!--                                                        {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                        {%endif%}-->
+
+<!--                                                        {%if f.common_rep%}-->
+<!--                                                            <td>{{f.common_rep.total_amount_includin_vat}}</td>-->
+<!--                                                        {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                        {%endif%}-->
+
+<!--                                                        {%if f.subjective_ex_vat%}-->
+<!--                                                            <td><a href="{% url 'sub-edit' id=f.subjective_ex_vat_id %}">{{f.subjective_ex_vat.total_amt_of_work}}</a></td>-->
+<!--                                                        {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                        {%endif%}-->
+
+<!--                                                        {%if f.subjective_taxable%}-->
+<!--                                                            <td>{{f.subjective_taxable.total_amt_of_work}}</td>-->
+<!--                                                        {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                        {%endif%}-->
+
+<!--                                                        {%if f.subjective_in_vat%}-->
+<!--                                                            <td>{{f.subjective_in_vat.total_amt_of_work}}</td>-->
+<!--                                                        {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                        {%endif%}-->
+
+<!--                                                        {%if f.subjective_rep%}-->
+<!--                                                            <td>{{f.subjective_rep.total_amount_includin_vat}}</td>-->
+<!--                                                        {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                        {%endif%}-->
+
+
+<!--                                                    </tr>-->
+<!--                                                 {% endfor %}-->
+<!--                                                </tbody>-->
+<!--                                            </table>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="tab-pane fade" id="pills-beneficiary" role="tabpanel" aria-labelledby="pills-beneficiary-tab">-->
+<!--                                    <div class="table-responsive">-->
+<!--                                        <div class="customer-scroll3" style="height:80vh;position:relative;">-->
+<!--                                            <table class="table table-hover m-b-0">-->
+<!--                                                <thead>-->
+<!--                                                    <tr>-->
+<!--                                                        <th><span>ID</span></th>-->
+<!--                                                        <th><span>PARTICELLA<a class="help" data-toggle="popover" title="Info" data-content="PARTICELLA (P) &#45;&#45;&#45;&#45; SUBALTERNO CATASTALE (SC) &#45;&#45;&#45;&#45; CATEGORIA CATASTALE (CAT.)"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>COG. NOME<a class="help" data-toggle="popover" title="Info" data-content="COGNOME NOME / RAGIONE O DENOMINAZIONE SOCIALE"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>TITOLO<a class="help" data-toggle="popover" title="Info" data-content="TITOLO"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>QUOTA PROP.<a class="help" data-toggle="popover" title="Info" data-content="QUOTA PROPRIETA' DEL SINGOLO"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>VIA N° COND.<a class="help" data-toggle="popover" title="Info" data-content="VIA E NUMERO IN CUI SI TROVA L'IMMOBILE"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>MILL.<a class="help" data-toggle="popover" title="Info" data-content="MILLESIMI COMPLESSIVI"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>BEN. SCONTO<a class="help" data-toggle="popover" title="Info" data-content="BENEFICIARI DELLO SCONTO IN FATTURA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>MILL.BEN. SCONTO P. COM.<a class="help" data-toggle="popover" title="Info" data-content="MILLESIMI DI BENEFICIO DELLO SCONTO IN FATTURA SU PARTI COMUNI"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>DEN. SOC. BEN.<a class="help" data-toggle="popover" title="Info" data-content="DENOMINAZIONE SOCIETA' BENEFICIARIA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>COM. SEDE LEG. SOC. BEN.<a class="help" data-toggle="popover" title="Info" data-content="COMUNE  SEDE LEGALE SOCIETA' BENEFICIARIA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>PROV SEDE LEG. SOC.  BEN<a class="help" data-toggle="popover" title="Info" data-content="PROVINCIA  SEDE LEGALE SOCIETA' BENEFICIARIA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>CAP SEDE LEG. SOC. BEN.<a class="help" data-toggle="popover" title="Info" data-content="CAP SEDE LEGALE SOCIETA' BENEFICIARIA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>VIA N° SEDE LEG. SOC. BEN.<a class="help" data-toggle="popover" title="Info" data-content="VIA E NUMERO SEDE LEGALE SOCIETA' BENEFICIARIA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>PROV. ISC. REG. IMPRESE SOC. BEN.<a class="help" data-toggle="popover" title="Info" data-content="PROVINCIA ISCRIZIONE REGISTRO IMPRESE SOCIETA' BENEFICIARIA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>N° ISC. REG. IMP. PART. IVA - C.F. SOC. BEN.<a class="help" data-toggle="popover" title="Info" data-content="N° ISCRIZIONE REGISTRO IMPRESE - PARTITA IVA - C.F. SOCIETA' BENEFICIARIA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>COG. E NOME LEG. RAP. SOC. BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="COGNOME E NOME LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>DATA NAS. LEG. RAP. SOC. BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="DATA NASCITA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>COM. NAS. LEG. RAP. SOC.BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="COMUNE NASCITA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>PROV. NAS. LEG. RAP. SOC.BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="PROVINCIA NASCITA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>COM. RES. LEG. RAP. SOC.BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="COMUNE RESIDENZA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>PROV. RES. LEG. RAP. SOC.BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="PROVINCIA RESIDENZA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>CAP RES. LEG. RAP. SOC.BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="CAP RESIDENZA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>VIA  N° RES. LEG. RAP. SOC.BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="VIA E NUMERO RESIDENZA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>COD. FIS. LEG. RAP. SOC.BEN. o P.F.<a class="help" data-toggle="popover" title="Info" data-content="CODICE FISCALE LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>IMP. ACC. INT. COM. CAS. PRE. INC. E IVA INC.<a class="help" data-toggle="popover" title="Info" data-content="IMPORTO ACCONTO INTERVENTI COMUNI - CASSA PREVIDENZA INCLUSA E IVA INCLUSA -"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>IMP. ACC. INT. SOG. CAS. PRE. INC. E IVA INC.<a class="help" data-toggle="popover" title="Info" data-content="IMPORTO ACCONTO INTERVENTI SOGGETTIVI - CASSA PREVIDENZA INCLUSA E IVA INCLUSA -"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>IMP. COMP. ACC. CAS. PRE. INC. E IVA INC.<a class="help" data-toggle="popover" title="Info" data-content="IMPORTO COMPLESSIVO ACCONTO - CASSA PREVIDENZA INCLUSA E IVA INCLUSA -"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>IMP. SCON. INT. COM. CAS. PRE. INC. E IVA INC.<a class="help" data-toggle="popover" title="Info" data-content="IMPORTO SCONTO IN FATTURA INTERVENTI COMUNI - CASSA PREVIDENZA INCLUSA E IVA INCLUSA -"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>IMP. SCON. INT. SOG. CAS. PRE. INC. E IVA INC.<a class="help" data-toggle="popover" title="Info" data-content="IMPORTO SCONTO IN FATTURA INTERVENTI COMUNI - CASSA PREVIDENZA INCLUSA E IVA INCLUSA -"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>IMP. COMP. SCON. IN FAT. CAS. PRE. INC. E IVA INC.<a class="help" data-toggle="popover" title="Info" data-content="AIMPORTO COMPLESSIVO SCONTO IN FATTURA - CASSA PREVIDENZA INCLUSA E IVA INCLUSA -"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                    </tr>-->
+<!--                                                </thead>-->
+<!--                                                <tbody>-->
+<!--                                                {%load my_tags %}-->
+<!--                                                {%for form in beneficiary %}-->
+
+<!--                                                        <tr>-->
+
+<!--                                                        <td><a href="{% url 'beneficiary-edit' id=form.id %}">{{form.id}}</a></td>-->
+<!--                                                        <td><a href="{% url 'beneficiary-edit' id=form.id %}">{{form.parcel}}</a></td>-->
+<!--                                                        <td>{{form.name}}</td>-->
+<!--                                                        <td>{{form.title}}</td>-->
+<!--                                                        <td>{{form.single_ownership_fee}}</td>-->
+<!--                                                        <td>{{form.street}}</td>-->
+<!--                                                        <td>{{form.total_thousands}}</td>-->
+<!--                                                        <td>{{form.benef_of_diss_in_invo}}</td>-->
+<!--                                                        <td>{{form.thousands_benef_diss}}</td>-->
+<!--                                                        <td>{{form.name_of_company}}</td>-->
+<!--                                                        <td>{{form.municipal_reg_office}}</td>-->
+<!--                                                        <td>{{form.province_reg_office}}</td>-->
+<!--                                                        <td>{{form.post_code_cap}}</td>-->
+<!--                                                        <td>{{form.company_street}}</td>-->
+<!--                                                        <td>{{form.province_reg_comp_office}}</td>-->
+<!--                                                        <td>{{form.vat_number_company}}</td>-->
+<!--                                                        <td>{{form.name_of_company_representitave}}</td>-->
+<!--                                                        <td>{{form.dob_of_rep}}</td>-->
+<!--                                                        <td>{{form.muncipality_of_birth_rep}}</td>-->
+<!--                                                        <td>{{form.province_of_birth_rep}}</td>-->
+<!--                                                        <td>{{form.muncipality_of_res_rep}}</td>-->
+<!--                                                        <td>{{form.province_of_residance_rep}}</td>-->
+<!--                                                        <td>{{form.cap_of_residance_rep}}</td>-->
+<!--                                                        <td>{{form.street_res_of_rep}}</td>-->
+<!--                                                        <td>{{form.legal_tax_code_rep}}</td>-->
+<!--                                                        <td>{{form.amount_advance_deposit_by_customer_common}}</td>-->
+<!--                                                        <td>{{form.amount_advance_deposit_by_customer_subjective}}</td>-->
+<!--                                                        <td>{{form.total_adv_deposit_customer}}</td>-->
+<!--                                                        <td>{{form.amount_discount_common}}</td>-->
+<!--                                                        <td>{{form.amount_discount_subjective}}</td>-->
+<!--                                                        <td>{{form.total_discount}}</td>-->
+
+<!--                                                    </tr>-->
+
+<!--                                                 {% endfor %}-->
+<!--                                                </tbody>-->
+<!--                                            </table>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div class="tab-pane fade" id="pills-professional" role="tabpanel" aria-labelledby="pills-professional-tab">-->
+<!--                                    <div class="table-responsive">-->
+<!--                                        <div class="customer-scroll3" style="height:80vh;position:relative;">-->
+<!--                                            <table class="table table-hover m-b-0">-->
+<!--                                                <thead>-->
+<!--                                                    <tr>-->
+<!--                                                        <th><span>ID</span></th>-->
+<!--                                                        <th><span>PROG. P.F.<a class="help" data-toggle="popover" title="ID" data-content="DATI PROGETTISTA PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>PROG. P.G.<a class="help" data-toggle="popover" title="ID" data-content="DATI PROGETTISTA PERSONA GIURIDICA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>COORD. P.F.<a class="help" data-toggle="popover" title="ID" data-content="DATI COORDINATORE SICUREZZA IN FASE DI PROGETTAZIONE PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>COORD. P.G.<a class="help" data-toggle="popover" title="ID" data-content="DATI COORDINATORE SICUREZZA IN FASE DI PROGETTAZIONE PERSONA GIURIDICA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>COORD. ESEC. P.F.<a class="help" data-toggle="popover" title="ID" data-content="DATI COORDINATORE SICUREZZA IN FASE DI ESECUZIONE PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>COORD. ESEC. P.G.<a class="help" data-toggle="popover" title="ID" data-content="DATI COORDINATORE SICUREZZA IN FASE DI ESECUZIONE PERSONA GIURIDICA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>DIR. LAVORI P.F.<a class="help" data-toggle="popover" title="ID" data-content="DATI DIRETTORE LAVORI PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>DIR. LAVORI P.G.<a class="help" data-toggle="popover" title="ID" data-content="DATI DIRETTORE LAVORI PERSONA GIURIDICA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>TERMOT. P.F.<a class="help" data-toggle="popover" title="ID" data-content="DATI TERMOTECNICO PERSONA FISICA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>TERMOT. P.G.<a class="help" data-toggle="popover" title="ID" data-content="DATI TERMOTECNICO PERSONA GIURIDICA"><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>ENERG. P.F.<a class="help" data-toggle="popover" title="ID" data-content="DATI ESPERTO ENERGETICO PERSONA FISICA (REDAZIONE APE PRE-POST) "><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>ENERG. P.G.<a class="help" data-toggle="popover" title="ID" data-content="DATI ESPERTO ENERGETICO PERSONA GIURIDICA (REDAZIONE APE PRE-POST) "><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>RES. DEI LAVORI P.F<a class="help" data-toggle="popover" title="ID" data-content="DATI RESPONSABILE DEI LAVORI PERSONA FISICA (QUALORA PRESENTE) "><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                        <th><span>RES. DEI LAVORI P.G<a class="help" data-toggle="popover" title="ID" data-content="DATI RESPONSABILE DEI LAVORI PERSONA GIURIDICA (QUALORA PRESENTE) "><i class="feather icon-help-circle f-16"></i></a></span></th>-->
+<!--                                                    </tr>-->
+<!--                                                </thead>-->
+<!--                                                <tbody>-->
+<!--                                                {%for f in fform%}-->
+
+<!--                                                  {%if f.professionals_id%}-->
+
+
+
+<!--                                                     <tr>-->
+<!--                                                        <td>{{f.professionals_id}}</td>-->
+
+<!--                                                         {%if f.professionals.designer_individual_id %}-->
+<!--                                                            <td><a href="{%url 'edit-profession' prof='data-designer' type='individual' fff=f.id %}">{{f.professionals.designer_individual.name}}</a></td>-->
+<!--                                                         {%elif not f.professionals.designer_individual_id%}-->
+<!--                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>-->
+<!--                                                         {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                         {%endif%}-->
+
+<!--                                                        {%if f.professionals.designer_legal_id %}-->
+<!--                                                            <td><a href="{%url 'edit-profession' prof='data-designer' type='legal' fff=f.id %}">{{f.professionals.designer_individual.company_name}}</a></td>-->
+<!--                                                         {%elif not f.professionals.designer_legal_id%}-->
+<!--                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>-->
+<!--                                                         {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                         {%endif%}-->
+
+<!--                                                        {%if f.professionals.security_plan_individual_id %}-->
+<!--                                                            <td><a href="{%url 'edit-profession' prof='data-security-coordinator-design' type='individual' fff=f.id %}">{{f.professionals.security_plan_individual.name}}</a></td>-->
+<!--                                                         {%elif not f.professionals.designer_individual_id%}-->
+<!--                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>-->
+<!--                                                         {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                         {%endif%}-->
+
+<!--                                                        {%if f.professionals.security_plan_legal_id %}-->
+<!--                                                            <td><a href="{%url 'edit-profession' prof='data-security-coordinator-design' type='legal' fff=f.id %}">{{f.professionals.security_plan_legal.company_name}}</a></td>-->
+<!--                                                         {%elif not f.professionals.security_plan_legal_id%}-->
+<!--                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>-->
+<!--                                                         {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                         {%endif%}-->
+
+<!--                                                        {%if f.professionals.security_exe_individual_id %}-->
+<!--                                                            <td><a href="{%url 'edit-profession' prof='data-security-coordinator-execution' type='individual' fff=f.id %}">{{f.professionals.security_exe_individual.name}}</a></td>-->
+<!--                                                         {%elif not f.professionals.security_exe_individual_id%}-->
+<!--                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>-->
+<!--                                                         {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                         {%endif%}-->
+
+<!--                                                        {%if f.professionals.security_exe_legal_id %}-->
+<!--                                                            <td><a href="{%url 'edit-profession' prof='data-security-coordinator-execution' type='individual' fff=f.id %}">{{f.professionals.security_exe_legal.company_name}}</a></td>-->
+<!--                                                         {%elif not f.professionals.security_exe_legal_id%}-->
+<!--                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>-->
+<!--                                                         {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                         {%endif%}-->
+
+<!--                                                        {%if f.professionals.director_works_individual_id %}-->
+<!--                                                            <td><a href="{%url 'edit-profession' prof='director-works' type='individual' fff=f.id %}">{{f.professionals.director_works_individual.name}}</a></td>-->
+<!--                                                         {%elif not f.professionals.director_works_individual_id%}-->
+<!--                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>-->
+<!--                                                         {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                         {%endif%}-->
+
+<!--                                                        {%if f.professionals.director_works_legal_id %}-->
+<!--                                                            <td><a href="{%url 'edit-profession' prof='director-works' type='legal' fff=f.id %}">{{f.professionals.director_works_legal.company_name}}</a></td>-->
+<!--                                                         {%elif not f.professionals.director_works_legal_id%}-->
+<!--                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>-->
+<!--                                                         {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                         {%endif%}-->
+
+<!--                                                         {%if f.professionals.thermotechnical_individual_id %}-->
+<!--                                                            <td><a href="{%url 'edit-profession' prof='thermotechnical' type='individual' fff=f.id %}">{{f.professionals.thermotechnical_individual.name}}</a></td>-->
+<!--                                                         {%elif not f.professionals.thermotechnical_individual_id%}-->
+<!--                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>-->
+<!--                                                         {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                         {%endif%}-->
+
+<!--                                                        {%if f.professionals.thermotechnical_legal_id %}-->
+<!--                                                            <td><a href="{%url 'edit-profession' prof='thermotechnical' type='legal' fff=f.id %}">{{f.professionals.thermotechnical_legal.company_name}}</a></td>-->
+<!--                                                         {%elif not f.professionals.thermotechnical_legal_id%}-->
+<!--                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>-->
+<!--                                                         {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                         {%endif%}-->
+
+<!--                                                        {%if f.professionals.energy_expert_individual_id %}-->
+<!--                                                            <td><a href="{%url 'edit-profession' prof='data-energy-expert' type='individual' fff=f.id %}">{{f.professionals.energy_expert_individual.name}}</a></td>-->
+<!--                                                         {%elif not f.professionals.energy_expert_individual_id%}-->
+<!--                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>-->
+<!--                                                         {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                         {%endif%}-->
+
+<!--                                                        {%if f.professionals.energy_expert_legal_id %}-->
+<!--                                                            <td><a href="{%url 'edit-profession' prof='data-energy-expert' type='legal' fff=f.id %}">{{f.professionals.energy_expert_legal.company_name}}</a></td>-->
+<!--                                                         {%elif not f.professionals.energy_expert_legal_id%}-->
+<!--                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>-->
+<!--                                                         {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                         {%endif%}-->
+
+<!--                                                        {%if f.professionals.resp_work_individual_id %}-->
+<!--                                                            <td><a href="{%url 'edit-profession' prof='data-responsible' type='individual' fff=f.id %}">{{f.professionals.resp_work_individual.name}}</a></td>-->
+<!--                                                         {%elif not f.professionals.resp_work_individual_id%}-->
+<!--                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>-->
+<!--                                                         {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                         {%endif%}-->
+
+<!--                                                        {%if f.professionals.resp_work_legal_id %}-->
+<!--                                                            <td><a href="{%url 'edit-profession' prof='data-responsible' type='legal' fff=f.id %}">{{f.professionals.resp_work_legal.company_name}}</a></td>-->
+<!--                                                         {%elif not f.professionals.resp_work_legal_id%}-->
+<!--                                                            <td><a href="{% url 'choose-profession' fff=f.id %}">+</a></td>-->
+<!--                                                         {%else%}-->
+<!--                                                            <td> - </td>-->
+<!--                                                         {%endif%}-->
+<!--                                                    </tr>-->
+
+
+
+<!--                                                  {%endif%}-->
+<!--                                                {%endfor%}-->
+<!--                                                </tbody>-->
+<!--                                            </table>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <!-- Customer overview end -->
-            </div>
+    </div>
             <!-- [ Main Content ] end -->
 
     <!-- [ Main Content ] end -->

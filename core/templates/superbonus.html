@@ -16,14 +16,21 @@
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">Super Bonus</h5>
+                                <h5 class="m-b-10">Superbonus Menu</h5>
                             </div>
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{% url 'home'%}"><i class="feather icon-home"></i></a></li>
-                                    <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="">SUPER BONUS</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="">SUPERBONUS</a></li>
                                 </ul>
                             </nav>
+
+
+                            <ul class="nav">
+                                <li class="nav-item " aria-current="page" ><a class="nav-link" href="{% url 'bonus-add-villa' %}">Unifamiliare <i class="fas fa-home"></i></a></li>
+                                <li class="nav-item " aria-current="page" ><a class="nav-link" href="{% url 'bonus-add-condo' %}">Condominio <i class="far fa-building"></i></a></li>
+                            </ul>
+
                         </div>
                     </div>
                 </div>
@@ -32,10 +39,10 @@
             <!-- [ Main Content ] start -->
             <div class="row">
                 <!-- [ form-element ] start -->
-                <div class="col-sm-12 col-md-8 col-lg-8">
+                <div class="col-sm-12 col-md-12 col-lg-12">
                     <div class="card table-card">
                         <div class="card-header">
-                            <h4>Table of Super Bonus Application</h4>
+                            <h4>ELENCO IMMOBILI</h4>
                             <div class="card-header-right">
                                 <div class="btn-group card-option">
                                     <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -72,10 +79,10 @@
                                             <table class="table table-hover m-b-0">
                                                  <thead>
                                                     <tr>
-                                                        <th><span>DENOMINAZIONE ELL'IMMOBILE</span></th>
-                                                        <th><span>VIA UBICAZIONE  DELL'IMMOBILE</span></th>
-                                                         <th><span>COMUNE UBICAZIONE DELL'IMMOBILE</span></th>
-                                                        <th><span>PROVINCIA UBICAZIONE DELL'IMMOBILE</span></th>
+                                                        <th><span>DENOMINAZIONE</span></th>
+                                                        <th><span>VIA</span></th>
+                                                         <th><span>COMUNE</span></th>
+                                                        <th><span>PROVINCIA</span></th>
                                                     </tr>
                                                 </thead>
 
@@ -83,7 +90,7 @@
                                                    {%for t in table%}
                                                    {%if t.bonus_villa_id%}
 
-                                                    <tr data-href="{% url 'bonus-preview' id=t.id %}">
+                                                    <tr class="row-link" data-href="{% url 'bonus-preview' id=t.id %}">
                                                         <td>
                                                             {{t.bonus_villa.name}}
                                                         </td>
@@ -99,7 +106,7 @@
                                                     </tr>
 
                                                    {%else%}
-                                                    <tr data-href="{% url 'bonus-preview' id=t.id %}">
+                                                    <tr class="row-link" data-href="{% url 'bonus-preview' id=t.id %}">
                                                         <td>
                                                             {{t.bonus_condo.name}}
                                                         </td>
@@ -126,23 +133,6 @@
                     </div>
                 </div>
 
-                <div class="col-sm-12 col-md-4 col-lg-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="text-center">Add new Super Bonus Application</h4>
-                        </div>
-                        <div class="card-body">
-                            <ul class="nav  nav-fill ">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'bonus-add-villa' %}"><button type="submit" class="btn  btn-primary">Villa <i class="fas fa-home"></i></button></a>
-                                </li>
-                                <li>
-                                    <a class="nav-link" href="{% url 'bonus-add-condo' %}"><button type="submit" class="btn  btn-primary">Condominio <i class="far fa-building"></i></button></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>

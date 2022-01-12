@@ -15,12 +15,12 @@
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">Super Bonus</h5>
+                                <h5 class="m-b-10">ADMINISTRATORE</h5>
                             </div>
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{% url 'home'%}"><i class="feather icon-home"></i></a></li>
-                                    <li class="breadcrumb-item " aria-current="page" ><a class="breadcrumb-item " href="{% url 'bonus-app-view' %}">SUPER BONUS</a></li>
+                                    <li class="breadcrumb-item " aria-current="page" ><a class="breadcrumb-item " href="{% url 'bonus-app-view' %}">SUPERBONUS</a></li>
                                     <li class="breadcrumb-item " aria-current="page" ><a class="breadcrumb-item " href="{% url 'bonus-preview' id=id%}">ANTEPRIMA</a></li>
                                     <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="">ADMINISTRATORE</a></li>
                                 </ul>
@@ -36,14 +36,14 @@
                 <div class="col-sm-12 col-md-8 col-lg-8">
                     <div class="card table-card">
                         <div class="card-header">
-                            <h4>ADMINISTRATORE OPTIONE</h4>
+
                             <div class="m-auto">
                                      <ul class="nav nav-pills nav-fill mt-3 border-bottom pb-3" id="pills-tab" role="tablist">
                                         <li class="nav-item">
-                                            <a class="nav-link active" id="pills-form-tab" data-toggle="pill" href="#pills-form" role="tab" aria-controls="pills-form" aria-selected="true"><i class="feather icon-file-text m-r-5"></i>Individual</a>
+                                            <a class="nav-link active" id="pills-form-tab" data-toggle="pill" href="#pills-form" role="tab" aria-controls="pills-form" aria-selected="true"><i class="feather icon-file-text m-r-5"></i>Individuale</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="pills-data-tab" data-toggle="pill" href="#pills-data" role="tab" aria-controls="pills-data-tab" aria-selected="false"><i class="feather icon-file-text m-r-5"></i>Legal</a>
+                                            <a class="nav-link" id="pills-data-tab" data-toggle="pill" href="#pills-data" role="tab" aria-controls="pills-data-tab" aria-selected="false"><i class="feather icon-file-text m-r-5"></i>Legale</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -82,7 +82,7 @@
                                                  {{form_leg}}
                                                  </table>
                                                   {%if form_leg%}
-                                                  <button type="submit" class="btn  btn-primary m-3" value="legal" name="legal">Save </button>
+                                                  <button type="submit" class="btn  btn-primary m-3" value="legal" name="legal">Salvare</button>
                                                   {%endif%}
                                               </form>
                                         </div>
@@ -97,7 +97,7 @@
                                                  {{form_inv}}
                                                  </table>
                                                   {%if form_inv%}
-                                                  <button type="submit" class="btn  btn-primary m-3" value="individual" name="individual">Save </button>
+                                                  <button type="submit" class="btn  btn-primary m-3" value="individual" name="individual">Salvare</button>
                                                   {%endif%}
                                               </form>
                                         </div>

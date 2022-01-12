@@ -1,6 +1,6 @@
 
   $(document).ready(function(){
-      $('table tr').click(function(){
+      $('.row-link').click(function(){
         window.location = $(this).data('href');
         return false;
       });

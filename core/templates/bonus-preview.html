@@ -16,12 +16,12 @@
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">Super Bonus</h5>
+                                <h5 class="m-b-10">SUPERBONUS</h5>
                             </div>
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{% url 'home'%}"><i class="feather icon-home"></i></a></li>
-                                    <li class="breadcrumb-item " aria-current="page" ><a class="breadcrumb-item " href="{% url 'bonus-app-view' %}">SUPER BONUS</a></li>
+                                    <li class="breadcrumb-item " aria-current="page" ><a class="breadcrumb-item " href="{% url 'bonus-app-view' %}">SUPERBONUS</a></li>
                                     <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="">ANTEPRIMA</a></li>
                                 </ul>
                             </nav>
@@ -36,7 +36,7 @@
                 <div class="col-sm-12 col-md-8 col-lg-8">
                     <div class="card table-card">
                         <div class="card-header">
-                            <h4>Table of Super Bonus Application</h4>
+                            <h4>Dettagli dell'immobile</h4>
                             {% if messages %}
                                 {% for message in messages %}
                                 <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}
@@ -72,12 +72,12 @@
                                     <table>
                                     {{form}}
                                     </table>
-                                    <input class="btn btn-warning m-1" type="submit" value="Edit" />
+                                    <input class="btn btn-warning m-1" type="submit" value="Modificare" />
                                 </form>
                                 {%if type == 'villa'%}
-                                <a href="{% url 'bonus-delete' type='villa' id=id %}"><button class="btn btn-danger m-1" onclick="return confirm('Sei sicuro?')">Delete</button></a>
+                                <a href="{% url 'bonus-delete' type='villa' id=id %}"><button class="btn btn-danger m-1" onclick="return confirm('Sei sicuro?')">Elimina</button></a>
                                 {%elif type == 'condo'%}
-                                 <a href="{% url 'bonus-delete' type='condo' id=id %}"><button class="btn btn-danger m-1" onclick="return confirm('Sei sicuro?')">Delete</button></a>
+                                 <a href="{% url 'bonus-delete' type='condo' id=id %}"><button class="btn btn-danger m-1" onclick="return confirm('Sei sicuro?')">Elimina</button></a>
                                 {%endif%}
                             </div>
 

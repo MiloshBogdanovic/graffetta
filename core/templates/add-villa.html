@@ -16,13 +16,13 @@
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">Super Bonus</h5>
+                                <h5 class="m-b-10">Superbonus</h5>
                             </div>
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{% url 'home'%}"><i class="feather icon-home"></i></a></li>
-                                    <li class="breadcrumb-item " aria-current="page" ><a class="breadcrumb-item " href="{% url 'bonus-app-view' %}">SUPER BONUS</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="{% url 'bonus-app-view' %}">ADD CONDO</a></li>
+                                    <li class="breadcrumb-item " aria-current="page" ><a class="breadcrumb-item " href="{% url 'bonus-app-view' %}">Superbonus</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="{% url 'bonus-app-view' %}">Inserisci Villa</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -36,7 +36,7 @@
 
                     <div class="card table-card">
                         <div class="card-header">
-                            <h4>Table of Super Bonus Application</h4>
+                            <h4>Particolare di immobile unifamiliare</h4>
                             {% if messages %}
                                 {% for message in messages %}
                                 <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}

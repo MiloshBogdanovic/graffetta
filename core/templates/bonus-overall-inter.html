@@ -16,12 +16,12 @@
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">Super Bonus</h5>
+                                <h5 class="m-b-10">DETTAGLIO INTERVENTO</h5>
                             </div>
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{% url 'home'%}"><i class="feather icon-home"></i></a></li>
-                                    <li class="breadcrumb-item " aria-current="page" ><a class="breadcrumb-item " href="{% url 'bonus-app-view' %}">SUPER BONUS</a></li>
+                                    <li class="breadcrumb-item " aria-current="page" ><a class="breadcrumb-item " href="{% url 'bonus-app-view' %}">SUPERBONUS</a></li>
                                     <li class="breadcrumb-item " aria-current="page" ><a class="breadcrumb-item " href="{% url 'bonus-preview' id=id%}">ANTEPRIMA</a></li>
                                     <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="">INTERVENTO</a></li>
                                 </ul>
@@ -31,11 +31,11 @@
                                     {% if bonus.bonus_villa_id%}
                                     <li class="breadcrumb-item {%if type == 'overall' %}active{%endif%}" aria-current="page" ><a class="breadcrumb-item {%if type == 'overall' %}active{%endif%}" href="{% url 'bonus-costs' id=bonus.id type='overall'%}">SITUAZIONE COMPLESSIVA DELL'INTERVENTO</a></li>
                                     <li class="breadcrumb-item {%if type == 'driving' %}active{%endif%}" aria-current="page" ><a class="breadcrumb-item {%if type == 'driving' %}active{%endif%}" href="{% url 'bonus-costs' id=bonus.id type='driving'%}">DETTAGLIO INTERVENTO LAVORI TRAINANTI</a></li>
-                                    <li class="breadcrumb-item {%if type == 'trailed' %}active{%endif%}" aria-current="page" ><a class="breadcrumb-item {%if type == 'trailed' %}active{%endif%}" href="{% url 'bonus-costs' id=bonus.id type='trailed'%}">DETTAGLIO INTERVENTO LAVORI TRAINATI</a></li>
+                                    <li class="breadcrumb-item {%if type == 'trailed' %}active{%endif%}" aria-current="page" ><a class="breadcrumb-item {%if type == 'trailed' %}active{%endif%}" href="{% url 'bonus-costs' id=bonus.id type='trailed'%}">DETTAGLIO INTERVENTO </a></li>
                                     {%elif bonus.bonus_condo_id%}
                                     <li class="breadcrumb-item {%if type == 'overall' %}active{%endif%}" aria-current="page" ><a class="breadcrumb-item {%if type == 'overall' %}active{%endif%}" href="{% url 'bonus-costs' id=bonus.id type='overall'%}">SITUAZIONE COMPLESSIVA DELL'INTERVENTO</a></li>
                                     <li class="breadcrumb-item {%if type == 'common' %}active{%endif%}" aria-current="page" ><a class="breadcrumb-item {%if type == 'common' %}active{%endif%}" href="{% url 'bonus-costs' id=bonus.id type='common'%}">DETTAGLIO INTERVENTO LAVORI COMUNI</a></li>
-                                    <li class="breadcrumb-item {%if type == 'subjective' %}active{%endif%}" aria-current="page" ><a class="breadcrumb-item {%if type == 'subjective' %}active{%endif%}" href="{% url 'bonus-costs' id=bonus.id type='subjective'%}">DETTAGLIO INTERVENTO LAVORI SOGGETTIVI</a></li>
+                                    <li class="breadcrumb-item {%if type == 'subjective' %}active{%endif%}" aria-current="page" ><a class="breadcrumb-item {%if type == 'subjective' %}active{%endif%}" href="{% url 'bonus-costs' id=bonus.id type='subjective'%}">DETTAGLIO INTERVENTO </a></li>
                                     {%endif%}
                                 </ul>
                             </nav>
@@ -122,23 +122,23 @@
 
                                 <div class="m-3">
                                     {%if type == 'overall' and bonus.bonus_villa_id%}
-                                        <a href="{% url 'add-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Add New</button></a>
-                                        <a href="{% url 'edit-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Edit</button></a>
+                                        <a href="{% url 'add-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Inserisci</button></a>
+                                        <a href="{% url 'edit-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Modificare</button></a>
                                     {%elif type == 'overall' and bonus.bonus_condo_id%}
-                                        <a href="{% url 'add-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Add New</button></a>
-                                        <a href="{% url 'edit-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Edit</button></a>
+                                        <a href="{% url 'add-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Inserisci</button></a>
+                                        <a href="{% url 'edit-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Modificare</button></a>
                                     {%elif type == 'driving' %}
-                                        <a href="{% url 'add-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Add New</button></a>
-                                        <a href="{% url 'edit-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Edit</button></a>
+                                        <a href="{% url 'add-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Inserisci</button></a>
+                                        <a href="{% url 'edit-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Modificare</button></a>
                                     {%elif type == 'trailed' %}
-                                        <a href="{% url 'add-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Add New</button></a>
-                                        <a href="{% url 'edit-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Edit</button></a>
+                                        <a href="{% url 'add-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Inserisci</button></a>
+                                        <a href="{% url 'edit-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Modificare</button></a>
                                     {%elif type == 'common' %}
-                                        <a href="{% url 'add-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Add New</button></a>
-                                        <a href="{% url 'edit-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Edit</button></a>
+                                        <a href="{% url 'add-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Inserisci</button></a>
+                                        <a href="{% url 'edit-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Modificare</button></a>
                                     {%elif type == 'subjective' %}
-                                        <a href="{% url 'add-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Add New</button></a>
-                                        <a href="{% url 'edit-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Edit</button></a>
+                                        <a href="{% url 'add-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Inserisci</button></a>
+                                        <a href="{% url 'edit-bonus-costs' id=bonus.id type=type%}"><button type="btn" class="btn  btn-primary">Modificare</button></a>
                                     {%endif%}
                                 </div>
 
