@@ -75,9 +75,9 @@
                                     <input class="btn btn-warning m-1" type="submit" value="Modificare" />
                                 </form>
                                 {%if type == 'villa'%}
-                                <a href="{% url 'bonus-delete' type='villa' id=id %}"><button class="btn btn-danger m-1" onclick="return confirm('Sei sicuro?')">Elimina</button></a>
+                                <a href="{% url 'bonus-delete' type='villa' id=id %}"><button class="btn btn-danger m-1" onclick="return confirm('Sei sicuro?')">Eliminare</button></a>
                                 {%elif type == 'condo'%}
-                                 <a href="{% url 'bonus-delete' type='condo' id=id %}"><button class="btn btn-danger m-1" onclick="return confirm('Sei sicuro?')">Elimina</button></a>
+                                 <a href="{% url 'bonus-delete' type='condo' id=id %}"><button class="btn btn-danger m-1" onclick="return confirm('Sei sicuro?')">Eliminare</button></a>
                                 {%endif%}
                             </div>
 
@@ -221,6 +221,7 @@
                 </div>
                 {%endif%}
             </div>
+
 
 
         </div>

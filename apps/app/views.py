@@ -5,33 +5,27 @@ Copyright (c) 2019 - present AppSeed.us
 import traceback
 from django import template
 from django.contrib.auth.decorators import login_required
-from django.forms.forms import Form
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http.response import JsonResponse
 from django.shortcuts import redirect
 from django.template import loader
 from django.urls import reverse
 from apps.app.tables import AdministrationIndividualTable, AdministrationLegalTable, CatastalTable, CondominiumTable
-from apps.beneficary.views import beneficiary
-from apps.tables.models import TableContract
-from apps.professionals.models import Prof_table
 from apps.beneficary.models import Beneficiary
-from apps.app.models import CondominiumData, CondominiumForm, AdministrationIndividualForm, AdministrationLegalForm,\
-    FormFaccata, CatastalDataForm, AdministrationIndividual, AdministrationLegal, CatastalData, DataInitial
+from .models import *
 from django.shortcuts import get_object_or_404, render
 from django.contrib import messages
 from mailmerge import MailMerge
-import os 
+from apps.superbonus.models import SuperBonus
+from itertools import chain
 
 
 @login_required(login_url="/login/")
 def index(request):
-    context = {'segment': 'index'}
-    context['fform'] = FormFaccata.objects.all()
-    context['dform'] = DataInitial.objects.all()
-    context['tform'] = TableContract.objects.all()
-    context['beneficiary'] = Beneficiary.objects.all()
-    context['ptform'] = Prof_table.objects.all()
+    superbonus= SuperBonus.objects.all()
+    facciata = FormFaccata.objects.all()
+    query_list = list(chain(superbonus, facciata))
+    context = {'segment': 'bonus', 'list': query_list}
     html_template = loader.get_template('index.html')
     return HttpResponse(html_template.render(context, request))
 

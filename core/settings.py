@@ -10,15 +10,17 @@ from unipath import Path
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).parent
 CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Base url to serve media files
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY', default='S#perS3crEt_1122')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 # load production server from .env
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', config('SERVER', default='127.0.0.1')]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','http://auri-soft.welearn.study', 'auri-soft.welearn.study']
 
 # Application definition
 
@@ -36,7 +38,7 @@ INSTALLED_APPS = [
     'apps.beneficary',
     'apps.professionals',
     'apps.superbonus',
-    'phone_field'
+    'phone_field',
 ]
 
 BOOTSTRAP4 = {
@@ -71,6 +73,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.media',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -88,6 +91,22 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': 'db.sqlite3',
     # }
+    # Online
+    # 'default': {
+    #
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #
+    #     'NAME': 'welearns_auri-soft',
+    #
+    #     'USER': 'welearns_auri_admin',
+    #
+    #     'PASSWORD': 'q5Kr6gtzbZtCTca',
+    #
+    #     'HOST': 'localhost',
+    #
+    #     'PORT': '5432',
+    # },
+
     'default': {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -140,12 +159,17 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
-STATIC_ROOT = os.path.join(CORE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_URL = 'static/'
+
+# Path where media is stored
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(CORE_DIR, 'core/static'),
+    os.path.join(CORE_DIR, 'staticfiles'),
 )
 
 # Email Backend configurations
@@ -156,5 +180,8 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="")
-#############################################################
-#############################################################
+
+
+
+
+

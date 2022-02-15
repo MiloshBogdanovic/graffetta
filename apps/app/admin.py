@@ -9,7 +9,7 @@ from django.contrib import admin
 from apps.beneficary.models import Beneficiary
 from apps.tables.models import *
 from apps.professionals.models import *
-
+from apps.superbonus.models import *
 
 # Register your models here.
 class MyAdminSite(AdminSite):
@@ -132,4 +132,6 @@ admin_site.register(Prof_table)
 admin_site.register(User)
 admin_site.register(Group)
 
+
+admin_site.register(BonusVillaFiles)
 

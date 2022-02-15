@@ -7,13 +7,140 @@
 
 {% block content %}	
 
-    <!-- [ Main Content ] start -->
-    <div class="pcoded-main-container">
 
-                <div class="col-lg-12 col-md-12 col-sm-12" >
-                    {% load static %}
-                    <img class="w-100 d-block" src="{% static 'assets/images/home-bonus.jpg' %}" alt="My image">
+    <!-- [ Main Content ] start -->
+    <section class="mt-5 ">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header mb-5">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Nuova Pratica</h5>
+                            </div>
+
+                            <div class="btn-group dropright">
+                              <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 Pratica Superbonus 110%
+                              </button>
+                              <ul class="dropdown-menu">
+                                    <li class="nav-item " aria-current="page" ><a class="nav-link" href="{% url 'bonus-add-villa' %}">Unifamiliare <i class="fas fa-home"></i></a></li>
+                                    <li class="nav-item " aria-current="page" ><a class="nav-link" href="{% url 'bonus-add-condo' %}">Condominio <i class="far fa-building"></i></a></li>
+                              </ul>
+                            </div>
+
+                            <div class="btn-group dropright">
+                              <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 Pratica Bonus Facciate 60%
+                              </button>
+                              <ul class="dropdown-menu">
+                                    <li class="nav-item " aria-current="page" ><a class="nav-link" href="{% url 'bonus' %}">Unifamiliare <i class="fas fa-home"></i></a></li>
+                                    <li class="nav-item " aria-current="page" ><a class="nav-link" href="{% url 'bonus' %}">Condominio <i class="far fa-building"></i></a></li>
+                              </ul>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <!-- [ form-element ] start -->
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="card table-card">
+                        <div class="card-header">
+                            <h4>Elenco Pratiche</h4>
+                            <div class="card-header-right">
+                                <div class="btn-group card-option">
+                                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="feather icon-more-horizontal"></i>
+                                    </button>
+                                    <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                        <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                                        <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                                        <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                                        <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+<!--                            <div class="tab-content" id="pills-tabContent">-->
+<!--                                <div class="tab-pane fade" id="pills-data" role="tabpanel" aria-labelledby="pills-data-tab">-->
+
+                                    <div class="table-responsive">
+                                            {% if messages %}
+                                                {% for message in messages %}
+                                                <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}
+
+
+                                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                         <span aria-hidden="true">&times;</span>
+                                                    </button>
+
+                                                </div>
+                                                {%endfor%}
+                                            {% endif %}
+                                        <div class="customer-scroll2" style="height:80vh;position:relative;">
+                                            <table class="table table-hover m-b-0">
+                                                 <thead class="table-header">
+                                                    <tr class="row">
+                                                        <th class="col-3"><span>DENOMINAZIONE</span></th>
+                                                        <th class="col-6"><span>VIA</span></th>
+                                                        <th class="col-3"><span>Pratica</span></th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                   {%for l in list%}
+                                                   <tr class="row trclick" {%if not l.datainit %} data-href="{% url 'bonus-preview' id=l.id %}"{%else%}data-href="{% url 'bonus'%}"{%endif%}>
+                                                       <td class="col-3">
+                                                           {% if l.bonus_villa%}
+                                                           {{l.bonus_villa.name}}
+                                                           {% elif l.bonus_condo %}
+                                                           {{l.bonus_condo.name}}
+                                                           {% else %}
+                                                           {{l.datainit.condominium.name}}
+                                                           {%endif%}
+                                                       </td>
+                                                       <td class="col-6">
+                                                           {% if l.bonus_villa%}
+                                                            {{l.bonus_villa.street}}
+                                                           {% elif l.bonus_condo %}
+                                                            {{l.bonus_condo.street}}
+                                                           {% else %}
+                                                            {{l.datainit.condominium.street}}
+                                                           {%endif%}
+                                                       </td>
+                                                       <td class="col-3">
+                                                           {{l}}
+                                                       </td>
+                                                   </tr>
+                                                   {%endfor%}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+<!--                                </div>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+<!--    &lt;!&ndash; [ Main Content ] start &ndash;&gt;-->
+<!--    <div class="pcoded-main-container">-->
+
+<!--                <div class="col-lg-12 col-md-12 col-sm-12" >-->
+<!--                    {% load static %}-->
+<!--                    <img class="w-100 d-block" src="{% static 'assets/images/home-bonus.jpg' %}" alt="My image">-->
+<!--                </div>-->
                 <!-- Customer overview start -->
 <!--                <div class="col-lg-12">-->
 <!--                    <div class="card table-card">-->
@@ -667,5 +794,7 @@
     <script src="/static/assets/js/plugins/jquery-ui.min.js"></script>
 
     <script src="/static/assets/js/pages/toggle.js"></script>
+
+    <script src="/static/assets/js/pages/trclick.js"></script>
 
 {% endblock javascripts %}

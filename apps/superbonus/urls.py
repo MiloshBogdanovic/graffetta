@@ -1,6 +1,7 @@
 from django.urls import path
 from apps.superbonus import views
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -19,4 +20,5 @@ urlpatterns = [
     path('add-professional/<int:id>/<str:type>/<str:prof>/', views.add_professionals, name='bonus-add-professional'),
     path('add-administrator/<int:id>', views.administrator, name='bonus-administrator'),
     path('delete/<str:type>/<int:id>', views.delete_prop, name='bonus-delete'),
+    path('upload/', views.upload_file, name='upload'),
 ]

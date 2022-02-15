@@ -5,7 +5,8 @@ Copyright (c) 2019 - present AppSeed.us
 
 from django.urls import path, re_path
 from apps.app import views
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
 

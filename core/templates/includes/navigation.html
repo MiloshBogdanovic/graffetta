@@ -7,8 +7,9 @@
             <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
             <a href="/" class="b-brand h4 mb-0">
                 <!-- ========   change your logo hear   ============ -->
-                <img src="/static/assets/images/AuriSoftSMall.png" alt="" class="logo w-75">
-                <img src="/static/assets/images/Aurica-A.png" alt="" class="logo-thumb">
+                <img src="/static/assets/images/AuriSoftSMall.png" alt="" class="logo w-75"/>
+
+                <img src="/static/assets/images/Aurica-A.png" alt="" class="logo-thumb"/>
                 <a href="/" class="mob-toggler">
                 <i class="feather icon-more-vertical"></i>
             </a>
@@ -48,11 +49,13 @@
                                     <i class="feather icon-log-out"></i>
                                 </a>
                             </div>
-                            <ul class="pro-body">
-                                <li><a href="#" class="dropdown-item"><i class="feather icon-user"></i> Profile - {{ request.user.username }} </a></li>
-                            </ul>
+
                         </div>
                     </div>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'logout' %}"class=" "><span class="pcoded-micon">
+                     <i class="feather icon-log-out"></i></span><span class="pcoded-mtext">Logout</span></a>
                 </li>
             </ul>
         </div>

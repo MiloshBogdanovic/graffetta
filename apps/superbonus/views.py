@@ -8,6 +8,10 @@ from .calculations import *
 from django.contrib import messages
 from django.urls import reverse
 from django.utils.translation import activate
+from apps.beneficary.models import Beneficiary, BeneficiaryForm
+from django.views.generic.edit import FormView
+from .forms import *
+from django.conf import settings
 
 
 @login_required(login_url="/login/")
@@ -26,7 +30,7 @@ def add_condo(request):
         if form.is_valid():
             super_bonus = SuperBonus(bonus_condo=form.save())
             super_bonus.save()
-            messages.success(request, 'Successfully')
+            messages.success(request, 'Creato con successo')
             return redirect('bonus-preview', id=super_bonus.id)
         else:
             context['form'] = form
@@ -45,7 +49,7 @@ def add_villa(request):
         if form.is_valid():
             super_bonus = SuperBonus(bonus_villa=form.save())
             super_bonus.save()
-            messages.success(request, 'Successfully')
+            messages.success(request, 'Creato con successo')
             return redirect('bonus-preview', id=super_bonus.id)
         else:
             context['form'] = form
@@ -70,7 +74,7 @@ def interventions(request, id):
                 if form.is_valid():
                     villa.interventions = form.save()
                     villa.save()
-                    messages.success(request, 'Successfully Changed Values')
+                    messages.success(request, 'Modifiche salvate con successo')
                     return redirect('bonus-preview', id=id)
                 else:
                     context['form'] = form
@@ -82,7 +86,7 @@ def interventions(request, id):
                 if form.is_valid():
                     villa.interventions = form.save()
                     villa.save()
-                    messages.success(request, 'Successfully Created Interventions')
+                    messages.success(request, 'Creato con successo')
                     return redirect('bonus-preview', id=id)
                 else:
                     context['form'] = form
@@ -98,11 +102,12 @@ def interventions(request, id):
                 if form.is_valid():
                     condo.interventions = form.save()
                     condo.save()
-                    messages.success(request, 'Successfully Changed Values')
+                    messages.success(request, 'Modifiche salvate con successo')
                     return redirect('bonus-preview', id=id)
                 else:
                     context['form'] = form
                     messages.error(request, form.errors)
+
         else:
             context['form'] = InterventionsCondoForm()
             if request.method == 'POST':
@@ -110,7 +115,7 @@ def interventions(request, id):
                 if form.is_valid():
                     condo.interventions = form.save()
                     condo.save()
-                    messages.success(request, 'Successfully Created Interventions')
+                    messages.success(request, 'Creato con successo')
                     return redirect('bonus-preview', id=id)
                 else:
                     context['form'] = form
@@ -134,7 +139,7 @@ def catastal(request, id):
                 if form.is_valid():
                     villa.catastal = form.save()
                     villa.save()
-                    messages.success(request, 'Successfully Changed Values')
+                    messages.success(request, 'Modifiche salvate con successo')
                     return redirect('bonus-preview', id=id)
                 else:
                     context['form'] = form
@@ -146,7 +151,7 @@ def catastal(request, id):
                 if form.is_valid():
                     villa.catastal = form.save()
                     villa.save()
-                    messages.success(request, 'Successfully Created Interventions')
+                    messages.success(request, 'Creato con successo')
                     return redirect('bonus-preview', id=id)
                 else:
                     context['form'] = form
@@ -161,7 +166,7 @@ def catastal(request, id):
                 if form.is_valid():
                     condo.catastal = form.save()
                     condo.save()
-                    messages.success(request, 'Successfully Changed Values')
+                    messages.success(request, 'Modifiche salvate con successo Changed Values')
                     return redirect('bonus-preview', id=id)
                 else:
                     context['form'] = form
@@ -173,7 +178,7 @@ def catastal(request, id):
                 if form.is_valid():
                     condo.catastal = form.save()
                     condo.save()
-                    messages.success(request, 'Successfully Created Interventions')
+                    messages.success(request, 'Creato con successo')
                     return redirect('bonus-preview', id=id)
                 else:
                     context['form'] = form
@@ -196,7 +201,7 @@ def beneficiary(request, id):
             if form.is_valid():
                 f = form.save()
                 villa.beneficiary.add(f)
-                messages.success(request, 'Successfully Changed Values')
+                messages.success(request, 'Modifiche salvate con successo')
                 return redirect('bonus-preview', id=id)
             else:
                 context['form'] = form
@@ -211,7 +216,7 @@ def beneficiary(request, id):
             if form.is_valid():
                 f = form.save()
                 condo.beneficiary.add(f)
-                messages.success(request, 'Successfully Changed Values')
+                messages.success(request, 'Modifiche salvate con successo Changed Values')
                 return redirect('bonus-preview', id=id)
             else:
                 context['form'] = form
@@ -233,7 +238,7 @@ def edit_beneficiary(request, id, ben_id):
             if form.is_valid():
                 f = form.save()
                 villa.beneficiary.add(f)
-                messages.success(request, 'Successfully Changed Values')
+                messages.success(request, 'Modifiche salvate con successo Changed Values')
                 return redirect('bonus-beneficiary', id=id)
             else:
                 context['form'] = form
@@ -248,7 +253,7 @@ def edit_beneficiary(request, id, ben_id):
             if form.is_valid():
                 f = form.save()
                 condo.beneficiary.add(f)
-                messages.success(request, 'Successfully Changed Values')
+                messages.success(request, 'Modifiche salvate con successo Changed Values')
                 return redirect('bonus-beneficiary', id=id)
             else:
                 context['form'] = form
@@ -282,7 +287,7 @@ def add_intervention_costs(request, id, type):
                             villa.overall_interventions = cost
                             villa.save()
                             overall_calculation_villa(cost)
-                            messages.success(request, 'Successfully Created Interventions')
+                            messages.success(request, 'Creato con successo')
                             return redirect('bonus-costs', id=bonus.id, type=type)
                         else:
                             context['form'] = form
@@ -303,7 +308,7 @@ def add_intervention_costs(request, id, type):
                             villa.driving_interventions = cost
                             villa.save()
                             driving_calculation_villa(cost)
-                            messages.success(request, 'Successfully Created Interventions')
+                            messages.success(request, 'Creato con successo')
                             return redirect('bonus-costs', id=bonus.id, type=type)
                         else:
                             context['form'] = form
@@ -324,7 +329,7 @@ def add_intervention_costs(request, id, type):
                             villa.trailed_interventions = cost
                             villa.save()
                             trailed_calculation_villa(cost)
-                            messages.success(request, 'Successfully Created Interventions')
+                            messages.success(request, 'Creato con successo')
                             return redirect('bonus-costs', id=bonus.id, type=type)
                         else:
                             context['form'] = form
@@ -347,7 +352,7 @@ def add_intervention_costs(request, id, type):
                             condo.overall_interventions = cost
                             condo.save()
                             overall_calculation_villa(cost)
-                            messages.success(request, 'Successfully Created Interventions')
+                            messages.success(request, 'Creato con successo')
                             return redirect('bonus-costs', id=bonus.id, type=type)
                         else:
                             context['form'] = form
@@ -369,7 +374,7 @@ def add_intervention_costs(request, id, type):
                             condo.common_interventions = cost
                             condo.save()
                             common_calculation_condo(cost)
-                            messages.success(request, 'Successfully Created Interventions')
+                            messages.success(request, 'Creato con successo')
                             return redirect('bonus-costs', id=bonus.id, type=type)
                         else:
                             context['form'] = form
@@ -390,7 +395,7 @@ def add_intervention_costs(request, id, type):
                             condo.subjective_interventions = cost
                             condo.save()
                             subjective_calculation_condo(cost)
-                            messages.success(request, 'Successfully Created  Subjective Interventions')
+                            messages.success(request, 'Creato con successo Created  Subjective Interventions')
                             return redirect('bonus-costs', id=bonus.id, type=type)
                         else:
                             context['form'] = form
@@ -421,7 +426,7 @@ def edit_intervention_costs(request, id, type):
                         if form.is_valid():
                             costs.excluding_vat = form.save()
                             overall_calculation_villa(costs)
-                            messages.success(request, 'Successfully Edited Interventions')
+                            messages.success(request, 'Modifiche salvate con successo')
                             return redirect('bonus-costs', id=bonus.id, type=type)
                         else:
                             context['form'] = form
@@ -442,7 +447,7 @@ def edit_intervention_costs(request, id, type):
                         if form.is_valid():
                             costs.excluding_vat = form.save()
                             driving_calculation_villa(costs)
-                            messages.success(request, 'Successfully Edited Interventions')
+                            messages.success(request, 'Modifiche salvate con successo')
                             return redirect('bonus-costs', id=bonus.id, type=type)
                         else:
                             context['form'] = form
@@ -463,7 +468,7 @@ def edit_intervention_costs(request, id, type):
                         if form.is_valid():
                             costs.excluding_vat = form.save()
                             trailed_calculation_villa(costs)
-                            messages.success(request, 'Successfully Edited Interventions')
+                            messages.success(request, 'Modifiche salvate con successo')
                             return redirect('bonus-costs', id=bonus.id, type=type)
                         else:
                             context['form'] = form
@@ -486,7 +491,7 @@ def edit_intervention_costs(request, id, type):
                         if form.is_valid():
                             costs.excluding_vat = form.save()
                             overall_calculation_villa(costs)
-                            messages.success(request, 'Successfully Edited Interventions')
+                            messages.success(request, 'Modifiche salvate con successo')
                             return redirect('bonus-costs', id=bonus.id, type=type)
                         else:
                             context['form'] = form
@@ -507,7 +512,7 @@ def edit_intervention_costs(request, id, type):
                         if form.is_valid():
                             costs.excluding_vat = form.save()
                             common_calculation_condo(costs)
-                            messages.success(request, 'Successfully Edited Interventions')
+                            messages.success(request, 'Modifiche salvate con successo')
                             return redirect('bonus-costs', id=bonus.id, type=type)
                         else:
                             context['form'] = form
@@ -528,7 +533,7 @@ def edit_intervention_costs(request, id, type):
                         if form.is_valid():
                             costs.excluding_vat = form.save()
                             subjective_calculation_condo(costs)
-                            messages.success(request, 'Successfully Edited Interventions')
+                            messages.success(request, 'Modifiche salvate con successo')
                             return redirect('bonus-costs', id=bonus.id, type=type)
                         else:
                             context['form'] = form
@@ -544,8 +549,9 @@ def edit_intervention_costs(request, id, type):
 
 @login_required(login_url="/login/")
 def preview(request, id):
+    print(settings.BASE_DIR,settings.CORE_DIR)
     bonus = get_object_or_404(SuperBonus, pk=id)
-    context = {'segment': 'bonus-preview', 'id': id}
+    context = {'segment': 'bonus-preview', 'id': id }
     if bonus.bonus_villa:
         villa = get_object_or_404(BonusVilla, pk=bonus.bonus_villa_id)
         context['form'] = BonusVillaForm(instance=villa)
@@ -555,7 +561,7 @@ def preview(request, id):
             form = BonusVillaForm(request.POST, instance=villa)
             if form.is_valid():
                 form.save()
-                messages.success(request, 'Successfully')
+                messages.success(request, 'Modifiche salvate con successo')
                 return redirect('bonus-preview', id=id)
             else:
                 context['form'] = form
@@ -570,7 +576,7 @@ def preview(request, id):
             form = BonusCondoForm(request.POST, instance=condo)
             if form.is_valid():
                 form.save()
-                messages.success(request, 'Successfully')
+                messages.success(request, 'Modifiche salvate con successo')
                 return redirect('bonus-preview', id=id)
             else:
                 context['form'] = form
@@ -599,7 +605,7 @@ def professionals(request, id):
                 villa.professionals = form.save()
                 villa.save()
                 print(villa.professionals_id)
-                messages.success(request, 'Successfully')
+                messages.success(request, 'Creato con successo')
                 return redirect('bonus-professional', id=id)
             else:
                 context['form'] = form
@@ -620,7 +626,7 @@ def professionals(request, id):
             if form.is_valid():
                 condo.professionals = form.save()
                 condo.save()
-                messages.success(request, 'Successfully')
+                messages.success(request, 'Creato con successo')
                 return redirect('bonus-professional', id=id)
             else:
                 context['form'] = form
@@ -652,7 +658,7 @@ def administrator(request, id):
         if form.is_valid():
             condo.admin_legal = form.save()
             condo.save()
-            messages.success(request, 'Successfully')
+            messages.success(request, 'Creato con successo')
             return redirect('bonus-preview', id=id)
         else:
             context['form_leg'] = form
@@ -663,7 +669,7 @@ def administrator(request, id):
         if form.is_valid():
             condo.admin_individual = form.save()
             condo.save()
-            messages.success(request, 'Successfully')
+            messages.success(request, 'Creato con successo')
             return redirect('bonus-preview', id=id)
         else:
             context['form_inv'] = form
@@ -685,7 +691,7 @@ def add_professionals(request, id, type, prof):
         form = form(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Successfully')
+            messages.success(request, 'Creato con successo')
             return redirect('bonus-professional', id=id)
         else:
             context['form'] = form
@@ -701,12 +707,51 @@ def delete_prop(request, type, id):
     if type == 'condo':
         row = get_object_or_404(BonusCondo, pk=bonus.bonus_condo_id)
         row.delete()
-        messages.success(request, 'Successfully Deleted')
+        messages.success(request, 'Eliminato con successo Deleted')
 
     elif type == 'villa':
         row = get_object_or_404(BonusVilla, pk=bonus.bonus_villa_id)
         print(row)
         row.delete()
-        messages.success(request, 'Successfully Deleted')
+        messages.success(request, 'Eliminato con successo Deleted')
 
     return redirect(reverse('bonus-app-view'))
+
+
+@login_required(login_url="/login/")
+def upload_file(request):
+    if request.method == 'POST':
+        form = ModelFormWithFileField(request.POST, request.FILES)
+        if form.is_valid():
+            # file is saved
+            form.save()
+            messages.success(request, 'Upload Successfully')
+        else:
+            messages.error(request, 'Failed Upload')
+    else:
+        form = ModelFormWithFileField()
+    return render(request, 'upload.html', {'form': form, 'images': BonusVillaFiles.objects.all()})
+
+# class FileFieldFormView(FormView):
+#     form_class = FileFieldForm
+#     template_name = 'upload.html'
+#     success_url = '/superbonus/'
+#
+#     def post(self, request, *args, **kwargs):
+#         form_class = self.get_form_class()
+#         form = self.get_form(form_class)
+#         files = request.FILES.getlist('file_field')
+#         if form.is_valid():
+#             for f in files:
+#                 handle_uploaded_file(f)
+#             messages.success(request, 'Uploaded')
+#             return self.form_valid(form)
+#         else:
+#             messages.error(request, 'Didnt Upload')
+#             return self.form_invalid(form)
+#
+#
+# def handle_uploaded_file(f):
+#     with open(f'core/staticfiles/${f.name}', 'wb+') as destination:
+#         for chunk in f.chunks():
+#             destination.write(chunk)

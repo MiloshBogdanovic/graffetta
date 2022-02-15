@@ -1,6 +1,5 @@
 from django.db import models
 from django.forms import ModelForm
-from apps.app.models import FormFaccata
 from internationalflavor.vat_number import VATNumberField
 from django.forms.widgets import DateInput
 import re
@@ -91,7 +90,7 @@ class Beneficiary(models.Model):
                                                                         decimal_places=3, max_digits=12, null=True, blank=True, default=0)
     total_discount = models.DecimalField("IMPORTO COMPLESSIVO SCONTO IN FATTURA - CASSA PREVIDENZA INCLUSA E IVA INCLUSA",
                                                    decimal_places=3, max_digits=12, null=True, blank=True, default=0)
-    select_form = models.ManyToManyField(FormFaccata)
+    select_form = models.ManyToManyField('app.FormFaccata')
 
     def __str__(self):
         return self.name

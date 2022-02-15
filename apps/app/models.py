@@ -130,14 +130,15 @@ class FormFaccata(models.Model):
     id = models.AutoField(primary_key=True)
     datainit = models.ForeignKey(DataInitial, models.SET_NULL, blank=True, null=True)
     tables = models.ForeignKey(TableContract, models.SET_NULL, blank=True, null=True)
-    user = models.ForeignKey(User, models.SET_NULL, blank=True, null=True)
     professionals = models.ForeignKey(Prof_table, models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
-        return f'FORM ID-{self.id}'
+        return 'Facciata'
 
     class Meta:
         managed = True
+
+
 
 
 class CondominiumForm(ModelForm):

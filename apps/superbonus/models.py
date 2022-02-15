@@ -1,5 +1,5 @@
-
-from apps.beneficary.models import Beneficiary, BeneficiaryForm
+import os
+from apps.beneficary.models import Beneficiary
 from apps.professionals.models import *
 from decimal import Decimal
 from django.forms import ModelForm
@@ -35,6 +35,13 @@ VTA_CHOICE = [
     (Decimal('0.1'), '10%'),
     (Decimal('0.22'), '22%')
 ]
+
+
+def validate_file_extension(value):
+    ext = os.path.splitext(value.name)[1]  # [0] returns path+filename
+    valid_extensions = ['.pdf', '.doc', '.docx', '.xlsx', '.xls']
+    if not ext.lower() in valid_extensions:
+        raise ValidationError('Unsupported file extension.')
 
 
 def validate_cap(value):
@@ -439,6 +446,13 @@ class BonusVilla(models.Model):
         managed = True
 
 
+class BonusVillaFiles(models.Model):
+    id = models.AutoField(primary_key=True)
+    villa_id = models.ForeignKey(BonusVilla, on_delete=models.SET_NULL, null=True)
+    files = models.FileField(upload_to='BonusVilla/file/', validators=[validate_file_extension], blank=True)
+    images = models.ImageField(upload_to='BonusVilla/img/', blank=True)
+
+
 class BonusCondo(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField("DENOMINAZIONE CONDOMINIO", max_length=50, blank=False)
@@ -472,6 +486,9 @@ class SuperBonus(models.Model):
     id = models.AutoField(primary_key=True)
     bonus_villa = models.ForeignKey(BonusVilla, on_delete=models.CASCADE, blank=True, null=True)
     bonus_condo = models.ForeignKey(BonusCondo, on_delete=models.CASCADE, blank=True, null=True)
+
+    def __str__(self):
+        return 'Superbonus'
 
     class Meta:
         managed = True

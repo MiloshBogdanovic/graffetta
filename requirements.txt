@@ -20,3 +20,4 @@ django-tables2
 docx-mailmerge
 django-phone-field
 psycopg2
+Pillow-9.0.0
