@@ -3,7 +3,11 @@
 {% block title %}Super Bonus Form{% endblock %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+<link href="/static/assets/css/plugins/jquery-ui.css" rel="stylesheet">
+<!---->
+
+{% endblock stylesheets %}
 
 {% block content %}
 {% include "includes/sidebar-files.html" %}
@@ -88,5 +92,7 @@
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-<!--  <script src="/static/assets/js/pages/bonus.js"></script>-->
+<!--<script src="/static/assets/js/plugins/jquery-ui.min.js"></script>-->
+
+
 {% endblock javascripts %}

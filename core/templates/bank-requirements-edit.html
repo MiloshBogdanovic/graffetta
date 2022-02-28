@@ -1,0 +1,84 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Super Bonus Form{% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- [ Main Content ] start -->
+    <section class="pcoded-main-container ml-auto">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Superbonus nuovo condominio</h5>
+                                {% if messages %}
+                                {% for message in messages %}
+                                <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}
+
+                                    <a href="{% url 'bonus-preview' id=id %}">
+                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                         <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </a>
+                                </div>
+                                {%endfor%}
+                            {% endif %}
+                            </div>
+                            <nav aria-label="breadcrumb">
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="{% url 'home'%}"><i class="feather icon-home"></i></a></li>
+                                    <li class="breadcrumb-item " aria-current="page" ><a class="breadcrumb-item " href="{% url 'bonus-app-view' %}">Superbonus</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="{% url 'bonus-app-view' %}">Aggiungi Condominio</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <!-- [ Main Content ] start -->
+            <div class="page-body">
+                <div class="row">
+                    <div class="container-fluid">
+                        <div class="card">
+                                <div class="card-header">
+                                    <h4>EDIT BANK FILES</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="input-container">
+                                        <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="form-group ">
+                                                {%if file_form%}
+                                                {{file_form}}
+                                                {%else%}
+                                                {{status_form}}
+                                                {%endif%}
+                                                <input type="submit" name="admin_id" value="EDIT" />
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<!--<script src="/static/assets/js/plugins/jquery-ui.min.js"></script>-->
+
+
+{% endblock javascripts %}

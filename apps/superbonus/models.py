@@ -9,11 +9,17 @@ import re
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from datetime import date
-# Create your models here.
+
 
 YN = [
     ('NO', 'NO'),
     ('SI', 'SI')
+]
+
+STATUS_CHOICE = [
+    ('UPLOADED', 'CARICATO'),
+    ('VERIFIED', 'VERIFICATO'),
+    ('AUTHORISED', 'AUTORIZZATO')
 ]
 
 TITLE = [
@@ -50,6 +56,11 @@ def validate_cap(value):
             _('%(value)s is not an 5 digits cap number'),
             params={'value': value},
         )
+
+
+def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return '{0}/{1}'.format(instance.name, filename)
 
 
 class InterventionReport(models.Model):
@@ -419,6 +430,14 @@ class TrailingInterventions(models.Model):
                                verbose_name="RAPPORTO")
 
 
+class Bank(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+
 class BonusVilla(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField("DENOMINAZIONE DELL'IMMOBILE", max_length=50, blank=False)
@@ -441,16 +460,8 @@ class BonusVilla(models.Model):
                                               verbose_name="DETTAGLIO INTERVENTO LAVORI TRAINANTI")
     trailed_interventions = models.ForeignKey(TrailingInterventions, on_delete=models.SET_NULL, blank=True, null=True,
                                               verbose_name="DETTAGLIO INTERVENTO LAVORI TRAINATI")
-
-    class Meta:
-        managed = True
-
-
-class BonusVillaFiles(models.Model):
-    id = models.AutoField(primary_key=True)
-    villa_id = models.ForeignKey(BonusVilla, on_delete=models.SET_NULL, null=True)
-    files = models.FileField(upload_to='BonusVilla/file/', validators=[validate_file_extension], blank=True)
-    images = models.ImageField(upload_to='BonusVilla/img/', blank=True)
+    bank_id = models.ForeignKey(Bank, on_delete=models.CASCADE, blank=True, null=True,
+                                              verbose_name="DOMANDA BANCARIA")
 
 
 class BonusCondo(models.Model):
@@ -480,6 +491,8 @@ class BonusCondo(models.Model):
                                                  null=True, verbose_name="AMMINISTRATORE PERSONA GIURIDICA")
     admin_individual = models.ForeignKey(AdministrationIndividual, on_delete=models.SET_NULL, blank=True,
                                                  null=True, verbose_name="AMMINISTRATORE PERSONA FISICA")
+    bank_id = models.ForeignKey(Bank, on_delete=models.CASCADE, blank=True, null=True,
+                                              verbose_name="DOMANDA BANCARIA")
 
 
 class SuperBonus(models.Model):
@@ -490,9 +503,130 @@ class SuperBonus(models.Model):
     def __str__(self):
         return 'Superbonus'
 
-    class Meta:
-        managed = True
 
+class FileRequired(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=50)
+    file = models.FileField(upload_to=user_directory_path)  # to add uplaod to option for specific bank or
+
+    def __str__(self):
+        return self.name
+
+
+class StatusFile(models.Model):
+    file = models.OneToOneField(FileRequired, on_delete=models.CASCADE, primary_key=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICE, default='UPLOADED')
+
+    def __str__(self):
+        return self.status
+
+
+class BankRequirements(models.Model):
+    id = models.AutoField(primary_key=True)
+    bonus = models.ForeignKey(SuperBonus, on_delete=models.CASCADE)
+    admin_id = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True,  related_name='aid')
+    admin_hi = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True, related_name='ahi')
+    cond_reg = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True, related_name='creg')
+    cond_tax = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True, related_name='ctax')
+    cat_plan = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True, related_name='catp')
+    thousand_table = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True, related_name='tt')
+    cond_registry = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True, related_name='cregi')
+    notary_act_a = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                      related_name='not_act')
+    app_of_admin = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                      related_name='app_addmin')
+    notary_act_b = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                     related_name='not_act_b')
+    id_card_condo = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                     related_name='id_condo')
+    hic_condo = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                     related_name='hic')
+    leg_title_proc = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                     related_name='ltp')
+    cons_for_exe = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                     related_name='cfeow')
+    estate_unit_cat_visa = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                     related_name='reucv')
+    deed_of_owner_purch = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                     related_name='doop')
+    cert_poss_real_right_enjoy = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                            related_name='cprre')
+    declaration_con_owner = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                                   related_name='dcbo')
+    contract_cert_cor_reg = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                                   related_name='cccr')
+    pre_contract_reg = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                              related_name='pcrpp')
+    declar_of_cons_owner = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                              related_name='docbo')
+    contract_cert_corr_reg = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                              related_name='cccreg')
+    pre_cont_reg_place_in_pos = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                              related_name='pcrpip')
+    declaration_of_cons_owner = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                             related_name='docbo_l')
+    cert_of_reg_office = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                             related_name='coro')
+    title_of_possession = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                             related_name='top')
+    dec_of_con_by_owner = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                            related_name='docbto')
+    assignment = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                            related_name='assi')
+    t_of_pos = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                   related_name='top_spouse')
+    dec_of_cons_spouse = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                 related_name='doc_spouse')
+    proc_contract = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                           related_name='pcontract')
+    metric_cal = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                           related_name='mc')
+    presumed_deadline_sal = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                           related_name='pds')
+    sub_contract = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                           related_name='sub_contract')
+    visura_aurica = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                     related_name='vis_auri')
+    ape_ante = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                      related_name='aa')
+    liability_insurance_asseverate = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                      related_name='lib_ins_ass')
+    any_binding_doc = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                                       related_name='abdocs')
+    dec_of_con_of_exis_sys = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                                       related_name='docoes')
+    dec_of_enroll = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                               related_name='doer')
+    leg_status_statement = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                      related_name='lsos')
+    construction_site_sc = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                      related_name='cssc')
+    lat_building_title = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                      related_name='lbt')
+    tech_prot_ad_ver = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                           related_name='tpfav')
+    tech_pre_feas_study = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                         related_name='tpvs')
+    tax_pre_feas_study = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                            related_name='tpfs')
+    towed_inter_comp_cert = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                           related_name='ticcco')
+    cert_enroll_qto = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                              related_name='ceqto')
+    res_of_cond_meeting = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                        related_name='rocms')
+    sowc_practice = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                            related_name='sowcp')
+    sowc_notification = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                      related_name='sowcnot')
+    copy_invoice = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                          related_name='copy_invoice')
+    doc_cert_fairness = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                     related_name='dcfoi')
+    prof_of_pay = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+                                     related_name='pop')
+    class Meta:
+        Managed: True
 
 class BonusVillaForm(ModelForm):
     class Meta:

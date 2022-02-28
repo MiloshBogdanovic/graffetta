@@ -1,0 +1,36 @@
+
+
+
+<div class="card border-success mb-3" style="max-width: 25%;">
+  <div class="card-header bg-transparent border-success ">
+   <a class="" href="{% url 'bank-file-status-edit' id=id file_id=file.id%}"> <span class="badge badge-pill d-inline-block align-middle  badge-{%if status.status == 'UPLOADED' %}secondary{%elif status.status == 'VERIFIED' %}warning{%elif status.status == 'AUTHORISED' %}success{%endif%} ">{%if status.status == 'UPLOADED' %}CARICATO{%elif status.status == 'VERIFIED'%}VERIFICATO{%elif status.status == 'AUTHORISED'%}AUTORIZZATO{%endif%}</span> </a>
+  </div>
+  <div class="card-body text-success">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">NAME:</span>
+        </div>
+       <input type="text" class="form-control " value="{{file}}" aria-label="filename" aria-describedby="basic-addon1" readonly>
+        <div class="input-group-prepend">
+            <a class="input-group-text" href="{% url 'bank-file-edit' id=id file_id=file.id%}">EDIT</a>
+        </div>
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon2">URL:</span>
+        </div>
+       <input type="text" class="form-control" value="{{file.file.url}}" aria-label="fileurl" aria-describedby="basic-addon1" readonly>
+        <div class="input-group-prepend">
+            <a class="input-group-text" href="{% url 'bank-file-edit' id=id file_id=file.id%}">EDIT</a>
+        </div>
+
+    </div>
+  </div>
+  <div class="card-footer bg-transparent border-success">
+      <button type="button" class="btn btn-outline-danger float-left">DELETE</button>
+      <button type="button" class="btn btn-outline-info float-right">ADD NEW</button>
+  </div>
+
+</div>
+
+

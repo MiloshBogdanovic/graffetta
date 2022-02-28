@@ -20,5 +20,7 @@ urlpatterns = [
     path('add-professional/<int:id>/<str:type>/<str:prof>/', views.add_professionals, name='bonus-add-professional'),
     path('add-administrator/<int:id>', views.administrator, name='bonus-administrator'),
     path('delete/<str:type>/<int:id>', views.delete_prop, name='bonus-delete'),
-    path('upload/', views.upload_file, name='upload'),
+    path('bank-requirements/<int:id>/', views.bank_requirements, name='bank-requirements'),
+    path('bank-req-file-edit/<int:id>/<int:file_id>/', views.edit_bank_file, name='bank-file-edit'),
+    path('bank-file-status-edit/<int:id>/<int:file_id>/', views.edit_bank_file_status, name='bank-file-status-edit'),
 ]

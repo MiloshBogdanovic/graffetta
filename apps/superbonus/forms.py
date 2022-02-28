@@ -1,24 +1,57 @@
 from django import forms
 from .models import *
 from django.forms import ModelForm
-from django.forms.widgets import FileInput
+from django.forms.widgets import FileInput, Select, TextInput
 
 
-class FileFieldForm(forms.Form):
-    file_field = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+# class FileFieldForm(forms.Form):
+#     file_field = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
 
-class ModelFormWithFileField(ModelForm):
+class FileRequiredForm(ModelForm):
     class Meta:
-        model = BonusVillaFiles
+        model = FileRequired
         exclude = ['id']
-        labels = {}
+        labels = {
+            'file': 'Scegli file',
+            'name': 'Nome del file',
+        }
         widgets = {
-            'files': FileInput(attrs={
-                'class': 'form-control-file',
-                'type': 'file'
+            'name': TextInput(attrs={
+                'class': 'form-control m-1',
+                'type': 'text',
             }),
-            'images': FileInput(attrs={
+            'file': FileInput(attrs={
                 'class': 'form-control-file',
-                'type': 'file'
-            })}
+                'type': 'file',
+                'name': 'file',
+            }),
+        }
+
+
+class StatusFileForm(ModelForm):
+    class Meta:
+        model = StatusFile
+        exclude = ['file']
+        labels = {
+            'status': 'STATUS',
+        }
+        widgets = {
+            'status': Select(attrs={
+                'class': 'custom-select m-1',
+            }),
+        }
+# class ModelFormWithFileField(ModelForm):
+#     class Meta:
+#         model = BonusVillaFiles
+#         exclude = ['id']
+#         labels = {}
+#         widgets = {
+#             'files': FileInput(attrs={
+#                 'class': 'form-control-file',
+#                 'type': 'file'
+#             }),
+#             'images': FileInput(attrs={
+#                 'class': 'form-control-file',
+#                 'type': 'file'
+#             })}

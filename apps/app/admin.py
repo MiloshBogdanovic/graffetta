@@ -129,9 +129,10 @@ admin_site.register(DataEnergyExpertLegal)
 admin_site.register(DataResponsibleForWorksIndividual)
 admin_site.register(DataResponsibleForWorksLegal)
 admin_site.register(Prof_table)
+admin_site.register(Bank)
+admin_site.register(FileRequired)
+admin_site.register(BankRequirements)
 admin_site.register(User)
 admin_site.register(Group)
 
-
-admin_site.register(BonusVillaFiles)
 

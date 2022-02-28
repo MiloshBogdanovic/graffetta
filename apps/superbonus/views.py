@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.template import loader
-from .models import *
 from .calculations import *
 from django.contrib import messages
 from django.urls import reverse
@@ -719,18 +718,101 @@ def delete_prop(request, type, id):
 
 
 @login_required(login_url="/login/")
-def upload_file(request):
-    if request.method == 'POST':
-        form = ModelFormWithFileField(request.POST, request.FILES)
-        if form.is_valid():
-            # file is saved
-            form.save()
-            messages.success(request, 'Upload Successfully')
-        else:
-            messages.error(request, 'Failed Upload')
+def bank_requirements(request, id):
+    context = {'segment': 'bank-requirements', 'id': id, 'file_form': FileRequiredForm(), 'status_form': StatusFileForm()}
+    bonus = get_object_or_404(SuperBonus, pk=id)
+
+    if BankRequirements.objects.filter(bonus=bonus.id).exists():
+        bank_req = BankRequirements.objects.get(bonus=bonus.id)
     else:
-        form = ModelFormWithFileField()
-    return render(request, 'upload.html', {'form': form, 'images': BonusVillaFiles.objects.all()})
+        bank_req = BankRequirements(bonus=SuperBonus.objects.get(id=id))
+
+    context['bank_req'] = bank_req
+    if request.POST:
+        post_list = list(request.POST.items())
+        print(post_list)
+        value = post_list[3][0]
+        s = post_list[2][1]
+        form = FileRequiredForm(request.POST, request.FILES)
+        status = StatusFileForm(request.POST)
+        if form.is_valid():
+            f = form.save()
+            print(f.id)
+            setattr(bank_req, value, f)
+            if status.is_valid():
+                print('valid status')
+                print(f.id)
+                s = StatusFile(file_id=f.id, status=s)
+                s.save()
+            bank_req.save()
+            messages.success(request, 'Form saved')
+        else:
+            messages.error(request, form.errors)
+
+    html_template = loader.get_template('bank-requirements.html')
+    return HttpResponse(html_template.render(context, request))
+
+
+@login_required(login_url="/login/")
+def edit_bank_file(request, id, file_id):
+    file = get_object_or_404(FileRequired, id=file_id)
+    file_form = FileRequiredForm(instance=file)
+    context = {'file_form': file_form, 'id':id }
+    if request.POST:
+        ff = FileRequiredForm(request.POST, instance=file)
+        if ff.is_valid():
+            ff.save()
+            messages.success(request, 'File Edited')
+            return redirect('bank-requirements', id=id)
+        else:
+            messages.error(request, ff.errors)
+
+    html_template = loader.get_template('bank-requirements-edit.html')
+    return HttpResponse(html_template.render(context, request))
+
+
+@login_required(login_url="/login/")
+def edit_bank_file_status(request, id, file_id):
+    status = get_object_or_404(StatusFile, file=file_id)
+    status_form = StatusFileForm(instance=status)
+    context = {'status_form': status_form, 'id':id}
+    if request.POST:
+        sf = StatusFileForm(request.POST, instance=status)
+        if sf.is_valid():
+            sf.save()
+            messages.success(request, 'Status Edited')
+            return redirect('bank-requirements', id=id)
+        else:
+            messages.error(request, sf.errors)
+
+    html_template = loader.get_template('bank-requirements-edit.html')
+    return HttpResponse(html_template.render(context, request))
+
+
+
+
+
+
+
+
+
+
+
+
+
+# @login_required(login_url="/login/")
+# def upload_file(request):
+#     if request.method == 'POST':
+#         form = ModelFormWithFileField(request.POST, request.FILES)
+#         if form.is_valid():
+#             # file is saved
+#             form.save()
+#             messages.success(request, 'Upload Successfully')
+#         else:
+#             messages.error(request, 'Failed Upload')
+#     else:
+#         form = ModelFormWithFileField()
+#     return render(request, 'upload.html', {'form': form, 'images': BonusVillaFiles.objects.all()})
 
 # class FileFieldFormView(FormView):
 #     form_class = FileFieldForm

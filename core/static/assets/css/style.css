@@ -21210,7 +21210,7 @@ pre[class*=language-]:before {
     box-shadow: 2px 0 2.94px 0.06px rgba(4, 26, 55, 0.16);
     -webkit-transition: all 0.05s ease-in-out;
     transition: all 0.05s ease-in-out;
-    width: 235px;
+    width: 250px;
     height: calc(100% - 56px);
     margin-top: 56px;
     top: 0;
@@ -21484,7 +21484,7 @@ pre[class*=language-]:before {
 }
 
 .pcoded-navbar.navbar-collapsed {
-    width: 70px;
+    width: 0px;
     height: 100%;
     -webkit-transition: all 0.15s ease-in-out;
     transition: all 0.15s ease-in-out;
@@ -22123,7 +22123,7 @@ pre[class*=language-]:before {
     float: unset;
     right: 0;
     top: 0;
-    margin-left: 235px;
+    margin-left: 250px;
     min-height: 100vh;
     -webkit-transition: all 0.15s ease-in-out;
     transition: all 0.15s ease-in-out;
@@ -26488,3 +26488,28 @@ div.dtk-focus-alt table.dataTable tbody th.focus {
 
 /* image varient End */
 /**====== Authentication css end ======**/
+.list-scroll {
+    max-height: 80VH;
+    margin-bottom: 10px 0px;
+    overflow:auto;
+}
+.input-container{
+    width:50%;
+    position: relative;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0px solid rgba(0, 0, 0, 0.125);
+    border-radius: 10px;
+}
+
+.input-container form{
+    padding: 5px;
+}
+
