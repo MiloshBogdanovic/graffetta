@@ -1,0 +1,58 @@
+{% load my_tags %}
+                <!-- [ form-element ] start -->
+                <div class="w-100 ">
+                    <div class="card table-card">
+                        <div class="card-header">
+                            <div class="card-header-right">
+                                <div class="btn-group card-option">
+                                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="feather icon-more-horizontal"></i>
+                                    </button>
+                                    <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                        <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                                        <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                                        <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                                        <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body  ">
+                                    <div class="table-responsive ">
+                                        <div class="customer-scroll2" style="position:relative;">
+                                            <table class="table table-hover m-b-0">
+                                                 <thead>
+                                                    <tr>
+                                                        <th><span>NOME</span></th>
+                                                        <th><span>SCEGLI</span></th>
+                                                        <th><span>URL</span></th>
+                                                        <th><span>STATUS</span></th>
+                                                        <th>Modificare</th>
+                                                        <th><span>Eliminare</span></th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                 {%for file, status in files.items %}
+                                                        <tr>
+                                                            <td>{{file}}</td>
+                                                            <td><a class="btn btn-light" href="{% url 'bank-file-download' path=file.file.path %}"><i class="feather h4 icon-download "></i></a></td>
+                                                            <td><a class="btn btn-light" href="{{file.file.url}}"><i class="feather icon-link h4"></i></a></td>
+                                                            <td><a class="" href="{% url 'bank-file-status-edit' id=id file_id=file.id%}"> <button type="button" class="btn btn-outline-{%if status.status == 'UPLOADED' %}info{%elif status.status == 'VERIFIED' %}warning{%elif status.status == 'AUTHORISED' %}success{%endif%}  ">{%if status.status == 'UPLOADED' %}CARICATO{%elif status.status == 'VERIFIED'%}VERIFICATO{%elif status.status == 'AUTHORISED'%}AUTORIZZATO{%endif%}</button> </a></td>
+                                                            <td><a class="btn btn-light" href="{% url 'bank-file-edit' id=id file_id=file.id%}"><i class="feather icon-edit h4"></i></a></td>
+                                                            <td><a href="{% url 'delete-bank-file' id=id file_id=file.id %}"><button type="button" onclick="return confirm('Sei sicuro?')" class="btn btn-outline-danger ">ELIMINARE</button></a></td>
+                                                        </tr>
+                                                 {%endfor%}
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                        </div>
+                        <div class="card-footer">
+                             <button  type="button" class="btn btn-outline-info float-right" data-toggle="modal" data-target="#{{modal_target}}" >INSERISCI</button>
+                        </div>
+                    </div>
+                </div>

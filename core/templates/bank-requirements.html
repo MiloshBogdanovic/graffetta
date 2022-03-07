@@ -5,7 +5,6 @@
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}
 
-
 {% endblock stylesheets %}
 
 {% block content %}
@@ -19,7 +18,7 @@
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">Superbonus nuovo condominio</h5>
+                                <h5 class="m-b-10">Requisiti bancari</h5>
                                 {% if messages %}
                                 {% for message in messages %}
                                 <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}
@@ -37,7 +36,8 @@
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{% url 'home'%}"><i class="feather icon-home"></i></a></li>
                                     <li class="breadcrumb-item " aria-current="page" ><a class="breadcrumb-item " href="{% url 'bonus-app-view' %}">Superbonus</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="{% url 'bonus-app-view' %}">Aggiungi Condominio</a></li>
+                                    <li class="breadcrumb-item " aria-current="page" ><a class="breadcrumb-item " href="{% url 'bonus-preview' id=id%}">ANTEPRIMA</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page" ><a class="breadcrumb-item active" href="">MPS</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -57,8 +57,10 @@
                                     <a class="nav-link active"  id="pills-1-1-tab" data-toggle="pill" href="#pills-1-1" role="tab" aria-controls="pills-1-1" aria-selected="true">1.1 - Documenti identità <i class="fa fa-caret-down" aria-hidden="true"></i></a>
                                     <div class="collapse" id="collapse1-1" >
                                         <ul >
-                                            <li {% get_status file_id=bank_req.admin_id %}>Carta identità</li>
-                                            <li {% get_status file_id=bank_req.admin_hi %}>Tessera sanitaria</li>
+
+                                            <li {% get_status_all field="admin_id" bank_req_id=bank_req.id %}>Carta identità</li>
+
+                                            <li {% get_status_all field="admin_hi" bank_req_id=bank_req.id %}>Tessera sanitaria</li>
                                         </ul>
                                     </div>
                                 </li>
@@ -67,8 +69,8 @@
                                      <a class="nav-link " id="pills-1-2-tab" data-toggle="pill" href="#pills-1-2" role="tab" aria-controls="pills-1-2" aria-selected="true">1.2 - Regolamento condominiale + certificato codice fiscale condominio <i class="fa fa-caret-down" aria-hidden="true"></i></a>
                                      <div class="collapse" id="collapse1-2" >
                                         <ul >
-                                            <li {% get_status file_id=bank_req.cond_reg %}  >Regolamento condominiale</li>
-                                            <li {% get_status file_id=bank_req.cond_tax %} >Certificato codice fiscale Condominio</li>
+                                            <li {% get_status_all field="cond_reg" bank_req_id=bank_req.id %} >Regolamento condominiale</li>
+                                            <li {% get_status_all field="cond_tax" bank_req_id=bank_req.id %}>Certificato codice fiscale Condominio</li>
                                         </ul>
                                     </div>
                                 </li>
@@ -87,8 +89,8 @@
                                             <ul >
                                                 <li {% get_status file_id=bank_req.notary_act_a %}>Atto notorio (Format A1a)</li>
                                                 <li {% get_status file_id=bank_req.app_of_idadmin %}>Atto di nomina amministratore</li>
-                                                <li {% get_status file_id=bank_req.admin_hi %}>Documenti identità amministratore (1.1)</li>
-                                                <li {% get_status file_id=bank_req.cond_tax %}>Tabella millesimi (1.4)</li>
+                                                <li {% get_status_all field="admin_hi" bank_req_id=bank_req.id %}>Documenti identità amministratore (1.1)</li>
+                                                <li {% get_status_all field="cond_tax" bank_req_id=bank_req.id %}>Tabella millesimi (1.4)</li>
                                             </ul>
                                         </div>
                                 </li>
@@ -186,91 +188,156 @@
                     <div class="col-9">
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-1-1" role="tabpanel" aria-labelledby="pills-1-1-tab">
+                                <!-- Button trigger modal -->
 
-                                {%if not bank_req.admin_id %}
-                                <h4>Carta identità</h4>
-
-                                <div class="input-container">
-                                    <form method="POST" enctype="multipart/form-data" >
-                                        {% csrf_token %}
-                                        <div class="form-group ">
-                                            {{file_form}}
-                                            {{status_form}}
-                                            <input type="submit" name="admin_id" value="UPLOAD" />
+                                <h4 class="m-3">Carta identità</h4>
+                                {%if not bank_req.admin_id.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="admin_id" value="Caricamento" />
+                                            </div>
+                                            </form>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
+
                                 {% else %}
-                                <h4>Carta identità</h4>
-                                    {% load my_tags %}
-                                    {% edit_task  file_id=bank_req.admin_id.id bonus_id=id %}
+                                <div class="row">
+                                    {%if bank_req.admin_id.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='admin_id' %}
+                                    {%else%}
+                                    {%for file in bank_req.admin_id.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='admin_id' %}
+                                    {%endfor%}
+                                    {%endif%}
+
+                                    {% file_modal modal_id='admin_id' %}
+                                </div>
                                 {%endif%}
 
-                                {%if not bank_req.admin_hi %}
-                                <h4>Tessera sanitaria</h4>
 
-                                <div class="input-container">
-                                    <form method="POST" enctype="multipart/form-data" >
-                                        {% csrf_token %}
-                                        <div class="form-group ">
-                                            {{file_form}}
-                                            {{status_form}}
-                                            <input type="submit" name="admin_hi" value="UPLOAD" />
+                                <h4 class="m-3">Tessera sanitaria</h4>
+                                {%if not bank_req.admin_hi.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="admin_hi" value="Caricamento" />
+                                            </div>
+                                            </form>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
-                                {% else %}
-                                <h4>Tessera sanitaria</h4>
 
-                                {% load my_tags %}
-                                {% edit_task  file_id=bank_req.admin_hi.id bonus_id=id %}
+                                {% else %}
+
+                                <div class="row">
+                                    {%if bank_req.admin_hi.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='admin_hi' %}
+                                    {%else%}
+                                    {%for file in bank_req.admin_hi.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='admin_hi' %}
+                                    {%endfor%}
+                                    {%endif%}
+
+                                    {% file_modal modal_id='admin_hi' %}
+                                </div>
+
                                 {%endif%}
 
                             </div>
                             <div class="tab-pane fade" id="pills-1-2" role="tabpanel" aria-labelledby="pills-1-2-tab">
-                                {%if not bank_req.cond_reg %}
-                                <h4>Regolamento condominiale</h4>
-
-                                <div class="input-container">
-                                    <form method="POST" enctype="multipart/form-data" >
-                                        {% csrf_token %}
-                                        <div class="form-group ">
-                                            {{file_form}}
-                                            {{status_form}}
-                                            <input type="submit" name="cond_reg" value="UPLOAD" />
+                                <h4 class="m-3">Regolamento condominiale</h4>
+                                {%if not bank_req.cond_reg.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="cond_reg" value="Caricamento" />
+                                            </div>
+                                            </form>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                                 {% else %}
-                                <h4>Regolamento condominiale</h4>
-                                    {% load my_tags %}
-                                    {% edit_task  file_id=bank_req.cond_reg.id bonus_id=id %}
+                                <div class="row">
+                                    {%if bank_req.cond_reg.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='cond_reg' %}
+                                    {%else%}
+                                    {%for file in bank_req.cond_reg.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='cond_reg' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='cond_reg' %}
+                                </div>
+
                                 {%endif%}
 
-                                {%if not bank_req.cond_tax %}
                                 <h4>Certificato codice fiscale Condominio</h4>
-
-                                <div class="input-container">
-                                    <form method="POST" enctype="multipart/form-data" >
-                                        {% csrf_token %}
-                                        <div class="form-group ">
-                                            {{file_form}}
-                                            {{status_form}}
-                                            <input type="submit" name="cond_tax" value="UPLOAD" />
+                                {%if not bank_req.cond_tax.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="cond_tax" value="Caricamento" />
+                                            </div>
+                                            </form>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                                 {% else %}
-                                <h4>Certificato codice fiscale Condominio</h4>
-
-                                {% load my_tags %}
-                                {% edit_task  file_id=bank_req.cond_tax.id bonus_id=id %}
+                                <div class="row">
+                                    {%if bank_req.cond_tax.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='cond_tax' %}
+                                    {%else%}
+                                    {%for file in bank_req.cond_tax.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='cond_tax' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='cond_tax' %}
+                                </div>
                                 {%endif%}
 
                             </div>
                             <div class="tab-pane fade" id="pills-1-3" role="tabpanel" aria-labelledby="pills-1-3-tab">
-                                {%if not bank_req.cat_plan %}
+
                                 <h4>Visure catastali</h4>
+                                {%if not bank_req.cat_plan %}
+
 
                                 <div class="input-container">
                                     <form method="POST" enctype="multipart/form-data" >
@@ -283,15 +350,14 @@
                                     </form>
                                 </div>
                                 {% else %}
-                                <h4>Visure catastali</h4>
 
-                                {% load my_tags %}
-                                {% edit_task  file_id=bank_req.cat_plan.id bonus_id=id %}
+
+
                                 {%endif%}
                             </div>
                             <div class="tab-pane fade" id="pills-1-4" role="tabpanel" aria-labelledby="pills-1-4-tab">
-                                {%if not bank_req.thousand_table %}
                                 <h4>Tabella millesimi</h4>
+                                {%if not bank_req.thousand_table %}
 
                                 <div class="input-container">
                                     <form method="POST" enctype="multipart/form-data" >
@@ -305,10 +371,9 @@
                                     </form>
                                 </div>
                                 {% else %}
-                                <h4>Visure catastali</h4>
 
-                                {% load my_tags %}
-                                {% edit_task  file_id=bank_req.thousand_table.id bonus_id=id %}
+
+
                                 {%endif%}
 
                             </div>
@@ -327,8 +392,7 @@
                                     </form>
                                 </div>
                                 {% else %}
-                                {% load my_tags %}
-                                {% edit_task  file_id=bank_req.cond_registry.id bonus_id=id %}
+
                                 {%endif%}
 
 
@@ -348,8 +412,7 @@
                                     </form>
                                 </div>
                                 {% else %}
-                                {% load my_tags %}
-                                {% edit_task  file_id=bank_req.notary_act_a.id bonus_id=id %}
+
                                 {%endif%}
 
                             <h4>Atto di nomina amministratore</h4>
@@ -365,8 +428,7 @@
                                     </form>
                                 </div>
                                 {% else %}
-                                {% load my_tags %}
-                                {% edit_task  file_id=bank_req.app_of_admin.id bonus_id=id %}
+
                                 {%endif%}
 
                             <h4>Documenti identità amministratore (1.1)</h4>
@@ -382,10 +444,8 @@
                                     </form>
                                 </div>
                                 {% else %}
-                                {% load my_tags %}
-                                {% edit_task  file_id=bank_req.admin_id.id bonus_id=id %}
-                                {%endif%}
 
+                                {%endif%}
                             <h4>Tabella millesimi (1.4)</h4>
                                 {%if not bank_req.thousand_table %}
                                 <div class="input-container">
@@ -399,8 +459,7 @@
                                     </form>
                                 </div>
                                 {% else %}
-                                {% load my_tags %}
-                                {% edit_task  file_id=bank_req.thousand_table.id bonus_id=id %}
+
                                 {%endif%}
 
                             <h4>Certificato codice fiscale Condominio (1.2)</h4>
@@ -416,8 +475,7 @@
                                     </form>
                                 </div>
                                 {% else %}
-                                {% load my_tags %}
-                                {% edit_task  file_id=bank_req.cond_tax.id bonus_id=id %}
+
                                 {%endif%}
 
                             </div>
@@ -435,8 +493,7 @@
                                     </form>
                                 </div>
                                 {% else %}
-                                {% load my_tags %}
-                                {% edit_task  file_id=bank_req.notary_act_b.id bonus_id=id %}
+
                                 {%endif%}
 
                                   <h4>Carta d'identità Condomino</h4>
@@ -452,8 +509,7 @@
                                     </form>
                                 </div>
                                 {% else %}
-                                {% load my_tags %}
-                                {% edit_task  file_id=bank_req.id_card_condo.id bonus_id=id %}
+
                                 {%endif%}
 
                                   <h4>Tessera sanitaria Condomino</h4>
@@ -469,8 +525,7 @@
                                     </form>
                                 </div>
                                 {% else %}
-                                {% load my_tags %}
-                                {% edit_task  file_id=bank_req.hic_condo.id bonus_id=id %}
+
                                 {%endif%}
 
                                   <h4>Titolo giuridico detenzione (per casi diversi da proprietà o diritto reale di godimento) (1.10-1.11-1.12-1.13)</h4>
@@ -486,8 +541,7 @@
                                     </form>
                                 </div>
                                 {% else %}
-                                {% load my_tags %}
-                                {% edit_task  file_id=bank_req.leg_title_proc.id bonus_id=id %}
+
                                 {%endif%}
 
                                   <h4>Consenso esecuzione lavori da parte del proprietario (Locazione/Comodato) (1.10)</h4>
@@ -503,8 +557,7 @@
                                     </form>
                                 </div>
                                 {% else %}
-                                {% load my_tags %}
-                                {% edit_task  file_id=bank_req.cons_for_exe.id bonus_id=id %}
+
                                 {%endif%}
 
                                   <h4>Visura catastale unità immobiliare (1.3)</h4>
@@ -520,8 +573,7 @@
                                     </form>
                                 </div>
                                 {% else %}
-                                {% load my_tags %}
-                                {% edit_task  file_id=bank_req.cat_plan.id bonus_id=id %}
+
                                 {%endif%}
 
 
@@ -541,8 +593,7 @@
                                     </form>
                                 </div>
                                 {% else %}
-                                {% load my_tags %}
-                                {% edit_task  file_id=bank_req.deed_of_owner_purch.id bonus_id=id %}
+
                                 {%endif%}
 
                             </div>
@@ -561,8 +612,7 @@
                                     </form>
                                 </div>
                                 {% else %}
-                                {% load my_tags %}
-                                {% edit_task  file_id=bank_req.cert_poss_real_right_enjoy.id bonus_id=id %}
+
                                 {%endif%}
 
                             </div>
@@ -581,8 +631,7 @@
                                     </form>
                                 </div>
                                 {% else %}
-                                {% load my_tags %}
-                                {% edit_task  file_id=bank_req.declaration_con_owner.id bonus_id=id %}
+
                                 {%endif%}
 
 
@@ -599,8 +648,7 @@
                                     </form>
                                 </div>
                                 {% else %}
-                                {% load my_tags %}
-                                {% edit_task  file_id=bank_req.contract_cert_cor_reg.id bonus_id=id %}
+
                                 {%endif%}
 
                             </div>
@@ -640,7 +688,7 @@
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-<!--<script src="/static/assets/js/plugins/jquery-ui.min.js"></script>-->
 
+<script src="/static/assets/js/pages/bank-req.js"></script>
 
 {% endblock javascripts %}

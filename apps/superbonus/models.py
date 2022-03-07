@@ -461,7 +461,7 @@ class BonusVilla(models.Model):
     trailed_interventions = models.ForeignKey(TrailingInterventions, on_delete=models.SET_NULL, blank=True, null=True,
                                               verbose_name="DETTAGLIO INTERVENTO LAVORI TRAINATI")
     bank_id = models.ForeignKey(Bank, on_delete=models.CASCADE, blank=True, null=True,
-                                              verbose_name="DOMANDA BANCARIA")
+                                              verbose_name="ISTITUTO DI CREDITO")
 
 
 class BonusCondo(models.Model):
@@ -492,7 +492,7 @@ class BonusCondo(models.Model):
     admin_individual = models.ForeignKey(AdministrationIndividual, on_delete=models.SET_NULL, blank=True,
                                                  null=True, verbose_name="AMMINISTRATORE PERSONA FISICA")
     bank_id = models.ForeignKey(Bank, on_delete=models.CASCADE, blank=True, null=True,
-                                              verbose_name="DOMANDA BANCARIA")
+                                              verbose_name="ISTITUTO DI CREDITO")
 
 
 class SuperBonus(models.Model):
@@ -524,106 +524,106 @@ class StatusFile(models.Model):
 class BankRequirements(models.Model):
     id = models.AutoField(primary_key=True)
     bonus = models.ForeignKey(SuperBonus, on_delete=models.CASCADE)
-    admin_id = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True,  related_name='aid')
-    admin_hi = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True, related_name='ahi')
-    cond_reg = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True, related_name='creg')
-    cond_tax = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True, related_name='ctax')
-    cat_plan = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True, related_name='catp')
-    thousand_table = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True, related_name='tt')
-    cond_registry = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True, related_name='cregi')
-    notary_act_a = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    admin_id = models.ManyToManyField(FileRequired, related_name='aid')
+    admin_hi = models.ManyToManyField(FileRequired, related_name='ahi')
+    cond_reg = models.ManyToManyField(FileRequired, related_name='creg')
+    cond_tax = models.ManyToManyField(FileRequired, related_name='ctax')
+    cat_plan = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True, related_name='catp')
+    thousand_table = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True, related_name='tt')
+    cond_registry = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True, related_name='cregi')
+    notary_act_a = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                       related_name='not_act')
-    app_of_admin = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    app_of_admin = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                       related_name='app_addmin')
-    notary_act_b = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    notary_act_b = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                      related_name='not_act_b')
-    id_card_condo = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    id_card_condo = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                      related_name='id_condo')
-    hic_condo = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    hic_condo = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                      related_name='hic')
-    leg_title_proc = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    leg_title_proc = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                      related_name='ltp')
-    cons_for_exe = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    cons_for_exe = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                      related_name='cfeow')
-    estate_unit_cat_visa = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    estate_unit_cat_visa = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                      related_name='reucv')
-    deed_of_owner_purch = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    deed_of_owner_purch = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                      related_name='doop')
-    cert_poss_real_right_enjoy = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    cert_poss_real_right_enjoy = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                             related_name='cprre')
-    declaration_con_owner = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    declaration_con_owner = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                                    related_name='dcbo')
-    contract_cert_cor_reg = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    contract_cert_cor_reg = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                                    related_name='cccr')
-    pre_contract_reg = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    pre_contract_reg = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                               related_name='pcrpp')
-    declar_of_cons_owner = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    declar_of_cons_owner = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                               related_name='docbo')
-    contract_cert_corr_reg = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    contract_cert_corr_reg = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                               related_name='cccreg')
-    pre_cont_reg_place_in_pos = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    pre_cont_reg_place_in_pos = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                               related_name='pcrpip')
-    declaration_of_cons_owner = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    declaration_of_cons_owner = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                              related_name='docbo_l')
-    cert_of_reg_office = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    cert_of_reg_office = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                              related_name='coro')
-    title_of_possession = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    title_of_possession = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                              related_name='top')
-    dec_of_con_by_owner = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    dec_of_con_by_owner = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                             related_name='docbto')
-    assignment = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    assignment = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                             related_name='assi')
-    t_of_pos = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    t_of_pos = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                    related_name='top_spouse')
-    dec_of_cons_spouse = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    dec_of_cons_spouse = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                  related_name='doc_spouse')
-    proc_contract = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    proc_contract = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                            related_name='pcontract')
-    metric_cal = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    metric_cal = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                            related_name='mc')
-    presumed_deadline_sal = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    presumed_deadline_sal = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                            related_name='pds')
-    sub_contract = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    sub_contract = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                            related_name='sub_contract')
-    visura_aurica = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    visura_aurica = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                      related_name='vis_auri')
-    ape_ante = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    ape_ante = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                       related_name='aa')
-    liability_insurance_asseverate = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    liability_insurance_asseverate = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                       related_name='lib_ins_ass')
-    any_binding_doc = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    any_binding_doc = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                                        related_name='abdocs')
-    dec_of_con_of_exis_sys = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    dec_of_con_of_exis_sys = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                                        related_name='docoes')
-    dec_of_enroll = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    dec_of_enroll = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                                related_name='doer')
-    leg_status_statement = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    leg_status_statement = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                       related_name='lsos')
-    construction_site_sc = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    construction_site_sc = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                       related_name='cssc')
-    lat_building_title = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    lat_building_title = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                       related_name='lbt')
-    tech_prot_ad_ver = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    tech_prot_ad_ver = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                            related_name='tpfav')
-    tech_pre_feas_study = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    tech_pre_feas_study = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                          related_name='tpvs')
-    tax_pre_feas_study = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    tax_pre_feas_study = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                             related_name='tpfs')
-    towed_inter_comp_cert = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    towed_inter_comp_cert = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                            related_name='ticcco')
-    cert_enroll_qto = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    cert_enroll_qto = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                               related_name='ceqto')
-    res_of_cond_meeting = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    res_of_cond_meeting = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                         related_name='rocms')
-    sowc_practice = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    sowc_practice = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                             related_name='sowcp')
-    sowc_notification = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    sowc_notification = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                       related_name='sowcnot')
-    copy_invoice = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    copy_invoice = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                           related_name='copy_invoice')
-    doc_cert_fairness = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    doc_cert_fairness = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                      related_name='dcfoi')
-    prof_of_pay = models.ForeignKey(FileRequired, on_delete=models.CASCADE, blank=True, null=True,
+    prof_of_pay = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
                                      related_name='pop')
     class Meta:
         Managed: True

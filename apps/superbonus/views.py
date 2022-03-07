@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import redirect
 from django.template import loader
 from .calculations import *
@@ -8,9 +8,9 @@ from django.contrib import messages
 from django.urls import reverse
 from django.utils.translation import activate
 from apps.beneficary.models import Beneficiary, BeneficiaryForm
-from django.views.generic.edit import FormView
 from .forms import *
 from django.conf import settings
+
 
 
 @login_required(login_url="/login/")
@@ -726,7 +726,6 @@ def bank_requirements(request, id):
         bank_req = BankRequirements.objects.get(bonus=bonus.id)
     else:
         bank_req = BankRequirements(bonus=SuperBonus.objects.get(id=id))
-
     context['bank_req'] = bank_req
     if request.POST:
         post_list = list(request.POST.items())
@@ -738,7 +737,9 @@ def bank_requirements(request, id):
         if form.is_valid():
             f = form.save()
             print(f.id)
-            setattr(bank_req, value, f)
+            # setattr(bank_req, value, f)
+            getattr(bank_req, value).add(f)
+
             if status.is_valid():
                 print('valid status')
                 print(f.id)
@@ -790,11 +791,25 @@ def edit_bank_file_status(request, id, file_id):
 
 
 
+@login_required(login_url="/login/")
+def download_bank_file(request, path):
+    file_path = os.path.join(settings.MEDIA_ROOT, path)
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+    raise Http404
 
 
-
-
-
+@login_required(login_url="/login/")
+def delete_bank_file(request, id, file_id):
+    file = FileRequired.objects.get(id=file_id)
+    status = StatusFile.objects.get(file=file.id)
+    file.delete()
+    status.delete()
+    messages.success(request, 'Eliminato con successo Deleted')
+    return redirect('bank-requirements', id=id)
 
 
 

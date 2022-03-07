@@ -49,25 +49,28 @@
             <div class="page-body">
                 <div class="row">
                     <div class="container-fluid">
-                        <div class="card">
-                                <div class="card-header">
-                                    <h4>EDIT BANK FILES</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="input-container">
-                                        <form method="POST" enctype="multipart/form-data" >
-                                            {% csrf_token %}
-                                            <div class="form-group ">
-                                                {%if file_form%}
-                                                {{file_form}}
-                                                {%else%}
-                                                {{status_form}}
-                                                {%endif%}
-                                                <input type="submit" name="admin_id" value="EDIT" />
-                                            </div>
-                                        </form>
+                        <div class="col-md-8 col-lg-8 col-sm-12">
+                            <div class="card">
+                                    <div class="card-header">
+                                        <h4>EDIT BANK FILES</h4>
                                     </div>
-                                </div>
+                                    <div class="card-body">
+                                        <div class="input-container">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                                {% csrf_token %}
+                                                <div class="form-group ">
+                                                    {%if file_form%}
+                                                    {{file_form}}
+                                                    {%else%}
+                                                    {{status_form}}
+                                                    {%endif%}
+                                                    <input class="btn btn-secondary m-1" type="submit" name="admin_id" value="MODIFICARE" />
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

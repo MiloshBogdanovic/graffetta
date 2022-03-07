@@ -3,7 +3,6 @@ from .models import *
 from django.forms import ModelForm
 from django.forms.widgets import FileInput, Select, TextInput
 
-
 # class FileFieldForm(forms.Form):
 #     file_field = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
@@ -25,6 +24,7 @@ class FileRequiredForm(ModelForm):
                 'class': 'form-control-file',
                 'type': 'file',
                 'name': 'file',
+
             }),
         }
 
@@ -41,6 +41,10 @@ class StatusFileForm(ModelForm):
                 'class': 'custom-select m-1',
             }),
         }
+
+
+
+
 # class ModelFormWithFileField(ModelForm):
 #     class Meta:
 #         model = BonusVillaFiles
