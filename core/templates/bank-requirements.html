@@ -54,7 +54,7 @@
 
                                <li  class="nav-item col " type="button" data-toggle="collapse" data-target="#collapse1-1" aria-expanded="false" aria-controls="collapse1-1">
 
-                                    <a class="nav-link active"  id="pills-1-1-tab" data-toggle="pill" href="#pills-1-1" role="tab" aria-controls="pills-1-1" aria-selected="true">1.1 - Documenti identità <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                    <a class="nav-link active"  id="pills-1-1-tab" data-toggle="pill" href="#pills-1-1" role="tab" aria-controls="pills-1-1" aria-selected="true"><i class="fa fa-caret-down" aria-hidden="true"></i>&nbsp;1.1 - Documenti identità </a>
                                     <div class="collapse" id="collapse1-1" >
                                         <ul >
 
@@ -66,7 +66,7 @@
                                 </li>
 
                                 <li class="nav-item col" type="button" data-toggle="collapse" data-target="#collapse1-2" aria-expanded="false" aria-controls="collapse1-2">
-                                     <a class="nav-link " id="pills-1-2-tab" data-toggle="pill" href="#pills-1-2" role="tab" aria-controls="pills-1-2" aria-selected="true">1.2 - Regolamento condominiale + certificato codice fiscale condominio <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                     <a class="nav-link " id="pills-1-2-tab" data-toggle="pill" href="#pills-1-2" role="tab" aria-controls="pills-1-2" aria-selected="true"><i class="fa fa-caret-down" aria-hidden="true"></i>&nbsp;1.2 - Regolamento condominiale  certificato codice fiscale condominio </a>
                                      <div class="collapse" id="collapse1-2" >
                                         <ul >
                                             <li {% get_status_all field="cond_reg" bank_req_id=bank_req.id %} >Regolamento condominiale</li>
@@ -75,110 +75,162 @@
                                     </div>
                                 </li>
                                 <li class="nav-item col ">
-                                     <a {% get_status file_id=bank_req.cat_plan %}  id="pills-1-3-tab" data-toggle="pill" href="#pills-1-3" role="tab" aria-controls="pills-1-3" aria-selected="true">1.3 - Visure catastali</a>
+                                     <a {% get_status_all field="cat_plan" bank_req_id=bank_req.id %}  id="pills-1-3-tab" data-toggle="pill" href="#pills-1-3" role="tab" aria-controls="pills-1-3" aria-selected="true">1.3 - Visure catastali</a>
                                 </li>
                                 <li class="nav-item col ">
-                                     <a {% get_status file_id=bank_req.thousand_table %} id="pills-1-4-tab" data-toggle="pill" href="#pills-1-4" role="tab" aria-controls="pills-1-4" aria-selected="true">1.4 - Tabella millesimi</a>
+                                     <a {% get_status_all field="thousand_table" bank_req_id=bank_req.id %} id="pills-1-4-tab" data-toggle="pill" href="#pills-1-4" role="tab" aria-controls="pills-1-4" aria-selected="true">1.4 - Tabella millesimi</a>
                                 </li>
                                 <li class="nav-item col">
-                                     <a {% get_status file_id=bank_req.cond_registry %} id="pills-1-5-tab" data-toggle="pill" href="#pills-1-5" role="tab" aria-controls="pills-1-5" aria-selected="true">1.5 - Registro anagrafe condominiale</a>
+                                     <a {% get_status_all field="cond_registry" bank_req_id=bank_req.id %} id="pills-1-5-tab" data-toggle="pill" href="#pills-1-5" role="tab" aria-controls="pills-1-5" aria-selected="true">1.5 - Registro anagrafe condominiale</a>
                                 </li>
                                 <li class="nav-item col " type="button" data-toggle="collapse" data-target="#collapse1-6" aria-expanded="false" aria-controls="collapse1-6">
-                                     <a class="nav-link " id="pills-1-6-tab" data-toggle="pill" href="#pills-1-6" role="tab" aria-controls="pills-1-6" aria-selected="true">1.6 - Dichiarazione sostitutiva atto notorietà - AMMINISTRATORE <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                     <a class="nav-link " id="pills-1-6-tab" data-toggle="pill" href="#pills-1-6" role="tab" aria-controls="pills-1-6" aria-selected="true"><i class="fa fa-caret-down" aria-hidden="true"></i>&nbsp;1.6 - Dichiarazione sostitutiva atto notorietà - AMMINISTRATORE </a>
                                         <div class="collapse" id="collapse1-6" >
                                             <ul >
-                                                <li {% get_status file_id=bank_req.notary_act_a %}>Atto notorio (Format A1a)</li>
-                                                <li {% get_status file_id=bank_req.app_of_idadmin %}>Atto di nomina amministratore</li>
+                                                <li {% get_status_all field="notary_act_a" bank_req_id=bank_req.id %}>Atto notorio (Format A1a)</li>
+                                                <li {% get_status_all field="app_of_admin" bank_req_id=bank_req.id %}>Atto di nomina amministratore</li>
                                                 <li {% get_status_all field="admin_hi" bank_req_id=bank_req.id %}>Documenti identità amministratore (1.1)</li>
                                                 <li {% get_status_all field="cond_tax" bank_req_id=bank_req.id %}>Tabella millesimi (1.4)</li>
                                             </ul>
                                         </div>
                                 </li>
                                 <li class="nav-item col"  type="button" data-toggle="collapse" data-target="#collapse1-7" aria-expanded="false" aria-controls="collapse1-7">
-                                     <a class="nav-link " id="pills-1-7-tab" data-toggle="pill" href="#pills-1-7" role="tab" aria-controls="pills-1-7" aria-selected="true">1.7 - Dichiarazione sostitutiva atto notorietà - CONDOMINI <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                     <a class="nav-link " id="pills-1-7-tab" data-toggle="pill" href="#pills-1-7" role="tab" aria-controls="pills-1-7" aria-selected="true"><i class="fa fa-caret-down" aria-hidden="true"></i>&nbsp;1.7 - Dichiarazione sostitutiva atto notorietà - CONDOMINI </a>
                                         <div class="collapse" id="collapse1-7" >
                                             <ul >
-                                                <li {% get_status file_id=bank_req.notary_act_b %}>Atto notorio (Format A1b)</li>
-                                                <li {% get_status file_id=bank_req.id_card_condo %}>Carta d'identità Condomino</li>
-                                                <li {% get_status file_id=bank_req.hic_condo %}>Tessera sanitaria Condomino</li>
-                                                <li {% get_status file_id=bank_req.leg_title_proc %}>Titolo giuridico detenzione (per casi diversi da proprietà o diritto reale di godimento) (1.10-1.11-1.12-1.13)</li>
-                                                <li {% get_status file_id=bank_req.leg_title_proc %}>Consenso esecuzione lavori da parte del proprietario (Locazione/Comodato) (1.10))</li>
-                                                <li {% get_status file_id=bank_req.cat_plan %}>Visura catastale unità immobiliare (1.3)</li>
+                                                <li {% get_status_all field="notary_act_b" bank_req_id=bank_req.id%}>Atto notorio (Format A1b)</li>
+                                                <li {% get_status_all field="id_card_condo" bank_req_id=bank_req.id%}>Carta d'identità Condomino</li>
+                                                <li {% get_status_all field="hic_condo" bank_req_id=bank_req.id%}>Tessera sanitaria Condomino</li>
+                                                <li {% get_status_all field="leg_title_proc" bank_req_id=bank_req.id%}>Titolo giuridico detenzione (per casi diversi da proprietà o diritto reale di godimento) (1.10-1.11-1.12-1.13)</li>
+                                                <li {% get_status_all field="leg_title_proc" bank_req_id=bank_req.id%}>Consenso esecuzione lavori da parte del proprietario (Locazione/Comodato) (1.10))</li>
+                                                <li {% get_status_all field="cat_plan" bank_req_id=bank_req.id%}>Visura catastale unità immobiliare (1.3)</li>
                                             </ul>
                                         </div>
                                 </li>
                                 <li class="nav-item col">
-                                     <a {% get_status file_id=bank_req.deed_of_owner_purch %} id="pills-1-8-tab" data-toggle="pill" href="#pills-1-8" role="tab" aria-controls="pills-1-8" aria-selected="true">1.8 - Atto proprietà/compravendita (se Proprietario/Nudo Proprietario)</a>
+                                     <a {% get_status_all field="deed_of_owner_purch" bank_req_id=bank_req.id%} id="pills-1-8-tab" data-toggle="pill" href="#pills-1-8" role="tab" aria-controls="pills-1-8" aria-selected="true">1.8 - Atto proprietà/compravendita (se Proprietario/Nudo Proprietario)</a>
                                 </li>
                                 <li class="nav-item col">
-                                     <a {% get_status file_id=bank_req.cert_poss_real_right_enjoy %} id="pills-1-9-tab" data-toggle="pill" href="#pills-1-9" role="tab" aria-controls="pills-1-9" aria-selected="true">1.9 - Certificato detenzione diritto reale di godimento (es. Usufrutto)</a>
+                                     <a {% get_status_all field="cert_poss_real_right_enjoy" bank_req_id=bank_req.id%} id="pills-1-9-tab" data-toggle="pill" href="#pills-1-9" role="tab" aria-controls="pills-1-9" aria-selected="true">1.9 - Certificato detenzione diritto reale di godimento (es. Usufrutto)</a>
 
                                 </li>
                                 <li class="nav-item col"  type="button" data-toggle="collapse" data-target="#collapse1-10" aria-expanded="false" aria-controls="collapse1-10">
-                                     <a class="nav-link " id="pills-1-10-tab" data-toggle="pill" href="#pills-1-10" role="tab" aria-controls="pills-1-10" aria-selected="true">1.10 - Per soggetti con diritti personali di godimento (es. Locazione/Comodato) <i class="fa fa-caret-down" aria-hidden="true"></i></a>
-                                           <div class="collapse" id="collapse1-10" >
+                                     <a class="nav-link " id="pills-1-10-tab" data-toggle="pill" href="#pills-1-10" role="tab" aria-controls="pills-1-10" aria-selected="true"><i class="fa fa-caret-down" aria-hidden="true"></i>&nbsp;1.10 - Per soggetti con diritti personali di godimento (es. Locazione/Comodato) </a>
+                                        <div class="collapse" id="collapse1-10" >
                                             <ul >
-                                                <li {% get_status file_id=bank_req.declaration_con_owner %}>Dichiarazione consenso da parte del proprietario</li>
-                                                <li {% get_status file_id=bank_req.contract_cert_cor_reg %}>Contratto certificante la corretta registrazione</li>
+                                                <li {% get_status_all field="declaration_con_owner" bank_req_id=bank_req.id%}>Dichiarazione consenso da parte del proprietario</li>
+                                                <li {% get_status_all field="contract_cert_cor_reg" bank_req_id=bank_req.id%}>Contratto certificante la corretta registrazione</li>
                                             </ul>
                                         </div>
                                 </li>
-                                <li class="nav-item col">
-                                     <a class="nav-link " id="pills-1-11-tab" data-toggle="pill" href="#pills-1-11" role="tab" aria-controls="pills-1-11" aria-selected="true">1.11</a>
+                                <li class="nav-item col " type="button" data-toggle="collapse" data-target="#collapse1-11" aria-expanded="false" aria-controls="collapse1-11">
+                                     <a class="nav-link" id="pills-1-11-tab" data-toggle="pill" href="#pills-1-11" role="tab" aria-controls="pills-1-11" aria-selected="true"><i class="fa fa-caret-down" aria-hidden="true"></i>&nbsp;1.11 - Per Promissario Acquirente</a>
+                                        <div class="collapse" id="collapse1-11" >
+                                            <ul >
+                                                <li {% get_status_all field="pre_cont_reg_place_in_pos" bank_req_id=bank_req.id%}>Contratto preliminare registrato immissione in possesso</li>
+                                                <li {% get_status_all field="declaration_of_cons_owner" bank_req_id=bank_req.id%}>Dichiarazione consenso da parte del proprietario</li>
+                                            </ul>
+                                        </div>
+                                </li>
+                                <li class="nav-item col" type="button" data-toggle="collapse" data-target="#collapse1-12" aria-expanded="false" aria-controls="collapse1-12">
+                                     <a class="nav-link " id="pills-1-12-tab" data-toggle="pill" href="#pills-1-12" role="tab" aria-controls="pills-1-12" aria-selected="true"><i class="fa fa-caret-down" aria-hidden="true"></i>&nbsp;1.12 - Per familiare convivente</a>
+                                     <div class="collapse" id="collapse1-12" >
+                                            <ul >
+                                                <li {% get_status_all field="cert_of_reg_office" bank_req_id=bank_req.id%}>Certificato dell'anagrafe</li>
+                                                <li {% get_status_all field="title_of_possession" bank_req_id=bank_req.id%}>Certificato dell'anagrafe</li>
+                                                <li {% get_status_all field="dec_of_con_by_owner" bank_req_id=bank_req.id%}>Dichiarazione di consenso da parte del proprietario</li>
+                                            </ul>
+                                        </div>
+                                </li>
+                                <li class="nav-item col" type="button" data-toggle="collapse" data-target="#collapse1-13" aria-expanded="false" aria-controls="collapse1-13">
+                                     <a class="nav-link " id="pills-1-13-tab" data-toggle="pill" href="#pills-1-13" role="tab" aria-controls="pills-1-13" aria-selected="true"><i class="fa fa-caret-down" aria-hidden="true"></i>&nbsp;1.13 - Per Coniuge separato assegnatario dell'immobile intestato all'altro coniuge</a>
+                                    <div class="collapse" id="collapse1-13" >
+                                        <ul >
+                                                <li {% get_status_all field="assignment" bank_req_id=bank_req.id%}>Assegnazione</li>
+                                                <li {% get_status_all field="t_of_pos" bank_req_id=bank_req.id%}>Titolo di possesso</li>
+                                                <li {% get_status_all field="dec_of_cons_spouse" bank_req_id=bank_req.id%}>Dichiarazione di consenso da parte del proprietario</li>
+                                            </ul>
+                                        </div>
+                                </li>
+                                <li class="nav-item col" type="button" data-toggle="collapse" data-target="#collapse1-14" aria-expanded="false" aria-controls="collapse1-14">
+                                     <a class="nav-link " id="pills-1-14-tab" data-toggle="pill" href="#pills-1-14" role="tab" aria-controls="pills-1-14" aria-selected="true"><i class="fa fa-caret-down" aria-hidden="true"></i>1.14 - Contratto di appalto</a>
+                                       <div class="collapse" id="collapse1-14" >
+                                        <ul>
+                                                <li {% get_status_all field="proc_contract" bank_req_id=bank_req.id%}>Contratto</li>
+                                                <li {% get_status_all field="metric_cal" bank_req_id=bank_req.id%}> Computo metrico</li>
+                                                <li {% get_status_all field="presumed_deadline_sal" bank_req_id=bank_req.id%}>Scadenze presunte (SAL)</li>
+                                                <li {% get_status_all field="sub_contract" bank_req_id=bank_req.id%}>Contratti subappalto</li>
+                                        </ul>
+                                       </div>
                                 </li>
                                 <li class="nav-item col">
-                                     <a class="nav-link " id="pills-1-12-tab" data-toggle="pill" href="#pills-1-12" role="tab" aria-controls="pills-1-12" aria-selected="true">1.12</a>
+                                     <a {% get_status_all field="visura_aurica" bank_req_id=bank_req.id%} id="pills-1-15-tab" data-toggle="pill" href="#pills-1-15" role="tab" aria-controls="pills-1-15" aria-selected="true">1.15 - Visura Aurica</a>
                                 </li>
                                 <li class="nav-item col">
-                                     <a class="nav-link " id="pills-1-13-tab" data-toggle="pill" href="#pills-1-13" role="tab" aria-controls="pills-1-13" aria-selected="true">1.13</a>
+                                     <a {% get_status_all field="ape_ante" bank_req_id=bank_req.id%} id="pills-1-16-tab" data-toggle="pill" href="#pills-1-16" role="tab" aria-controls="pills-1-16" aria-selected="true">1.16 - APE ante (se efficienza energetica)</a>
+                                </li>
+                                <li class="nav-item col" type="button" data-toggle="collapse" data-target="#collapse1-17" aria-expanded="false" aria-controls="collapse1-17">
+                                     <a class="nav-link " id="pills-1-17-tab" data-toggle="pill" href="#pills-1-17" role="tab" aria-controls="pills-1-17" aria-selected="true"><i class="fa fa-caret-down" aria-hidden="true"></i>1.17 - Assicurazione RC Asseveratore</a>
+                                     <div class="collapse" id="collapse1-17" >
+                                        <ul>
+                                                <li {% get_status_all field="liability_insurance_asseverate" bank_req_id=bank_req.id%}>Assicurazione RC Asseveratore</li>
+                                                <li {% get_status_all field="any_binding_doc" bank_req_id=bank_req.id%}> Documentazione vincolistica eventuale</li>
+                                                <li {% get_status_all field="dec_of_con_of_exis_sys" bank_req_id=bank_req.id%}>Dichiarazioni conformità impianti esistenti (libretto caldaie, schede tecniche infissi...)</li>
+
+                                        </ul>
+                                       </div>
                                 </li>
                                 <li class="nav-item col">
-                                     <a class="nav-link " id="pills-1-14-tab" data-toggle="pill" href="#pills-1-14" role="tab" aria-controls="pills-1-14" aria-selected="true">1.14</a>
+                                     <a {% get_status_all field="dec_of_enroll" bank_req_id=bank_req.id%} id="pills-1-18-tab" data-toggle="pill" href="#pills-1-18" role="tab" aria-controls="pills-1-18" aria-selected="true">1.18 - Dichiarazione iscrizione all'Albo - Asseveratore</a>
+                                </li>
+                                <li class="nav-item col" type="button" data-toggle="collapse" data-target="#collapse1-19" aria-expanded="false" aria-controls="collapse1-19">
+                                     <a class="nav-link " id="pills-1-19-tab" data-toggle="pill" href="#pills-1-19" role="tab" aria-controls="pills-1-19" aria-selected="true"><i class="fa fa-caret-down" aria-hidden="true"></i>&nbsp;1.19 - Regolarità edile/urbanistica</a>
+                                     <div class="collapse" id="collapse1-19" >
+                                        <ul>
+                                                <li {% get_status_all field="leg_status_statement" bank_req_id=bank_req.id%}>Dichiarazione di stato legittimo (regolarità edile/urbanistica)</li>
+                                                <li {% get_status_all field="construction_site_sc" bank_req_id=bank_req.id%}> Attestazione sicurezza cantiere (es. PSC/Dichiarazione)</li>
+                                                <li {% get_status_all field="lat_building_title" bank_req_id=bank_req.id%}>Ultimo titolo edilizio - con tavole</li>
+
+                                        </ul>
+                                       </div>
                                 </li>
                                 <li class="nav-item col">
-                                     <a class="nav-link " id="pills-1-15-tab" data-toggle="pill" href="#pills-1-15" role="tab" aria-controls="pills-1-15" aria-selected="true">1.15</a>
+                                     <a {% get_status_all field="tech_prot_ad_ver" bank_req_id=bank_req.id%} id="pills-1-20-tab" data-toggle="pill" href="#pills-1-20" role="tab" aria-controls="pills-1-20" aria-selected="true">1.20 - Due Diligence Tecnica PROTOS</a>
                                 </li>
                                 <li class="nav-item col">
-                                     <a class="nav-link " id="pills-1-16-tab" data-toggle="pill" href="#pills-1-16" role="tab" aria-controls="pills-1-16" aria-selected="true">1.16</a>
+                                     <a {% get_status_all field="tech_pre_feas_study" bank_req_id=bank_req.id%} id="pills-1-21-tab" data-toggle="pill" href="#pills-1-21" role="tab" aria-controls="pills-1-21" aria-selected="true">1.21 - Studio pre-fattibilità tecnica</a>
                                 </li>
                                 <li class="nav-item col">
-                                     <a class="nav-link " id="pills-1-17-tab" data-toggle="pill" href="#pills-1-17" role="tab" aria-controls="pills-1-17" aria-selected="true">1.17</a>
+                                     <a {% get_status_all field="tax_pre_feas_study" bank_req_id=bank_req.id%} id="pills-1-22-tab" data-toggle="pill" href="#pills-1-22" role="tab" aria-controls="pills-1-22" aria-selected="true">1.22 - Studio pre-fattibilità fiscale</a>
                                 </li>
                                 <li class="nav-item col">
-                                     <a class="nav-link " id="pills-1-18-tab" data-toggle="pill" href="#pills-1-18" role="tab" aria-controls="pills-1-18" aria-selected="true">1.18</a>
+                                     <a {% get_status_all field="towed_inter_comp_cert" bank_req_id=bank_req.id%} id="pills-1-23-tab" data-toggle="pill" href="#pills-1-23" role="tab" aria-controls="pills-1-23" aria-selected="true">1.23 - Attestazione impresa intervento trainato effettuato tra inizio e fine lavori trainanti</a>
                                 </li>
                                 <li class="nav-item col">
-                                     <a class="nav-link " id="pills-1-19-tab" data-toggle="pill" href="#pills-1-19" role="tab" aria-controls="pills-1-19" aria-selected="true">1.19</a>
+                                     <a {% get_status_all field="cert_enroll_qto" bank_req_id=bank_req.id%} id="pills-1-24-tab" data-toggle="pill" href="#pills-1-24" role="tab" aria-controls="pills-1-24" aria-selected="true">1.24 - Certificato iscrizione ordini tecnico abilitato asseverazione</a>
                                 </li>
                                 <li class="nav-item col">
-                                     <a class="nav-link " id="pills-1-20-tab" data-toggle="pill" href="#pills-1-20" role="tab" aria-controls="pills-1-20" aria-selected="true">1.20</a>
+                                     <a {% get_status_all field="res_of_cond_meeting" bank_req_id=bank_req.id%} id="pills-2-1-tab" data-toggle="pill" href="#pills-2-1" role="tab" aria-controls="pills-2-1" aria-selected="true">2.1 - Delibera assemblea condominiale firmata</a>
+                                </li>
+                                <li class="nav-item col" type="button" data-toggle="collapse" data-target="#collapse-2-2" aria-expanded="false" aria-controls="collapse-2-2">
+                                     <a class="nav-link " id="pills-2-2-tab" data-toggle="pill" href="#pills-2-2" role="tab" aria-controls="pills-2-2" aria-selected="true"><i class="fa fa-caret-down" aria-hidden="true"></i>&nbsp;2.2. - Certificazione inizio lavori</a>
+                                     <div class="collapse" id="collapse-2-2" >
+                                        <ul>
+                                                <li {% get_status_all field="sowc_practice" bank_req_id=bank_req.id%}>Pratica</li>
+                                                <li {% get_status_all field="sowc_notification" bank_req_id=bank_req.id%}> Notifica ASL</li>
+
+
+                                        </ul>
+                                       </div>
                                 </li>
                                 <li class="nav-item col">
-                                     <a class="nav-link " id="pills-1-21-tab" data-toggle="pill" href="#pills-1-21" role="tab" aria-controls="pills-1-21" aria-selected="true">1.21</a>
+                                     <a {% get_status_all field="copy_invoice" bank_req_id=bank_req.id%} id="pills-3-1-tab" data-toggle="pill" href="#pills-3-1" role="tab" aria-controls="pills-3-1" aria-selected="true">3.1 - Copia fatture</a>
                                 </li>
                                 <li class="nav-item col">
-                                     <a class="nav-link " id="pills-1-22-tab" data-toggle="pill" href="#pills-1-22" role="tab" aria-controls="pills-1-22" aria-selected="true">1.22</a>
+                                     <a {% get_status_all field="doc_cert_fairness" bank_req_id=bank_req.id%} id="pills-3-2-tab" data-toggle="pill" href="#pills-3-2" role="tab" aria-controls="pills-3-2" aria-selected="true">3.2 - Documentazione attestante congruità fatture</a>
                                 </li>
                                 <li class="nav-item col">
-                                     <a class="nav-link " id="pills-1-23-tab" data-toggle="pill" href="#pills-1-23" role="tab" aria-controls="pills-1-23" aria-selected="true">1.23</a>
-                                </li>
-                                <li class="nav-item col">
-                                     <a class="nav-link " id="pills-1-24-tab" data-toggle="pill" href="#pills-1-24" role="tab" aria-controls="pills-1-24" aria-selected="true">1.24</a>
-                                </li>
-                                <li class="nav-item col">
-                                     <a class="nav-link " id="pills-2-1-tab" data-toggle="pill" href="#pills-2-1" role="tab" aria-controls="pills-2-1" aria-selected="true">2.1</a>
-                                </li>
-                                <li class="nav-item col">
-                                     <a class="nav-link " id="pills-2-2-tab" data-toggle="pill" href="#pills-2-2" role="tab" aria-controls="pills-2-2" aria-selected="true">2.2</a>
-                                </li>
-                                <li class="nav-item col">
-                                     <a class="nav-link " id="pills-3-1-tab" data-toggle="pill" href="#pills-3-1" role="tab" aria-controls="pills-3-1" aria-selected="true">3.1</a>
-                                </li>
-                                <li class="nav-item col">
-                                     <a class="nav-link " id="pills-3-2-tab" data-toggle="pill" href="#pills-3-2" role="tab" aria-controls="pills-3-2" aria-selected="true">3.2</a>
-                                </li>
-                                <li class="nav-item col">
-                                     <a class="nav-link " id="pills-3-3-tab" data-toggle="pill" href="#pills-3-3" role="tab" aria-controls="pills-3-3" aria-selected="true">3.3</a>
+                                     <a {% get_status_all field="prof_of_pay" bank_req_id=bank_req.id%} id="pills-3-3-tab" data-toggle="pill" href="#pills-3-3" role="tab" aria-controls="pills-3-3" aria-selected="true">3.3 - Evidenze di pagamento</a>
                                 </li>
 
                             </ul>
@@ -336,42 +388,70 @@
                             <div class="tab-pane fade" id="pills-1-3" role="tabpanel" aria-labelledby="pills-1-3-tab">
 
                                 <h4>Visure catastali</h4>
-                                {%if not bank_req.cat_plan %}
-
-
-                                <div class="input-container">
-                                    <form method="POST" enctype="multipart/form-data" >
-                                        {% csrf_token %}
-                                        <div class="form-group ">
-                                            {{file_form}}
-                                            {{status_form}}
-                                            <input type="submit" name="cat_plan" value="UPLOAD" />
+                                {%if not bank_req.cat_plan.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="cat_plan" value="Caricamento" />
+                                            </div>
+                                            </form>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                                 {% else %}
-
-
-
+                                <div class="row">
+                                    {%if bank_req.cat_plan.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='cat_plan' %}
+                                    {%else%}
+                                    {%for file in bank_req.cat_plan.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='cat_plan' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='cat_plan' %}
+                                </div>
                                 {%endif%}
                             </div>
                             <div class="tab-pane fade" id="pills-1-4" role="tabpanel" aria-labelledby="pills-1-4-tab">
                                 <h4>Tabella millesimi</h4>
-                                {%if not bank_req.thousand_table %}
-
-                                <div class="input-container">
-                                    <form method="POST" enctype="multipart/form-data" >
-                                        {% csrf_token %}
-                                        <div class="form-group ">
-                                            {{file_form}}
-                                            <hr>
-                                            {{status_form}}
-                                            <input type="submit" name="thousand_table" value="UPLOAD" />
+                                {%if not bank_req.thousand_table.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="thousand_table" value="Caricamento" />
+                                            </div>
+                                            </form>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                                 {% else %}
-
+                                <div class="row">
+                                    {%if bank_req.thousand_table.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='thousand_table' %}
+                                    {%else%}
+                                    {%for file in bank_req.thousand_table.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='thousand_table' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='thousand_table' %}
+                                </div>
 
 
                                 {%endif%}
@@ -380,19 +460,36 @@
                             <div class="tab-pane fade" id="pills-1-5" role="tabpanel" aria-labelledby="pills-1-5-tab">
 
                                 <h4>Registro anagrafe condominiale</h4>
-                                {%if not bank_req.cond_registry %}
-                                <div class="input-container">
-                                    <form method="POST" enctype="multipart/form-data" >
-                                        {% csrf_token %}
-                                        <div class="form-group ">
-                                            {{file_form}}
-                                            {{status_form}}
-                                            <input type="submit" name="cond_registry" value="UPLOAD" />
+                                {%if not bank_req.cond_registry.all %}
+                                 <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="cond_registry" value="Caricamento" />
+                                            </div>
+                                            </form>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                                 {% else %}
-
+                                <div class="row">
+                                    {%if bank_req.cond_registry.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='cond_registry' %}
+                                    {%else%}
+                                    {%for file in bank_req.cond_registry.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='cond_registry' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='cond_registry' %}
+                                </div>
                                 {%endif%}
 
 
@@ -400,180 +497,342 @@
                             <div class="tab-pane fade" id="pills-1-6" role="tabpanel" aria-labelledby="pills-1-6-tab">
 
                             <h4>Atto notorio (Format A1a)</h4>
-                                {%if not bank_req.notary_act_a %}
-                                <div class="input-container">
-                                    <form method="POST" enctype="multipart/form-data" >
-                                        {% csrf_token %}
-                                        <div class="form-group ">
-                                            {{file_form}}
-                                            {{status_form}}
-                                            <input type="submit" name="notary_act_a" value="UPLOAD" />
+                                {%if not bank_req.notary_act_a.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="notary_act_a" value="Caricamento" />
+                                            </div>
+                                            </form>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                                 {% else %}
+                                <div class="row">
+                                    {%if bank_req.notary_act_a.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='notary_act_a' %}
+                                    {%else%}
+                                    {%for file in bank_req.notary_act_a.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='notary_act_a' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='notary_act_a' %}
+                                </div>
+                                {%endif%}
+
+                                <h4>Atto di nomina amministratore</h4>
+                                {%if not bank_req.app_of_admin.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="app_of_admin" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.app_of_admin.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='app_of_admin' %}
+                                    {%else%}
+                                    {%for file in bank_req.app_of_admin.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='app_of_admin' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='app_of_admin' %}
+                                </div>
+                                {%endif%}
+
+                                <h4 class="m-3">Carta identità(1.1)</h4>
+                                {%if not bank_req.admin_id.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="admin_id" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.admin_id.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='admin_id' %}
+                                    {%else%}
+                                    {%for file in bank_req.admin_id.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='admin_id' %}
+                                    {%endfor%}
+                                    {%endif%}
+
+                                    {% file_modal modal_id='admin_id' %}
+                                </div>
+                                {%endif%}
+
+
+                                <h4>Tabella millesimi(1.4)</h4>
+                                {%if not bank_req.thousand_table.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="thousand_table" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.thousand_table.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='thousand_table' %}
+                                    {%else%}
+                                    {%for file in bank_req.thousand_table.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='thousand_table' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='thousand_table' %}
+                                </div>
+
 
                                 {%endif%}
 
-                            <h4>Atto di nomina amministratore</h4>
-                                {%if not bank_req.app_of_admin %}
-                                <div class="input-container">
-                                    <form method="POST" enctype="multipart/form-data" >
-                                        {% csrf_token %}
-                                        <div class="form-group ">
-                                            {{file_form}}
-                                            {{status_form}}
-                                            <input type="submit" name="app_of_admin" value="UPLOAD" />
-                                        </div>
-                                    </form>
-                                </div>
-                                {% else %}
 
-                                {%endif%}
-
-                            <h4>Documenti identità amministratore (1.1)</h4>
-                                {%if not bank_req.admin_id %}
-                                <div class="input-container">
-                                    <form method="POST" enctype="multipart/form-data" >
-                                        {% csrf_token %}
-                                        <div class="form-group ">
-                                            {{file_form}}
-                                            {{status_form}}
-                                            <input type="submit" name="admin_id" value="UPLOAD" />
-                                        </div>
-                                    </form>
-                                </div>
-                                {% else %}
-
-                                {%endif%}
-                            <h4>Tabella millesimi (1.4)</h4>
-                                {%if not bank_req.thousand_table %}
-                                <div class="input-container">
-                                    <form method="POST" enctype="multipart/form-data" >
-                                        {% csrf_token %}
-                                        <div class="form-group ">
-                                            {{file_form}}
-                                            {{status_form}}
-                                            <input type="submit" name="thousand_table" value="UPLOAD" />
-                                        </div>
-                                    </form>
-                                </div>
-                                {% else %}
-
-                                {%endif%}
-
-                            <h4>Certificato codice fiscale Condominio (1.2)</h4>
-                                {%if not bank_req.cond_tax %}
-                                <div class="input-container">
-                                    <form method="POST" enctype="multipart/form-data" >
-                                        {% csrf_token %}
-                                        <div class="form-group ">
-                                            {{file_form}}
-                                            {{status_form}}
-                                            <input type="submit" name="cond_tax" value="UPLOAD" />
-                                        </div>
-                                    </form>
-                                </div>
-                                {% else %}
-
-                                {%endif%}
 
                             </div>
                             <div class="tab-pane fade" id="pills-1-7" role="tabpanel" aria-labelledby="pills-1-7-tab">
                                 <h4>Atto notorio (Format A1b)</h4>
-                                {%if not bank_req.notary_act_b %}
-                                <div class="input-container">
-                                    <form method="POST" enctype="multipart/form-data" >
-                                        {% csrf_token %}
-                                        <div class="form-group ">
-                                            {{file_form}}
-                                            {{status_form}}
-                                            <input type="submit" name="notary_act_b" value="UPLOAD" />
+                                {%if not bank_req.notary_act_b.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="notary_act_b" value="Caricamento" />
+                                            </div>
+                                            </form>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                                 {% else %}
-
+                                <div class="row">
+                                    {%if bank_req.notary_act_b.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='notary_act_b' %}
+                                    {%else%}
+                                    {%for file in bank_req.notary_act_b.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='notary_act_b' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='notary_act_b' %}
+                                </div>
                                 {%endif%}
 
-                                  <h4>Carta d'identità Condomino</h4>
-                                {%if not bank_req.id_card_condo %}
-                                <div class="input-container">
-                                    <form method="POST" enctype="multipart/form-data" >
-                                        {% csrf_token %}
-                                        <div class="form-group ">
-                                            {{file_form}}
-                                            {{status_form}}
-                                            <input type="submit" name="id_card_condo" value="UPLOAD" />
+                                <h4>Carta d'identità Condomino</h4>
+                                {%if not bank_req.id_card_condo.all %}
+                                 <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="id_card_condo" value="Caricamento" />
+                                            </div>
+                                            </form>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                                 {% else %}
-
+                                <div class="row">
+                                    {%if bank_req.id_card_condo.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='id_card_condo' %}
+                                    {%else%}
+                                    {%for file in bank_req.id_card_condo.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='id_card_condo' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='id_card_condo' %}
+                                </div>
                                 {%endif%}
 
-                                  <h4>Tessera sanitaria Condomino</h4>
-                                {%if not bank_req.hic_condo %}
-                                <div class="input-container">
-                                    <form method="POST" enctype="multipart/form-data" >
-                                        {% csrf_token %}
-                                        <div class="form-group ">
-                                            {{file_form}}
-                                            {{status_form}}
-                                            <input type="submit" name="hic_condo" value="UPLOAD" />
+                                <h4>Tessera sanitaria Condomino</h4>
+                                {%if not bank_req.hic_condo.all %}
+                                 <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="hic_condo" value="Caricamento" />
+                                            </div>
+                                            </form>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                                 {% else %}
-
+                                <div class="row">
+                                    {%if bank_req.hic_condo.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='hic_condo' %}
+                                    {%else%}
+                                    {%for file in bank_req.hic_condo.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='hic_condo' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='hic_condo' %}
+                                </div>
                                 {%endif%}
 
                                   <h4>Titolo giuridico detenzione (per casi diversi da proprietà o diritto reale di godimento) (1.10-1.11-1.12-1.13)</h4>
-                                {%if not bank_req.leg_title_proc %}
-                                <div class="input-container">
-                                    <form method="POST" enctype="multipart/form-data" >
-                                        {% csrf_token %}
-                                        <div class="form-group ">
-                                            {{file_form}}
-                                            {{status_form}}
-                                            <input type="submit" name="leg_title_proc" value="UPLOAD" />
+                                {%if not bank_req.leg_title_proc.all %}
+                                 <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="leg_title_proc" value="Caricamento" />
+                                            </div>
+                                            </form>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                                 {% else %}
-
+                                <div class="row">
+                                    {%if bank_req.leg_title_proc.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='leg_title_proc' %}
+                                    {%else%}
+                                    {%for file in bank_req.leg_title_proc.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='leg_title_proc' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='leg_title_proc' %}
+                                </div>
                                 {%endif%}
 
                                   <h4>Consenso esecuzione lavori da parte del proprietario (Locazione/Comodato) (1.10)</h4>
-                                {%if not bank_req.cons_for_exe %}
-                                <div class="input-container">
-                                    <form method="POST" enctype="multipart/form-data" >
-                                        {% csrf_token %}
-                                        <div class="form-group ">
-                                            {{file_form}}
-                                            {{status_form}}
-                                            <input type="submit" name="cons_for_exe" value="UPLOAD" />
+                                {%if not bank_req.cons_for_exe.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="cons_for_exe" value="Caricamento" />
+                                            </div>
+                                            </form>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                                 {% else %}
-
+                                <div class="row">
+                                    {%if bank_req.cons_for_exe.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='cons_for_exe' %}
+                                    {%else%}
+                                    {%for file in bank_req.cons_for_exe.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='cons_for_exe' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='cons_for_exe' %}
+                                </div>
                                 {%endif%}
 
-                                  <h4>Visura catastale unità immobiliare (1.3)</h4>
-                                {%if not bank_req.cat_plan %}
-                                <div class="input-container">
-                                    <form method="POST" enctype="multipart/form-data" >
-                                        {% csrf_token %}
-                                        <div class="form-group ">
-                                            {{file_form}}
-                                            {{status_form}}
-                                            <input type="submit" name="cat_plan" value="UPLOAD" />
+                                <h4>Visura catastale unità immobiliare (1.3)</h4>
+                                {%if not bank_req.cat_plan.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="cat_plan" value="Caricamento" />
+                                            </div>
+                                            </form>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                                 {% else %}
-
+                                <div class="row">
+                                    {%if bank_req.cat_plan.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='cat_plan' %}
+                                    {%else%}
+                                    {%for file in bank_req.cat_plan.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='cat_plan' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='cat_plan' %}
+                                </div>
                                 {%endif%}
 
 
@@ -581,106 +840,1223 @@
                             <div class="tab-pane fade" id="pills-1-8" role="tabpanel" aria-labelledby="pills-1-8-tab">
 
                             <h4>Atto proprietà/compravendita (se Proprietario/Nudo Proprietario)</h4>
-                                {%if not bank_req.deed_of_owner_purch %}
-                                <div class="input-container">
-                                    <form method="POST" enctype="multipart/form-data" >
-                                        {% csrf_token %}
-                                        <div class="form-group ">
-                                            {{file_form}}
-                                            {{status_form}}
-                                            <input type="submit" name="deed_of_owner_purch" value="UPLOAD" />
+                                {%if not bank_req.deed_of_owner_purch.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="deed_of_owner_purch" value="Caricamento" />
+                                            </div>
+                                            </form>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                                 {% else %}
-
+                                <div class="row">
+                                    {%if bank_req.deed_of_owner_purch.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='deed_of_owner_purch' %}
+                                    {%else%}
+                                    {%for file in bank_req.deed_of_owner_purch.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='deed_of_owner_purch' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='deed_of_owner_purch' %}
+                                </div>
                                 {%endif%}
 
                             </div>
                             <div class="tab-pane fade" id="pills-1-9" role="tabpanel" aria-labelledby="pills-1-9-tab">
 
                             <h4> Certificato detenzione diritto reale di godimento (es. Usufrutto)</h4>
-                                {%if not bank_req.cert_poss_real_right_enjoy %}
-                                <div class="input-container">
-                                    <form method="POST" enctype="multipart/form-data" >
-                                        {% csrf_token %}
-                                        <div class="form-group ">
-                                            {{file_form}}
-                                            {{status_form}}
-                                            <input type="submit" name="cert_poss_real_right_enjoy" value="UPLOAD" />
+                                {%if not bank_req.cert_poss_real_right_enjoy.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="cert_poss_real_right_enjoy" value="Caricamento" />
+                                            </div>
+                                            </form>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                                 {% else %}
-
+                                <div class="row">
+                                    {%if bank_req.cert_poss_real_right_enjoy.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='cert_poss_real_right_enjoy' %}
+                                    {%else%}
+                                    {%for file in bank_req.cert_poss_real_right_enjoy.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='cert_poss_real_right_enjoy' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='cert_poss_real_right_enjoy' %}
+                                </div>
                                 {%endif%}
 
                             </div>
                             <div class="tab-pane fade" id="pills-1-10" role="tabpanel" aria-labelledby="pills-1-10-tab">
 
-                                  <h4> Dichiarazione consenso da parte del proprietario</h4>
-                                {%if not bank_req.declaration_con_owner %}
-                                <div class="input-container">
-                                    <form method="POST" enctype="multipart/form-data" >
-                                        {% csrf_token %}
-                                        <div class="form-group ">
-                                            {{file_form}}
-                                            {{status_form}}
-                                            <input type="submit" name="declaration_con_owner" value="UPLOAD" />
+                                <h4> Dichiarazione consenso da parte del proprietario</h4>
+                                {%if not bank_req.declaration_con_owner.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="declaration_con_owner" value="Caricamento" />
+                                            </div>
+                                            </form>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                                 {% else %}
-
+                                <div class="row">
+                                    {%if bank_req.declaration_con_owner.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='declaration_con_owner' %}
+                                    {%else%}
+                                    {%for file in bank_req.declaration_con_owner.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='declaration_con_owner' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='declaration_con_owner' %}
+                                </div>
                                 {%endif%}
 
 
-                                  <h4> Contratto certificante la corretta registrazione</h4>
-                                {%if not bank_req.contract_cert_cor_reg %}
-                                <div class="input-container">
-                                    <form method="POST" enctype="multipart/form-data" >
-                                        {% csrf_token %}
-                                        <div class="form-group ">
-                                            {{file_form}}
-                                            {{status_form}}
-                                            <input type="submit" name="contract_cert_cor_reg" value="UPLOAD" />
+                                <h4> Contratto certificante la corretta registrazione</h4>
+                                {%if not bank_req.contract_cert_cor_reg.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="contract_cert_cor_reg" value="Caricamento" />
+                                            </div>
+                                            </form>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                                 {% else %}
-
+                                <div class="row">
+                                    {%if bank_req.contract_cert_cor_reg.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='contract_cert_cor_reg' %}
+                                    {%else%}
+                                    {%for file in bank_req.contract_cert_cor_reg.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='contract_cert_cor_reg' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='contract_cert_cor_reg' %}
+                                </div>
                                 {%endif%}
 
                             </div>
-                            <div class="tab-pane fade" id="pills-1-11" role="tabpanel" aria-labelledby="pills-1-11-tab">1-11</div>
-                            <div class="tab-pane fade" id="pills-1-12" role="tabpanel" aria-labelledby="pills-1-12-tab">1-12</div>
-                            <div class="tab-pane fade" id="pills-1-13" role="tabpanel" aria-labelledby="pills-1-13-tab">1-13</div>
-                            <div class="tab-pane fade" id="pills-1-14" role="tabpanel" aria-labelledby="pills-1-14-tab">1-14</div>
-                            <div class="tab-pane fade" id="pills-1-15" role="tabpanel" aria-labelledby="pills-1-15-tab">1-15</div>
-                            <div class="tab-pane fade" id="pills-1-16" role="tabpanel" aria-labelledby="pills-1-16-tab">1-16</div>
-                            <div class="tab-pane fade" id="pills-1-17" role="tabpanel" aria-labelledby="pills-1-17-tab">1-17</div>
-                            <div class="tab-pane fade" id="pills-1-18" role="tabpanel" aria-labelledby="pills-1-18-tab">1-18</div>
-                            <div class="tab-pane fade" id="pills-1-19" role="tabpanel" aria-labelledby="pills-1-19-tab">1-19</div>
-                            <div class="tab-pane fade" id="pills-1-20" role="tabpanel" aria-labelledby="pills-1-20-tab">1-20</div>
-                            <div class="tab-pane fade" id="pills-1-21" role="tabpanel" aria-labelledby="pills-1-21-tab">1-21</div>
-                            <div class="tab-pane fade" id="pills-1-22" role="tabpanel" aria-labelledby="pills-1-22-tab">1-22</div>
-                            <div class="tab-pane fade" id="pills-1-23" role="tabpanel" aria-labelledby="pills-1-23-tab">1-23</div>
-                            <div class="tab-pane fade" id="pills-1-24" role="tabpanel" aria-labelledby="pills-1-24-tab">1-24</div>
-                            <div class="tab-pane fade" id="pills-2-1" role="tabpanel" aria-labelledby="pills-2-1-tab">2-1</div>
-                            <div class="tab-pane fade" id="pills-2-2" role="tabpanel" aria-labelledby="pills-2-2-tab">2-2</div>
-                            <div class="tab-pane fade" id="pills-3-1" role="tabpanel" aria-labelledby="pills-3-1-tab">3-1</div>
-                            <div class="tab-pane fade" id="pills-3-2" role="tabpanel" aria-labelledby="pills-3-2-tab">3-2</div>
-                            <div class="tab-pane fade" id="pills-3-3" role="tabpanel" aria-labelledby="pills-3-3-tab">3-3</div>
+                            <div class="tab-pane fade" id="pills-1-11" role="tabpanel" aria-labelledby="pills-1-11-tab">
+                                <h4>Contratto preliminare registrato immissione in possesso</h4>
+                                {%if not bank_req.pre_cont_reg_place_in_pos.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="pre_cont_reg_place_in_pos" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.pre_cont_reg_place_in_pos.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='pre_cont_reg_place_in_pos' %}
+                                    {%else%}
+                                    {%for file in bank_req.pre_cont_reg_place_in_pos.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='pre_cont_reg_place_in_pos' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='pre_cont_reg_place_in_pos' %}
+                                </div>
+                                {%endif%}
 
+                                <h4>Dichiarazione consenso da parte del proprietario</h4>
+                                {%if not bank_req.declaration_of_cons_owner.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="declaration_of_cons_owner" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.declaration_of_cons_owner.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='declaration_of_cons_owner' %}
+                                    {%else%}
+                                    {%for file in bank_req.declaration_of_cons_owner.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='declaration_of_cons_owner' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='declaration_of_cons_owner' %}
+                                </div>
+                                {%endif%}
+                            </div>
+                            <div class="tab-pane fade" id="pills-1-12" role="tabpanel" aria-labelledby="pills-1-12-tab">
+                                <h4>Certificato dell'anagrafe</h4>
+                                {%if not bank_req.cert_of_reg_office.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="cert_of_reg_office" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.cert_of_reg_office.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='cert_of_reg_office' %}
+                                    {%else%}
+                                    {%for file in bank_req.cert_of_reg_office.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='cert_of_reg_office' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='cert_of_reg_office' %}
+                                </div>
+                                {%endif%}
 
+                                <h4>Titolo di possesso</h4>
+                                {%if not bank_req.title_of_possession.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="title_of_possession" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.title_of_possession.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='cat_plan' %}
+                                    {%else%}
+                                    {%for file in bank_req.title_of_possession.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='title_of_possession' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='title_of_possession' %}
+                                </div>
+                                {%endif%}
+
+                                <h4>Dichiarazione di consenso da parte del proprietario</h4>
+                                {%if not bank_req.dec_of_con_by_owner.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="dec_of_con_by_owner" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.dec_of_con_by_owner.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='dec_of_con_by_owner' %}
+                                    {%else%}
+                                    {%for file in bank_req.dec_of_con_by_owner.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='dec_of_con_by_owner' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='dec_of_con_by_owner' %}
+                                </div>
+                                {%endif%}
+                            </div>
+                            <div class="tab-pane fade" id="pills-1-13" role="tabpanel" aria-labelledby="pills-1-13-tab">
+                                <h4>Assegnazione</h4>
+                                {%if not bank_req.assignment.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="assignment" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.assignment.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='assignment' %}
+                                    {%else%}
+                                    {%for file in bank_req.assignment.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='assignment' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='assignment' %}
+                                </div>
+                                {%endif%}
+
+                                <h4>Titolo di possesso</h4>
+                                {%if not bank_req.t_of_pos.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="t_of_pos" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.t_of_pos.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='t_of_pos' %}
+                                    {%else%}
+                                    {%for file in bank_req.t_of_pos.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='t_of_pos' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='t_of_pos' %}
+                                </div>
+                                {%endif%}
+
+                                <h4>Dichiarazione di consenso da parte del proprietario</h4>
+                                {%if not bank_req.dec_of_cons_spouse.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="dec_of_cons_spouse" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.dec_of_cons_spouse.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='dec_of_cons_spouse' %}
+                                    {%else%}
+                                    {%for file in bank_req.dec_of_cons_spouse.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='dec_of_cons_spouse' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='dec_of_cons_spouse' %}
+                                </div>
+                                {%endif%}
+                            </div>
+                            <div class="tab-pane fade" id="pills-1-14" role="tabpanel" aria-labelledby="pills-1-14-tab">
+                                <h4>Contratto</h4>
+                                {%if not bank_req.proc_contract.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="proc_contract" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.proc_contract.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='proc_contract' %}
+                                    {%else%}
+                                    {%for file in bank_req.proc_contract.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='proc_contract' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='proc_contract' %}
+                                </div>
+                                {%endif%}
+
+                                <h4>Computo metrico</h4>
+                                {%if not bank_req.metric_cal.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="metric_cal" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.metric_cal.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='metric_cal' %}
+                                    {%else%}
+                                    {%for file in bank_req.metric_cal.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='metric_cal' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='metric_cal' %}
+                                </div>
+                                {%endif%}
+
+                                <h4>Scadenze presunte (SAL)</h4>
+                                {%if not bank_req.presumed_deadline_sal.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="presumed_deadline_sal" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.presumed_deadline_sal.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='presumed_deadline_sal' %}
+                                    {%else%}
+                                    {%for file in bank_req.presumed_deadline_sal.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='presumed_deadline_sal' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='presumed_deadline_sal' %}
+                                </div>
+                                {%endif%}
+
+                                <h4>Contratti subappalto</h4>
+                                {%if not bank_req.sub_contract.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="sub_contract" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.sub_contract.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='sub_contract' %}
+                                    {%else%}
+                                    {%for file in bank_req.sub_contract.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='sub_contract' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='sub_contract' %}
+                                </div>
+                                {%endif%}
+                            </div>
+                            <div class="tab-pane fade" id="pills-1-15" role="tabpanel" aria-labelledby="pills-1-15-tab">
+                                <h4>Visura Aurica</h4>
+                                {%if not bank_req.visura_aurica.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="visura_aurica" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.visura_aurica.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='visura_aurica' %}
+                                    {%else%}
+                                    {%for file in bank_req.visura_aurica.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='visura_aurica' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='visura_aurica' %}
+                                </div>
+                                {%endif%}
+                            </div>
+                            <div class="tab-pane fade" id="pills-1-16" role="tabpanel" aria-labelledby="pills-1-16-tab">
+                                <h4>APE ante </h4>
+                                {%if not bank_req.ape_ante.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="ape_ante" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.ape_ante.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='ape_ante' %}
+                                    {%else%}
+                                    {%for file in bank_req.ape_ante.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='ape_ante' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='ape_ante' %}
+                                </div>
+                                {%endif%}
+                            </div>
+                            <div class="tab-pane fade" id="pills-1-17" role="tabpanel" aria-labelledby="pills-1-17-tab">
+                                <h4>Assicurazione RC Asseveratore</h4>
+                                {%if not bank_req.liability_insurance_asseverate.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="liability_insurance_asseverate" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.liability_insurance_asseverate.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='liability_insurance_asseverate' %}
+                                    {%else%}
+                                    {%for file in bank_req.liability_insurance_asseverate.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='liability_insurance_asseverate' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='liability_insurance_asseverate' %}
+                                </div>
+                                {%endif%}
+
+                                <h4>Documentazione vincolistica eventuale</h4>
+                                {%if not bank_req.any_binding_doc.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="any_binding_doc" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.any_binding_doc.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='any_binding_doc' %}
+                                    {%else%}
+                                    {%for file in bank_req.any_binding_doc.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='any_binding_doc' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='any_binding_doc' %}
+                                </div>
+                                {%endif%}
+
+                                <h4>Dichiarazioni conformità impianti esistenti (libretto caldaie, schede tecniche infissi...)</h4>
+                                {%if not bank_req.dec_of_con_of_exis_sys.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="dec_of_con_of_exis_sys" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.dec_of_con_of_exis_sys.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='dec_of_con_of_exis_sys' %}
+                                    {%else%}
+                                    {%for file in bank_req.dec_of_con_of_exis_sys.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='dec_of_con_of_exis_sys' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='dec_of_con_of_exis_sys' %}
+                                </div>
+                                {%endif%}
+                            </div>
+                            <div class="tab-pane fade" id="pills-1-18" role="tabpanel" aria-labelledby="pills-1-18-tab">
+                                <h4>Dichiarazione iscrizione all'Albo - Asseveratore</h4>
+                                {%if not bank_req.dec_of_enroll.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="dec_of_enroll" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.dec_of_enroll.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='dec_of_enroll' %}
+                                    {%else%}
+                                    {%for file in bank_req.dec_of_enroll.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='dec_of_enroll' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='dec_of_enroll' %}
+                                </div>
+                                {%endif%}
+                            </div>
+                            <div class="tab-pane fade" id="pills-1-19" role="tabpanel" aria-labelledby="pills-1-19-tab">
+                                <h4>Dichiarazione di stato legittimo (regolarità edile/urbanistica)</h4>
+                                {%if not bank_req.leg_status_statement.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="leg_status_statement" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.leg_status_statement.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='leg_status_statement' %}
+                                    {%else%}
+                                    {%for file in bank_req.leg_status_statement.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='leg_status_statement' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='leg_status_statement' %}
+                                </div>
+                                {%endif%}
+
+                                <h4>Attestazione sicurezza cantiere (es. PSC/Dichiarazione)</h4>
+                                {%if not bank_req.construction_site_sc.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="construction_site_sc" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.construction_site_sc.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='construction_site_sc' %}
+                                    {%else%}
+                                    {%for file in bank_req.construction_site_sc.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='construction_site_sc' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='construction_site_sc' %}
+                                </div>
+                                {%endif%}
+
+                                <h4>Ultimo titolo edilizio - con tavole</h4>
+                                {%if not bank_req.lat_building_title.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="lat_building_title" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.lat_building_title.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='lat_building_title' %}
+                                    {%else%}
+                                    {%for file in bank_req.lat_building_title.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='lat_building_title' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='lat_building_title' %}
+                                </div>
+                                {%endif%}
+                            </div>
+                            <div class="tab-pane fade" id="pills-1-20" role="tabpanel" aria-labelledby="pills-1-20-tab">
+                                <h4>Due Diligence Tecnica PROTOS</h4>
+                                {%if not bank_req.tech_prot_ad_ver.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="tech_prot_ad_ver" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.tech_prot_ad_ver.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='tech_prot_ad_ver' %}
+                                    {%else%}
+                                    {%for file in bank_req.tech_prot_ad_ver.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='tech_prot_ad_ver' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='tech_prot_ad_ver' %}
+                                </div>
+                                {%endif%}
+                            </div>
+                            <div class="tab-pane fade" id="pills-1-21" role="tabpanel" aria-labelledby="pills-1-21-tab">
+                                <h4>1.21 - Studio pre-fattibilità tecnica</h4>
+                                {%if not bank_req.tech_pre_feas_study.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="tech_pre_feas_study" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.tech_pre_feas_study.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='tech_pre_feas_study' %}
+                                    {%else%}
+                                    {%for file in bank_req.tech_pre_feas_study.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='tech_pre_feas_study' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='tech_pre_feas_study' %}
+                                </div>
+                                {%endif%}
+                            </div>
+                            <div class="tab-pane fade" id="pills-1-22" role="tabpanel" aria-labelledby="pills-1-22-tab">
+                                <h4>Studio pre-fattibilità fiscale</h4>
+                                {%if not bank_req.tax_pre_feas_study.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="tax_pre_feas_study" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.tax_pre_feas_study.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='tax_pre_feas_study' %}
+                                    {%else%}
+                                    {%for file in bank_req.tax_pre_feas_study.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='tax_pre_feas_study' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='tax_pre_feas_study' %}
+                                </div>
+                                {%endif%}
+                            </div>
+                            <div class="tab-pane fade" id="pills-1-23" role="tabpanel" aria-labelledby="pills-1-23-tab">
+                                <h4>1.23 - Attestazione impresa intervento trainato effettuato tra inizio e fine lavori trainanti</h4>
+                                {%if not bank_req.towed_inter_comp_cert.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="towed_inter_comp_cert" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.towed_inter_comp_cert.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='towed_inter_comp_cert' %}
+                                    {%else%}
+                                    {%for file in bank_req.towed_inter_comp_cert.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='towed_inter_comp_cert' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='towed_inter_comp_cert' %}
+                                </div>
+                                {%endif%}
+                            </div>
+                            <div class="tab-pane fade" id="pills-1-24" role="tabpanel" aria-labelledby="pills-1-24-tab">
+                                <h4>Certificato iscrizione ordini tecnico abilitato asseverazione</h4>
+                                {%if not bank_req.cert_enroll_qto.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="cert_enroll_qto" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.cert_enroll_qto.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='cert_enroll_qto' %}
+                                    {%else%}
+                                    {%for file in bank_req.cert_enroll_qto.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='cert_enroll_qto' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='cert_enroll_qto' %}
+                                </div>
+                                {%endif%}
+                            </div>
+                            <div class="tab-pane fade" id="pills-2-1" role="tabpanel" aria-labelledby="pills-2-1-tab">
+                                <h4>Delibera assemblea condominiale firmata</h4>
+                                {%if not bank_req.res_of_cond_meeting.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="res_of_cond_meeting" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.res_of_cond_meeting.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='res_of_cond_meeting' %}
+                                    {%else%}
+                                    {%for file in bank_req.res_of_cond_meeting.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='res_of_cond_meeting' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='res_of_cond_meeting' %}
+                                </div>
+                                {%endif%}
+                            </div>
+                            <div class="tab-pane fade" id="pills-2-2" role="tabpanel" aria-labelledby="pills-2-2-tab">
+                                <h4>Pratica</h4>
+                                {%if not bank_req.sowc_practice.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="sowc_practice" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.sowc_practice.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='sowc_practice' %}
+                                    {%else%}
+                                    {%for file in bank_req.sowc_practice.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='sowc_practice' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='sowc_practice' %}
+                                </div>
+                                {%endif%}
+
+                                <h4>Notifica ASL</h4>
+                                {%if not bank_req.sowc_notification.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="sowc_notification" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.sowc_notification.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='sowc_notification' %}
+                                    {%else%}
+                                    {%for file in bank_req.sowc_notification.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='sowc_notification' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='sowc_notification' %}
+                                </div>
+                                {%endif%}
+                            </div>
+                            <div class="tab-pane fade" id="pills-3-1" role="tabpanel" aria-labelledby="pills-3-1-tab">
+                                <h4>Copia fatture</h4>
+                                {%if not bank_req.copy_invoice.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="copy_invoice" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.copy_invoice.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='copy_invoice' %}
+                                    {%else%}
+                                    {%for file in bank_req.copy_invoice.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='copy_invoice' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='copy_invoice' %}
+                                </div>
+                                {%endif%}
+                            </div>
+                            <div class="tab-pane fade" id="pills-3-2" role="tabpanel" aria-labelledby="pills-3-2-tab">
+                                <h4>Documentazione attestante congruità fatture</h4>
+                                {%if not bank_req.doc_cert_fairness.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="doc_cert_fairness" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.doc_cert_fairness.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='doc_cert_fairness' %}
+                                    {%else%}
+                                    {%for file in bank_req.doc_cert_fairness.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='doc_cert_fairness' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='doc_cert_fairness' %}
+                                </div>
+                                {%endif%}
+                            </div>
+                            <div class="tab-pane fade" id="pills-3-3" role="tabpanel" aria-labelledby="pills-3-3-tab">
+                                <h4>Evidenze di pagamento</h4>
+                                {%if not bank_req.prof_of_pay.all %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="card border-success mb-3">
+                                            <form method="POST" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                            <div class="card-header bg-transparent border-success ">
+                                                {{file_form}}
+                                            </div>
+                                            <div class="card-body ">
+                                                {{status_form}}
+                                            </div>
+                                            <div class="card-footer bg-transparent border-success">
+                                                <input type="submit" name="prof_of_pay" value="Caricamento" />
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    {%if bank_req.prof_of_pay.all|length > 2 %}
+                                            {% file_table  bonus_id=id modal_target='prof_of_pay' %}
+                                    {%else%}
+                                    {%for file in bank_req.prof_of_pay.all %}
+                                            {% edit_task  file_id=file.id bonus_id=id modal_target='prof_of_pay' %}
+                                    {%endfor%}
+                                    {%endif%}
+                                    {% file_modal modal_id='prof_of_pay' %}
+                                </div>
+                                {%endif%}
+                            </div>
                         </div>
-
                     </div>
-
                 </div>
-
-
-
             </div>
         </div>
     </section>

@@ -528,103 +528,57 @@ class BankRequirements(models.Model):
     admin_hi = models.ManyToManyField(FileRequired, related_name='ahi')
     cond_reg = models.ManyToManyField(FileRequired, related_name='creg')
     cond_tax = models.ManyToManyField(FileRequired, related_name='ctax')
-    cat_plan = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True, related_name='catp')
-    thousand_table = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True, related_name='tt')
-    cond_registry = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True, related_name='cregi')
-    notary_act_a = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                      related_name='not_act')
-    app_of_admin = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                      related_name='app_addmin')
-    notary_act_b = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                     related_name='not_act_b')
-    id_card_condo = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                     related_name='id_condo')
-    hic_condo = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                     related_name='hic')
-    leg_title_proc = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                     related_name='ltp')
-    cons_for_exe = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                     related_name='cfeow')
-    estate_unit_cat_visa = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                     related_name='reucv')
-    deed_of_owner_purch = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                     related_name='doop')
-    cert_poss_real_right_enjoy = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                            related_name='cprre')
-    declaration_con_owner = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                                   related_name='dcbo')
-    contract_cert_cor_reg = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                                   related_name='cccr')
-    pre_contract_reg = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                              related_name='pcrpp')
-    declar_of_cons_owner = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                              related_name='docbo')
-    contract_cert_corr_reg = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                              related_name='cccreg')
-    pre_cont_reg_place_in_pos = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                              related_name='pcrpip')
-    declaration_of_cons_owner = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                             related_name='docbo_l')
-    cert_of_reg_office = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                             related_name='coro')
-    title_of_possession = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                             related_name='top')
-    dec_of_con_by_owner = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                            related_name='docbto')
-    assignment = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                            related_name='assi')
-    t_of_pos = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                   related_name='top_spouse')
-    dec_of_cons_spouse = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                 related_name='doc_spouse')
-    proc_contract = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                           related_name='pcontract')
-    metric_cal = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                           related_name='mc')
-    presumed_deadline_sal = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                           related_name='pds')
-    sub_contract = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                           related_name='sub_contract')
-    visura_aurica = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                     related_name='vis_auri')
-    ape_ante = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                      related_name='aa')
-    liability_insurance_asseverate = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                      related_name='lib_ins_ass')
-    any_binding_doc = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                                       related_name='abdocs')
-    dec_of_con_of_exis_sys = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                                       related_name='docoes')
-    dec_of_enroll = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                               related_name='doer')
-    leg_status_statement = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                      related_name='lsos')
-    construction_site_sc = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                      related_name='cssc')
-    lat_building_title = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                      related_name='lbt')
-    tech_prot_ad_ver = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                           related_name='tpfav')
-    tech_pre_feas_study = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                         related_name='tpvs')
-    tax_pre_feas_study = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                            related_name='tpfs')
-    towed_inter_comp_cert = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                           related_name='ticcco')
-    cert_enroll_qto = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                              related_name='ceqto')
-    res_of_cond_meeting = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                        related_name='rocms')
-    sowc_practice = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                            related_name='sowcp')
-    sowc_notification = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                      related_name='sowcnot')
-    copy_invoice = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                          related_name='copy_invoice')
-    doc_cert_fairness = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                     related_name='dcfoi')
-    prof_of_pay = models.ForeignKey(FileRequired, on_delete=models.SET_NULL, blank=True, null=True,
-                                     related_name='pop')
+    cat_plan = models.ManyToManyField(FileRequired, related_name='catp')
+    thousand_table = models.ManyToManyField(FileRequired, related_name='tt')
+    cond_registry = models.ManyToManyField(FileRequired, related_name='cregi')
+    notary_act_a = models.ManyToManyField(FileRequired, related_name='not_act')
+    app_of_admin = models.ManyToManyField(FileRequired, related_name='app_addmin')
+    notary_act_b = models.ManyToManyField(FileRequired, related_name='not_act_b')
+    id_card_condo = models.ManyToManyField(FileRequired, related_name='id_condo')
+    hic_condo = models.ManyToManyField(FileRequired, related_name='hic')
+    leg_title_proc = models.ManyToManyField(FileRequired, related_name='ltp')
+    cons_for_exe = models.ManyToManyField(FileRequired, related_name='cfeow')
+    estate_unit_cat_visa = models.ManyToManyField(FileRequired, related_name='reucv')
+    deed_of_owner_purch = models.ManyToManyField(FileRequired, related_name='doop')
+    cert_poss_real_right_enjoy = models.ManyToManyField(FileRequired, related_name='cprre')
+    declaration_con_owner = models.ManyToManyField(FileRequired, related_name='dcbo')
+    contract_cert_cor_reg = models.ManyToManyField(FileRequired, related_name='cccr')
+    pre_contract_reg = models.ManyToManyField(FileRequired, related_name='pcrpp')
+    declar_of_cons_owner = models.ManyToManyField(FileRequired, related_name='docbo')
+    contract_cert_corr_reg = models.ManyToManyField(FileRequired, related_name='cccreg')
+    pre_cont_reg_place_in_pos = models.ManyToManyField(FileRequired, related_name='pcrpip')
+    declaration_of_cons_owner = models.ManyToManyField(FileRequired, related_name='docbo_l')
+    cert_of_reg_office = models.ManyToManyField(FileRequired, related_name='coro')
+    title_of_possession = models.ManyToManyField(FileRequired, related_name='top')
+    dec_of_con_by_owner = models.ManyToManyField(FileRequired, related_name='docbto')
+    assignment = models.ManyToManyField(FileRequired,related_name='assi')
+    t_of_pos = models.ManyToManyField(FileRequired, related_name='top_spouse')
+    dec_of_cons_spouse = models.ManyToManyField(FileRequired, related_name='doc_spouse')
+    proc_contract = models.ManyToManyField(FileRequired, related_name='pcontract')
+    metric_cal = models.ManyToManyField(FileRequired, related_name='mc')
+    presumed_deadline_sal = models.ManyToManyField(FileRequired, related_name='pds')
+    sub_contract = models.ManyToManyField(FileRequired, related_name='sub_contract')
+    visura_aurica = models.ManyToManyField(FileRequired, related_name='vis_auri')
+    ape_ante = models.ManyToManyField(FileRequired, related_name='aa')
+    liability_insurance_asseverate = models.ManyToManyField(FileRequired, related_name='lib_ins_ass')
+    any_binding_doc = models.ManyToManyField(FileRequired, related_name='abdocs')
+    dec_of_con_of_exis_sys = models.ManyToManyField(FileRequired, related_name='docoes')
+    dec_of_enroll = models.ManyToManyField(FileRequired, related_name='doer')
+    leg_status_statement = models.ManyToManyField(FileRequired, related_name='lsos')
+    construction_site_sc = models.ManyToManyField(FileRequired, related_name='cssc')
+    lat_building_title = models.ManyToManyField(FileRequired, related_name='lbt')
+    tech_prot_ad_ver = models.ManyToManyField(FileRequired, related_name='tpfav')
+    tech_pre_feas_study = models.ManyToManyField(FileRequired, related_name='tpvs')
+    tax_pre_feas_study = models.ManyToManyField(FileRequired, related_name='tpfs')
+    towed_inter_comp_cert = models.ManyToManyField(FileRequired, related_name='ticcco')
+    cert_enroll_qto = models.ManyToManyField(FileRequired, related_name='ceqto')
+    res_of_cond_meeting = models.ManyToManyField(FileRequired, related_name='rocms')
+    sowc_practice = models.ManyToManyField(FileRequired, related_name='sowcp')
+    sowc_notification = models.ManyToManyField(FileRequired,related_name='sowcnot')
+    copy_invoice = models.ManyToManyField(FileRequired, related_name='copy_invoice')
+    doc_cert_fairness = models.ManyToManyField(FileRequired, related_name='dcfoi')
+    prof_of_pay = models.ManyToManyField(FileRequired, related_name='pop')
+
     class Meta:
         Managed: True
 

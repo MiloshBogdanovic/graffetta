@@ -52,25 +52,26 @@ def get_status(file_id):
 @register.inclusion_tag('status-task.html')
 def get_status_all(field, bank_req_id):
     bank_req = BankRequirements.objects.get(id=bank_req_id)
-    files_status = getattr(bank_req, field).all()
-    statuses = set()
-    if files_status:
-        for file in files_status:
-            statuses.add(StatusFile.objects.get(file=file.id).status)
-    else:
-        return {'status': None}
+    if bank_req:
+        files_status = getattr(bank_req, field).all()
+        statuses = set()
+        if files_status:
+            for file in files_status:
+                statuses.add(StatusFile.objects.get(file=file.id).status)
+        else:
+            return {'status': None}
 
-    if all(s == 'UPLOADED' for s in statuses):
-        statuses.clear()
-        return {'status': 'UPLOADED'}
-    elif all(s == 'VERIFIED' for s in statuses):
-        statuses.clear()
-        return {'status': 'VERIFIED'}
-    elif all(s == 'AUTHORISED' for s in statuses):
-        statuses.clear()
-        return {'status': 'AUTHORISED'}
-    else:
-        return {'status': 'UNFINISHED'}
+        if all(s == 'UPLOADED' for s in statuses):
+            statuses.clear()
+            return {'status': 'UPLOADED'}
+        elif all(s == 'VERIFIED' for s in statuses):
+            statuses.clear()
+            return {'status': 'VERIFIED'}
+        elif all(s == 'AUTHORISED' for s in statuses):
+            statuses.clear()
+            return {'status': 'AUTHORISED'}
+        else:
+            return {'status': 'UNFINISHED'}
 
 
 @register.inclusion_tag('add-file-modal.html')

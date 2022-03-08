@@ -12,7 +12,6 @@ from .forms import *
 from django.conf import settings
 
 
-
 @login_required(login_url="/login/")
 def app(request):
     context = {'segment': 'bonus-app-view', 'table': SuperBonus.objects.all()}
@@ -719,14 +718,17 @@ def delete_prop(request, type, id):
 
 @login_required(login_url="/login/")
 def bank_requirements(request, id):
-    context = {'segment': 'bank-requirements', 'id': id, 'file_form': FileRequiredForm(), 'status_form': StatusFileForm()}
+    context = {'segment': 'bank-requirements', 'id': id,'status_form': StatusFileForm()}
     bonus = get_object_or_404(SuperBonus, pk=id)
 
     if BankRequirements.objects.filter(bonus=bonus.id).exists():
         bank_req = BankRequirements.objects.get(bonus=bonus.id)
     else:
         bank_req = BankRequirements(bonus=SuperBonus.objects.get(id=id))
+        bank_req.save()
+
     context['bank_req'] = bank_req
+    context['file_form'] = FileRequiredForm()
     if request.POST:
         post_list = list(request.POST.items())
         print(post_list)

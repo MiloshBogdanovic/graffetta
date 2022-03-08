@@ -111,7 +111,7 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'auri-soft',
+        'NAME': 'auri_test',
 
         'USER': 'postgres',
 
@@ -163,13 +163,12 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 # Path where media is stored
-MEDIA_URL = 'media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-
-
+STATIC_ROOT = 'staticfiles/'
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = 'media/'
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(CORE_DIR, 'staticfiles'),
     os.path.join(CORE_DIR, 'core/static'),
 )
 

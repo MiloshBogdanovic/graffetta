@@ -13,4 +13,4 @@ $("ul.nav-pills > li > a").on("shown.bs.tab", function(e) {
 
 // on load of the page: switch to the currently selected tab
 var hash = window.location.hash;
-$('#pills-tab a[href="' + hash + '"]').tab('show');
+console.log(hash)
