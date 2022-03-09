@@ -81,3 +81,48 @@ def file_modal(modal_id):
     return {'modal_id': modal_id, 'file_form': file, 'status_form': status}
 
 
+@register.inclusion_tag('add-progress-bar.html')
+def progressbar(obj):
+    fields_names = [f.name for f in obj._meta.get_fields()[2:]]
+    fnum = len(fields_names)
+    pnum = 0
+    for field_name in fields_names:
+        value = getattr(obj, field_name)
+        if value is None or value == '':
+            pass
+        else:
+            pnum+=1
+    quotient = pnum / fnum
+    percentage = quotient * 100
+    percentage = round(percentage, 2)
+    if percentage <= 25:
+        color = 'danger'
+    elif percentage > 25 and percentage <= 97:
+        color = 'warning'
+    else:
+        color = 'success'
+
+    return {'percentage': percentage, 'color': color}
+
+
+@register.inclusion_tag('add-progress-bar.html')
+def progressbar_bank(obj):
+    fields_names = [f.name for f in obj._meta.get_fields(include_parents=False)[2:]]
+    fnum = len(fields_names)
+    pnum = 0
+    for field_name in fields_names:
+        value = getattr(obj, field_name).all()
+        if value:
+            pnum += 1
+
+    quotient = pnum / fnum
+    percentage = quotient * 100
+    percentage = round(percentage, 2)
+    if percentage <= 25:
+        color = 'danger'
+    elif percentage > 25 and percentage <= 97:
+        color = 'warning'
+    else:
+        color = 'success'
+
+    return {'percentage': percentage, 'color': color}

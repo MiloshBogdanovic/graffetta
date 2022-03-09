@@ -547,9 +547,10 @@ def edit_intervention_costs(request, id, type):
 
 @login_required(login_url="/login/")
 def preview(request, id):
-    print(settings.BASE_DIR,settings.CORE_DIR)
     bonus = get_object_or_404(SuperBonus, pk=id)
-    context = {'segment': 'bonus-preview', 'id': id }
+    bank = get_object_or_404(BankRequirements, bonus=bonus.id)
+    print(type(bank))
+    context = {'segment': 'bonus-preview', 'id': id, 'bank': bank }
     if bonus.bonus_villa:
         villa = get_object_or_404(BonusVilla, pk=bonus.bonus_villa_id)
         context['form'] = BonusVillaForm(instance=villa)

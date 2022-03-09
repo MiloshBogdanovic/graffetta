@@ -22,6 +22,6 @@ urlpatterns = [
     path('bank-requirements/<int:id>/', views.bank_requirements, name='bank-requirements'),
     path('bank-req-file-edit/<int:id>/<int:file_id>/', views.edit_bank_file, name='bank-file-edit'),
     path('bank-file-status-edit/<int:id>/<int:file_id>/', views.edit_bank_file_status, name='bank-file-status-edit'),
-    path('bank-file-status-edit/download/<str:path>', views.download_bank_file, name='bank-file-download'),
+    path('bank-file-status-edit/download/(?P<path>.*)$/', views.download_bank_file, name='bank-file-download'),
     path('bank-file-status-delete/<int:id>/<int:file_id>/', views.delete_bank_file, name='delete-bank-file'),
 ]
