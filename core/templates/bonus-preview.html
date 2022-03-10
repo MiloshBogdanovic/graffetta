@@ -15,95 +15,93 @@
 
                     <div class="row pr-0">
                         <div class="col">
-                            <div class="card {%if not bonus.interventions_id%}alert-danger{%elif bonus.interventions_id%}alert-success{%endif%}">
+                            <div class="card {%if not bonus.interventions_id%}alert-danger{%elif bonus.interventions_id%}alert-success{%endif%}" role="alert">
                                 <div class="card-header">
                                     <a href="{% url 'bonus-add-intervention' id=id%}"><h4 class="text-center">INTERVENTI EFFETTUATI</h4></a>
                                 </div>
-                                <div class="card-body">
-                                   <div class="progress">
-                                       {%if not bonus.interventions_id%}
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 5%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
-                                       {%elif bonus.interventions_id%}
-                                       {% progressbar obj=bonus.interventions %}
-                                       {%endif%}
-
-                                    </div>
-                                </div>
+<!--                                <div class="card-body">-->
+<!--                                   <div class="progress">-->
+<!--                                       {%if not bonus.interventions_id%}-->
+<!--                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 5%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>-->
+<!--                                       {%elif bonus.interventions_id%}-->
+<!--                                       {% progressbar obj=bonus.interventions %}-->
+<!--                                       {%endif%}-->
+<!--                                    </div>-->
+<!--                                </div>-->
                             </div>
                         </div>
                     </div>
                     <div class="row  pr-0">
                         <div class="col">
-                            <div class="card {%if not bonus.catastal_id%}alert-danger{%elif bonus.catastal_id%}alert-success{%endif%}">
+                            <div class="card {%if not bonus.catastal_id%}alert-danger{%elif bonus.catastal_id%}alert-success{%endif%}" role="alert">
                                 <div class="card-header">
                                     <a href="{% url 'bonus-catastal' id=id%}"><h4 class="text-center">CATASTALI</h4></a>
                                 </div>
-                                <div class="card-body">
-                                   <div class="progress">
-                                       {%if not bonus.catastal_id%}
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 5%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
-                                       {%elif bonus.catastal_id%}
-                                       {% progressbar obj=bonus.catastal %}
-                                       {%endif%}
-                                    </div>
-                                </div>
+<!--                                <div class="card-body">-->
+<!--                                   <div class="progress">-->
+<!--                                       {%if not bonus.catastal_id%}-->
+<!--                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 5%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>-->
+<!--                                       {%elif bonus.catastal_id%}-->
+<!--                                       {% progressbar obj=bonus.catastal %}-->
+<!--                                       {%endif%}-->
+<!--                                    </div>-->
+<!--                                </div>-->
                             </div>
                         </div>
                     </div>
                     <div class="row  pr-0">
                        <div class="col">
-                            <div class="card {%if not bonus.beneficiary_id%}alert-danger{%elif bonus.beneficiary_id%}alert-success{%endif%}">
+                            <div class="card {%if not bonus.beneficiary_id%}alert-danger{%elif bonus.beneficiary_id%}alert-success{%endif%} " role="alert">
                                 <div class="card-header">
                                     <a href="{% url 'bonus-beneficiary' id=id%}"><h4 class="text-center">DETTAGLIO DEI BENEFICIARI</h4></a>
                                 </div>
-                                <div class="card-body">
-                                   <div class="progress">
-                                       {%if not bonus.beneficiary_id%}
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 5%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
-                                       {%elif bonus.beneficiary_id%}
-                                       {% progressbar obj=bonus.beneficiary %}
-                                       {%endif%}
-                                    </div>
-                                </div>
+<!--                                <div class="card-body">-->
+<!--                                   <div class="progress">-->
+<!--                                       {%if not bonus.beneficiary_id%}-->
+<!--                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 5%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>-->
+<!--                                       {%elif bonus.beneficiary_id%}-->
+<!--                                       {% progressbar obj=bonus.beneficiary %}-->
+<!--                                       {%endif%}-->
+<!--                                    </div>-->
+<!--                                </div>-->
                             </div>
                         </div>
                     </div>
                     <div class="row  pr-0">
                         <div class="col">
-                            <div class="card {%if  not bonus.overall_interventions %} alert-danger {%elif bonus.overall_interventions and bonus.driving_interventions and bonus.trailed_interventions%}alert-success{%else%}alert-warning{%endif%}">
+                            <div class="card {%if  not bonus.overall_interventions %} alert-danger {%elif bonus.overall_interventions and bonus.driving_interventions and bonus.trailed_interventions%}alert-success{%else%}alert-warning{%endif%}" role="alert">
                                 <div class="card-header">
                                     <a href="{% url 'bonus-costs' id=id type='overall' %}"><h4 class="text-center">SINTESI CONTRATTO CLIENTE</h4></a>
                                 </div>
-                                <div class="card-body">
-                                    <div class="progress">
-                                         {%if not bonus.overall_interventions%}
-                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 5%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
-                                            {%elif bonus.overall_interventions and bonus.driving_interventions or bonus.trailed_interventions%}
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                            {%else%}
-                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 50%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                            {%endif%}
-                                    </div>
-                                </div>
+<!--                                <div class="card-body">-->
+<!--                                    <div class="progress">-->
+<!--                                         {%if not bonus.overall_interventions%}-->
+<!--                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 5%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>-->
+<!--                                            {%elif bonus.overall_interventions and bonus.driving_interventions or bonus.trailed_interventions%}-->
+<!--                                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>-->
+<!--                                            {%else%}-->
+<!--                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 50%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>-->
+<!--                                            {%endif%}-->
+<!--                                    </div>-->
+<!--                                </div>-->
                              </div>
                         </div>
                     </div>
                     <div class="row  pr-0">
                        <div class="col">
-                            <div class="card {%if not bonus.professionals%}alert-danger{%elif bonus.professionals %}alert-success{%endif%}">
+                            <div class="card {%if not bonus.professionals%}alert-danger{%elif bonus.professionals %}alert-success{%endif%}" role="alert">
                                 <div class="card-header">
                                     <a href="{% url 'bonus-professional' id=id  %}"><h4 class="text-center" >INCARICHI PROFESSIONALI<br></h4></a>
                                 </div>
-                                <div class="card-body">
-                                   <div class="progress">
-                                       {%if not bonus.professionals%}
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 5%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
-                                       {%elif bonus.professionals%}
-                                       {% progressbar obj=bonus.professionals %}
-                                       {%endif%}
-
-                                    </div>
-                                </div>
+<!--                                <div class="card-body">-->
+<!--                                   <div class="progress">-->
+<!--                                       {%if not bonus.professionals%}-->
+<!--                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 5%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>-->
+<!--                                       {%elif bonus.professionals%}-->
+<!--                                       {% progressbar obj=bonus.professionals %}-->
+<!--                                       {%endif%}-->
+<!--                                    </div>-->
+<!--                                </div>-->
                             </div>
                         </div>
                     </div>
@@ -212,7 +210,7 @@
 
                                 </div>
                                 <div class="card-footer">
-                                    <div class="ml-4 ">
+                                    <div class="ml-0 ">
                                         <button type="button" class="btn  btn-primary">Generate Contract</button>
                                     </div>
                                 </div>

@@ -83,9 +83,9 @@ def file_modal(modal_id):
 
 @register.inclusion_tag('add-progress-bar.html')
 def progressbar(obj):
-    fields_names = [f.name for f in obj._meta.get_fields()[2:]]
+    fields_names = [f.name for f in obj._meta.get_fields(include_hidden=True)[3:]]
     fnum = len(fields_names)
-    pnum = 0
+    pnum = -7
     for field_name in fields_names:
         value = getattr(obj, field_name)
         if value is None or value == '':

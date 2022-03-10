@@ -265,12 +265,12 @@
 
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.admin_id.all|length > 2 %}
+                                    {%if bank_req.admin_id.all %}
                                             {% file_table  bonus_id=id modal_target='admin_id' %}
                                     {%else%}
-                                    {%for file in bank_req.admin_id.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='admin_id' %}
-                                    {%endfor%}
+<!--                                    {%for file in bank_req.admin_id.all %}-->
+<!--                                            {% edit_task  file_id=file.id bonus_id=id modal_target='admin_id' %}-->
+<!--                                    {%endfor%}-->
                                     {%endif%}
 
                                     {% file_modal modal_id='admin_id' %}
@@ -302,12 +302,12 @@
                                 {% else %}
 
                                 <div class="row">
-                                    {%if bank_req.admin_hi.all|length > 2 %}
+                                    {%if bank_req.admin_hi.all %}
                                             {% file_table  bonus_id=id modal_target='admin_hi' %}
                                     {%else%}
-                                    {%for file in bank_req.admin_hi.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='admin_hi' %}
-                                    {%endfor%}
+<!--                                    {%for file in bank_req.admin_hi.all %}-->
+<!--                                            {% edit_task  file_id=file.id bonus_id=id modal_target='admin_hi' %}-->
+<!--                                    {%endfor%}-->
                                     {%endif%}
 
                                     {% file_modal modal_id='admin_hi' %}
@@ -339,13 +339,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.cond_reg.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='cond_reg' %}
-                                    {%else%}
-                                    {%for file in bank_req.cond_reg.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='cond_reg' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='cond_reg' %}
+
                                     {% file_modal modal_id='cond_reg' %}
                                 </div>
 
@@ -373,13 +369,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.cond_tax.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='cond_tax' %}
-                                    {%else%}
-                                    {%for file in bank_req.cond_tax.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='cond_tax' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='cond_tax' %}
+
                                     {% file_modal modal_id='cond_tax' %}
                                 </div>
                                 {%endif%}
@@ -409,13 +401,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.cat_plan.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='cat_plan' %}
-                                    {%else%}
-                                    {%for file in bank_req.cat_plan.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='cat_plan' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='cat_plan' %}
+
                                     {% file_modal modal_id='cat_plan' %}
                                 </div>
                                 {%endif%}
@@ -443,13 +431,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.thousand_table.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='thousand_table' %}
-                                    {%else%}
-                                    {%for file in bank_req.thousand_table.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='thousand_table' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='thousand_table' %}
+
                                     {% file_modal modal_id='thousand_table' %}
                                 </div>
 
@@ -481,13 +465,8 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.cond_registry.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='cond_registry' %}
-                                    {%else%}
-                                    {%for file in bank_req.cond_registry.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='cond_registry' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='cond_registry' %}
                                     {% file_modal modal_id='cond_registry' %}
                                 </div>
                                 {%endif%}
@@ -518,13 +497,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.notary_act_a.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='notary_act_a' %}
-                                    {%else%}
-                                    {%for file in bank_req.notary_act_a.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='notary_act_a' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='notary_act_a' %}
+
                                     {% file_modal modal_id='notary_act_a' %}
                                 </div>
                                 {%endif%}
@@ -551,13 +526,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.app_of_admin.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='app_of_admin' %}
-                                    {%else%}
-                                    {%for file in bank_req.app_of_admin.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='app_of_admin' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='app_of_admin' %}
+
                                     {% file_modal modal_id='app_of_admin' %}
                                 </div>
                                 {%endif%}
@@ -585,13 +556,8 @@
 
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.admin_id.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='admin_id' %}
-                                    {%else%}
-                                    {%for file in bank_req.admin_id.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='admin_id' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                   {% file_table  bonus_id=id modal_target='admin_id' %}
 
                                     {% file_modal modal_id='admin_id' %}
                                 </div>
@@ -620,13 +586,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.thousand_table.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='thousand_table' %}
-                                    {%else%}
-                                    {%for file in bank_req.thousand_table.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='thousand_table' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='thousand_table' %}
+
                                     {% file_modal modal_id='thousand_table' %}
                                 </div>
 
@@ -659,13 +621,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.notary_act_b.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='notary_act_b' %}
-                                    {%else%}
-                                    {%for file in bank_req.notary_act_b.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='notary_act_b' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='notary_act_b' %}
+
                                     {% file_modal modal_id='notary_act_b' %}
                                 </div>
                                 {%endif%}
@@ -692,13 +650,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.id_card_condo.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='id_card_condo' %}
-                                    {%else%}
-                                    {%for file in bank_req.id_card_condo.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='id_card_condo' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='id_card_condo' %}
+
                                     {% file_modal modal_id='id_card_condo' %}
                                 </div>
                                 {%endif%}
@@ -725,13 +679,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.hic_condo.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='hic_condo' %}
-                                    {%else%}
-                                    {%for file in bank_req.hic_condo.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='hic_condo' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                   {% file_table  bonus_id=id modal_target='hic_condo' %}
+
                                     {% file_modal modal_id='hic_condo' %}
                                 </div>
                                 {%endif%}
@@ -758,14 +708,10 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.leg_title_proc.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='leg_title_proc' %}
-                                    {%else%}
-                                    {%for file in bank_req.leg_title_proc.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='leg_title_proc' %}
-                                    {%endfor%}
-                                    {%endif%}
-                                    {% file_modal modal_id='leg_title_proc' %}
+
+                                 {% file_table  bonus_id=id modal_target='leg_title_proc' %}
+
+                                 {% file_modal modal_id='leg_title_proc' %}
                                 </div>
                                 {%endif%}
 
@@ -791,14 +737,10 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.cons_for_exe.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='cons_for_exe' %}
-                                    {%else%}
-                                    {%for file in bank_req.cons_for_exe.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='cons_for_exe' %}
-                                    {%endfor%}
-                                    {%endif%}
-                                    {% file_modal modal_id='cons_for_exe' %}
+
+                                  {% file_table  bonus_id=id modal_target='cons_for_exe' %}
+
+                                  {% file_modal modal_id='cons_for_exe' %}
                                 </div>
                                 {%endif%}
 
@@ -824,14 +766,10 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.cat_plan.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='cat_plan' %}
-                                    {%else%}
-                                    {%for file in bank_req.cat_plan.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='cat_plan' %}
-                                    {%endfor%}
-                                    {%endif%}
-                                    {% file_modal modal_id='cat_plan' %}
+
+                                  {% file_table  bonus_id=id modal_target='cat_plan' %}
+
+                                  {% file_modal modal_id='cat_plan' %}
                                 </div>
                                 {%endif%}
 
@@ -861,13 +799,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.deed_of_owner_purch.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='deed_of_owner_purch' %}
-                                    {%else%}
-                                    {%for file in bank_req.deed_of_owner_purch.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='deed_of_owner_purch' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='deed_of_owner_purch' %}
+
                                     {% file_modal modal_id='deed_of_owner_purch' %}
                                 </div>
                                 {%endif%}
@@ -897,14 +831,10 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.cert_poss_real_right_enjoy.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='cert_poss_real_right_enjoy' %}
-                                    {%else%}
-                                    {%for file in bank_req.cert_poss_real_right_enjoy.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='cert_poss_real_right_enjoy' %}
-                                    {%endfor%}
-                                    {%endif%}
-                                    {% file_modal modal_id='cert_poss_real_right_enjoy' %}
+
+                                  {% file_table  bonus_id=id modal_target='cert_poss_real_right_enjoy' %}
+
+                                  {% file_modal modal_id='cert_poss_real_right_enjoy' %}
                                 </div>
                                 {%endif%}
 
@@ -933,13 +863,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.declaration_con_owner.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='declaration_con_owner' %}
-                                    {%else%}
-                                    {%for file in bank_req.declaration_con_owner.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='declaration_con_owner' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='declaration_con_owner' %}
+
                                     {% file_modal modal_id='declaration_con_owner' %}
                                 </div>
                                 {%endif%}
@@ -967,14 +893,8 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.contract_cert_cor_reg.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='contract_cert_cor_reg' %}
-                                    {%else%}
-                                    {%for file in bank_req.contract_cert_cor_reg.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='contract_cert_cor_reg' %}
-                                    {%endfor%}
-                                    {%endif%}
-                                    {% file_modal modal_id='contract_cert_cor_reg' %}
+                                   {% file_table  bonus_id=id modal_target='contract_cert_cor_reg' %}
+                                   {% file_modal modal_id='contract_cert_cor_reg' %}
                                 </div>
                                 {%endif%}
 
@@ -1002,13 +922,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.pre_cont_reg_place_in_pos.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='pre_cont_reg_place_in_pos' %}
-                                    {%else%}
-                                    {%for file in bank_req.pre_cont_reg_place_in_pos.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='pre_cont_reg_place_in_pos' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                     {% file_table  bonus_id=id modal_target='pre_cont_reg_place_in_pos' %}
+
                                     {% file_modal modal_id='pre_cont_reg_place_in_pos' %}
                                 </div>
                                 {%endif%}
@@ -1035,13 +951,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.declaration_of_cons_owner.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='declaration_of_cons_owner' %}
-                                    {%else%}
-                                    {%for file in bank_req.declaration_of_cons_owner.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='declaration_of_cons_owner' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                     {% file_table  bonus_id=id modal_target='declaration_of_cons_owner' %}
+
                                     {% file_modal modal_id='declaration_of_cons_owner' %}
                                 </div>
                                 {%endif%}
@@ -1069,13 +981,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.cert_of_reg_office.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='cert_of_reg_office' %}
-                                    {%else%}
-                                    {%for file in bank_req.cert_of_reg_office.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='cert_of_reg_office' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                     {% file_table  bonus_id=id modal_target='cert_of_reg_office' %}
+
                                     {% file_modal modal_id='cert_of_reg_office' %}
                                 </div>
                                 {%endif%}
@@ -1102,13 +1010,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.title_of_possession.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='cat_plan' %}
-                                    {%else%}
-                                    {%for file in bank_req.title_of_possession.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='title_of_possession' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='cat_plan' %}
+
                                     {% file_modal modal_id='title_of_possession' %}
                                 </div>
                                 {%endif%}
@@ -1135,13 +1039,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.dec_of_con_by_owner.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='dec_of_con_by_owner' %}
-                                    {%else%}
-                                    {%for file in bank_req.dec_of_con_by_owner.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='dec_of_con_by_owner' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='dec_of_con_by_owner' %}
+
                                     {% file_modal modal_id='dec_of_con_by_owner' %}
                                 </div>
                                 {%endif%}
@@ -1169,13 +1069,8 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.assignment.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='assignment' %}
-                                    {%else%}
-                                    {%for file in bank_req.assignment.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='assignment' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                   {% file_table  bonus_id=id modal_target='assignment' %}
                                     {% file_modal modal_id='assignment' %}
                                 </div>
                                 {%endif%}
@@ -1202,13 +1097,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.t_of_pos.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='t_of_pos' %}
-                                    {%else%}
-                                    {%for file in bank_req.t_of_pos.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='t_of_pos' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='t_of_pos' %}
+
                                     {% file_modal modal_id='t_of_pos' %}
                                 </div>
                                 {%endif%}
@@ -1235,13 +1126,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.dec_of_cons_spouse.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='dec_of_cons_spouse' %}
-                                    {%else%}
-                                    {%for file in bank_req.dec_of_cons_spouse.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='dec_of_cons_spouse' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='dec_of_cons_spouse' %}
+
                                     {% file_modal modal_id='dec_of_cons_spouse' %}
                                 </div>
                                 {%endif%}
@@ -1269,13 +1156,8 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.proc_contract.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='proc_contract' %}
-                                    {%else%}
-                                    {%for file in bank_req.proc_contract.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='proc_contract' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                   {% file_table  bonus_id=id modal_target='proc_contract' %}
                                     {% file_modal modal_id='proc_contract' %}
                                 </div>
                                 {%endif%}
@@ -1302,13 +1184,8 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.metric_cal.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='metric_cal' %}
-                                    {%else%}
-                                    {%for file in bank_req.metric_cal.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='metric_cal' %}
-                                    {%endfor%}
-                                    {%endif%}
+                                    {% file_table  bonus_id=id modal_target='metric_cal' %}
+
                                     {% file_modal modal_id='metric_cal' %}
                                 </div>
                                 {%endif%}
@@ -1335,13 +1212,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.presumed_deadline_sal.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='presumed_deadline_sal' %}
-                                    {%else%}
-                                    {%for file in bank_req.presumed_deadline_sal.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='presumed_deadline_sal' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='presumed_deadline_sal' %}
+
                                     {% file_modal modal_id='presumed_deadline_sal' %}
                                 </div>
                                 {%endif%}
@@ -1368,13 +1241,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.sub_contract.all|length > 2 %}
+
                                             {% file_table  bonus_id=id modal_target='sub_contract' %}
-                                    {%else%}
-                                    {%for file in bank_req.sub_contract.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='sub_contract' %}
-                                    {%endfor%}
-                                    {%endif%}
+
                                     {% file_modal modal_id='sub_contract' %}
                                 </div>
                                 {%endif%}
@@ -1402,13 +1271,8 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.visura_aurica.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='visura_aurica' %}
-                                    {%else%}
-                                    {%for file in bank_req.visura_aurica.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='visura_aurica' %}
-                                    {%endfor%}
-                                    {%endif%}
+                                    {% file_table  bonus_id=id modal_target='visura_aurica' %}
+
                                     {% file_modal modal_id='visura_aurica' %}
                                 </div>
                                 {%endif%}
@@ -1436,14 +1300,10 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.ape_ante.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='ape_ante' %}
-                                    {%else%}
-                                    {%for file in bank_req.ape_ante.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='ape_ante' %}
-                                    {%endfor%}
-                                    {%endif%}
-                                    {% file_modal modal_id='ape_ante' %}
+
+                                  {% file_table  bonus_id=id modal_target='ape_ante' %}
+
+                                  {% file_modal modal_id='ape_ante' %}
                                 </div>
                                 {%endif%}
                             </div>
@@ -1470,13 +1330,8 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.liability_insurance_asseverate.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='liability_insurance_asseverate' %}
-                                    {%else%}
-                                    {%for file in bank_req.liability_insurance_asseverate.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='liability_insurance_asseverate' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                   {% file_table  bonus_id=id modal_target='liability_insurance_asseverate' %}
                                     {% file_modal modal_id='liability_insurance_asseverate' %}
                                 </div>
                                 {%endif%}
@@ -1503,13 +1358,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.any_binding_doc.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='any_binding_doc' %}
-                                    {%else%}
-                                    {%for file in bank_req.any_binding_doc.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='any_binding_doc' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='any_binding_doc' %}
+
                                     {% file_modal modal_id='any_binding_doc' %}
                                 </div>
                                 {%endif%}
@@ -1536,13 +1387,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.dec_of_con_of_exis_sys.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='dec_of_con_of_exis_sys' %}
-                                    {%else%}
-                                    {%for file in bank_req.dec_of_con_of_exis_sys.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='dec_of_con_of_exis_sys' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                     {% file_table  bonus_id=id modal_target='dec_of_con_of_exis_sys' %}
+
                                     {% file_modal modal_id='dec_of_con_of_exis_sys' %}
                                 </div>
                                 {%endif%}
@@ -1570,13 +1417,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.dec_of_enroll.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='dec_of_enroll' %}
-                                    {%else%}
-                                    {%for file in bank_req.dec_of_enroll.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='dec_of_enroll' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                   {% file_table  bonus_id=id modal_target='dec_of_enroll' %}
+
                                     {% file_modal modal_id='dec_of_enroll' %}
                                 </div>
                                 {%endif%}
@@ -1604,13 +1447,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.leg_status_statement.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='leg_status_statement' %}
-                                    {%else%}
-                                    {%for file in bank_req.leg_status_statement.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='leg_status_statement' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='leg_status_statement' %}
+
                                     {% file_modal modal_id='leg_status_statement' %}
                                 </div>
                                 {%endif%}
@@ -1637,13 +1476,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.construction_site_sc.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='construction_site_sc' %}
-                                    {%else%}
-                                    {%for file in bank_req.construction_site_sc.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='construction_site_sc' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='construction_site_sc' %}
+
                                     {% file_modal modal_id='construction_site_sc' %}
                                 </div>
                                 {%endif%}
@@ -1670,13 +1505,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.lat_building_title.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='lat_building_title' %}
-                                    {%else%}
-                                    {%for file in bank_req.lat_building_title.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='lat_building_title' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='lat_building_title' %}
+
                                     {% file_modal modal_id='lat_building_title' %}
                                 </div>
                                 {%endif%}
@@ -1704,13 +1535,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.tech_prot_ad_ver.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='tech_prot_ad_ver' %}
-                                    {%else%}
-                                    {%for file in bank_req.tech_prot_ad_ver.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='tech_prot_ad_ver' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='tech_prot_ad_ver' %}
+
                                     {% file_modal modal_id='tech_prot_ad_ver' %}
                                 </div>
                                 {%endif%}
@@ -1738,13 +1565,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.tech_pre_feas_study.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='tech_pre_feas_study' %}
-                                    {%else%}
-                                    {%for file in bank_req.tech_pre_feas_study.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='tech_pre_feas_study' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='tech_pre_feas_study' %}
+
                                     {% file_modal modal_id='tech_pre_feas_study' %}
                                 </div>
                                 {%endif%}
@@ -1772,13 +1595,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.tax_pre_feas_study.all|length > 2 %}
+
                                             {% file_table  bonus_id=id modal_target='tax_pre_feas_study' %}
-                                    {%else%}
-                                    {%for file in bank_req.tax_pre_feas_study.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='tax_pre_feas_study' %}
-                                    {%endfor%}
-                                    {%endif%}
+
                                     {% file_modal modal_id='tax_pre_feas_study' %}
                                 </div>
                                 {%endif%}
@@ -1806,13 +1625,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.towed_inter_comp_cert.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='towed_inter_comp_cert' %}
-                                    {%else%}
-                                    {%for file in bank_req.towed_inter_comp_cert.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='towed_inter_comp_cert' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='towed_inter_comp_cert' %}
+
                                     {% file_modal modal_id='towed_inter_comp_cert' %}
                                 </div>
                                 {%endif%}
@@ -1840,13 +1655,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.cert_enroll_qto.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='cert_enroll_qto' %}
-                                    {%else%}
-                                    {%for file in bank_req.cert_enroll_qto.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='cert_enroll_qto' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                     {% file_table  bonus_id=id modal_target='cert_enroll_qto' %}
+
                                     {% file_modal modal_id='cert_enroll_qto' %}
                                 </div>
                                 {%endif%}
@@ -1874,13 +1685,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.res_of_cond_meeting.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='res_of_cond_meeting' %}
-                                    {%else%}
-                                    {%for file in bank_req.res_of_cond_meeting.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='res_of_cond_meeting' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='res_of_cond_meeting' %}
+
                                     {% file_modal modal_id='res_of_cond_meeting' %}
                                 </div>
                                 {%endif%}
@@ -1908,14 +1715,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.sowc_practice.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='sowc_practice' %}
-                                    {%else%}
-                                    {%for file in bank_req.sowc_practice.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='sowc_practice' %}
-                                    {%endfor%}
-                                    {%endif%}
-                                    {% file_modal modal_id='sowc_practice' %}
+
+                                  {% file_table  bonus_id=id modal_target='sowc_practice' %}
+                                  {% file_modal modal_id='sowc_practice' %}
                                 </div>
                                 {%endif%}
 
@@ -1941,13 +1743,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.sowc_notification.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='sowc_notification' %}
-                                    {%else%}
-                                    {%for file in bank_req.sowc_notification.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='sowc_notification' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='sowc_notification' %}
+
                                     {% file_modal modal_id='sowc_notification' %}
                                 </div>
                                 {%endif%}
@@ -1975,13 +1773,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.copy_invoice.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='copy_invoice' %}
-                                    {%else%}
-                                    {%for file in bank_req.copy_invoice.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='copy_invoice' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='copy_invoice' %}
+
                                     {% file_modal modal_id='copy_invoice' %}
                                 </div>
                                 {%endif%}
@@ -2009,13 +1803,9 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.doc_cert_fairness.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='doc_cert_fairness' %}
-                                    {%else%}
-                                    {%for file in bank_req.doc_cert_fairness.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='doc_cert_fairness' %}
-                                    {%endfor%}
-                                    {%endif%}
+
+                                    {% file_table  bonus_id=id modal_target='doc_cert_fairness' %}
+
                                     {% file_modal modal_id='doc_cert_fairness' %}
                                 </div>
                                 {%endif%}
@@ -2043,13 +1833,8 @@
                                 </div>
                                 {% else %}
                                 <div class="row">
-                                    {%if bank_req.prof_of_pay.all|length > 2 %}
-                                            {% file_table  bonus_id=id modal_target='prof_of_pay' %}
-                                    {%else%}
-                                    {%for file in bank_req.prof_of_pay.all %}
-                                            {% edit_task  file_id=file.id bonus_id=id modal_target='prof_of_pay' %}
-                                    {%endfor%}
-                                    {%endif%}
+                                     {% file_table  bonus_id=id modal_target='prof_of_pay' %}
+
                                     {% file_modal modal_id='prof_of_pay' %}
                                 </div>
                                 {%endif%}
