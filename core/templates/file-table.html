@@ -1,4 +1,5 @@
 {% load my_tags %}
+
                 <!-- [ form-element ] start -->
                 <div class="w-100 ">
                     <div class="card table-card">
@@ -37,7 +38,7 @@
                                                  {%for file, status in files.items %}
                                                         <tr>
                                                             <td>{{file}}</td>
-                                                            <td><a class="btn btn-light" href="{% url 'bank-file-download' path=file.file.path %}"><i class="feather h4 icon-download "></i></a></td>
+                                                            <td><a class="btn btn-light" href="{% url 'bank-file-download' path=file.file.name %}"><i class="feather h4 icon-download "></i></a></td>
                                                             <td><a class="btn btn-light" href="{{file.file.url}}"><i class="feather icon-link h4"></i></a></td>
                                                             <td><a class="" href="{% url 'bank-file-status-edit' id=id file_id=file.id%}"> <button type="button" class="btn btn-outline-{%if status.status == 'UPLOADED' %}info{%elif status.status == 'VERIFIED' %}warning{%elif status.status == 'AUTHORISED' %}success{%endif%}  ">{%if status.status == 'UPLOADED' %}CARICATO{%elif status.status == 'VERIFIED'%}VERIFICATO{%elif status.status == 'AUTHORISED'%}AUTORIZZATO{%endif%}</button> </a></td>
                                                             <td><a class="btn btn-light" href="{% url 'bank-file-edit' id=id file_id=file.id%}"><i class="feather icon-edit h4"></i></a></td>
@@ -56,3 +57,4 @@
                         </div>
                     </div>
                 </div>
+
