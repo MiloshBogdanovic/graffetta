@@ -20,7 +20,6 @@ def edit_task(file_id, bonus_id, modal_target):
 def file_table( bonus_id, modal_target):
     bank_req = BankRequirements.objects.get(bonus=bonus_id)
     files = getattr(bank_req, modal_target).all()
-    print(type(files))
     files = list(files)
     statuses = list()
     res = {}
@@ -107,6 +106,7 @@ def progressbar(obj):
 
 @register.inclusion_tag('add-progress-bar.html')
 def progressbar_bank(obj):
+    print(obj)
     fields_names = [f.name for f in obj._meta.get_fields(include_parents=False)[2:]]
     fnum = len(fields_names)
     pnum = 0

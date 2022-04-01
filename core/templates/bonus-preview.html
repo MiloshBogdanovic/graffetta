@@ -178,10 +178,10 @@
                                                 <i class="feather icon-more-horizontal"></i>
                                             </button>
                                             <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
-                                                <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
-                                                <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
-                                                <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
-                                                <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                                                <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> massimizzare</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                                                <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> crollo</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                                                <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> ricaricare</a></li>
+                                                <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> rimuovere</a></li>
                                             </ul>
 
                                         </div>
@@ -197,15 +197,11 @@
                                             </table>
                                              <div class="input-group">
                                                 <input class="btn btn-warning m-1" type="submit" value="Modificare" />
-                                                 <div class="input-group-prepend">
-                                                    {%if type == 'villa'%}
-                                                    <a href="{% url 'bonus-delete' type='villa' id=id %}"><button class="btn btn-danger m-1" onclick="return confirm('Sei sicuro?')">Eliminare</button></a>
-                                                    {%elif type == 'condo'%}
-                                                         <a href="{% url 'bonus-delete' type='condo' id=id %}"><button class="btn btn-danger m-1" onclick="return confirm('Sei sicuro?')">Eliminare</button></a>
-                                                    {%endif%}
-                                                </div>
                                              </div>
                                         </form>
+                                        <div class="input-group-prepend">
+                                           <a href="{% url 'bonus-delete'  id=id %}"><button class="btn btn-danger m-1" onclick="return confirm('Sei sicuro?')">Eliminare</button></a>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -218,6 +214,8 @@
                         </div>
                         <div class="col-sm-6 col-md-4 col-lg-4">
 
+
+                           {%if bank%}
                             <div class="card table-card ">
                                 <div class="card-header mw-100 pr-0">
                                     <a href="{% url 'bank-requirements' id=id %}"><h3 class="text-center">MENU</h3></a>
@@ -230,9 +228,8 @@
                                             {% progressbar_bank obj=bank %}
                                     </div>
                                 </div>
-
                             </div>
-
+                            {%endif%}
                         </div>
                      </div>
                 </div>

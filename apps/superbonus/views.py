@@ -27,7 +27,11 @@ def add_condo(request):
         form = BonusCondoForm(request.POST)
         if form.is_valid():
             super_bonus = SuperBonus(bonus_condo=form.save())
-            super_bonus.save()
+            if super_bonus.bonus_condo.bank_id == 1:
+                bank = BankRequirements(bonus=super_bonus.save())
+                bank.save()
+            else:
+                super_bonus.save()
             messages.success(request, 'Creato con successo')
             return redirect('bonus-preview', id=super_bonus.id)
         else:
@@ -46,7 +50,11 @@ def add_villa(request):
         form = BonusVillaForm(request.POST)
         if form.is_valid():
             super_bonus = SuperBonus(bonus_villa=form.save())
-            super_bonus.save()
+            if super_bonus.bonus_villa.bank_id == 1:
+                bank = BankRequirements(bonus=super_bonus.save())
+                bank.save()
+            else:
+                super_bonus.save()
             messages.success(request, 'Creato con successo')
             return redirect('bonus-preview', id=super_bonus.id)
         else:
@@ -547,10 +555,13 @@ def edit_intervention_costs(request, id, type):
 
 @login_required(login_url="/login/")
 def preview(request, id):
+    context = {'segment': 'bonus-preview', 'id': id}
     bonus = get_object_or_404(SuperBonus, pk=id)
-    bank = get_object_or_404(BankRequirements, bonus=bonus.id)
-    print(type(bank))
-    context = {'segment': 'bonus-preview', 'id': id, 'bank': bank }
+    if BankRequirements.objects.filter(bonus=bonus.id).exists():
+        context['bank'] = BankRequirements.objects.get(bonus=bonus.id)
+    else:
+        bank = BankRequirements(bonus=SuperBonus.objects.get(id=bonus.id))
+        context['bank'] = bank.save()
     if bonus.bonus_villa:
         villa = get_object_or_404(BonusVilla, pk=bonus.bonus_villa_id)
         context['form'] = BonusVillaForm(instance=villa)
@@ -701,20 +712,11 @@ def add_professionals(request, id, type, prof):
 
 
 @login_required(login_url="/login/")
-def delete_prop(request, type, id):
+def delete_prop(request, id):
     bonus = get_object_or_404(SuperBonus, pk=id)
-    if type == 'condo':
-        row = get_object_or_404(BonusCondo, pk=bonus.bonus_condo_id)
-        row.delete()
-        messages.success(request, 'Eliminato con successo Deleted')
-
-    elif type == 'villa':
-        row = get_object_or_404(BonusVilla, pk=bonus.bonus_villa_id)
-        print(row)
-        row.delete()
-        messages.success(request, 'Eliminato con successo Deleted')
-
-    return redirect(reverse('bonus-app-view'))
+    bonus.delete()
+    messages.success(request, 'Eliminato con successo Deleted')
+    return redirect('bonus-app-view')
 
 
 @login_required(login_url="/login/")
@@ -725,9 +727,7 @@ def bank_requirements(request, id):
     if BankRequirements.objects.filter(bonus=bonus.id).exists():
         bank_req = BankRequirements.objects.get(bonus=bonus.id)
     else:
-        bank_req = BankRequirements(bonus=SuperBonus.objects.get(id=id))
-        bank_req.save()
-
+        bank_req = []
     context['bank_req'] = bank_req
     context['file_form'] = FileRequiredForm()
     if request.POST:
