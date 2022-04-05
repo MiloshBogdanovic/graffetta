@@ -2,6 +2,8 @@ from django import forms
 from .models import *
 from django.forms import ModelForm
 from django.forms.widgets import FileInput, Select, TextInput
+from dal import autocomplete
+from .csv_reader import get_cap_list
 
 # class FileFieldForm(forms.Form):
 #     file_field = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
@@ -81,7 +83,36 @@ class BonusCondoForm(ModelForm):
         model = BonusCondo
         exclude = ['id', 'beneficiary', 'catastal', 'professionals', 'interventions', 'overall_interventions',
                    'common_interventions', 'subjective_interventions', 'admin_legal', 'admin_individual']
-        widgets = {}
+        widgets = {
+            'name': TextInput(attrs={
+                'class': 'form-control',
+            }),
+            'street': TextInput(attrs={
+                'class': 'form-control',
+            }),
+            'cap': TextInput(attrs={
+                'class': 'form-control',
+            }),
+            'common_location': TextInput(attrs={
+                'class': 'form-control',
+            }),
+            'fiscal_code': TextInput(attrs={
+                'class': 'form-control',
+            }),
+            'province': TextInput(attrs={
+                'class': 'form-control',
+            }),
+            'email': EmailInput(attrs={
+                'class': 'form-control',
+            }),
+            'pec_mail': EmailInput(attrs={
+                'class': 'form-control',
+            }),
+            'bank_id': Select(attrs={
+                'class': 'form-control',
+            }),
+        }
+
 
 class InterventionsForm(ModelForm):
     class Meta:
@@ -188,9 +219,6 @@ class SubjectiveWorkNOVatForm(ModelForm):
     class Meta:
         model = SubjectiveWorkNOVat
         exclude = ['id']
-
-
-
 
 
 class AdministrationIndividualForm(ModelForm):

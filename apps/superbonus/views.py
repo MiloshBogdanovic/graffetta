@@ -558,10 +558,10 @@ def preview(request, id):
     context = {'segment': 'bonus-preview', 'id': id}
     bonus = get_object_or_404(SuperBonus, pk=id)
     if BankRequirements.objects.filter(bonus=bonus.id).exists():
-        context['bank'] = BankRequirements.objects.get(bonus=bonus.id)
+        bank = BankRequirements.objects.get(bonus=bonus.id)
     else:
-        bank = BankRequirements(bonus=SuperBonus.objects.get(id=bonus.id))
-        context['bank'] = bank.save()
+        bank = BankRequirements(bonus=bonus)
+    context['bank'] = bank
     if bonus.bonus_villa:
         villa = get_object_or_404(BonusVilla, pk=bonus.bonus_villa_id)
         context['form'] = BonusVillaForm(instance=villa)
@@ -570,9 +570,13 @@ def preview(request, id):
         if request.POST:
             form = BonusVillaForm(request.POST, instance=villa)
             if form.is_valid():
-                form.save()
+                bonus.bonus_villa = form.save()
+                bonus.save()
+                bank.bonus = get_object_or_404(SuperBonus, pk=bonus.id)
+                bank.save()
                 messages.success(request, 'Modifiche salvate con successo')
-                return redirect('bonus-preview', id=id)
+                context['bank'] = bank
+                return render(request,'bonus-preview.html', context)
             else:
                 context['form'] = form
                 messages.error(request, form.errors)
@@ -585,9 +589,13 @@ def preview(request, id):
         if request.POST:
             form = BonusCondoForm(request.POST, instance=condo)
             if form.is_valid():
-                form.save()
+                bonus.bonus_condo = form.save()
+                bonus.save()
+                bank.bonus = get_object_or_404(SuperBonus, pk=bonus.id)
+                bank.save()
                 messages.success(request, 'Modifiche salvate con successo')
-                return redirect('bonus-preview', id=id)
+                context['bank'] = bank
+                return render(request, 'bonus-preview.html', context)
             else:
                 context['form'] = form
                 messages.error(request, form.errors)

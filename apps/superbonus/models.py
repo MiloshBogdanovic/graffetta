@@ -9,7 +9,7 @@ import re
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from datetime import date
-
+from .csv_reader import get_cap_list
 
 YN = [
     ('NO', 'NO'),
@@ -53,7 +53,20 @@ def validate_file_extension(value):
 def validate_cap(value):
     if not re.match(r'^([\s\d]{5})$', value):
         raise ValidationError(
-            _('%(value)s is not an 5 digits cap number'),
+            _('%(value)s non è un numero massimo di 5 cifre'),
+            params={'value': value},
+        )
+    elif value not in get_cap_list():
+        raise ValidationError(
+            _('%(value)s non è un numero di cap valido'),
+            params={'value': value},
+        )
+
+
+def validate_fiscal_code(value):
+    if not re.match(r'^[A-Za-z]{6}[0-9]{2}[A-Za-z]{1}[0-9]{2}[A-Za-z]{1}[0-9]{3}[A-Za-z]{1}$', value):
+        raise ValidationError(
+            _('%(value)s valore inserito non è codice fiscale valido'),
             params={'value': value},
         )
 
@@ -467,7 +480,7 @@ class BonusVilla(models.Model):
 class BonusCondo(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField("DENOMINAZIONE CONDOMINIO", max_length=50, blank=False)
-    fiscal_code = models.CharField("CODICE FISCALE", max_length=16, blank=True)
+    fiscal_code = models.CharField("CODICE FISCALE", max_length=16, blank=True, validators=[validate_fiscal_code])
     street = models.CharField("CONDOMINIO VIA E NUMERO/I UBICAZIONE", max_length=50, blank=False)
     cap = models.CharField("CAP UBICAZIONE CONDOMINIO - IMMOBILE", max_length=5, validators=[validate_cap])
     common_location = models.CharField("COMUNE UBICAZIONE CONDOMINIO - IMMOBILE", max_length=50, blank=True)
