@@ -67,6 +67,7 @@ def add_villa(request):
 
 @login_required(login_url="/login/")
 def interventions(request, id):
+    activate('it')
     context = {'segment': 'interventions', 'id': id}
     html_template = loader.get_template('interventions.html')
     bonus = get_object_or_404(SuperBonus, pk=id)
@@ -132,6 +133,7 @@ def interventions(request, id):
 
 @login_required(login_url="/login/")
 def catastal(request, id):
+    activate('it')
     context = {'segment': 'catastal', 'id': id}
     html_template = loader.get_template('catastal.html')
     bonus = get_object_or_404(SuperBonus, pk=id)
@@ -195,6 +197,7 @@ def catastal(request, id):
 
 @login_required(login_url="/login/")
 def beneficiary(request, id):
+    activate('it')
     bonus = get_object_or_404(SuperBonus, pk=id)
     context = {'segment': 'bonus-beneficiary', 'id': id }
     html_template = loader.get_template('bonus-beneficiary.html')
@@ -233,6 +236,7 @@ def beneficiary(request, id):
 
 @login_required(login_url="/login/")
 def edit_beneficiary(request, id, ben_id):
+    activate('it')
     bonus = get_object_or_404(SuperBonus, pk=id)
     context = {'segment': 'bonus-edit-beneficiary', 'id': id }
     if bonus.bonus_villa:
@@ -270,6 +274,7 @@ def edit_beneficiary(request, id, ben_id):
 
 @login_required(login_url="/login/")
 def intervention_costs(request, id, type):
+    activate('it')
     bonus = get_object_or_404(SuperBonus, pk=id)
     context = {'segment': 'bonus-costs', 'bonus': bonus, 'type': type, 'id': id}
     html_template = loader.get_template('bonus-overall-inter.html')
@@ -416,6 +421,7 @@ def add_intervention_costs(request, id, type):
 
 
 def edit_intervention_costs(request, id, type):
+    activate('it')
     bonus = get_object_or_404(SuperBonus, pk=id)
     context = {'segment': 'edit-bonus-cost', 'bonus': bonus, 'type': type}
     html_template = loader.get_template('bonus-add-inter-cost.html')
@@ -555,6 +561,7 @@ def edit_intervention_costs(request, id, type):
 
 @login_required(login_url="/login/")
 def preview(request, id):
+    activate('it')
     context = {'segment': 'bonus-preview', 'id': id}
     bonus = get_object_or_404(SuperBonus, pk=id)
     if BankRequirements.objects.filter(bonus=bonus.id).exists():
@@ -605,6 +612,7 @@ def preview(request, id):
 
 @login_required(login_url="/login/")
 def professionals(request, id):
+    activate('it')
     bonus = get_object_or_404(SuperBonus, pk=id)
     context = {'segment': 'bonus-professional', 'id': id}
     if bonus.bonus_villa:
@@ -656,6 +664,7 @@ def professionals(request, id):
 
 @login_required(login_url="/login/")
 def administrator(request, id):
+    activate('it')
     bonus = get_object_or_404(SuperBonus, pk=id)
     context = {'segment': 'bonus-administrator', 'id': id}
     condo = get_object_or_404(BonusCondo, pk=bonus.bonus_condo_id)
@@ -699,6 +708,7 @@ def administrator(request, id):
 
 @login_required(login_url="/login/")
 def add_professionals(request, id, type, prof):
+    activate('it')
     if type == 'individual':
         form = get_form_class_individual(prof)
         print(form)
@@ -721,6 +731,7 @@ def add_professionals(request, id, type, prof):
 
 @login_required(login_url="/login/")
 def delete_prop(request, id):
+    activate('it')
     bonus = get_object_or_404(SuperBonus, pk=id)
     bonus.delete()
     messages.success(request, 'Eliminato con successo Deleted')
@@ -729,6 +740,7 @@ def delete_prop(request, id):
 
 @login_required(login_url="/login/")
 def bank_requirements(request, id):
+    activate('it')
     context = {'segment': 'bank-requirements', 'id': id,'status_form': StatusFileForm()}
     bonus = get_object_or_404(SuperBonus, pk=id)
 
@@ -767,6 +779,7 @@ def bank_requirements(request, id):
 
 @login_required(login_url="/login/")
 def edit_bank_file(request, id, file_id):
+    activate('it')
     file = get_object_or_404(FileRequired, id=file_id)
     file_form = FileRequiredForm(instance=file)
     context = {'file_form': file_form, 'id':id }
@@ -785,6 +798,7 @@ def edit_bank_file(request, id, file_id):
 
 @login_required(login_url="/login/")
 def edit_bank_file_status(request, id, file_id):
+    activate('it')
     status = get_object_or_404(StatusFile, file=file_id)
     status_form = StatusFileForm(instance=status)
     context = {'status_form': status_form, 'id':id}
@@ -804,6 +818,7 @@ def edit_bank_file_status(request, id, file_id):
 
 @login_required(login_url="/login/")
 def download_bank_file(request, path):
+    activate('it')
     file_path = os.path.join(settings.MEDIA_ROOT, path)
     if os.path.exists(file_path):
         with open(file_path, 'rb') as fh:
@@ -815,6 +830,7 @@ def download_bank_file(request, path):
 
 @login_required(login_url="/login/")
 def delete_bank_file(request, id, file_id):
+    activate('it')
     file = FileRequired.objects.get(id=file_id)
     status = StatusFile.objects.get(file=file.id)
     file.delete()

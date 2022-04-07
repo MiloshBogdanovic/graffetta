@@ -6,3 +6,15 @@
 <!--    <script src="/static/assets/js/plugins/jquery-ui.min.js"></script>-->
 <!--    <script src="/static/assets/js/pcoded.min.js"></script>-->
     <script src="/static/assets/js/pcoded.js"></script>
+    <script>
+        $(window).ready(function() {
+        $("form").on("keypress", function (event) {
+            console.log("form enter button dissabeld");
+            var keyPressed = event.keyCode || event.which;
+            if (keyPressed === 13) {
+                event.preventDefault();
+                return false;
+            }
+        });
+        });
+    </script>

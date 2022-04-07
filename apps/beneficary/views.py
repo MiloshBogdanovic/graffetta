@@ -7,10 +7,12 @@ from .models import BeneficiaryForm, Beneficiary
 from apps.app.models import FormFaccata
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.utils.translation import activate
 
 
 @login_required(login_url="/login/")
 def beneficiary(request, fff):
+    activate('it')
     form = BeneficiaryForm(initial={'select_form': fff})
     context = {'form': form, 'segment': 'beneficiary', 'fff': fff}
     if request.POST:
@@ -42,6 +44,7 @@ def beneficiary(request, fff):
 
 @login_required(login_url="/login/")
 def beneficiary_add(request, id):
+    activate('it')
     prev_form = Beneficiary.objects.get(pk=id)
 
     context = {'segment': 'beneficiaryadd', 'form': BeneficiaryForm(instance=prev_form)}
@@ -72,6 +75,7 @@ def beneficiary_add(request, id):
 
 @login_required(login_url="/login/")
 def beneficiary_edit(request, id):
+    activate('it')
     prev_form = Beneficiary.objects.get(pk=id)
     context = {'segment': 'beneficiary_edit', 'form': BeneficiaryForm(instance=prev_form), }
 

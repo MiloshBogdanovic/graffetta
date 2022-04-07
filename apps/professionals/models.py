@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 from django.forms.fields import ChoiceField, MultipleChoiceField
 from django.forms.forms import Form
 from django.forms.models import ModelForm, ModelMultipleChoiceField
@@ -9,16 +10,28 @@ import re
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from datetime import date
-
+from apps.superbonus.csv_reader import get_cap_list
 
 
 def validate_cap(value):
     if not re.match(r'^([\s\d]{5})$', value):
         raise ValidationError(
-            _('%(value)s is not an 5 digits cap number'),
+            _('%(value)s non è un numero massimo di 5 cifre'),
+            params={'value': value},
+        )
+    elif value not in get_cap_list():
+        raise ValidationError(
+            _('%(value)s non è un numero di cap valido'),
             params={'value': value},
         )
 
+
+def validate_fiscal_code(value):
+    if not re.match(r'^[A-Za-z]{6}[0-9]{2}[A-Za-z]{1}[0-9]{2}[A-Za-z]{1}[0-9]{3}[A-Za-z]{1}$', value):
+        raise ValidationError(
+            _('%(value)s valore inserito non è codice fiscale valido'),
+            params={'value': value},
+        )
 
 
 SSCT = [
@@ -267,7 +280,7 @@ class Individual(models.Model):
     province_college = models.CharField(max_length=40)
     number_of_reg_order_college = models.IntegerField(blank=False)
     vat_number = VATNumberField(countries=['IT'])
-    fiscal_code = models.CharField(max_length=40)
+    fiscal_code = models.CharField(max_length=16, blank=True, validators=[validate_fiscal_code])
     phone_number = PhoneField(blank=False)
     security_case_technician = models.CharField(max_length=5, choices=SSCT)
 
@@ -277,6 +290,11 @@ class Individual(models.Model):
     class Meta:
         abstract = True
 
+    def clean(self):
+        d = self.cleaned_data['dob']
+        if d > date.date.today():
+            raise forms.ValidationError("La data futura non è valida")
+        return d
 
 class DataDesignerIndividual(Individual):
     class Meta:
@@ -300,7 +318,7 @@ class Legal(models.Model):
     rep_residence_province = models.CharField(max_length=100)
     rep_residence_zip = models.CharField(max_length=30)
     rep_street = models.CharField(max_length=100)
-    rep_fiscal_code = models.CharField(max_length=50)
+    rep_fiscal_code = models.CharField(max_length=16, blank=True, validators=[validate_fiscal_code])
     rep_phone_number = models.IntegerField(blank=False)
     ss_fund = models.IntegerField(blank=False)
 
@@ -310,6 +328,11 @@ class Legal(models.Model):
     class Meta:
         abstract = True
 
+    def clean(self):
+        d = self.cleaned_data['rep_dob']
+        if d > date.date.today():
+            raise forms.ValidationError("La data futura non è valida")
+        return d
 
 class DataDesignerLegal(Legal):
     class Meta:

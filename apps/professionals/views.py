@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.utils.translation import activate
 from apps.app.models import FormFaccata
 from .models import Prof_table, DataDesignerIndividual, DataDesignerIndividualForm, DataDesignerLegalForm, \
     DataDesignerLegal, DataDirectorWorksIndividual, DataDirectorWorksIndividualForm, DataDirectorWorksLegalForm, \
@@ -19,6 +20,7 @@ from .models import Prof_table, DataDesignerIndividual, DataDesignerIndividualFo
 
 @login_required(login_url="/login/")
 def choose_profession(request, fff):
+    activate('it')
     form = ProfessionChoiceForm()
     context = {}
     if request.method == 'POST':
@@ -36,6 +38,7 @@ def choose_profession(request, fff):
 
 @login_required(login_url="/login/")
 def choose_profession_and_type(request, prof, type, fff):
+    activate('it')
     print(prof,type,fff)
     profession = prof
     ff = FormFaccata.objects.get(pk=fff)
@@ -262,6 +265,7 @@ def choose_profession_and_type(request, prof, type, fff):
 
 @login_required(login_url="/login/")
 def edit_profession(request, prof, type, fff):
+    activate('it')
     ff = get_object_or_404(FormFaccata, id=fff)
     prof_table = get_object_or_404(Prof_table, id=ff.professionals_id)
     if prof == 'data-designer' and type == 'individual':

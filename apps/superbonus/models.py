@@ -11,6 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from datetime import date
 from .csv_reader import get_cap_list
 
+
 YN = [
     ('NO', 'NO'),
     ('SI', 'SI')
@@ -43,11 +44,18 @@ VTA_CHOICE = [
 ]
 
 
+def positive_num_validator(value):
+    if value <= 0:
+        raise ValidationError(
+            _('%(value)s Assicurarsi che questo valore sia maggiore o uguale a 0.'),
+            params={'value': value},
+        )
+
 def validate_file_extension(value):
     ext = os.path.splitext(value.name)[1]  # [0] returns path+filename
     valid_extensions = ['.pdf', '.doc', '.docx', '.xlsx', '.xls']
     if not ext.lower() in valid_extensions:
-        raise ValidationError('Unsupported file extension.')
+        raise ValidationError('Estensione file non supportata.')
 
 
 def validate_cap(value):
@@ -324,20 +332,24 @@ class InterTrailedWorkReport(InterventionReport):
 
 class CatastalData(models.Model):
     id = models.AutoField(primary_key=True)
-    n_catastal_cheet = models.IntegerField("N° FOGLIO CATASTALE DI APPARTENENZA", blank=False)
-    n_first_particle = models.IntegerField("N° PRIMA PARTICELLA COSTITUENTE IL CONDOMINIO", blank=False)
+    n_catastal_cheet = models.IntegerField("N° FOGLIO CATASTALE DI APPARTENENZA", blank=False, validators=[positive_num_validator])
+    n_first_particle = models.IntegerField("N° PRIMA PARTICELLA COSTITUENTE IL CONDOMINIO", blank=False, validators=[positive_num_validator])
     n_subscribers_to_first_belonging = models.CharField("N° SUBALTERNI APPARTENTI ALLA PRIMA PARTICELLA", max_length=20,
                                                         blank=False)
-    n_second_particle = models.IntegerField("N° SECONDA PARTICELLA COSTITUENTE IL CONDOMINIO", blank=True, null=True)
+    n_second_particle = models.IntegerField("N° SECONDA PARTICELLA COSTITUENTE IL CONDOMINIO", blank=True, null=True,
+                                            validators=[positive_num_validator])
     n_subscribers_to_second_belonging = models.CharField("N° SUBALTERNI APPARTENTI ALLA SECONDA PARTICELLA",
                                                          max_length=20, blank=True, null=True)
-    n_third_particle = models.IntegerField("N° TERZA PARTICELLA COSTITUENTE IL CONDOMINIO", blank=True, null=True)
+    n_third_particle = models.IntegerField("N° TERZA PARTICELLA COSTITUENTE IL CONDOMINIO", blank=True, null=True,
+                                           validators=[positive_num_validator])
     n_subscribers_to_third_belonging = models.CharField("N° SUBALTERNI APPARTENTI ALLA TERZA PARTICELLA", max_length=20,
                                                         blank=True, null=True)
-    n_fourth_particle = models.IntegerField("N° QUARTA PARTICELLA COSTITUENTE IL CONDOMINIO", blank=True, null=True)
+    n_fourth_particle = models.IntegerField("N° QUARTA PARTICELLA COSTITUENTE IL CONDOMINIO", blank=True, null=True,
+                                            validators=[positive_num_validator])
     n_subscribers_to_fourth_belonging = models.CharField("N° SUBALTERNI APPARTENTI ALLA QUARTA PARTICELLA",
                                                          max_length=20, blank=True, null=True)
-    n_fifth_particle = models.IntegerField("N° QUINTA PARTICELLA COSTITUENTE IL CONDOMINIO", blank=True, null=True)
+    n_fifth_particle = models.IntegerField("N° QUINTA PARTICELLA COSTITUENTE IL CONDOMINIO", blank=True, null=True,
+                                           validators=[positive_num_validator])
     n_subscribers_to_fifth_belonging = models.CharField("N° SUBALTERNI APPARTENTI ALLA QUINTA PARTICELLA",
                                                         max_length=20, blank=True, null=True)
 

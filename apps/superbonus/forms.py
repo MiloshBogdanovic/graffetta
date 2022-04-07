@@ -4,7 +4,7 @@ from django.forms import ModelForm
 from django.forms.widgets import FileInput, Select, TextInput
 from dal import autocomplete
 from .csv_reader import get_cap_list
-
+import datetime
 # class FileFieldForm(forms.Form):
 #     file_field = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
@@ -184,11 +184,36 @@ class InterventionsCondoForm(ModelForm):
             })
         }
 
+    def clean_date_of_assembly(self):
+        d = self.cleaned_data['date_of_assembly']
+        if d > datetime.date.today():
+            raise forms.ValidationError("La data futura non è valida")
+        return d
+
+    def clean(self):
+        cleaned_data = super().clean()
+        li = list(cleaned_data.values())
+        li = li[:-2]
+        if all( e == 'NO' for e in li):
+            raise forms.ValidationError("Almeno una voce mi deve SI")
+
 
 class CatastalDataForm(ModelForm):
     class Meta:
         model = CatastalData
         exclude = ['id']
+
+    def clean(self):
+        cleaned_data = list(super().clean().values())
+        if cleaned_data[3] and not cleaned_data[4]:
+            raise forms.ValidationError("Sublatereni per la seconda particella è richiesta")
+        elif cleaned_data[5] and not cleaned_data[6]:
+            raise forms.ValidationError("Sublatereni per la terza particella è richiesta")
+        elif cleaned_data[7] and not cleaned_data[8]:
+            raise forms.ValidationError("Sublatereni per la quarta particella è richiesta")
+        elif cleaned_data[9] and not cleaned_data[10]:
+            raise forms.ValidationError("Sublatereni per la quinta particella è richiesta")
+
 
 
 class OverallInterCostsNOVatForm(ModelForm):
@@ -233,13 +258,31 @@ class AdministrationIndividualForm(ModelForm):
             })
         }
 
+    def clean_dob(self):
+        d = self.cleaned_data['dob']
+        if d > datetime.date.today():
+            raise forms.ValidationError("La data futura non è valida")
+        return d
+
 
 class AdministrationLegalForm(ModelForm):
     class Meta:
         model = AdministrationLegal
         exclude = ['id']
 
+        widgets = {
+            'leg_rep_dob': DateInput(attrs={
+                'class': 'form-control',
+                'id': 'leg_rep_dob',
+                'type': 'leg_rep_dob'
+            })
+        }
 
+    def clean_leg_rep_dob(self):
+        d = self.cleaned_data['leg_rep_dob']
+        if d > datetime.date.today():
+            raise forms.ValidationError("La data futura non è valida")
+        return d
 
 # class ModelFormWithFileField(ModelForm):
 #     class Meta:

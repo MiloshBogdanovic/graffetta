@@ -6,16 +6,29 @@ import re
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from datetime import date
-
+from apps.superbonus.csv_reader import get_cap_list
+from django import forms
 
 
 def validate_cap(value):
     if not re.match(r'^([\s\d]{5})$', value):
         raise ValidationError(
-            _('%(value)s is not an 5 digits cap number'),
+            _('%(value)s non è un numero massimo di 5 cifre'),
+            params={'value': value},
+        )
+    elif value not in get_cap_list():
+        raise ValidationError(
+            _('%(value)s non è un numero di cap valido'),
             params={'value': value},
         )
 
+
+def validate_fiscal_code(value):
+    if not re.match(r'^[A-Za-z]{6}[0-9]{2}[A-Za-z]{1}[0-9]{2}[A-Za-z]{1}[0-9]{3}[A-Za-z]{1}$', value):
+        raise ValidationError(
+            _('%(value)s valore inserito non è codice fiscale valido'),
+            params={'value': value},
+        )
 
 
 
@@ -77,7 +90,7 @@ class Beneficiary(models.Model):
     street_res_of_rep = models.CharField("VIA E NUMERO RESIDENZA LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA",
                                          max_length=150, blank=True)
     legal_tax_code_rep= models.CharField("CODICE FISCALE LEGALE RAPPRESENTATE SOCIETA' BENEFICIARIA o del BENEFICIARIO PERSONA FISICA",
-                                         max_length=50, blank=True)
+                                         max_length=16, blank=True, validators=[validate_fiscal_code])
     amount_advance_deposit_by_customer_common = models.DecimalField("IMPORTO ACCONTO INTERVENTI COMUNI - CASSA PREVIDENZA INCLUSA E IVA INCLUSA",
                                                                     decimal_places=3, max_digits=12, null=True, blank=True, default=0)
     amount_advance_deposit_by_customer_subjective = models.DecimalField("IMPORTO ACCONTO INTERVENTI SOGGETTIVI - CASSA PREVIDENZA INCLUSA E IVA INCLUSA",
@@ -128,3 +141,8 @@ class BeneficiaryForm(ModelForm):
 
         }
 
+    def clean_dob_of_rep(self):
+        d = self.cleaned_data['dob_of_rep']
+        if d > date.date.today():
+            raise forms.ValidationError("La data futura non è valida")
+        return d
